@@ -82,13 +82,17 @@ def load_configs(filename):
                 logging.error("Key file {0} missing!".format(keyfile))
                 exit(-1)
             with open(keyfile, 'r') as kf:
+                ks = kf.readlines()
+                sp = ks[1].split(',')
                 app.config[keys] = kf.read()
-                print "keys : ", app.config[keys]
+                app.config["keys.key_id"] = sp[1]
+                app.config["keys.key_secret"] = sp[2]
+                app.config["keys.key_token"] = ''
+                #print "keys : ", app.config[keys]
 
-    print "Foo1"
     if 'metadata.credurl' in app.config:
         update_creds_from_metadata_server(app)
-    print "Foo2"
+
     app = connect_to_dynamodb(app)
     return app
 
