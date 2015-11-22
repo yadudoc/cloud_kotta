@@ -14,6 +14,12 @@ import time
 from boto.dynamodb2.fields import HashKey
 from boto.dynamodb2.table import Table
 import boto.dynamodb2 as ddb
+import boto.ec2
+import boto.sqs
+import boto.sns
+from bottle import app
+from boto.s3.connection import S3Connection
+
 
 log_levels = { "DEBUG"   : logging.DEBUG,
                "INFO"    : logging.INFO,
@@ -27,7 +33,10 @@ log_levels = { "DEBUG"   : logging.DEBUG,
 def update_creds_from_metadata_server(app):
     #Todo error check for timeout errors from http access
     #TOdo error catch for json decode failure
-    if "keys.expiry" in app.config and app.config["keys.expiry"] > time.time():
+    
+    if "keys.expiry" in app.config and app.config["keys.expiry"] < time.time():
+        logging.debug("Update creds from metadata cancelled {0} < {1}".format(
+            app.config["keys.expiry"], time.time()))
         return False
 
     URL  = app.config["metadata.credurl"]
@@ -39,7 +48,67 @@ def update_creds_from_metadata_server(app):
     app.config["keys.key_id"]     = str(data['AccessKeyId'])
     app.config["keys.key_secret"] = str(data['SecretAccessKey'])
     app.config["keys.key_token"]  = str(data['Token'])
+
+    URL  = app.config["metadata.metaserver"]
+    data = requests.get(URL).text
+    app.config["instance_id"] = str(data)
+
+    URL  = app.config["metadata.metaserver"]
+    data = requests.get(URL+"placement/availability-zone/").text
+    app.config["region"] = str(data)
+
+    URL  = app.config["metadata.metaidentity"]
+    data = requests.get(URL).json()
+    app.config["identity"] = data
+
     return True
+
+
+def init(app):
+
+    ec2  = boto.ec2.connect_to_region(app.config["identity"]['region'],
+                                      aws_access_key_id=app.config['keys.key_id'],
+                                      aws_secret_access_key=app.config['keys.key_secret'],
+                                      security_token=app.config['keys.key_token'])
+
+    # Get meta tags
+    meta_tags = {}
+    for tag in ec2.get_all_tags():
+        meta_tags[str(tag.name)] = str(tag.value)
+
+    # Log the metadata tags
+    app.config["instance.tags"] = meta_tags
+    for k in meta_tags:
+        logging.debug("[TAGS] {0} : {1}".format(k, meta_tags[k]))
+
+    sqs  = boto.sqs.connect_to_region(app.config["identity"]['region'],
+                                      aws_access_key_id=app.config['keys.key_id'],
+                                      aws_secret_access_key=app.config['keys.key_secret'],
+                                      security_token=app.config['keys.key_token'])
+
+    sns  = boto.sns.connect_to_region(app.config["identity"]['region'],
+                                      aws_access_key_id=app.config['keys.key_id'],
+                                      aws_secret_access_key=app.config['keys.key_secret'],
+                                      security_token=app.config['keys.key_token'])
+
+    s3   = S3Connection(aws_access_key_id=app.config['keys.key_id'], 
+                        aws_secret_access_key=app.config['keys.key_secret'], 
+                        security_token=app.config['keys.key_token'])
+    
+    dyno = Table(app.config['dynamodb.table_name'],
+                 schema=[HashKey("job_id")],
+                 connection=ddb.connect_to_region(app.config['dynamodb.region'],
+                                                  aws_access_key_id=app.config['keys.key_id'], 
+                                                  aws_secret_access_key=app.config['keys.key_secret'], 
+                                                  security_token=app.config['keys.key_token']))
+
+    app.config["ec2.conn"]  = ec2
+    app.config["sns.conn"]  = sns
+    app.config["sqs.conn"]  = sqs
+    app.config["s3.conn"]   = s3
+    app.config["dyno.conn"] = dyno
+
+    return app
 
 
 def connect_to_dynamodb(app):
@@ -89,10 +158,9 @@ def load_configs(filename):
                 app.config["keys.key_secret"] = sp[2]
                 app.config["keys.key_token"] = ''
                 #print "keys : ", app.config[keys]
-
     if 'metadata.credurl' in app.config:
         update_creds_from_metadata_server(app)
 
-    app = connect_to_dynamodb(app)
+    init(app)
     return app
 

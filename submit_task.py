@@ -7,15 +7,12 @@ import time
 import boto.sqs
 import config_manager as cm
 import uuid
+import sns_sqs
+import dynamo_utils as dutils
 
-def get_uuid():
-    return str(uuid.uuid1())
-
-def publish(sns_conn, topicARN, message):
-    sns_conn.publish(topic=topicARN, message=message)
-
-def sns_test(data, sns_conn, topic_arn):
-    uid = get_uuid()
+def submit_task():
+    app = cm.load_configs("production.conf")
+    uid = str(uuid.uuid1())
     data = {"job_id"           : uid,
             "username"         : "yadu",
             "jobtype"          : "doc2vec",
@@ -26,20 +23,11 @@ def sns_test(data, sns_conn, topic_arn):
             "submit_time"      : int(time.time()),
             "status"           : "pending"
     }
-    print "Publishing Dummy task to SNS topic"
-    publish(sns_conn, topic_arn, json.dumps(data))
-    return data
 
-def sqs_test(sqs_conn, queue_name):
+    dutils.dynamodb_update(app.config["dyno.conn"], data)
+    
+    sns_sqs.publish(app.config["sns.conn"], app.config["instance.tags"]["JobsSNSTopicARN"],
+                    json.dumps(data))
 
-    q   = sqs_conn.get_queue(queue_name)
-    msg = q.get_messages(1)
-    print len(msg)
 
-    r = json.loads(msg[0].get_body())["Message"]
-    print r
-    print q.delete_message(msg[0])
-    #req =  json.loads(msg[0].get_body()["Message"])
-
-#sns_test(app.config["sns.conn"], app.config["instance.tags"]["JobsSNSTopicARN"])
-#sqs_test(app.config["sqs.conn"], app.config["instance.tags"]["JobsQueueName"])
+submit_task()
