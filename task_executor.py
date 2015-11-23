@@ -107,6 +107,7 @@ def exec_job(app, jobtype, job_id, inputs, outputs):
    put_outputs(app, outputs)
 
    update_record(record, "status", "completed")
+   update_record(record, "complete_time", time.time())
    # Chdir back to the original folder
    os.chdir(cwd)
    return True
@@ -153,6 +154,8 @@ def task_loop(app):
       else:
          print "{0}: Waiting for job description".format(time.time())
          logging.debug("{0}: Waiting for job description".format(time.time()))
+
+      conf_man.refresh_tokens(app)
 
 
 if __name__ == "__main__":
