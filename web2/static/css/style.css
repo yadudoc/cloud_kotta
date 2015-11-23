@@ -1,0 +1,186 @@
+/* Master style sheet for MPCS applications */
+@charset "UTF-8";
+
+/* Custom font face */
+@font-face {
+  font-family: 'Roboto';
+  src: url('font/Roboto-Regular.ttf')  format('truetype');
+}
+
+/*
+ * Base HTML element styles 
+ */
+html, body {
+    height: 100%;
+}
+body {
+  font-family: Roboto;
+  background-color: #ffffff;
+  font-weight: 300;
+  font-size:18px;
+  line-height: 22px;
+}
+label {
+	color: #7b7b7b;
+	font-weight: 500;
+}
+
+/* 
+ * General styles 
+ */
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by its height */
+  margin: 0 auto -60px;
+  /* Pad bottom by footer height */
+  padding: 0 0 60px 0;
+}
+#main {
+	padding: 35px 15px 0 45px;
+}
+.center {
+  float: none;
+  text-align: center;
+}
+.form-wrapper {
+	margin: 25px 0 0 0;
+}
+
+.header-basic-list {
+	font-weight: 600;
+}
+.row-basic-list {
+	margin: 5px 0;
+	padding: 7px 0 0 0;
+	border: 0;
+	border-top: 1px dotted #c3c3c3;
+	border-bottom: 1px dotted #ffffff;
+}
+
+/* 
+ * Bootstrap overrides 
+ */
+h2,h3 {
+    font-family: Roboto;
+    color: #4b4b4b;
+}
+h4,h5 {
+	font-family: Roboto;
+    color: #4b4b4b;
+}
+.navbar {
+  height: 60px;
+  padding-top: 5px;
+	background-color:#eeeeee !important;
+}
+.navbar-brand {
+    font-weight: 600;
+    font-size: 24px;
+}
+.navbar li a, .navbar-brand {
+    color: #555555;
+    font-weight: 400;
+}
+.dropdown-menu li {
+	color: #333333;
+}
+.modal-body p {
+    padding: 0px;
+    color: #565656;
+    text-shadow: none;
+}
+dt, dd {
+    line-height: 28px;
+}
+dt {
+    font-weight: 500
+}
+p, .jumbotron p, .container p {
+    font-weight: 300;
+    font-style: normal;
+    color: #444444 !important;
+    text-shadow: none !important;
+}
+input[type=text], input[type=password], textarea {
+    font-family: Roboto;
+    color: #6b6b6b;
+    background-color: #fefefe;
+    padding:11px;  /* works for Bootstrap "large" controls */
+}
+input[type=text]:disabled {
+    color: #b4b4b4;
+    background-color: #f3f3f3;
+    border-color: #ededed;
+}
+.form-control:-moz-placeholder {
+    color: #b3b3b3;
+}
+.form-control::-moz-placeholder {
+    color: #b3b3b3;
+}
+.form-control:-ms-input-placeholder {
+    color: #b3b3b3;
+}
+.form-control::-webkit-input-placeholder {
+    color: #b3b3b3;
+}
+.form-actions {
+    margin: 10px 0 30px 0;
+}
+.pagination {
+    margin: 0;
+    padding: 0;
+}
+.alert {
+    margin: 15px 0 0 0;
+}
+.alert h4 {
+  margin-bottom: 3px;
+}
+.btn {
+	font-weight: 400;
+}
+.jumbotron {
+	margin-top: 15px;
+	border-radius: 0px !important;
+	min-height: 390px;
+	background-color: #254b87;
+}
+.jumbotron h1, .jumbotron p {
+  color: #efefef !important;
+  text-shadow: none;
+}
+.jumbotron h1 {
+	font-size: 72px;
+	line-height: 1.1em;
+	font-weight: 300;
+	padding-bottom: 20px;
+}
+.jumbotron p {
+	font-size: 36px;
+}
+
+/* Footer classes */
+#footer {
+	height: 60px;
+	background-color:#92add7;
+}
+#footer > .container {
+	text-align: center;
+  color: #254b87;
+	padding: 20px;
+}
+#footer li {
+	display: inline;
+ 	padding-right: 20px;
+ 	list-style: none;
+}
+#footer a {
+	color: #254b87;
+}
+.copyright {
+	font-size: 12px;
+}
