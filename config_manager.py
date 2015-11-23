@@ -33,11 +33,14 @@ log_levels = { "DEBUG"   : logging.DEBUG,
 def update_creds_from_metadata_server(app):
     #Todo error check for timeout errors from http access
     #TOdo error catch for json decode failure
-    
-    if "keys.expiry" in app.config and app.config["keys.expiry"] < time.time():
-        logging.debug("Update creds from metadata cancelled {0} < {1}".format(
-            app.config["keys.expiry"], time.time()))
-        return False
+
+    if "keys.expiry" in app.config :
+        print "Keys expiry : ",app.config["keys.expiry"]
+        print "current     : ",time.time()
+        if app.config["keys.expiry"] < time.time():
+            logging.debug("Update creds from metadata cancelled {0} < {1}".format(
+                app.config["keys.expiry"], time.time()))
+            return False
 
     URL  = app.config["metadata.credurl"]
     role = requests.get(URL).content
@@ -99,7 +102,7 @@ def init(app):
                  schema=[HashKey("job_id")],
                  connection=ddb.connect_to_region(app.config['dynamodb.region'],
                                                   aws_access_key_id=app.config['keys.key_id'], 
-                                                  aws_secret_access_key=app.config['keys.key_secret'], 
+                                                  aws_secret_access_key=app.config['keys.key_secret'],
                                                   security_token=app.config['keys.key_token']))
 
     app.config["ec2.conn"]  = ec2
@@ -130,6 +133,11 @@ def connect_to_dynamodb(app):
 
     app.config["dynamodb.table"] = dyno
     return app
+
+def refresh_tokens(app):
+    status = update_creds_from_metadata_server(app)
+    if status == True:
+        init(app)
 
 def load_configs(filename):
     app = bottle.default_app()
