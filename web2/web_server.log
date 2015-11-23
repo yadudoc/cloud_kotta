@@ -1,0 +1,288 @@
+11-22 21:50 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 21:50 root         DEBUG    Config : 
+ {'catchall': True, 'autojson': True}
+11-22 21:51 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 21:51 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 's3.name': 'klab-jobs', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 21:51 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+11-22 21:52 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 21:52 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 21:53 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 21:53 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 21:53 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 21:56 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 21:56 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 21:56 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 21:56 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 's3.name': 'klab-jobs', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 21:59 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 21:59 root         DEBUG    Config : 
+ {'catchall': True, 'autojson': True}
+11-22 21:59 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 21:59 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:00 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:00 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:00 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:00 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:00 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:00 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:00 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:00 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:01 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:01 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:01 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:01 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:02 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:02 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:02 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:02 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:04 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:04 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:05 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:05 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:05 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:05 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:06 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:06 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:08 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:08 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 'web.static_root': '"./static"', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:08 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:08 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 'web.static_root': '"./static"', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:10 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:10 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 'web.static_root': '"./static"', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:10 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:10 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 'web.static_root': '"./static"', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:13 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:13 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 'web.static_root': '"./static"', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:13 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:13 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 'web.static_root': '"./static"', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:17 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:17 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 'web.static_root': '"./static"', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:17 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:17 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 'web.static_root': '"./static"', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:18 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:18 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 'web.static_root': '"./static"', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:19 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:19 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 'web.static_root': '"./static"', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:32 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:32 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 'web.static_root': '"./static"', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:32 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:32 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 'web.static_root': '"./static"', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:39 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:39 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 'web.static_root': '"./static"', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:41 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:41 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 'web.static_root': '"./static"', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:52 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:52 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 'web.static_root': '"./static"', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:52 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:52 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 'web.static_root': '"./static"', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:55 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:55 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 'web.static_root': '"./static"', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:57 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:57 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 'web.static_root': '"./static"', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+11-22 22:58 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+11-22 22:58 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 'web.static_root': '"./static"', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
