@@ -158,9 +158,9 @@ def load_configs(filename):
                 app.config["keys.key_secret"] = sp[2]
                 app.config["keys.key_token"] = ''
                 #print "keys : ", app.config[keys]
-    #if 'metadata.credurl' in app.config:
-    #    update_creds_from_metadata_server(app)
+    if 'metadata.credurl' in app.config:
+        update_creds_from_metadata_server(app)
 
-    #init(app)
+    init(app)
     return app
 
