@@ -9,10 +9,8 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
-        <h1>GAS Works</h1>
-        <p> EC2, S3, ELB, SNS, SQS, Glacier, SES, AutoScale and CloudWatch shaken not stirred.</p>
-        <br />
-        <br />
+        <h1>JES Works</h1>
+        <p> EC2, S3, ELB, SNS, SQS, CloudFormation, Glacier, SES, AutoScale and CloudWatch.. shaken not stirred.</p>
         <br />
         <br />
         <br />
@@ -33,4 +31,4 @@
     </div>
 </div>
 
-%rebase('views/base.tpl', title="GAS - Home")
+%rebase('views/base.tpl', title="JES - Home")

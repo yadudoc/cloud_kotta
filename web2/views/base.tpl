@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title or 'GAS'}}</title>
+    <title>{{title or 'JES'}}</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{get_url('static', filename='img/favicon.ico')}}" />
     <link rel="icon" type="image/x-icon" href="{{get_url('static', filename='img/favicon.ico')}}" />
 
