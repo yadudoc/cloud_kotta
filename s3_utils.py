@@ -22,6 +22,20 @@ def upload_s3_keys(s3conn, source, bucket_name, prefix, meta):
     k.set_contents_from_filename(source)
     k.set_metadata('time', "foo")
 
+# Download a key from the bucket
+def download_s3_keys(s3conn, bucket_name, prefix, target):
+    bucket  = s3conn.get_bucket(bucket_name, validate=False)
+    key     = bucket.get_key(prefix)
+    print "filename", key
+    key.get_contents_to_filename(target)
+    return key
+
+
+def signed_url_generate(s3conn, bucket_name, prefix, duration):
+    bucket  = s3conn.get_bucket(bucket_name, validate=False)
+    key     = bucket.get_key(prefix)
+    url     = key.generate_url(duration, method='GET')
+    return url
 
 def test():
     import config_manager as cm
