@@ -177,7 +177,12 @@ def job_info(job_id):
         elif k in ['outputs']:
             for out in item[k]:
                 print "output ", out
-                signed_url = generate_signed_url(out["dest"], request.app)
+                #signed_url = generate_signed_url(out["dest"], request.app)
+                target = out["dest"].split('/', 1)
+                signed_url = s3.generate_signed_url(request.app.config["s3.conn"],
+                                                    target[0], # Bucket name
+                                                    target[1], # Prefix
+                                                    1500)      # Duration
                 link       = '<a href="{0}">{1}</a>'.format(signed_url, out["src"])
                 pairs.append([k, link])
                         
