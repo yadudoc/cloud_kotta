@@ -7,6 +7,13 @@ import pipeline2 as d2v
 def bash_executor(jobtype, job_id, inputs, outputs):
     return "Done"
 
+def python_executor(jobtype, job_id, inputs, outputs):
+    return "Done"
+
+def experimental(jobtype, job_id, inputs, outputs):
+    return "Done"
+
+
 # Job Definitions
 JOBS = { "doc_to_vec" : d2v.pipeline,
          "generic"    : bash_executor,

@@ -18,7 +18,7 @@ import boto.ec2
 import boto.sqs
 import boto.sns
 import boto.ses
-from bottle import app
+from bottle import app, template
 from boto.s3.connection import S3Connection
 
 
@@ -79,7 +79,7 @@ def send_success_email(data, app):
     body = template('./templates/completion_email.tpl',
                     username=rec_name,
                     job_id=job_id,
-                    url)
+                    url=url)
 
     print body
     st = sesconn.send_email(src_email,
@@ -98,7 +98,7 @@ def send_failure_email(data, app):
     body = template('./templates/failure_email.tpl',
                     username=rec_name,
                     job_id=job_id,
-                    url)
+                    url=url)
 
     print body
     st = sesconn.send_email(src_email,
