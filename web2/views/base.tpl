@@ -34,8 +34,16 @@
 	  </div>
 	  <div class="collapse navbar-collapse">
 	    <ul class="nav navbar-nav navbar-right">
-	      <li><a href="{{get_url('submit')}}">Submit Job</a></li>
-	      <li><a href="{{get_url('tasks')}}">Previous Jobs</a></li>
+	      <!-- <li><a href="{{get_url('submit_task')}}">Submit Job</a></li> -->
+	      <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Submit Job<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="{{get_url('submit')}}/doc_to_vec">Doc To Vector</a></li>
+                  <li><a href="{{get_url('submit')}}/generic">Generic Executable</a></li>
+		  <li><a href="{{get_url('submit')}}/experimental">Experimental</a></li>
+                </ul>
+              </li>
+	      <li><a href="{{get_url('jobs')}}">Previous Jobs</a></li>
 	      <!-- <li class="dropdown">
 	      </li> -->
 	      %end
