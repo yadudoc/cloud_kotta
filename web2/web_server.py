@@ -13,6 +13,7 @@ import urllib2
 import uuid
 import base64, hmac, sha
 import urllib
+import sys
 
 import boto
 import boto.ec2
@@ -31,7 +32,6 @@ import s3_utils as s3
 import sns_sqs
 import dynamo_utils as dutils
 import config_manager as conf_man
-
 
 ##################################################################
 # This function handles the creation of the encoded signature
@@ -65,23 +65,42 @@ def serve_static(filename):
     return static_file(filename, root="static/")
     return static_file(filename, root=request.app.config['web.static_root'])
 
+
+
 @route('/', method='GET', name="home")
 def home_page():
     print "Home Page"
     return template("./views/home.tpl")
     #return template(request.app.config['web.templates'] + "/home.tpl")
 
+##################################################################################
+# This is only a dummy function for get_url to generate a dynamic route
+##################################################################################
 @route('/submit', method='GET', name="submit")
-def submit_job():
-    return template("./views/submit.tpl",
-                    email="",
-                    username="")
+def url_maker_submit_job():    
+    return template("./views/error.tpl",
+                error_str="{0} is not a valid Job Type")    
 
-    #return template(request.app.config['web.templates'] + "/home.tpl")
+##################################################################################
+# Handles the different job types.
+##################################################################################
+@route('/submit/<jobtype>', method='GET', name="submit_job")
+def submit_job(jobtype):
+    if jobtype in ["doc_to_vec", "generic", "experimental"] :    
+        t = template("./views/submit_{0}.tpl".format(jobtype),
+                     email="",
+                     username="")
+    else:
+        t = template("./views/error.tpl",
+                     error_str="{0} is not a valid Job Type",
+                     email="",
+                     username="")
+ 
+    return t
 
 @route('/submit_task', method='POST', name="submit_task")
 def submit_job():
-
+    conf_man.update_creds_from_metadata_server(app)
     username  = request.POST.get('username').strip()
     email     = request.POST.get('email').strip()
     input_url = request.POST.get('input_url').strip()
@@ -110,14 +129,15 @@ def submit_job():
 
 
 #################################################################
-# Print a table form of tasks and statuses
+# Print a table form of jobs and statuses
 #################################################################
-@route('/jobs', method='GET', name="tasks")
-def list_tasks():
+@route('/jobs', method='GET', name="jobs")
+def list_jobs():
+    conf_man.update_creds_from_metadata_server(app)
     results = app.config["dyno.conn"].scan()
     table_tpl = []
 
-    print "Tasks: "
+    print "Jobs: "
     print "-"*50
     for r in results:
         row = [str(r["job_id"]), str(r["status"]), 
@@ -126,7 +146,7 @@ def list_tasks():
 
     print table_tpl
 
-    return template("./views/tasks.tpl",
+    return template("./views/jobs.tpl",
                     title="Task Status",
                     table=table_tpl)
 
@@ -154,7 +174,7 @@ def generate_signed_url(key_path, app):
 
 @route('/jobs/<job_id>', method='GET', name="job_info")
 def job_info(job_id):
-    
+    conf_man.update_creds_from_metadata_server(app)
     dyntable = app.config['dyno.conn']
     try:
         item = dyntable.get_item(job_id=job_id)
@@ -183,7 +203,11 @@ def job_info(job_id):
                                                     target[0], # Bucket name
                                                     target[1], # Prefix
                                                     1500)      # Duration
-                link       = '<a href="{0}">{1}</a>'.format(signed_url, out["src"])
+                if signed_url :
+                    link       = '<a href="{0}">{1}</a>'.format(signed_url, out["src"])
+                else:
+                    link       = "<i>{0}</i>".format(out["src"])
+
                 pairs.append([k, link])
                         
         else:
