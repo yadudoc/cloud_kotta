@@ -74,6 +74,7 @@ def send_success_email(data, app):
     rec_email   =  data.get('user_email')
     rec_name    =  data.get('username')
     src_email   =  app.config['ses.email_sender']
+    url         =  app.config['server.url']
 
     body = template('./templates/completion_email.tpl',
                     username=rec_name,
