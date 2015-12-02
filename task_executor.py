@@ -111,7 +111,7 @@ def exec_job(app, jobtype, job_id, inputs, outputs):
       update_record(record, "status", "Failed");
       update_record(record, "complete_time", time.time())
       update_record(record, "ERROR", str(e));
-      print "Something failed here : {0}".format(e)
+      print "Job execution failed : {0}".format(e)
       os.chdir(cwd)
       return False
       #pass
@@ -155,9 +155,9 @@ def task_loop(app):
 
             status      =  exec_job(app, jobtype, job_id, inputs, outputs)
             if status == True:
-               send_success_email(data, app)
+               conf_man.send_success_email(data, app)
             else:
-               send_failure_email(data, app)
+               conf_man.send_failure_email(data, app)
 
             # TODO : CLeanup
             print "At deletion : ", msg
@@ -167,8 +167,7 @@ def task_loop(app):
          except Exception, e:
                # The stdout/stder are being logged into a file
                # on the machine
-               print "Something failed here : {0}".format(e)
-               exit(5)
+               print "Job failed to complete : {0}".format(e)
                #pass
 
       else:
