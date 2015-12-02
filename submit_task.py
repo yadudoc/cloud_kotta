@@ -24,10 +24,11 @@ def submit_task():
             "status"           : "pending"
     }
 
+
     dutils.dynamodb_update(app.config["dyno.conn"], data)
-    
     sns_sqs.publish(app.config["sns.conn"], app.config["instance.tags"]["JobsSNSTopicARN"],
                     json.dumps(data))
+    
 
 
 submit_task()

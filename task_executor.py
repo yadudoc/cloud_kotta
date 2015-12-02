@@ -81,6 +81,8 @@ def update_record(record, key, value):
 def exec_job(app, jobtype, job_id, inputs, outputs):
 
    # Save current folder and chdir to a temporary folder
+   conf_man.update_creds_from_metadata_server(app)
+
    cwd    = os.getcwd()
    tmpdir = "/tmp/task_executor_jobs/{0}".format(job_id)
    os.makedirs(tmpdir)
@@ -100,7 +102,20 @@ def exec_job(app, jobtype, job_id, inputs, outputs):
       print "Unable to process jobtype : {0}".format(jobtype)
       return False
    print "JOBS : ", apps.JOBS[jobtype]
-   apps.JOBS[jobtype](inputs, outputs)
+
+   try:
+      apps.JOBS[jobtype](inputs, outputs)
+      conf_man.update_creds_from_metadata_server(app)
+
+   except Exception, e:
+      update_record(record, "status", "Failed");
+      update_record(record, "complete_time", time.time())
+      update_record(record, "ERROR", str(e));
+      print "Something failed here : {0}".format(e)
+      os.chdir(cwd)
+      return False
+      #pass
+
 
    update_record(record, "status", "staging_outputs")
    # Upload the result to S3
@@ -139,6 +154,11 @@ def task_loop(app):
                print "{0} : {1}".format(key, data[key])
 
             status      =  exec_job(app, jobtype, job_id, inputs, outputs)
+            if status == True:
+               send_success_email(data, app)
+            else:
+               send_failure_email(data, app)
+
             # TODO : CLeanup
             print "At deletion : ", msg
             res = q.delete_message(msg)
