@@ -50963,3 +50963,1107 @@ x-amz-security-token:AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr
 AWS ASIAJYKIQZWSSQPKSGNA:HAVz9IrDgulVb6p+t4zjOgwLdX0=
 12-02 22:11 boto         DEBUG    Final headers: {'Date': 'Wed, 02 Dec 2015 22:11:49 GMT', 'Content-Length': '0', 'Authorization': u'AWS ASIAJYKIQZWSSQPKSGNA:HAVz9IrDgulVb6p+t4zjOgwLdX0=', 'x-amz-security-token': 'AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=', 'User-Agent': 'Boto/2.38.0 Python/2.7.6 Linux/3.13.0-48-generic'}
 12-02 22:11 boto         DEBUG    Response headers: [('x-amz-id-2', 'dzOsshjeUfhCHEWWYKwtJ7cPtEsNgwpErwhux3u7obrLsSUmX/mpfee1AneOOSaRQO7pM0PGcUo='), ('server', 'AmazonS3'), ('transfer-encoding', 'chunked'), ('x-amz-request-id', '1D480DF4CF4E4DDC'), ('date', 'Wed, 02 Dec 2015 22:11:43 GMT'), ('content-type', 'application/xml')]
+12-02 22:33 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:33 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:33 urllib3.connectionpool DEBUG    "GET /latest/meta-data/iam/security-credentials/ HTTP/1.1" 200 8
+12-02 22:33 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:33 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:33 urllib3.connectionpool DEBUG    "GET /latest/meta-data/iam/security-credentials/god_mode HTTP/1.1" 200 930
+12-02 22:33 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:33 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:33 urllib3.connectionpool DEBUG    "GET /latest/meta-data/ HTTP/1.1" 200 268
+12-02 22:33 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:33 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:33 urllib3.connectionpool DEBUG    "GET /latest/meta-data/placement/availability-zone/ HTTP/1.1" 200 10
+12-02 22:33 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:33 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:33 urllib3.connectionpool DEBUG    "GET /latest/dynamic/instance-identity/document HTTP/1.1" 200 422
+12-02 22:33 boto         DEBUG    Method: POST
+12-02 22:33 boto         DEBUG    Path: /
+12-02 22:33 boto         DEBUG    Data: {"ScanFilter": {}, "TableName": "Jobs"}
+12-02 22:33 boto         DEBUG    Headers: {'Host': 'dynamodb.us-east-1.amazonaws.com', 'Content-Type': 'application/x-amz-json-1.0', 'Content-Length': '39', 'X-Amz-Target': 'DynamoDB_20120810.Scan'}
+12-02 22:33 boto         DEBUG    Host: dynamodb.us-east-1.amazonaws.com
+12-02 22:33 boto         DEBUG    Port: 443
+12-02 22:33 boto         DEBUG    Params: {}
+12-02 22:33 boto         DEBUG    establishing HTTPS connection: host=dynamodb.us-east-1.amazonaws.com, kwargs={'port': 443, 'timeout': 70}
+12-02 22:33 boto         DEBUG    Token: AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=
+12-02 22:33 boto         DEBUG    CanonicalRequest:
+POST
+/
+
+host:dynamodb.us-east-1.amazonaws.com
+x-amz-date:20151202T223308Z
+x-amz-security-token:AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=
+x-amz-target:DynamoDB_20120810.Scan
+
+host;x-amz-date;x-amz-security-token;x-amz-target
+e1a142eedc6665eb5d2dc5864cc1e783308b494a338ca46fa4d02f5c1ae8c8c1
+12-02 22:33 boto         DEBUG    StringToSign:
+AWS4-HMAC-SHA256
+20151202T223308Z
+20151202/us-east-1/dynamodb/aws4_request
+ad22821b273f3bb6720eafd4e26bddc3949c61d3746b80ca24bcbd6812bd4379
+12-02 22:33 boto         DEBUG    Signature:
+8ba57eabfe1e9110cf33faec3736d31f7ec01a18d23bd8ba6c4445075e883671
+12-02 22:33 boto         DEBUG    Final headers: {'Content-Length': '39', 'X-Amz-Security-Token': 'AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=', 'User-Agent': 'Boto/2.38.0 Python/2.7.6 Linux/3.13.0-48-generic', 'Host': 'dynamodb.us-east-1.amazonaws.com', 'X-Amz-Date': '20151202T223308Z', 'X-Amz-Target': 'DynamoDB_20120810.Scan', 'Content-Type': 'application/x-amz-json-1.0', 'Authorization': 'AWS4-HMAC-SHA256 Credential=ASIAJYKIQZWSSQPKSGNA/20151202/us-east-1/dynamodb/aws4_request,SignedHeaders=host;x-amz-date;x-amz-security-token;x-amz-target,Signature=8ba57eabfe1e9110cf33faec3736d31f7ec01a18d23bd8ba6c4445075e883671'}
+12-02 22:33 boto         DEBUG    wrapping ssl socket; CA certificate file=/usr/local/lib/python2.7/dist-packages/boto/cacerts/cacerts.txt
+12-02 22:33 boto         DEBUG    validating server certificate: hostname=dynamodb.us-east-1.amazonaws.com, certificate hosts=['dynamodb.us-east-1.amazonaws.com']
+12-02 22:33 boto         DEBUG    Response headers: [('x-amzn-requestid', '9OO5FNOCA196B3CN2RJD93RSKRVV4KQNSO5AEMVJF66Q9ASUAAJG'), ('date', 'Wed, 02 Dec 2015 22:33:01 GMT'), ('content-length', '4186'), ('content-type', 'application/x-amz-json-1.0'), ('x-amz-crc32', '1653767298')]
+12-02 22:33 boto         DEBUG    Saw HTTP status: 200
+12-02 22:33 boto         DEBUG    Validating crc32 checksum for body: {"Count":6,"Items":[{"username":{"S":"yadu"},"job_id":{"S":"faa15202-9939-11e5-b1db-0e5080dbf75b"},"submit_time":{"N":"1449091000"},"jobtype":{"S":"doc2vec"},"inputs":{"L":[{"M":{"dest":{"S":"test.txt"},"src":{"S":"https://s3.amazonaws.com/klab-jobs/inputs/test.txt"}}}]},"outputs":{"L":[{"M":{"dest":{"S":"klab-jobs/outputs/faa15202-9939-11e5-b1db-0e5080dbf75b/doc_mat.pkl"},"src":{"S":"doc_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/faa15202-9939-11e5-b1db-0e5080dbf75b/word_mat.pkl"},"src":{"S":"word_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/faa15202-9939-11e5-b1db-0e5080dbf75b/mdl.pkl"},"src":{"S":"mdl.pkl"}}}]},"status":{"S":"pending"}},{"submit_time":{"N":"1448494474"},"complete_time":{"N":"1448494490.8486049175262451171875"},"inputs":{"L":[{"M":{"dest":{"S":"test.txt"},"src":{"S":"https://s3.amazonaws.com/klab-jobs/inputs/test.txt"}}}]},"username":{"S":"test1"},"job_id":{"S":"1570a262-93cd-11e5-b296-0e5080dbf75b"},"submit_stamp":{"S":"2015-11-25 23:34:34.195129"},"email":{"S":"yadudoc1729@gmail.com"},"jobtype":{"S":"doc2vec"},"outputs":{"L":[{"M":{"dest":{"S":"klab-jobs/outputs/1570a262-93cd-11e5-b296-0e5080dbf75b/doc_mat.pkl"},"src":{"S":"doc_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/1570a262-93cd-11e5-b296-0e5080dbf75b/word_mat.pkl"},"src":{"S":"word_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/1570a262-93cd-11e5-b296-0e5080dbf75b/mdl.pkl"},"src":{"S":"mdl.pkl"}}}]},"status":{"S":"completed"}},{"submit_time":{"N":"1449091451"},"inputs":{"L":[{"M":{"dest":{"S":"test.txt"},"src":{"S":"https://s3.amazonaws.com/klab-jobs/inputs/test.txt"}}}]},"username":{"S":"foo"},"job_id":{"S":"0787ea70-993b-11e5-9e22-0e5080dbf75b"},"submit_stamp":{"S":"2015-12-02 21:24:11.313735"},"email":{"S":"foo@gmail.com"},"jobtype":{"S":"doc2vec"},"outputs":{"L":[{"M":{"dest":{"S":"klab-jobs/outputs/0787ea70-993b-11e5-9e22-0e5080dbf75b/doc_mat.pkl"},"src":{"S":"doc_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/0787ea70-993b-11e5-9e22-0e5080dbf75b/word_mat.pkl"},"src":{"S":"word_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/0787ea70-993b-11e5-9e22-0e5080dbf75b/mdl.pkl"},"src":{"S":"mdl.pkl"}}}]},"status":{"S":"pending"}},{"username":{"S":"yadu"},"job_id":{"S":"f9d28134-9939-11e5-8316-0e5080dbf75b"},"submit_time":{"N":"1449090998"},"jobtype":{"S":"doc2vec"},"inputs":{"L":[{"M":{"dest":{"S":"test.txt"},"src":{"S":"https://s3.amazonaws.com/klab-jobs/inputs/test.txt"}}}]},"outputs":{"L":[{"M":{"dest":{"S":"klab-jobs/outputs/f9d28134-9939-11e5-8316-0e5080dbf75b/doc_mat.pkl"},"src":{"S":"doc_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/f9d28134-9939-11e5-8316-0e5080dbf75b/word_mat.pkl"},"src":{"S":"word_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/f9d28134-9939-11e5-8316-0e5080dbf75b/mdl.pkl"},"src":{"S":"mdl.pkl"}}}]},"status":{"S":"pending"}},{"submit_time":{"N":"1449014633"},"inputs":{"L":[{"M":{"dest":{"S":"pg2830.txt"},"src":{"S":"http://www.gutenberg.org/cache/epub/2830/pg2830.txt"}}}]},"username":{"S":"test1"},"job_id":{"S":"2c7b93ee-9888-11e5-869e-0e5080dbf75b"},"submit_stamp":{"S":"2015-12-02 00:03:53.393985"},"email":{"S":"yadudoc1729@gmail.com"},"jobtype":{"S":"doc2vec"},"outputs":{"L":[{"M":{"dest":{"S":"klab-jobs/outputs/2c7b93ee-9888-11e5-869e-0e5080dbf75b/doc_mat.pkl"},"src":{"S":"doc_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/2c7b93ee-9888-11e5-869e-0e5080dbf75b/word_mat.pkl"},"src":{"S":"word_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/2c7b93ee-9888-11e5-869e-0e5080dbf75b/mdl.pkl"},"src":{"S":"mdl.pkl"}}}]},"status":{"S":"pending"}},{"username":{"S":"yadu"},"job_id":{"S":"fb60648a-9939-11e5-84aa-0e5080dbf75b"},"submit_time":{"N":"1449091001"},"jobtype":{"S":"doc2vec"},"inputs":{"L":[{"M":{"dest":{"S":"test.txt"},"src":{"S":"https://s3.amazonaws.com/klab-jobs/inputs/test.txt"}}}]},"outputs":{"L":[{"M":{"dest":{"S":"klab-jobs/outputs/fb60648a-9939-11e5-84aa-0e5080dbf75b/doc_mat.pkl"},"src":{"S":"doc_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/fb60648a-9939-11e5-84aa-0e5080dbf75b/word_mat.pkl"},"src":{"S":"word_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/fb60648a-9939-11e5-84aa-0e5080dbf75b/mdl.pkl"},"src":{"S":"mdl.pkl"}}}]},"status":{"S":"pending"}}],"ScannedCount":6}
+12-02 22:33 boto         DEBUG    {"Count":6,"Items":[{"username":{"S":"yadu"},"job_id":{"S":"faa15202-9939-11e5-b1db-0e5080dbf75b"},"submit_time":{"N":"1449091000"},"jobtype":{"S":"doc2vec"},"inputs":{"L":[{"M":{"dest":{"S":"test.txt"},"src":{"S":"https://s3.amazonaws.com/klab-jobs/inputs/test.txt"}}}]},"outputs":{"L":[{"M":{"dest":{"S":"klab-jobs/outputs/faa15202-9939-11e5-b1db-0e5080dbf75b/doc_mat.pkl"},"src":{"S":"doc_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/faa15202-9939-11e5-b1db-0e5080dbf75b/word_mat.pkl"},"src":{"S":"word_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/faa15202-9939-11e5-b1db-0e5080dbf75b/mdl.pkl"},"src":{"S":"mdl.pkl"}}}]},"status":{"S":"pending"}},{"submit_time":{"N":"1448494474"},"complete_time":{"N":"1448494490.8486049175262451171875"},"inputs":{"L":[{"M":{"dest":{"S":"test.txt"},"src":{"S":"https://s3.amazonaws.com/klab-jobs/inputs/test.txt"}}}]},"username":{"S":"test1"},"job_id":{"S":"1570a262-93cd-11e5-b296-0e5080dbf75b"},"submit_stamp":{"S":"2015-11-25 23:34:34.195129"},"email":{"S":"yadudoc1729@gmail.com"},"jobtype":{"S":"doc2vec"},"outputs":{"L":[{"M":{"dest":{"S":"klab-jobs/outputs/1570a262-93cd-11e5-b296-0e5080dbf75b/doc_mat.pkl"},"src":{"S":"doc_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/1570a262-93cd-11e5-b296-0e5080dbf75b/word_mat.pkl"},"src":{"S":"word_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/1570a262-93cd-11e5-b296-0e5080dbf75b/mdl.pkl"},"src":{"S":"mdl.pkl"}}}]},"status":{"S":"completed"}},{"submit_time":{"N":"1449091451"},"inputs":{"L":[{"M":{"dest":{"S":"test.txt"},"src":{"S":"https://s3.amazonaws.com/klab-jobs/inputs/test.txt"}}}]},"username":{"S":"foo"},"job_id":{"S":"0787ea70-993b-11e5-9e22-0e5080dbf75b"},"submit_stamp":{"S":"2015-12-02 21:24:11.313735"},"email":{"S":"foo@gmail.com"},"jobtype":{"S":"doc2vec"},"outputs":{"L":[{"M":{"dest":{"S":"klab-jobs/outputs/0787ea70-993b-11e5-9e22-0e5080dbf75b/doc_mat.pkl"},"src":{"S":"doc_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/0787ea70-993b-11e5-9e22-0e5080dbf75b/word_mat.pkl"},"src":{"S":"word_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/0787ea70-993b-11e5-9e22-0e5080dbf75b/mdl.pkl"},"src":{"S":"mdl.pkl"}}}]},"status":{"S":"pending"}},{"username":{"S":"yadu"},"job_id":{"S":"f9d28134-9939-11e5-8316-0e5080dbf75b"},"submit_time":{"N":"1449090998"},"jobtype":{"S":"doc2vec"},"inputs":{"L":[{"M":{"dest":{"S":"test.txt"},"src":{"S":"https://s3.amazonaws.com/klab-jobs/inputs/test.txt"}}}]},"outputs":{"L":[{"M":{"dest":{"S":"klab-jobs/outputs/f9d28134-9939-11e5-8316-0e5080dbf75b/doc_mat.pkl"},"src":{"S":"doc_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/f9d28134-9939-11e5-8316-0e5080dbf75b/word_mat.pkl"},"src":{"S":"word_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/f9d28134-9939-11e5-8316-0e5080dbf75b/mdl.pkl"},"src":{"S":"mdl.pkl"}}}]},"status":{"S":"pending"}},{"submit_time":{"N":"1449014633"},"inputs":{"L":[{"M":{"dest":{"S":"pg2830.txt"},"src":{"S":"http://www.gutenberg.org/cache/epub/2830/pg2830.txt"}}}]},"username":{"S":"test1"},"job_id":{"S":"2c7b93ee-9888-11e5-869e-0e5080dbf75b"},"submit_stamp":{"S":"2015-12-02 00:03:53.393985"},"email":{"S":"yadudoc1729@gmail.com"},"jobtype":{"S":"doc2vec"},"outputs":{"L":[{"M":{"dest":{"S":"klab-jobs/outputs/2c7b93ee-9888-11e5-869e-0e5080dbf75b/doc_mat.pkl"},"src":{"S":"doc_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/2c7b93ee-9888-11e5-869e-0e5080dbf75b/word_mat.pkl"},"src":{"S":"word_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/2c7b93ee-9888-11e5-869e-0e5080dbf75b/mdl.pkl"},"src":{"S":"mdl.pkl"}}}]},"status":{"S":"pending"}},{"username":{"S":"yadu"},"job_id":{"S":"fb60648a-9939-11e5-84aa-0e5080dbf75b"},"submit_time":{"N":"1449091001"},"jobtype":{"S":"doc2vec"},"inputs":{"L":[{"M":{"dest":{"S":"test.txt"},"src":{"S":"https://s3.amazonaws.com/klab-jobs/inputs/test.txt"}}}]},"outputs":{"L":[{"M":{"dest":{"S":"klab-jobs/outputs/fb60648a-9939-11e5-84aa-0e5080dbf75b/doc_mat.pkl"},"src":{"S":"doc_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/fb60648a-9939-11e5-84aa-0e5080dbf75b/word_mat.pkl"},"src":{"S":"word_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/fb60648a-9939-11e5-84aa-0e5080dbf75b/mdl.pkl"},"src":{"S":"mdl.pkl"}}}]},"status":{"S":"pending"}}],"ScannedCount":6}
+12-02 22:33 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:33 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:33 urllib3.connectionpool DEBUG    "GET /latest/meta-data/iam/security-credentials/ HTTP/1.1" 200 8
+12-02 22:33 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:33 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:33 urllib3.connectionpool DEBUG    "GET /latest/meta-data/iam/security-credentials/god_mode HTTP/1.1" 200 930
+12-02 22:33 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:33 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:33 urllib3.connectionpool DEBUG    "GET /latest/meta-data/ HTTP/1.1" 200 268
+12-02 22:33 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:33 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:33 urllib3.connectionpool DEBUG    "GET /latest/meta-data/placement/availability-zone/ HTTP/1.1" 200 10
+12-02 22:33 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:33 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:33 urllib3.connectionpool DEBUG    "GET /latest/dynamic/instance-identity/document HTTP/1.1" 200 422
+12-02 22:33 boto         DEBUG    Method: POST
+12-02 22:33 boto         DEBUG    Path: /
+12-02 22:33 boto         DEBUG    Data: {"ScanFilter": {}, "TableName": "Jobs"}
+12-02 22:33 boto         DEBUG    Headers: {'Host': 'dynamodb.us-east-1.amazonaws.com', 'Content-Type': 'application/x-amz-json-1.0', 'Content-Length': '39', 'X-Amz-Target': 'DynamoDB_20120810.Scan'}
+12-02 22:33 boto         DEBUG    Host: dynamodb.us-east-1.amazonaws.com
+12-02 22:33 boto         DEBUG    Port: 443
+12-02 22:33 boto         DEBUG    Params: {}
+12-02 22:33 boto         DEBUG    Token: AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=
+12-02 22:33 boto         DEBUG    CanonicalRequest:
+POST
+/
+
+host:dynamodb.us-east-1.amazonaws.com
+x-amz-date:20151202T223333Z
+x-amz-security-token:AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=
+x-amz-target:DynamoDB_20120810.Scan
+
+host;x-amz-date;x-amz-security-token;x-amz-target
+e1a142eedc6665eb5d2dc5864cc1e783308b494a338ca46fa4d02f5c1ae8c8c1
+12-02 22:33 boto         DEBUG    StringToSign:
+AWS4-HMAC-SHA256
+20151202T223333Z
+20151202/us-east-1/dynamodb/aws4_request
+0d5b1198df70f826e3d4006b8a9b06ea321a4b14d926ec5b17892e08f42862e2
+12-02 22:33 boto         DEBUG    Signature:
+02f5e8e379424e68f78cb54de2f752fe9bb2e3ff955948d8e9fcddf4367509d7
+12-02 22:33 boto         DEBUG    Final headers: {'Content-Length': '39', 'X-Amz-Security-Token': 'AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=', 'User-Agent': 'Boto/2.38.0 Python/2.7.6 Linux/3.13.0-48-generic', 'Host': 'dynamodb.us-east-1.amazonaws.com', 'X-Amz-Date': '20151202T223333Z', 'X-Amz-Target': 'DynamoDB_20120810.Scan', 'Content-Type': 'application/x-amz-json-1.0', 'Authorization': 'AWS4-HMAC-SHA256 Credential=ASIAJYKIQZWSSQPKSGNA/20151202/us-east-1/dynamodb/aws4_request,SignedHeaders=host;x-amz-date;x-amz-security-token;x-amz-target,Signature=02f5e8e379424e68f78cb54de2f752fe9bb2e3ff955948d8e9fcddf4367509d7'}
+12-02 22:33 boto         DEBUG    Response headers: [('x-amzn-requestid', 'D4DEUBUFQDUIG6CRB56JIB86QRVV4KQNSO5AEMVJF66Q9ASUAAJG'), ('date', 'Wed, 02 Dec 2015 22:33:27 GMT'), ('content-length', '39'), ('content-type', 'application/x-amz-json-1.0'), ('x-amz-crc32', '3413411624')]
+12-02 22:33 boto         DEBUG    Saw HTTP status: 200
+12-02 22:33 boto         DEBUG    Validating crc32 checksum for body: {"Count":0,"Items":[],"ScannedCount":0}
+12-02 22:33 boto         DEBUG    {"Count":0,"Items":[],"ScannedCount":0}
+12-02 22:33 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:33 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:33 urllib3.connectionpool DEBUG    "GET /latest/meta-data/iam/security-credentials/ HTTP/1.1" 200 8
+12-02 22:33 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:33 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:33 urllib3.connectionpool DEBUG    "GET /latest/meta-data/iam/security-credentials/god_mode HTTP/1.1" 200 930
+12-02 22:33 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:33 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:33 urllib3.connectionpool DEBUG    "GET /latest/meta-data/ HTTP/1.1" 200 268
+12-02 22:33 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:33 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:33 urllib3.connectionpool DEBUG    "GET /latest/meta-data/placement/availability-zone/ HTTP/1.1" 200 10
+12-02 22:33 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:33 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:33 urllib3.connectionpool DEBUG    "GET /latest/dynamic/instance-identity/document HTTP/1.1" 200 422
+12-02 22:33 boto         DEBUG    Method: POST
+12-02 22:33 boto         DEBUG    Path: /
+12-02 22:33 boto         DEBUG    Data: {"Item": {"username": {"S": "yadunand"}, "inputs": {"L": [{"M": {"dest": {"S": "test.txt"}, "src": {"S": "https://s3.amazonaws.com/klab-jobs/inputs/test.txt"}}}]}, "job_id": {"S": "c3b3d93a-9944-11e5-9d80-0e5080dbf75b"}, "outputs": {"L": [{"M": {"dest": {"S": "klab-jobs/outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/doc_mat.pkl"}, "src": {"S": "doc_mat.pkl"}}}, {"M": {"dest": {"S": "klab-jobs/outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/word_mat.pkl"}, "src": {"S": "word_mat.pkl"}}}, {"M": {"dest": {"S": "klab-jobs/outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/mdl.pkl"}, "src": {"S": "mdl.pkl"}}}]}, "submit_stamp": {"S": "2015-12-02 22:33:52.483872"}, "status": {"S": "pending"}, "submit_time": {"N": "1449095632"}, "email": {"S": "yadudoc1729@gmail.com"}, "jobtype": {"S": "doc2vec"}}, "TableName": "Jobs"}
+12-02 22:33 boto         DEBUG    Headers: {'Host': 'dynamodb.us-east-1.amazonaws.com', 'Content-Type': 'application/x-amz-json-1.0', 'Content-Length': '812', 'X-Amz-Target': 'DynamoDB_20120810.PutItem'}
+12-02 22:33 boto         DEBUG    Host: dynamodb.us-east-1.amazonaws.com
+12-02 22:33 boto         DEBUG    Port: 443
+12-02 22:33 boto         DEBUG    Params: {}
+12-02 22:33 boto         DEBUG    Token: AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=
+12-02 22:33 boto         DEBUG    CanonicalRequest:
+POST
+/
+
+host:dynamodb.us-east-1.amazonaws.com
+x-amz-date:20151202T223352Z
+x-amz-security-token:AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=
+x-amz-target:DynamoDB_20120810.PutItem
+
+host;x-amz-date;x-amz-security-token;x-amz-target
+7976019f742740b08959239fbbed55b70bb0292022d46cb1df1f63d84a4a0199
+12-02 22:33 boto         DEBUG    StringToSign:
+AWS4-HMAC-SHA256
+20151202T223352Z
+20151202/us-east-1/dynamodb/aws4_request
+79fd374d529ceea6b80e8d990e917e68a448f18072fd8b760b760e9c499fe95d
+12-02 22:33 boto         DEBUG    Signature:
+3169ee04441454a45a8c51466277ae7e202dedff2fae7c0496abb1541d67c03d
+12-02 22:33 boto         DEBUG    Final headers: {'Content-Length': '812', 'X-Amz-Security-Token': 'AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=', 'User-Agent': 'Boto/2.38.0 Python/2.7.6 Linux/3.13.0-48-generic', 'Host': 'dynamodb.us-east-1.amazonaws.com', 'X-Amz-Date': '20151202T223352Z', 'X-Amz-Target': 'DynamoDB_20120810.PutItem', 'Content-Type': 'application/x-amz-json-1.0', 'Authorization': 'AWS4-HMAC-SHA256 Credential=ASIAJYKIQZWSSQPKSGNA/20151202/us-east-1/dynamodb/aws4_request,SignedHeaders=host;x-amz-date;x-amz-security-token;x-amz-target,Signature=3169ee04441454a45a8c51466277ae7e202dedff2fae7c0496abb1541d67c03d'}
+12-02 22:33 boto         DEBUG    Response headers: [('x-amzn-requestid', '5C5KOVOM2HR1KBHDLL193EHJ37VV4KQNSO5AEMVJF66Q9ASUAAJG'), ('date', 'Wed, 02 Dec 2015 22:33:45 GMT'), ('content-length', '2'), ('content-type', 'application/x-amz-json-1.0'), ('x-amz-crc32', '2745614147')]
+12-02 22:33 boto         DEBUG    Saw HTTP status: 200
+12-02 22:33 boto         DEBUG    Validating crc32 checksum for body: {}
+12-02 22:33 boto         DEBUG    {}
+12-02 22:33 boto         DEBUG    Method: POST
+12-02 22:33 boto         DEBUG    Path: /
+12-02 22:33 boto         DEBUG    Data: 
+12-02 22:33 boto         DEBUG    Headers: {}
+12-02 22:33 boto         DEBUG    Host: sns.us-east-1.amazonaws.com
+12-02 22:33 boto         DEBUG    Port: 443
+12-02 22:33 boto         DEBUG    Params: {'Action': 'Publish', 'Message': '{"username": "yadunand", "inputs": [{"dest": "test.txt", "src": "https://s3.amazonaws.com/klab-jobs/inputs/test.txt"}], "status": "pending", "job_id": "c3b3d93a-9944-11e5-9d80-0e5080dbf75b", "submit_time": 1449095632, "outputs": [{"dest": "klab-jobs/outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/doc_mat.pkl", "src": "doc_mat.pkl"}, {"dest": "klab-jobs/outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/word_mat.pkl", "src": "word_mat.pkl"}, {"dest": "klab-jobs/outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/mdl.pkl", "src": "mdl.pkl"}], "submit_stamp": "2015-12-02 22:33:52.483872", "email": "yadudoc1729@gmail.com", "jobtype": "doc2vec"}', 'Version': '2010-03-31', 'ContentType': 'JSON', 'TopicArn': 'arn:aws:sns:us-east-1:968994658855:leapingFrog-JobsSNS-1BYAHAI4BPFU1'}
+12-02 22:33 boto         DEBUG    establishing HTTPS connection: host=sns.us-east-1.amazonaws.com, kwargs={'port': 443, 'timeout': 70}
+12-02 22:33 boto         DEBUG    Token: AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=
+12-02 22:33 boto         DEBUG    CanonicalRequest:
+POST
+/
+
+host:sns.us-east-1.amazonaws.com
+x-amz-date:20151202T223352Z
+x-amz-security-token:AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=
+
+host;x-amz-date;x-amz-security-token
+a2611d7710175ec277102771a87388b0ec6342f22648b5b2d0c592becf09e076
+12-02 22:33 boto         DEBUG    StringToSign:
+AWS4-HMAC-SHA256
+20151202T223352Z
+20151202/us-east-1/sns/aws4_request
+aa8d0f2d9196a6bf13fe52d8a1e982b00676e82c464d0cc1eda30f8659911640
+12-02 22:33 boto         DEBUG    Signature:
+c2a7ad654987a47c35790d802251bb84861fd31cc3d97024cb126a86f04bf953
+12-02 22:33 boto         DEBUG    Final headers: {'Content-Length': '1093', 'X-Amz-Date': '20151202T223352Z', 'User-Agent': 'Boto/2.38.0 Python/2.7.6 Linux/3.13.0-48-generic', 'Host': 'sns.us-east-1.amazonaws.com', 'X-Amz-Security-Token': 'AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=', 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'Authorization': 'AWS4-HMAC-SHA256 Credential=ASIAJYKIQZWSSQPKSGNA/20151202/us-east-1/sns/aws4_request,SignedHeaders=host;x-amz-date;x-amz-security-token,Signature=c2a7ad654987a47c35790d802251bb84861fd31cc3d97024cb126a86f04bf953'}
+12-02 22:33 boto         DEBUG    wrapping ssl socket; CA certificate file=/usr/local/lib/python2.7/dist-packages/boto/cacerts/cacerts.txt
+12-02 22:33 boto         DEBUG    validating server certificate: hostname=sns.us-east-1.amazonaws.com, certificate hosts=['sns.us-east-1.amazonaws.com']
+12-02 22:33 boto         DEBUG    Response headers: [('x-amzn-requestid', '84871365-1489-5555-8aa6-5dbc6082852a'), ('date', 'Wed, 02 Dec 2015 22:33:47 GMT'), ('content-length', '162'), ('content-type', 'application/json')]
+12-02 22:33 boto         DEBUG    {"PublishResponse":{"PublishResult":{"MessageId":"e06de87e-5fec-59de-8426-a6a72be7c9a1"},"ResponseMetadata":{"RequestId":"84871365-1489-5555-8aa6-5dbc6082852a"}}}
+12-02 22:34 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:34 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:34 urllib3.connectionpool DEBUG    "GET /latest/meta-data/iam/security-credentials/ HTTP/1.1" 200 8
+12-02 22:34 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:34 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:34 urllib3.connectionpool DEBUG    "GET /latest/meta-data/iam/security-credentials/god_mode HTTP/1.1" 200 930
+12-02 22:34 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:34 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:34 urllib3.connectionpool DEBUG    "GET /latest/meta-data/ HTTP/1.1" 200 268
+12-02 22:34 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:34 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:34 urllib3.connectionpool DEBUG    "GET /latest/meta-data/placement/availability-zone/ HTTP/1.1" 200 10
+12-02 22:34 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:34 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:34 urllib3.connectionpool DEBUG    "GET /latest/dynamic/instance-identity/document HTTP/1.1" 200 422
+12-02 22:34 boto         DEBUG    Method: POST
+12-02 22:34 boto         DEBUG    Path: /
+12-02 22:34 boto         DEBUG    Data: {"ScanFilter": {}, "TableName": "Jobs"}
+12-02 22:34 boto         DEBUG    Headers: {'Host': 'dynamodb.us-east-1.amazonaws.com', 'Content-Type': 'application/x-amz-json-1.0', 'Content-Length': '39', 'X-Amz-Target': 'DynamoDB_20120810.Scan'}
+12-02 22:34 boto         DEBUG    Host: dynamodb.us-east-1.amazonaws.com
+12-02 22:34 boto         DEBUG    Port: 443
+12-02 22:34 boto         DEBUG    Params: {}
+12-02 22:34 boto         DEBUG    Token: AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=
+12-02 22:34 boto         DEBUG    CanonicalRequest:
+POST
+/
+
+host:dynamodb.us-east-1.amazonaws.com
+x-amz-date:20151202T223409Z
+x-amz-security-token:AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=
+x-amz-target:DynamoDB_20120810.Scan
+
+host;x-amz-date;x-amz-security-token;x-amz-target
+e1a142eedc6665eb5d2dc5864cc1e783308b494a338ca46fa4d02f5c1ae8c8c1
+12-02 22:34 boto         DEBUG    StringToSign:
+AWS4-HMAC-SHA256
+20151202T223409Z
+20151202/us-east-1/dynamodb/aws4_request
+d792286cc4e9f9a82ad3fa0e281a7533a97803f740d4cbec508a4eeeb7f54a83
+12-02 22:34 boto         DEBUG    Signature:
+8d451dfa96d3cdf7f77811b53bd35a4a6c700e7f47f35eee2cd2f4de8233fa57
+12-02 22:34 boto         DEBUG    Final headers: {'Content-Length': '39', 'X-Amz-Security-Token': 'AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=', 'User-Agent': 'Boto/2.38.0 Python/2.7.6 Linux/3.13.0-48-generic', 'Host': 'dynamodb.us-east-1.amazonaws.com', 'X-Amz-Date': '20151202T223409Z', 'X-Amz-Target': 'DynamoDB_20120810.Scan', 'Content-Type': 'application/x-amz-json-1.0', 'Authorization': 'AWS4-HMAC-SHA256 Credential=ASIAJYKIQZWSSQPKSGNA/20151202/us-east-1/dynamodb/aws4_request,SignedHeaders=host;x-amz-date;x-amz-security-token;x-amz-target,Signature=8d451dfa96d3cdf7f77811b53bd35a4a6c700e7f47f35eee2cd2f4de8233fa57'}
+12-02 22:34 boto         DEBUG    Response headers: [('x-amzn-requestid', 'CHLHVECUOGFM7BUS2TUEL9UPIFVV4KQNSO5AEMVJF66Q9ASUAAJG'), ('date', 'Wed, 02 Dec 2015 22:34:02 GMT'), ('content-length', '828'), ('content-type', 'application/x-amz-json-1.0'), ('x-amz-crc32', '2922922712')]
+12-02 22:34 boto         DEBUG    Saw HTTP status: 200
+12-02 22:34 boto         DEBUG    Validating crc32 checksum for body: {"Count":1,"Items":[{"submit_time":{"N":"1449095632"},"complete_time":{"N":"1449095625.2926909923553466796875"},"inputs":{"L":[{"M":{"dest":{"S":"test.txt"},"src":{"S":"https://s3.amazonaws.com/klab-jobs/inputs/test.txt"}}}]},"username":{"S":"yadunand"},"job_id":{"S":"c3b3d93a-9944-11e5-9d80-0e5080dbf75b"},"submit_stamp":{"S":"2015-12-02 22:33:52.483872"},"email":{"S":"yadudoc1729@gmail.com"},"jobtype":{"S":"doc2vec"},"outputs":{"L":[{"M":{"dest":{"S":"klab-jobs/outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/doc_mat.pkl"},"src":{"S":"doc_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/word_mat.pkl"},"src":{"S":"word_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/mdl.pkl"},"src":{"S":"mdl.pkl"}}}]},"status":{"S":"completed"}}],"ScannedCount":1}
+12-02 22:34 boto         DEBUG    {"Count":1,"Items":[{"submit_time":{"N":"1449095632"},"complete_time":{"N":"1449095625.2926909923553466796875"},"inputs":{"L":[{"M":{"dest":{"S":"test.txt"},"src":{"S":"https://s3.amazonaws.com/klab-jobs/inputs/test.txt"}}}]},"username":{"S":"yadunand"},"job_id":{"S":"c3b3d93a-9944-11e5-9d80-0e5080dbf75b"},"submit_stamp":{"S":"2015-12-02 22:33:52.483872"},"email":{"S":"yadudoc1729@gmail.com"},"jobtype":{"S":"doc2vec"},"outputs":{"L":[{"M":{"dest":{"S":"klab-jobs/outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/doc_mat.pkl"},"src":{"S":"doc_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/word_mat.pkl"},"src":{"S":"word_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/mdl.pkl"},"src":{"S":"mdl.pkl"}}}]},"status":{"S":"completed"}}],"ScannedCount":1}
+12-02 22:34 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:34 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:34 urllib3.connectionpool DEBUG    "GET /latest/meta-data/iam/security-credentials/ HTTP/1.1" 200 8
+12-02 22:34 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:34 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:34 urllib3.connectionpool DEBUG    "GET /latest/meta-data/iam/security-credentials/god_mode HTTP/1.1" 200 930
+12-02 22:34 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:34 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:34 urllib3.connectionpool DEBUG    "GET /latest/meta-data/ HTTP/1.1" 200 268
+12-02 22:34 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:34 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:34 urllib3.connectionpool DEBUG    "GET /latest/meta-data/placement/availability-zone/ HTTP/1.1" 200 10
+12-02 22:34 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:34 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:34 urllib3.connectionpool DEBUG    "GET /latest/dynamic/instance-identity/document HTTP/1.1" 200 422
+12-02 22:34 boto         DEBUG    Method: POST
+12-02 22:34 boto         DEBUG    Path: /
+12-02 22:34 boto         DEBUG    Data: {"ConsistentRead": false, "TableName": "Jobs", "Key": {"job_id": {"S": "c3b3d93a-9944-11e5-9d80-0e5080dbf75b"}}}
+12-02 22:34 boto         DEBUG    Headers: {'Host': 'dynamodb.us-east-1.amazonaws.com', 'Content-Type': 'application/x-amz-json-1.0', 'Content-Length': '112', 'X-Amz-Target': 'DynamoDB_20120810.GetItem'}
+12-02 22:34 boto         DEBUG    Host: dynamodb.us-east-1.amazonaws.com
+12-02 22:34 boto         DEBUG    Port: 443
+12-02 22:34 boto         DEBUG    Params: {}
+12-02 22:34 boto         DEBUG    Token: AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=
+12-02 22:34 boto         DEBUG    CanonicalRequest:
+POST
+/
+
+host:dynamodb.us-east-1.amazonaws.com
+x-amz-date:20151202T223411Z
+x-amz-security-token:AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=
+x-amz-target:DynamoDB_20120810.GetItem
+
+host;x-amz-date;x-amz-security-token;x-amz-target
+d36a191cb4bbbfc00f8673725acd397f8b667ce2c9220a756a958aeaa3de251f
+12-02 22:34 boto         DEBUG    StringToSign:
+AWS4-HMAC-SHA256
+20151202T223411Z
+20151202/us-east-1/dynamodb/aws4_request
+1b78be76e7e16178a12c77d1c2f0880535b454d029baa667adf74d4174cf1f9c
+12-02 22:34 boto         DEBUG    Signature:
+ffcdadc3dd29ffc4bbb0fb2b96284d8bded958f1a63830de6d50c77f636e4de5
+12-02 22:34 boto         DEBUG    Final headers: {'Content-Length': '112', 'X-Amz-Security-Token': 'AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=', 'User-Agent': 'Boto/2.38.0 Python/2.7.6 Linux/3.13.0-48-generic', 'Host': 'dynamodb.us-east-1.amazonaws.com', 'X-Amz-Date': '20151202T223411Z', 'X-Amz-Target': 'DynamoDB_20120810.GetItem', 'Content-Type': 'application/x-amz-json-1.0', 'Authorization': 'AWS4-HMAC-SHA256 Credential=ASIAJYKIQZWSSQPKSGNA/20151202/us-east-1/dynamodb/aws4_request,SignedHeaders=host;x-amz-date;x-amz-security-token;x-amz-target,Signature=ffcdadc3dd29ffc4bbb0fb2b96284d8bded958f1a63830de6d50c77f636e4de5'}
+12-02 22:34 boto         DEBUG    Response headers: [('x-amzn-requestid', 'CSVJ1SQB9RJE0KBMD9FPVBBQQRVV4KQNSO5AEMVJF66Q9ASUAAJG'), ('date', 'Wed, 02 Dec 2015 22:34:05 GMT'), ('content-length', '798'), ('content-type', 'application/x-amz-json-1.0'), ('x-amz-crc32', '969336029')]
+12-02 22:34 boto         DEBUG    Saw HTTP status: 200
+12-02 22:34 boto         DEBUG    Validating crc32 checksum for body: {"Item":{"submit_time":{"N":"1449095632"},"complete_time":{"N":"1449095625.2926909923553466796875"},"inputs":{"L":[{"M":{"dest":{"S":"test.txt"},"src":{"S":"https://s3.amazonaws.com/klab-jobs/inputs/test.txt"}}}]},"username":{"S":"yadunand"},"job_id":{"S":"c3b3d93a-9944-11e5-9d80-0e5080dbf75b"},"submit_stamp":{"S":"2015-12-02 22:33:52.483872"},"email":{"S":"yadudoc1729@gmail.com"},"jobtype":{"S":"doc2vec"},"outputs":{"L":[{"M":{"dest":{"S":"klab-jobs/outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/doc_mat.pkl"},"src":{"S":"doc_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/word_mat.pkl"},"src":{"S":"word_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/mdl.pkl"},"src":{"S":"mdl.pkl"}}}]},"status":{"S":"completed"}}}
+12-02 22:34 boto         DEBUG    {"Item":{"submit_time":{"N":"1449095632"},"complete_time":{"N":"1449095625.2926909923553466796875"},"inputs":{"L":[{"M":{"dest":{"S":"test.txt"},"src":{"S":"https://s3.amazonaws.com/klab-jobs/inputs/test.txt"}}}]},"username":{"S":"yadunand"},"job_id":{"S":"c3b3d93a-9944-11e5-9d80-0e5080dbf75b"},"submit_stamp":{"S":"2015-12-02 22:33:52.483872"},"email":{"S":"yadudoc1729@gmail.com"},"jobtype":{"S":"doc2vec"},"outputs":{"L":[{"M":{"dest":{"S":"klab-jobs/outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/doc_mat.pkl"},"src":{"S":"doc_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/word_mat.pkl"},"src":{"S":"word_mat.pkl"}}},{"M":{"dest":{"S":"klab-jobs/outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/mdl.pkl"},"src":{"S":"mdl.pkl"}}}]},"status":{"S":"completed"}}}
+12-02 22:34 boto         DEBUG    path=/outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/doc_mat.pkl
+12-02 22:34 boto         DEBUG    auth_path=/klab-jobs/outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/doc_mat.pkl
+12-02 22:34 boto         DEBUG    Method: HEAD
+12-02 22:34 boto         DEBUG    Path: /outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/doc_mat.pkl
+12-02 22:34 boto         DEBUG    Data: 
+12-02 22:34 boto         DEBUG    Headers: {}
+12-02 22:34 boto         DEBUG    Host: klab-jobs.s3.amazonaws.com
+12-02 22:34 boto         DEBUG    Port: 443
+12-02 22:34 boto         DEBUG    Params: {}
+12-02 22:34 boto         DEBUG    establishing HTTPS connection: host=klab-jobs.s3.amazonaws.com, kwargs={'port': 443, 'timeout': 70}
+12-02 22:34 boto         DEBUG    Token: AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=
+12-02 22:34 boto         DEBUG    StringToSign:
+HEAD
+
+
+Wed, 02 Dec 2015 22:34:11 GMT
+x-amz-security-token:AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=
+/klab-jobs/outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/doc_mat.pkl
+12-02 22:34 boto         DEBUG    Signature:
+AWS ASIAJYKIQZWSSQPKSGNA:YkPfRGdoNAlUwKOtRwBKRUPHmpM=
+12-02 22:34 boto         DEBUG    Final headers: {'Date': 'Wed, 02 Dec 2015 22:34:11 GMT', 'Content-Length': '0', 'Authorization': u'AWS ASIAJYKIQZWSSQPKSGNA:YkPfRGdoNAlUwKOtRwBKRUPHmpM=', 'x-amz-security-token': 'AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=', 'User-Agent': 'Boto/2.38.0 Python/2.7.6 Linux/3.13.0-48-generic'}
+12-02 22:34 boto         DEBUG    Response headers: [('content-length', '61046'), ('x-amz-meta-owner', 'Yadu'), ('x-amz-id-2', 'ayvVWEWjG8mebvWDtpcc+sDunZ07TaBxlg+jA5WGInWVRZLSw3kM5uAtAgyL4Tzl'), ('accept-ranges', 'bytes'), ('server', 'AmazonS3'), ('last-modified', 'Wed, 02 Dec 2015 22:33:48 GMT'), ('x-amz-request-id', '9C4B8BB295DC2A10'), ('etag', '"00f117b0e97e797c6bd8f814257cb86f"'), ('date', 'Wed, 02 Dec 2015 22:34:06 GMT'), ('content-type', 'application/octet-stream')]
+12-02 22:34 boto         DEBUG    path=/outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/word_mat.pkl
+12-02 22:34 boto         DEBUG    auth_path=/klab-jobs/outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/word_mat.pkl
+12-02 22:34 boto         DEBUG    Method: HEAD
+12-02 22:34 boto         DEBUG    Path: /outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/word_mat.pkl
+12-02 22:34 boto         DEBUG    Data: 
+12-02 22:34 boto         DEBUG    Headers: {}
+12-02 22:34 boto         DEBUG    Host: klab-jobs.s3.amazonaws.com
+12-02 22:34 boto         DEBUG    Port: 443
+12-02 22:34 boto         DEBUG    Params: {}
+12-02 22:34 boto         DEBUG    Token: AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=
+12-02 22:34 boto         DEBUG    StringToSign:
+HEAD
+
+
+Wed, 02 Dec 2015 22:34:11 GMT
+x-amz-security-token:AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=
+/klab-jobs/outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/word_mat.pkl
+12-02 22:34 boto         DEBUG    Signature:
+AWS ASIAJYKIQZWSSQPKSGNA:PBh2z24F6d0Yz6GRX3mvzQpTDbI=
+12-02 22:34 boto         DEBUG    Final headers: {'Date': 'Wed, 02 Dec 2015 22:34:11 GMT', 'Content-Length': '0', 'Authorization': u'AWS ASIAJYKIQZWSSQPKSGNA:PBh2z24F6d0Yz6GRX3mvzQpTDbI=', 'x-amz-security-token': 'AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=', 'User-Agent': 'Boto/2.38.0 Python/2.7.6 Linux/3.13.0-48-generic'}
+12-02 22:34 boto         DEBUG    Response headers: [('content-length', '39222'), ('x-amz-meta-owner', 'Yadu'), ('x-amz-id-2', 'SNSonxgfoTpCmWfvt0eukZhfQctbSSYYHILBBQKZmBYNZGZE32KWOfMCCUiQm3NF'), ('accept-ranges', 'bytes'), ('server', 'AmazonS3'), ('last-modified', 'Wed, 02 Dec 2015 22:33:48 GMT'), ('x-amz-request-id', '8D1E89AFD292DBC9'), ('etag', '"8847b03f1bf516fbb850f898a7d032f3"'), ('date', 'Wed, 02 Dec 2015 22:34:06 GMT'), ('content-type', 'application/octet-stream')]
+12-02 22:34 boto         DEBUG    path=/outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/mdl.pkl
+12-02 22:34 boto         DEBUG    auth_path=/klab-jobs/outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/mdl.pkl
+12-02 22:34 boto         DEBUG    Method: HEAD
+12-02 22:34 boto         DEBUG    Path: /outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/mdl.pkl
+12-02 22:34 boto         DEBUG    Data: 
+12-02 22:34 boto         DEBUG    Headers: {}
+12-02 22:34 boto         DEBUG    Host: klab-jobs.s3.amazonaws.com
+12-02 22:34 boto         DEBUG    Port: 443
+12-02 22:34 boto         DEBUG    Params: {}
+12-02 22:34 boto         DEBUG    Token: AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=
+12-02 22:34 boto         DEBUG    StringToSign:
+HEAD
+
+
+Wed, 02 Dec 2015 22:34:11 GMT
+x-amz-security-token:AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=
+/klab-jobs/outputs/c3b3d93a-9944-11e5-9d80-0e5080dbf75b/mdl.pkl
+12-02 22:34 boto         DEBUG    Signature:
+AWS ASIAJYKIQZWSSQPKSGNA:NOZggPspXLTsMCEsZEmrxAQUdxM=
+12-02 22:34 boto         DEBUG    Final headers: {'Date': 'Wed, 02 Dec 2015 22:34:11 GMT', 'Content-Length': '0', 'Authorization': u'AWS ASIAJYKIQZWSSQPKSGNA:NOZggPspXLTsMCEsZEmrxAQUdxM=', 'x-amz-security-token': 'AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=', 'User-Agent': 'Boto/2.38.0 Python/2.7.6 Linux/3.13.0-48-generic'}
+12-02 22:34 boto         DEBUG    Response headers: [('content-length', '159070'), ('x-amz-meta-owner', 'Yadu'), ('x-amz-id-2', 'LTHZGOY3XZ/rmC4rpNaLUrJFWCxUSWmV42d2L8Op1Z4e0nkq2SfU2ldifGD+iUe+'), ('accept-ranges', 'bytes'), ('server', 'AmazonS3'), ('last-modified', 'Wed, 02 Dec 2015 22:33:48 GMT'), ('x-amz-request-id', '109DCFF24E483185'), ('etag', '"bc5a6da95105dbd3dafaf8d2e30d5eae"'), ('date', 'Wed, 02 Dec 2015 22:34:06 GMT'), ('content-type', 'application/octet-stream')]
+12-02 22:42 root         DEBUG    
+**************************************************
+Starting webserver
+**************************************************
+
+12-02 22:42 root         DEBUG    Config : 
+ {'server.port': '8080', 'server.reloader': 'True', 'server.debug': 'True', 'metadata.metaserver': 'http://169.254.169.254/latest/meta-data/', 'web.static_root': '"./static"', 's3.name': 'klab-jobs', 'web.templates': '"./views"', 'server.policy_template': 'policy.txt', 'catchall': True, 'metadata.credurl': 'http://169.254.169.254/latest/meta-data/iam/security-credentials/', 'dynamodb.table_name': 'Jobs', 'dynamodb.region': 'us-east-1', 'server.request_template': 'request_template.txt', 'metadata.metaidentity': 'http://169.254.169.254/latest/dynamic/instance-identity/document', 'server.acceptable_delta': '3', 's3.region': 'us-east-1', 'autojson': True}
+12-02 22:42 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:42 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:42 urllib3.connectionpool DEBUG    "GET /latest/meta-data/iam/security-credentials/ HTTP/1.1" 200 8
+12-02 22:42 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:42 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:42 urllib3.connectionpool DEBUG    "GET /latest/meta-data/iam/security-credentials/god_mode HTTP/1.1" 200 930
+12-02 22:42 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:42 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:42 urllib3.connectionpool DEBUG    "GET /latest/meta-data/ HTTP/1.1" 200 268
+12-02 22:42 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:42 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:42 urllib3.connectionpool DEBUG    "GET /latest/meta-data/placement/availability-zone/ HTTP/1.1" 200 10
+12-02 22:42 urllib3.connectionpool INFO     Starting new HTTP connection (1): 169.254.169.254
+12-02 22:42 urllib3.connectionpool DEBUG    Setting read timeout to None
+12-02 22:42 urllib3.connectionpool DEBUG    "GET /latest/dynamic/instance-identity/document HTTP/1.1" 200 422
+12-02 22:42 boto         DEBUG    Using access key provided by client.
+12-02 22:42 boto         DEBUG    Using secret key provided by client.
+12-02 22:42 boto         DEBUG    Using security token provided by client.
+12-02 22:42 boto         DEBUG    Method: POST
+12-02 22:42 boto         DEBUG    Path: /
+12-02 22:42 boto         DEBUG    Data: 
+12-02 22:42 boto         DEBUG    Headers: {}
+12-02 22:42 boto         DEBUG    Host: ec2.us-east-1.amazonaws.com
+12-02 22:42 boto         DEBUG    Port: 443
+12-02 22:42 boto         DEBUG    Params: {'Action': 'DescribeTags', 'Version': '2014-10-01'}
+12-02 22:42 boto         DEBUG    establishing HTTPS connection: host=ec2.us-east-1.amazonaws.com, kwargs={'port': 443, 'timeout': 70}
+12-02 22:42 boto         DEBUG    Token: AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=
+12-02 22:42 boto         DEBUG    CanonicalRequest:
+POST
+/
+
+host:ec2.us-east-1.amazonaws.com
+x-amz-date:20151202T224259Z
+x-amz-security-token:AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=
+
+host;x-amz-date;x-amz-security-token
+dafefa9ab2e7fc1a545cd6a8b79e028e346b125f81ebccb2582510f643f27ad1
+12-02 22:42 boto         DEBUG    StringToSign:
+AWS4-HMAC-SHA256
+20151202T224259Z
+20151202/us-east-1/ec2/aws4_request
+fc7c3f9740e79c44c98197b3a6fc52e0bdc813101b5c4cc90637f7c4ba0dd7b1
+12-02 22:42 boto         DEBUG    Signature:
+856af8769d732291a555f38ccdf88ea9771b44e782ef37b93895ab468c833e23
+12-02 22:42 boto         DEBUG    Final headers: {'Content-Length': '38', 'X-Amz-Date': '20151202T224259Z', 'User-Agent': 'Boto/2.38.0 Python/2.7.6 Linux/3.13.0-48-generic', 'Host': 'ec2.us-east-1.amazonaws.com', 'X-Amz-Security-Token': 'AQoDYXdzEPf//////////wEa4ANtmO9w8zzesm15kG9W89phf/+1Nr8+2Tr7vF6LC/qBdLWw7gkyAY3/keKS9i90+wAcQtPKTYH7bg6kC8oTZD+Fn4UApfu3uAV8htojlqvCwgm9j9aVs9941F1xzI3KGCnDxq5i5TTYLU1hWluUlcDoO1lUUniSbXf2bRL5G1c+ZenaOYJl/eXTrgfPoBtds8MwtSn3MeysKt7K2ylNoQZzricbs++ud1KROXFo703VAhE+nsdPyWMS4g5xv6VxhPKqxqJA5zgyDm+G9Hrv2wznwLgeHqxNUryekYkbPdNFpceVh9dVu5b0jaQR0jWZWohINJ5FhY0xFZkwyKefKtAmjv/ZFeuNw69u5OXZlfGXtGEYkDRElW1iAasgm4w1HpPWTRxifQEnofVcb26cSK8DJUQ027ht0zQygZx4b4WuyawMFm3eADjAU2qYo8q/XsyGtWELOYwvN4iFEy1pUeB7ha+wzecnNOE7hcbkQl86olrhp9TeWlxrtnAEIIxpnJct68xNuQtBPfv0O6nT9FD4voieq9yQPNpf5XaFVW+28hO60Z5CT+3srSx8j/HT0JxwQXWJjcykEGZy1X54YdwryFPaiX2CToyV4ImxoQQEhMC5R1KlRw9ouRQjqqflDtMg4NX9sgU=', 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', 'Authorization': 'AWS4-HMAC-SHA256 Credential=ASIAJYKIQZWSSQPKSGNA/20151202/us-east-1/ec2/aws4_request,SignedHeaders=host;x-amz-date;x-amz-security-token,Signature=856af8769d732291a555f38ccdf88ea9771b44e782ef37b93895ab468c833e23'}
+12-02 22:42 boto         DEBUG    wrapping ssl socket; CA certificate file=/usr/local/lib/python2.7/dist-packages/boto/cacerts/cacerts.txt
+12-02 22:42 boto         DEBUG    validating server certificate: hostname=ec2.us-east-1.amazonaws.com, certificate hosts=['us-east-1.ec2.amazonaws.com', 'ec2.amazonaws.com', 'ec2.us-east-1.amazonaws.com']
+12-02 22:42 boto         DEBUG    Response headers: [('transfer-encoding', 'chunked'), ('vary', 'Accept-Encoding'), ('server', 'AmazonEC2'), ('content-type', 'text/xml;charset=UTF-8'), ('date', 'Wed, 02 Dec 2015 22:42:52 GMT')]
+12-02 22:42 boto         DEBUG    <?xml version="1.0" encoding="UTF-8"?>
+<DescribeTagsResponse xmlns="http://ec2.amazonaws.com/doc/2014-10-01/">
+    <requestId>73696a8c-d0e0-4407-a31b-7ad306a0f108</requestId>
+    <tagSet>
+        <item>
+            <resourceId>i-1e5918ae</resourceId>
+            <resourceType>instance</resourceType>
+            <key>DynamoDBTableARN</key>
+            <value>arn:aws:dynamodb:us-east-1:968994658855:table/Jobs</value>
+        </item>
+        <item>
+            <resourceId>i-1e5918ae</resourceId>
+            <resourceType>instance</resourceType>
+            <key>DynamoDBTableName</key>
+            <value>Jobs</value>
+        </item>
+        <item>
+            <resourceId>i-1e5918ae</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsQueueArn</key>
+            <value>arn:aws:sqs:us-east-1:968994658855:leapingFrog-JobsQueue-L3GJSZU9XGLD</value>
+        </item>
+        <item>
+            <resourceId>i-1e5918ae</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsQueueName</key>
+            <value>leapingFrog-JobsQueue-L3GJSZU9XGLD</value>
+        </item>
+        <item>
+            <resourceId>i-1e5918ae</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsSNSTopicARN</key>
+            <value>arn:aws:sns:us-east-1:968994658855:leapingFrog-JobsSNS-1BYAHAI4BPFU1</value>
+        </item>
+        <item>
+            <resourceId>i-1e5918ae</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsSNSTopicName</key>
+            <value>leapingFrog-JobsSNS-1BYAHAI4BPFU1</value>
+        </item>
+        <item>
+            <resourceId>i-1e5918ae</resourceId>
+            <resourceType>instance</resourceType>
+            <key>Name</key>
+            <value>Worker</value>
+        </item>
+        <item>
+            <resourceId>i-1e5918ae</resourceId>
+            <resourceType>instance</resourceType>
+            <key>aws:autoscaling:groupName</key>
+            <value>leapingFrog-WorkerAutoScaling-3RH8ZMTV72UI</value>
+        </item>
+        <item>
+            <resourceId>i-1e5918ae</resourceId>
+            <resourceType>instance</resourceType>
+            <key>aws:cloudformation:logical-id</key>
+            <value>WorkerAutoScaling</value>
+        </item>
+        <item>
+            <resourceId>i-1e5918ae</resourceId>
+            <resourceType>instance</resourceType>
+            <key>aws:cloudformation:stack-id</key>
+            <value>arn:aws:cloudformation:us-east-1:968994658855:stack/leapingFrog/44d814f0-8e5e-11e5-bd51-50e2416294a8</value>
+        </item>
+        <item>
+            <resourceId>i-1e5918ae</resourceId>
+            <resourceType>instance</resourceType>
+            <key>aws:cloudformation:stack-name</key>
+            <value>leapingFrog</value>
+        </item>
+        <item>
+            <resourceId>i-1e5918ae</resourceId>
+            <resourceType>instance</resourceType>
+            <key>role</key>
+            <value>Worker</value>
+        </item>
+        <item>
+            <resourceId>i-212d6391</resourceId>
+            <resourceType>instance</resourceType>
+            <key>DynamoDBTableARN</key>
+            <value>arn:aws:dynamodb:us-east-1:968994658855:table/Jobs</value>
+        </item>
+        <item>
+            <resourceId>i-212d6391</resourceId>
+            <resourceType>instance</resourceType>
+            <key>DynamoDBTableName</key>
+            <value>Jobs</value>
+        </item>
+        <item>
+            <resourceId>i-212d6391</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsQueueArn</key>
+            <value>arn:aws:sqs:us-east-1:968994658855:leapingFrog-JobsQueue-L3GJSZU9XGLD</value>
+        </item>
+        <item>
+            <resourceId>i-212d6391</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsQueueName</key>
+            <value>leapingFrog-JobsQueue-L3GJSZU9XGLD</value>
+        </item>
+        <item>
+            <resourceId>i-212d6391</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsSNSTopicARN</key>
+            <value>arn:aws:sns:us-east-1:968994658855:leapingFrog-JobsSNS-1BYAHAI4BPFU1</value>
+        </item>
+        <item>
+            <resourceId>i-212d6391</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsSNSTopicName</key>
+            <value>leapingFrog-JobsSNS-1BYAHAI4BPFU1</value>
+        </item>
+        <item>
+            <resourceId>i-212d6391</resourceId>
+            <resourceType>instance</resourceType>
+            <key>Name</key>
+            <value>Worker</value>
+        </item>
+        <item>
+            <resourceId>i-212d6391</resourceId>
+            <resourceType>instance</resourceType>
+            <key>aws:autoscaling:groupName</key>
+            <value>leapingFrog-WorkerAutoScaling-3RH8ZMTV72UI</value>
+        </item>
+        <item>
+            <resourceId>i-212d6391</resourceId>
+            <resourceType>instance</resourceType>
+            <key>aws:cloudformation:logical-id</key>
+            <value>WorkerAutoScaling</value>
+        </item>
+        <item>
+            <resourceId>i-212d6391</resourceId>
+            <resourceType>instance</resourceType>
+            <key>aws:cloudformation:stack-id</key>
+            <value>arn:aws:cloudformation:us-east-1:968994658855:stack/leapingFrog/44d814f0-8e5e-11e5-bd51-50e2416294a8</value>
+        </item>
+        <item>
+            <resourceId>i-212d6391</resourceId>
+            <resourceType>instance</resourceType>
+            <key>aws:cloudformation:stack-name</key>
+            <value>leapingFrog</value>
+        </item>
+        <item>
+            <resourceId>i-212d6391</resourceId>
+            <resourceType>instance</resourceType>
+            <key>role</key>
+            <value>Worker</value>
+        </item>
+        <item>
+            <resourceId>i-5d1759ed</resourceId>
+            <resourceType>instance</resourceType>
+            <key>DynamoDBTableARN</key>
+            <value>arn:aws:dynamodb:us-east-1:968994658855:table/Jobs</value>
+        </item>
+        <item>
+            <resourceId>i-5d1759ed</resourceId>
+            <resourceType>instance</resourceType>
+            <key>DynamoDBTableName</key>
+            <value>Jobs</value>
+        </item>
+        <item>
+            <resourceId>i-5d1759ed</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsQueueArn</key>
+            <value>arn:aws:sqs:us-east-1:968994658855:leapingFrog-JobsQueue-L3GJSZU9XGLD</value>
+        </item>
+        <item>
+            <resourceId>i-5d1759ed</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsQueueName</key>
+            <value>leapingFrog-JobsQueue-L3GJSZU9XGLD</value>
+        </item>
+        <item>
+            <resourceId>i-5d1759ed</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsSNSTopicARN</key>
+            <value>arn:aws:sns:us-east-1:968994658855:leapingFrog-JobsSNS-1BYAHAI4BPFU1</value>
+        </item>
+        <item>
+            <resourceId>i-5d1759ed</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsSNSTopicName</key>
+            <value>leapingFrog-JobsSNS-1BYAHAI4BPFU1</value>
+        </item>
+        <item>
+            <resourceId>i-5d1759ed</resourceId>
+            <resourceType>instance</resourceType>
+            <key>Name</key>
+            <value>Worker</value>
+        </item>
+        <item>
+            <resourceId>i-5d1759ed</resourceId>
+            <resourceType>instance</resourceType>
+            <key>aws:autoscaling:groupName</key>
+            <value>leapingFrog-WorkerAutoScaling-3RH8ZMTV72UI</value>
+        </item>
+        <item>
+            <resourceId>i-5d1759ed</resourceId>
+            <resourceType>instance</resourceType>
+            <key>aws:cloudformation:logical-id</key>
+            <value>WorkerAutoScaling</value>
+        </item>
+        <item>
+            <resourceId>i-5d1759ed</resourceId>
+            <resourceType>instance</resourceType>
+            <key>aws:cloudformation:stack-id</key>
+            <value>arn:aws:cloudformation:us-east-1:968994658855:stack/leapingFrog/44d814f0-8e5e-11e5-bd51-50e2416294a8</value>
+        </item>
+        <item>
+            <resourceId>i-5d1759ed</resourceId>
+            <resourceType>instance</resourceType>
+            <key>aws:cloudformation:stack-name</key>
+            <value>leapingFrog</value>
+        </item>
+        <item>
+            <resourceId>i-5d1759ed</resourceId>
+            <resourceType>instance</resourceType>
+            <key>role</key>
+            <value>Worker</value>
+        </item>
+        <item>
+            <resourceId>i-84115f34</resourceId>
+            <resourceType>instance</resourceType>
+            <key>DynamoDBTableARN</key>
+            <value>arn:aws:dynamodb:us-east-1:968994658855:table/Jobs</value>
+        </item>
+        <item>
+            <resourceId>i-84115f34</resourceId>
+            <resourceType>instance</resourceType>
+            <key>DynamoDBTableName</key>
+            <value>Jobs</value>
+        </item>
+        <item>
+            <resourceId>i-84115f34</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsQueueArn</key>
+            <value>arn:aws:sqs:us-east-1:968994658855:leapingFrog-JobsQueue-L3GJSZU9XGLD</value>
+        </item>
+        <item>
+            <resourceId>i-84115f34</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsQueueName</key>
+            <value>leapingFrog-JobsQueue-L3GJSZU9XGLD</value>
+        </item>
+        <item>
+            <resourceId>i-84115f34</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsSNSTopicARN</key>
+            <value>arn:aws:sns:us-east-1:968994658855:leapingFrog-JobsSNS-1BYAHAI4BPFU1</value>
+        </item>
+        <item>
+            <resourceId>i-84115f34</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsSNSTopicName</key>
+            <value>leapingFrog-JobsSNS-1BYAHAI4BPFU1</value>
+        </item>
+        <item>
+            <resourceId>i-84115f34</resourceId>
+            <resourceType>instance</resourceType>
+            <key>Name</key>
+            <value>Worker</value>
+        </item>
+        <item>
+            <resourceId>i-84115f34</resourceId>
+            <resourceType>instance</resourceType>
+            <key>aws:autoscaling:groupName</key>
+            <value>leapingFrog-WorkerAutoScaling-3RH8ZMTV72UI</value>
+        </item>
+        <item>
+            <resourceId>i-84115f34</resourceId>
+            <resourceType>instance</resourceType>
+            <key>aws:cloudformation:logical-id</key>
+            <value>WorkerAutoScaling</value>
+        </item>
+        <item>
+            <resourceId>i-84115f34</resourceId>
+            <resourceType>instance</resourceType>
+            <key>aws:cloudformation:stack-id</key>
+            <value>arn:aws:cloudformation:us-east-1:968994658855:stack/leapingFrog/44d814f0-8e5e-11e5-bd51-50e2416294a8</value>
+        </item>
+        <item>
+            <resourceId>i-84115f34</resourceId>
+            <resourceType>instance</resourceType>
+            <key>aws:cloudformation:stack-name</key>
+            <value>leapingFrog</value>
+        </item>
+        <item>
+            <resourceId>i-84115f34</resourceId>
+            <resourceType>instance</resourceType>
+            <key>role</key>
+            <value>Worker</value>
+        </item>
+        <item>
+            <resourceId>i-ac2c621c</resourceId>
+            <resourceType>instance</resourceType>
+            <key>DynamoDBTableARN</key>
+            <value>arn:aws:dynamodb:us-east-1:968994658855:table/Jobs</value>
+        </item>
+        <item>
+            <resourceId>i-ac2c621c</resourceId>
+            <resourceType>instance</resourceType>
+            <key>DynamoDBTableName</key>
+            <value>Jobs</value>
+        </item>
+        <item>
+            <resourceId>i-ac2c621c</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsQueueArn</key>
+            <value>arn:aws:sqs:us-east-1:968994658855:leapingFrog-JobsQueue-L3GJSZU9XGLD</value>
+        </item>
+        <item>
+            <resourceId>i-ac2c621c</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsQueueName</key>
+            <value>leapingFrog-JobsQueue-L3GJSZU9XGLD</value>
+        </item>
+        <item>
+            <resourceId>i-ac2c621c</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsSNSTopicARN</key>
+            <value>arn:aws:sns:us-east-1:968994658855:leapingFrog-JobsSNS-1BYAHAI4BPFU1</value>
+        </item>
+        <item>
+            <resourceId>i-ac2c621c</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsSNSTopicName</key>
+            <value>leapingFrog-JobsSNS-1BYAHAI4BPFU1</value>
+        </item>
+        <item>
+            <resourceId>i-ac2c621c</resourceId>
+            <resourceType>instance</resourceType>
+            <key>Name</key>
+            <value>Worker</value>
+        </item>
+        <item>
+            <resourceId>i-ac2c621c</resourceId>
+            <resourceType>instance</resourceType>
+            <key>aws:autoscaling:groupName</key>
+            <value>leapingFrog-WorkerAutoScaling-3RH8ZMTV72UI</value>
+        </item>
+        <item>
+            <resourceId>i-ac2c621c</resourceId>
+            <resourceType>instance</resourceType>
+            <key>aws:cloudformation:logical-id</key>
+            <value>WorkerAutoScaling</value>
+        </item>
+        <item>
+            <resourceId>i-ac2c621c</resourceId>
+            <resourceType>instance</resourceType>
+            <key>aws:cloudformation:stack-id</key>
+            <value>arn:aws:cloudformation:us-east-1:968994658855:stack/leapingFrog/44d814f0-8e5e-11e5-bd51-50e2416294a8</value>
+        </item>
+        <item>
+            <resourceId>i-ac2c621c</resourceId>
+            <resourceType>instance</resourceType>
+            <key>aws:cloudformation:stack-name</key>
+            <value>leapingFrog</value>
+        </item>
+        <item>
+            <resourceId>i-ac2c621c</resourceId>
+            <resourceType>instance</resourceType>
+            <key>role</key>
+            <value>Worker</value>
+        </item>
+        <item>
+            <resourceId>i-c5fd7275</resourceId>
+            <resourceType>instance</resourceType>
+            <key>DynamoDBTableARN</key>
+            <value>arn:aws:dynamodb:us-east-1:968994658855:table/Jobs</value>
+        </item>
+        <item>
+            <resourceId>i-c5fd7275</resourceId>
+            <resourceType>instance</resourceType>
+            <key>DynamoDBTableName</key>
+            <value>Jobs</value>
+        </item>
+        <item>
+            <resourceId>i-c5fd7275</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsQueueArn</key>
+            <value>arn:aws:sqs:us-east-1:968994658855:leapingFrog-JobsQueue-L3GJSZU9XGLD</value>
+        </item>
+        <item>
+            <resourceId>i-c5fd7275</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsQueueName</key>
+            <value>leapingFrog-JobsQueue-L3GJSZU9XGLD</value>
+        </item>
+        <item>
+            <resourceId>i-c5fd7275</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsSNSTopicARN</key>
+            <value>arn:aws:sns:us-east-1:968994658855:leapingFrog-JobsSNS-1BYAHAI4BPFU1</value>
+        </item>
+        <item>
+            <resourceId>i-c5fd7275</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsSNSTopicName</key>
+            <value>leapingFrog-JobsSNS-1BYAHAI4BPFU1</value>
+        </item>
+        <item>
+            <resourceId>i-c5fd7275</resourceId>
+            <resourceType>instance</resourceType>
+            <key>Name</key>
+            <value>Worker</value>
+        </item>
+        <item>
+            <resourceId>i-c5fd7275</resourceId>
+            <resourceType>instance</resourceType>
+            <key>aws:cloudformation:logical-id</key>
+            <value>TestInstance</value>
+        </item>
+        <item>
+            <resourceId>i-c5fd7275</resourceId>
+            <resourceType>instance</resourceType>
+            <key>aws:cloudformation:stack-id</key>
+            <value>arn:aws:cloudformation:us-east-1:968994658855:stack/leapingFrog/44d814f0-8e5e-11e5-bd51-50e2416294a8</value>
+        </item>
+        <item>
+            <resourceId>i-c5fd7275</resourceId>
+            <resourceType>instance</resourceType>
+            <key>aws:cloudformation:stack-name</key>
+            <value>leapingFrog</value>
+        </item>
+        <item>
+            <resourceId>i-c5fd7275</resourceId>
+            <resourceType>instance</resourceType>
+            <key>role</key>
+            <value>Worker</value>
+        </item>
+        <item>
+            <resourceId>i-ccb52c7c</resourceId>
+            <resourceType>instance</resourceType>
+            <key>DynamoDBTableARN</key>
+            <value>arn:aws:dynamodb:us-east-1:968994658855:table/Jobs</value>
+        </item>
+        <item>
+            <resourceId>i-ccb52c7c</resourceId>
+            <resourceType>instance</resourceType>
+            <key>DynamoDBTableName</key>
+            <value>Jobs</value>
+        </item>
+        <item>
+            <resourceId>i-ccb52c7c</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsQueueName</key>
+            <value>leapingFrog-JobsQueue-L3GJSZU9XGLD</value>
+        </item>
+        <item>
+            <resourceId>i-ccb52c7c</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsSNSTopicARN</key>
+            <value>arn:aws:sns:us-east-1:968994658855:leapingFrog-JobsSNS-1BYAHAI4BPFU1</value>
+        </item>
+        <item>
+            <resourceId>i-ccb52c7c</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsSNSTopicName</key>
+            <value>leapingFrog-JobsSNS-1BYAHAI4BPFU1</value>
+        </item>
+        <item>
+            <resourceId>i-ccb52c7c</resourceId>
+            <resourceType>instance</resourceType>
+            <key>Name</key>
+            <value>WebServer</value>
+        </item>
+        <item>
+            <resourceId>i-ccb52c7c</resourceId>
+            <resourceType>instance</resourceType>
+            <key>Owner</key>
+            <value>Yadu</value>
+        </item>
+        <item>
+            <resourceId>i-ccb52c7c</resourceId>
+            <resourceType>instance</resourceType>
+            <key>role</key>
+            <value>Server</value>
+        </item>
+        <item>
+            <resourceId>i-de105e6e</resourceId>
+            <resourceType>instance</resourceType>
+            <key>DynamoDBTableARN</key>
+            <value>arn:aws:dynamodb:us-east-1:968994658855:table/Jobs</value>
+        </item>
+        <item>
+            <resourceId>i-de105e6e</resourceId>
+            <resourceType>instance</resourceType>
+            <key>DynamoDBTableName</key>
+            <value>Jobs</value>
+        </item>
+        <item>
+            <resourceId>i-de105e6e</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsQueueArn</key>
+            <value>arn:aws:sqs:us-east-1:968994658855:leapingFrog-JobsQueue-L3GJSZU9XGLD</value>
+        </item>
+        <item>
+            <resourceId>i-de105e6e</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsQueueName</key>
+            <value>leapingFrog-JobsQueue-L3GJSZU9XGLD</value>
+        </item>
+        <item>
+            <resourceId>i-de105e6e</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsSNSTopicARN</key>
+            <value>arn:aws:sns:us-east-1:968994658855:leapingFrog-JobsSNS-1BYAHAI4BPFU1</value>
+        </item>
+        <item>
+            <resourceId>i-de105e6e</resourceId>
+            <resourceType>instance</resourceType>
+            <key>JobsSNSTopicName</key>
+            <value>leapingFrog-JobsSNS-1BYAHAI4BPFU1</value>
+        </item>
+        <item>
+            <resourceId>i-de105e6e</resourceId>
+            <resourceType>instance</resourceType>
+            <key>Name</key>
+            <value>Worker</value>
+        </item>
+        <item>
+            <resourceId>i-de105e6e</resourceId>
+            <resourceType>instance</resourceType>
+            <key>aws:autoscaling:groupName</key>
+            <value>leapingFrog-WorkerAutoScaling-3RH8ZMTV72UI</value>
+        </item>
+        <item>
+            <resourceId>i-de105e6e</resourceId>
+            <resourceType>instance</resourceType>
+            <key>aws:cloudformation:logical-id</key>
+            <value>WorkerAutoScaling</value>
+        </item>
+        <item>
+            <resourceId>i-de105e6e</resourceId>
+            <resourceType>instance</resourceType>
+            <key>aws:cloudformation:stack-id</key>
+            <value>arn:aws:cloudformation:us-east-1:968994658855:stack/leapingFrog/44d814f0-8e5e-11e5-bd51-50e2416294a8</value>
+        </item>
+        <item>
+            <resourceId>i-de105e6e</resourceId>
+            <resourceType>instance</resourceType>
+            <key>aws:cloudformation:stack-name</key>
+            <value>leapingFrog</value>
+        </item>
+        <item>
+            <resourceId>i-de105e6e</resourceId>
+            <resourceType>instance</resourceType>
+            <key>role</key>
+            <value>Worker</value>
+        </item>
+        <item>
+            <resourceId>igw-76cdd313</resourceId>
+            <resourceType>internet-gateway</resourceType>
+            <key>Name</key>
+            <value>TestGateway</value>
+        </item>
+        <item>
+            <resourceId>igw-76cdd313</resourceId>
+            <resourceType>internet-gateway</resourceType>
+            <key>aws:cloudformation:logical-id</key>
+            <value>TestIGW</value>
+        </item>
+        <item>
+            <resourceId>igw-76cdd313</resourceId>
+            <resourceType>internet-gateway</resourceType>
+            <key>aws:cloudformation:stack-id</key>
+            <value>arn:aws:cloudformation:us-east-1:968994658855:stack/leapingFrog/44d814f0-8e5e-11e5-bd51-50e2416294a8</value>
+        </item>
+        <item>
+            <resourceId>igw-76cdd313</resourceId>
+            <resourceType>internet-gateway</resourceType>
+            <key>aws:cloudformation:stack-name</key>
+            <value>leapingFrog</value>
+        </item>
+        <item>
+            <resourceId>igw-8c88cde9</resourceId>
+            <resourceType>internet-gateway</resourceType>
+            <key>Name</key>
+            <value>swift_vpc</value>
+        </item>
+        <item>
+            <resourceId>subnet-29204d02</resourceId>
+            <resourceType>subnet</resourceType>
+            <key>Name</key>
+            <value>service-subnet</value>
+        </item>
+        <item>
+            <resourceId>subnet-2a204d01</resourceId>
+            <resourceType>subnet</resourceType>
+            <key>Name</key>
+            <value>worker-subnet</value>
+        </item>
+        <item>
+            <resourceId>subnet-f59485ac</resourceId>
+            <resourceType>subnet</resourceType>
+            <key>Name</key>
+            <value>PublicSubnet</value>
+        </item>
+        <item>
+            <resourceId>subnet-f59485ac</resourceId>
+            <resourceType>subnet</resourceType>
+            <key>aws:cloudformation:logical-id</key>
+            <value>PublicSubnet</value>
+        </item>
+        <item>
+            <resourceId>subnet-f59485ac</resourceId>
+            <resourceType>subnet</resourceType>
+            <key>aws:cloudformation:stack-id</key>
+            <value>arn:aws:cloudformation:us-east-1:968994658855:stack/leapingFrog/44d814f0-8e5e-11e5-bd51-50e2416294a8</value>
+        </item>
+        <item>
+            <resourceId>subnet-f59485ac</resourceId>
+            <resourceType>subnet</resourceType>
+            <key>aws:cloudformation:stack-name</key>
+            <value>leapingFrog</value>
+        </item>
+        <item>
+            <resourceId>sg-9fe693f9</resourceId>
+            <resourceType>security-group</resourceType>
+            <key>aws:cloudformation:logical-id</key>
+            <value>PubSec</value>
+        </item>
+        <item>
+            <resourceId>sg-9fe693f9</resourceId>
+            <resourceType>security-group</resourceType>
+            <key>aws:cloudformation:stack-id</key>
+            <value>arn:aws:cloudformation:us-east-1:968994658855:stack/leapingFrog/44d814f0-8e5e-11e5-bd51-50e2416294a8</value>
+        </item>
+        <item>
+            <resourceId>sg-9fe693f9</resourceId>
+            <resourceType>security-group</resourceType>
+            <key>aws:cloudformation:stack-name</key>
+            <value>leapingFrog</value>
+        </item>
+        <item>
+            <resourceId>rtb-a7a9dbc3</resourceId>
+            <resourceType>route-table</resourceType>
+            <key>aws:cloudformation:logical-id</key>
+            <value>RouteTable</value>
+        </item>
+        <item>
+            <resourceId>rtb-a7a9dbc3</resourceId>
+            <resourceType>route-table</resourceType>
+            <key>aws:cloudformation:stack-id</key>
+            <value>arn:aws:cloudformation:us-east-1:968994658855:stack/leapingFrog/44d814f0-8e5e-11e5-bd51-50e2416294a8</value>
+        </item>
+        <item>
+            <resourceId>rtb-a7a9dbc3</resourceId>
+            <resourceType>route-table</resourceType>
+            <key>aws:cloudformation:stack-name</key>
+            <value>leapingFrog</value>
+        </item>
+        <item>
+            <resourceId>rtb-c28f67a6</resourceId>
+            <resourceType>route-table</resourceType>
+            <key>Name</key>
+            <value>Swift_route_table</value>
+        </item>
+        <item>
+            <resourceId>vpc-084c436d</resourceId>
+            <resourceType>vpc</resourceType>
+            <key>Name</key>
+            <value>swift_vpc</value>
+        </item>
+        <item>
+            <resourceId>vpc-6b786909</resourceId>
+            <resourceType>vpc</resourceType>
+            <key>Name</key>
+            <value>DefaultVPC</value>
+        </item>
+        <item>
+            <resourceId>vpc-d624a5b2</resourceId>
+            <resourceType>vpc</resourceType>
+            <key>Name</key>
+            <value>TestVPC</value>
+        </item>
+        <item>
+            <resourceId>vpc-d624a5b2</resourceId>
+            <resourceType>vpc</resourceType>
+            <key>aws:cloudformation:logical-id</key>
+            <value>VPC</value>
+        </item>
+        <item>
+            <resourceId>vpc-d624a5b2</resourceId>
+            <resourceType>vpc</resourceType>
+            <key>aws:cloudformation:stack-id</key>
+            <value>arn:aws:cloudformation:us-east-1:968994658855:stack/leapingFrog/44d814f0-8e5e-11e5-bd51-50e2416294a8</value>
+        </item>
+        <item>
+            <resourceId>vpc-d624a5b2</resourceId>
+            <resourceType>vpc</resourceType>
+            <key>aws:cloudformation:stack-name</key>
+            <value>leapingFrog</value>
+        </item>
+    </tagSet>
+</DescribeTagsResponse>
+12-02 22:42 root         DEBUG    [TAGS] JobsSNSTopicName : leapingFrog-JobsSNS-1BYAHAI4BPFU1
+12-02 22:42 root         DEBUG    [TAGS] Name : TestVPC
+12-02 22:42 root         DEBUG    [TAGS] aws:cloudformation:logical-id : VPC
+12-02 22:42 root         DEBUG    [TAGS] aws:cloudformation:stack-id : arn:aws:cloudformation:us-east-1:968994658855:stack/leapingFrog/44d814f0-8e5e-11e5-bd51-50e2416294a8
+12-02 22:42 root         DEBUG    [TAGS] JobsSNSTopicARN : arn:aws:sns:us-east-1:968994658855:leapingFrog-JobsSNS-1BYAHAI4BPFU1
+12-02 22:42 root         DEBUG    [TAGS] DynamoDBTableName : Jobs
+12-02 22:42 root         DEBUG    [TAGS] DynamoDBTableARN : arn:aws:dynamodb:us-east-1:968994658855:table/Jobs
+12-02 22:42 root         DEBUG    [TAGS] aws:cloudformation:stack-name : leapingFrog
+12-02 22:42 root         DEBUG    [TAGS] role : Worker
+12-02 22:42 root         DEBUG    [TAGS] aws:autoscaling:groupName : leapingFrog-WorkerAutoScaling-3RH8ZMTV72UI
+12-02 22:42 root         DEBUG    [TAGS] Owner : Yadu
+12-02 22:42 root         DEBUG    [TAGS] JobsQueueName : leapingFrog-JobsQueue-L3GJSZU9XGLD
+12-02 22:42 root         DEBUG    [TAGS] JobsQueueArn : arn:aws:sqs:us-east-1:968994658855:leapingFrog-JobsQueue-L3GJSZU9XGLD
+12-02 22:42 boto         DEBUG    Using access key provided by client.
+12-02 22:42 boto         DEBUG    Using secret key provided by client.
+12-02 22:42 boto         DEBUG    Using security token provided by client.
+12-02 22:42 boto         DEBUG    Using access key provided by client.
+12-02 22:42 boto         DEBUG    Using secret key provided by client.
+12-02 22:42 boto         DEBUG    Using security token provided by client.
+12-02 22:42 boto         DEBUG    Using access key provided by client.
+12-02 22:42 boto         DEBUG    Using secret key provided by client.
+12-02 22:42 boto         DEBUG    Using security token provided by client.
+12-02 22:42 boto         DEBUG    Using access key provided by client.
+12-02 22:42 boto         DEBUG    Using secret key provided by client.
+12-02 22:42 boto         DEBUG    Using security token provided by client.

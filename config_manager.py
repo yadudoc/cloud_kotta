@@ -17,6 +17,7 @@ import boto.dynamodb2 as ddb
 import boto.ec2
 import boto.sqs
 import boto.sns
+import boto.ses
 from bottle import app
 from boto.s3.connection import S3Connection
 
@@ -67,6 +68,45 @@ def update_creds_from_metadata_server(app):
     return True
 
 
+def send_success_email(data, app):
+    sesconn     =  app.config['ses.conn'] 
+    job_id      =  data.get('job_id')
+    rec_email   =  data.get('user_email')
+    rec_name    =  data.get('username')
+    src_email   =  app.config['ses.email_sender']
+
+    body = template('./templates/completion_email.tpl',
+                    username=rec_name,
+                    job_id=job_id,
+                    url)
+
+    print body
+    st = sesconn.send_email(src_email,
+                            "[JES] Your Job has completed",
+                            body,
+                            [rec_email])
+    return st
+
+def send_failure_email(data, app):
+    sesconn     =  app.config['ses.conn'] 
+    job_id      =  data.get('job_id')
+    rec_email   =  data.get('user_email')
+    rec_name    =  data.get('username')
+    src_email   =  app.config['ses.email_sender']
+
+    body = template('./templates/failure_email.tpl',
+                    username=rec_name,
+                    job_id=job_id,
+                    url)
+
+    print body
+    st = sesconn.send_email(src_email,
+                            "[JES] Your Job has failed",
+                            body,
+                            [rec_email])
+    return st
+
+
 def init(app):
 
     ec2  = boto.ec2.connect_to_region(app.config["identity"]['region'],
@@ -94,6 +134,11 @@ def init(app):
                                       aws_secret_access_key=app.config['keys.key_secret'],
                                       security_token=app.config['keys.key_token'])
 
+    ses  = boto.ses.connect_to_region(app.config["identity"]['region'],
+                                      aws_access_key_id=app.config['keys.key_id'],
+                                      aws_secret_access_key=app.config['keys.key_secret'],
+                                      security_token=app.config['keys.key_token'])
+
     s3   = S3Connection(aws_access_key_id=app.config['keys.key_id'], 
                         aws_secret_access_key=app.config['keys.key_secret'], 
                         security_token=app.config['keys.key_token'])
@@ -108,6 +153,7 @@ def init(app):
     app.config["ec2.conn"]  = ec2
     app.config["sns.conn"]  = sns
     app.config["sqs.conn"]  = sqs
+    app.config["ses.conn"]  = ses
     app.config["s3.conn"]   = s3
     app.config["dyno.conn"] = dyno
 
