@@ -7,10 +7,11 @@ import pipeline2 as d2v
 def bash_executor(jobtype, job_id, inputs, outputs):
     return "Done"
 
-
 # Job Definitions
-JOBS = { "doc2vec" : d2v.pipeline,
-         "bash"    : bash_executor }
+JOBS = { "doc_to_vec" : d2v.pipeline,
+         "generic"    : bash_executor,
+         "python"     : python_executor,
+         "experimental": experimental }
 
 def test():
     uid="fasdsadsa"

@@ -31,11 +31,13 @@ def download_s3_keys(s3conn, bucket_name, prefix, target):
     return key
 
 
-def signed_url_generate(s3conn, bucket_name, prefix, duration):
+def generate_signed_url(s3conn, bucket_name, prefix, duration):
     bucket  = s3conn.get_bucket(bucket_name, validate=False)
     key     = bucket.get_key(prefix)
-    url     = key.generate_url(duration, method='GET')
-    return url
+    if key:
+        return key.generate_url(duration, method='GET')
+    else:
+        return None
 
 def test():
     import config_manager as cm
