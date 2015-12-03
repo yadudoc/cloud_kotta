@@ -174,7 +174,7 @@ def task_loop(app):
          print "{0}: Waiting for job description".format(time.time())
          logging.debug("{0}: Waiting for job description".format(time.time()))
 
-      conf_man.refresh_tokens(app)
+      conf_man.update_creds_from_metadata_server(app)
 
 
 if __name__ == "__main__":
