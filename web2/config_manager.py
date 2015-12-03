@@ -19,6 +19,9 @@ import boto.sqs
 import boto.sns
 from bottle import app
 from boto.s3.connection import S3Connection
+from datetime import datetime
+from datetime import date
+from dateutil.relativedelta import relativedelta
 
 
 log_levels = { "DEBUG"   : logging.DEBUG,
@@ -34,9 +37,10 @@ def update_creds_from_metadata_server(app):
     #Todo error check for timeout errors from http access
     #TOdo error catch for json decode failure
     
-    if "keys.expiry" in app.config and app.config["keys.expiry"] < time.time():
+    if "keys.expiry" in app.config and app.config["keys.expiry"] > (datetime.now() + relativedelta(hours=1)):
         logging.debug("Update creds from metadata cancelled {0} < {1}".format(
-            app.config["keys.expiry"], time.time()))
+            app.config["keys.expiry"], 
+            datetime.now()))
         return False
 
     URL  = app.config["metadata.credurl"]
@@ -44,7 +48,7 @@ def update_creds_from_metadata_server(app):
     URL  = URL + role
     data = requests.get(URL).json()
 
-    app.config["keys.expiry"]     = time.strptime(str(data['Expiration']), '%Y-%m-%dT%H:%M:%SZ')
+    app.config["keys.expiry"]     = datetime.strptime(str(data['Expiration']), '%Y-%m-%dT%H:%M:%SZ')
     app.config["keys.key_id"]     = str(data['AccessKeyId'])
     app.config["keys.key_secret"] = str(data['SecretAccessKey'])
     app.config["keys.key_token"]  = str(data['Token'])
