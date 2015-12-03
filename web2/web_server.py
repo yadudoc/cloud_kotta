@@ -14,6 +14,7 @@ import uuid
 import base64, hmac, sha
 import urllib
 import sys
+from datetime import datetime
 
 import boto
 import boto.ec2
@@ -108,14 +109,14 @@ def submit_job():
     uid = str(uuid.uuid1())
     data = {"job_id"           : uid,
             "username"         : username,
-            "email"            : email,
-            "jobtype"          : "doc2vec",
+            "user_email"       : email,
+            "jobtype"          : "doc_to_vec",
             "inputs"           : [{"src": input_url, "dest": input_url.split('/')[-1] }],
             "outputs"          : [{"src": "doc_mat.pkl",  "dest": "klab-jobs/outputs/{0}/doc_mat.pkl".format(uid)},
                                   {"src": "word_mat.pkl", "dest": "klab-jobs/outputs/{0}/word_mat.pkl".format(uid)},
                                   {"src": "mdl.pkl",      "dest": "klab-jobs/outputs/{0}/mdl.pkl".format(uid)}],
             "submit_time"      : int(time.time()),
-            "submit_stamp"     : str(datetime.datetime.utcnow()),
+            "submit_stamp"     : str(time.strftime('%Y-%m-%d %H:%M:%S')),
             "status"           : "pending"
     }
 
@@ -144,11 +145,10 @@ def list_jobs():
                str(r["submit_stamp"]), str(r["username"])]
         table_tpl.append(row)
 
-    print table_tpl
-
+    table = sorted(table_tpl, key=lambda row: datetime.strptime(row[2], '%Y-%m-%d %H:%M:%S'))
     return template("./views/jobs.tpl",
                     title="Task Status",
-                    table=table_tpl)
+                    table=table)
 
     #return template(request.app.config['web.templates'] + "/home.tpl")
 
