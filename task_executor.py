@@ -165,9 +165,9 @@ def task_loop(app):
                                     outputs)
 
             if status == True:
-               conf_man.send_success_email(data, app)
+               conf_man.send_success_mail(data, app)
             else:
-               conf_man.send_failure_email(data, app)
+               conf_man.send_failure_mail(data, app)
 
             # TODO : CLeanup
             print "At deletion : ", msg
