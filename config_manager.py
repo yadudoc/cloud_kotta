@@ -18,7 +18,7 @@ import boto.ec2
 import boto.sqs
 import boto.sns
 import boto.ses
-from bottle import app
+from bottle import app, template
 from boto.s3.connection import S3Connection
 from datetime import datetime
 from datetime import date
@@ -78,39 +78,41 @@ def send_success_mail(data, app):
     rec_email   =  data.get('user_email')
     rec_name    =  data.get('username')
     src_email   =  app.config['ses.email_sender']
+    url         =  app.config['server.url']
 
     body = template('./templates/completion_email.tpl',
                     username=rec_name,
                     job_id=job_id,
-                    url=url}
+                    url=url)
 
-    print body
     st = sesconn.send_email(src_email,
                             "[JES] Your Job has completed",
                             body,
                             [rec_email])
+    print st
     return st
 
 ##################################################################
 # Send condolences for job failure
 ##################################################################
-def send_success_mail(data, app):
+def send_failure_mail(data, app):
     sesconn     =  app.config['ses.conn']
     job_id      =  data.get('job_id')
     rec_email   =  data.get('user_email')
     rec_name    =  data.get('username')
     src_email   =  app.config['ses.email_sender']
+    url         =  app.config['server.url']
 
     body = template('./templates/failure_email.tpl',
                     username=rec_name,
                     job_id=job_id,
-                    url=url}
+                    url=url)
 
-    print body
     st = sesconn.send_email(src_email,
                             "[JES] Your Job has failed",
                             body,
                             [rec_email])
+    print st
     return st
 
 
