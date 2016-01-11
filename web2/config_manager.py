@@ -36,7 +36,9 @@ log_levels = { "DEBUG"   : logging.DEBUG,
 def update_creds_from_metadata_server(app):
     #Todo error check for timeout errors from http access
     #TOdo error catch for json decode failure
-    
+
+    print "Update creds from metadata "
+    logging.debug("Update creds from metadata ")
     if "keys.expiry" in app.config and app.config["keys.expiry"] > (datetime.now() + relativedelta(hours=1)):
         logging.debug("Update creds from metadata cancelled {0} < {1}".format(
             app.config["keys.expiry"], 
