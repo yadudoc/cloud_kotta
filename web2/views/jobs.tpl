@@ -32,5 +32,5 @@
      </table>
      </div>
 </div>
-
+</div>
 %rebase('views/base', title='JES-Jobs')
