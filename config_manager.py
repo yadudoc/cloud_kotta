@@ -17,7 +17,8 @@ import boto.dynamodb2 as ddb
 import boto.ec2
 import boto.sqs
 import boto.sns
-from bottle import app
+import boto.ses
+from bottle import app, template
 from boto.s3.connection import S3Connection
 from datetime import datetime
 from datetime import date
@@ -36,10 +37,10 @@ log_levels = { "DEBUG"   : logging.DEBUG,
 def update_creds_from_metadata_server(app):
     #Todo error check for timeout errors from http access
     #TOdo error catch for json decode failure
-    
+
     if "keys.expiry" in app.config and app.config["keys.expiry"] > (datetime.now() + relativedelta(hours=1)):
         logging.debug("Update creds from metadata cancelled {0} < {1}".format(
-            app.config["keys.expiry"], 
+            app.config["keys.expiry"],
             datetime.now()))
         return False
 
@@ -66,6 +67,53 @@ def update_creds_from_metadata_server(app):
     app.config["identity"] = data
 
     return True
+
+
+##################################################################
+# Annoy human with email
+##################################################################
+def send_success_mail(data, app):
+    sesconn     =  app.config['ses.conn']
+    job_id      =  data.get('job_id')
+    rec_email   =  data.get('user_email')
+    rec_name    =  data.get('username')
+    src_email   =  app.config['ses.email_sender']
+    url         =  app.config['server.url']
+
+    body = template('./templates/completion_email.tpl',
+                    username=rec_name,
+                    job_id=job_id,
+                    url=url)
+
+    st = sesconn.send_email(src_email,
+                            "[JES] Your Job has completed",
+                            body,
+                            [rec_email])
+    print st
+    return st
+
+##################################################################
+# Send condolences for job failure
+##################################################################
+def send_failure_mail(data, app):
+    sesconn     =  app.config['ses.conn']
+    job_id      =  data.get('job_id')
+    rec_email   =  data.get('user_email')
+    rec_name    =  data.get('username')
+    src_email   =  app.config['ses.email_sender']
+    url         =  app.config['server.url']
+
+    body = template('./templates/failure_email.tpl',
+                    username=rec_name,
+                    job_id=job_id,
+                    url=url)
+
+    st = sesconn.send_email(src_email,
+                            "[JES] Your Job has failed",
+                            body,
+                            [rec_email])
+    print st
+    return st
 
 
 def init(app):
@@ -95,20 +143,26 @@ def init(app):
                                       aws_secret_access_key=app.config['keys.key_secret'],
                                       security_token=app.config['keys.key_token'])
 
-    s3   = S3Connection(aws_access_key_id=app.config['keys.key_id'], 
-                        aws_secret_access_key=app.config['keys.key_secret'], 
+    ses  = boto.ses.connect_to_region(app.config["identity"]['region'],
+                                      aws_access_key_id=app.config['keys.key_id'],
+                                      aws_secret_access_key=app.config['keys.key_secret'],
+                                      security_token=app.config['keys.key_token'])
+
+    s3   = S3Connection(aws_access_key_id=app.config['keys.key_id'],
+                        aws_secret_access_key=app.config['keys.key_secret'],
                         security_token=app.config['keys.key_token'])
-    
+
     dyno = Table(app.config['dynamodb.table_name'],
                  schema=[HashKey("job_id")],
                  connection=ddb.connect_to_region(app.config['dynamodb.region'],
-                                                  aws_access_key_id=app.config['keys.key_id'], 
-                                                  aws_secret_access_key=app.config['keys.key_secret'], 
+                                                  aws_access_key_id=app.config['keys.key_id'],
+                                                  aws_secret_access_key=app.config['keys.key_secret'],
                                                   security_token=app.config['keys.key_token']))
 
     app.config["ec2.conn"]  = ec2
     app.config["sns.conn"]  = sns
     app.config["sqs.conn"]  = sqs
+    app.config["ses.conn"]  = ses
     app.config["s3.conn"]   = s3
     app.config["dyno.conn"] = dyno
 
@@ -167,4 +221,3 @@ def load_configs(filename):
 
     init(app)
     return app
-
