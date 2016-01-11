@@ -34,6 +34,8 @@ import sns_sqs
 import dynamo_utils as dutils
 import config_manager as conf_man
 
+JobTypes = ["doc_to_vec", "generic", "experimental"]
+
 ##################################################################
 # This function handles the creation of the encoded signature
 # and policy.
@@ -87,10 +89,12 @@ def url_maker_submit_job():
 ##################################################################################
 @route('/submit/<jobtype>', method='GET', name="submit_job")
 def submit_job(jobtype):
-    if jobtype in ["doc_to_vec", "generic", "experimental"] :    
+    if jobtype in JobTypes :
         t = template("./views/submit_{0}.tpl".format(jobtype),
                      email="",
-                     username="")
+                     username="",
+                     jobtype=jobtype)
+
     else:
         t = template("./views/error.tpl",
                      error_str="{0} is not a valid Job Type",
@@ -104,21 +108,50 @@ def submit_job():
     conf_man.update_creds_from_metadata_server(app)
     username  = request.POST.get('username').strip()
     email     = request.POST.get('email').strip()
-    input_url = request.POST.get('input_url').strip()
+    input_url = request.POST.get('input_url')
+    jobtype   = request.POST.get('jobtype').strip()
+    executable= request.POST.get('executable')
+    args      = request.POST.get('args')
 
     uid = str(uuid.uuid1())
-    data = {"job_id"           : uid,
-            "username"         : username,
-            "user_email"       : email,
-            "jobtype"          : "doc_to_vec",
-            "inputs"           : [{"src": input_url, "dest": input_url.split('/')[-1] }],
-            "outputs"          : [{"src": "doc_mat.pkl",  "dest": "klab-jobs/outputs/{0}/doc_mat.pkl".format(uid)},
-                                  {"src": "word_mat.pkl", "dest": "klab-jobs/outputs/{0}/word_mat.pkl".format(uid)},
-                                  {"src": "mdl.pkl",      "dest": "klab-jobs/outputs/{0}/mdl.pkl".format(uid)}],
-            "submit_time"      : int(time.time()),
-            "submit_stamp"     : str(time.strftime('%Y-%m-%d %H:%M:%S')),
-            "status"           : "pending"
-    }
+
+    if jobtype == "doc_to_vec":        
+        data = {"job_id"           : uid,
+                "username"         : username,
+                "user_email"       : email,
+                "jobtype"          : "doc_to_vec",
+                "inputs"           : [{"src": input_url, "dest": input_url.split('/')[-1] }],
+                "outputs"          : [{"src": "doc_mat.pkl",  "dest": "klab-jobs/outputs/{0}/doc_mat.pkl".format(uid)},
+                                      {"src": "word_mat.pkl", "dest": "klab-jobs/outputs/{0}/word_mat.pkl".format(uid)},
+                                      {"src": "mdl.pkl",      "dest": "klab-jobs/outputs/{0}/mdl.pkl".format(uid)}],
+                "submit_time"      : int(time.time()),
+                "submit_stamp"     : str(time.strftime('%Y-%m-%d %H:%M:%S')),
+                "status"           : "pending"
+            }
+
+    elif jobtype == "generic":
+        data = {"job_id"           : uid,
+                "username"         : username,
+                "user_email"       : email,
+                "jobtype"          : "bash_executor",
+                "inputs"           : [],
+                "outputs"          : [],
+                "submit_time"      : int(time.time()),
+                "submit_stamp"     : str(time.strftime('%Y-%m-%d %H:%M:%S')),
+                "status"           : "pending"
+            }
+
+        for k in request.POST.keys():
+            if k.startswith('input_url'):
+                input_url =  request.POST.get(k)
+                data["inputs"].extend([{"src" : input_url, 
+                                        "dest": input_url.split('/')[-1]}])
+            elif k.startswith('output_file'):
+                output_file = request.POST.get(k)
+                data["outputs"].extend([{"src" : output_file, 
+                                         "dest": "klab-jobs/outputs/{0}/{1}".format(uid, output_file)}])
+        print data
+        
 
     dutils.dynamodb_update(app.config["dyno.conn"], data)
     sns_sqs.publish(app.config["sns.conn"], app.config["instance.tags"]["JobsSNSTopicARN"],
