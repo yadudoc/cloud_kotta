@@ -3,6 +3,15 @@
      <h2>{{title}}</h2>
 </div>
 
+<style>
+      table, th, td {
+      border: 2px solid grey;
+      border-collapse: collapse;
+      }
+      th, td {
+      padding: 15px;
+      }
+</style>
 
 <div id="main">
      <div class="table-responsive">
@@ -24,6 +33,4 @@
      </div>
 </div>
 
-
-</div>
-%rebase('views/base', title='JES - Status')
+%rebase('views/base', title='JES-Jobs')

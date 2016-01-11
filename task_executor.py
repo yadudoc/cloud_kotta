@@ -78,7 +78,7 @@ def update_record(record, key, value):
    record.save(overwrite=True)
    return
 
-def exec_job(app, jobtype, job_id, inputs, outputs):
+def exec_job(app, jobtype, job_id, executable, args, inputs, outputs):
 
    # Save current folder and chdir to a temporary folder
    conf_man.update_creds_from_metadata_server(app)
@@ -104,7 +104,7 @@ def exec_job(app, jobtype, job_id, inputs, outputs):
    print "JOBS : ", apps.JOBS[jobtype]
 
    try:
-      apps.JOBS[jobtype](inputs, outputs)
+      apps.JOBS[jobtype](job_id, executable, args, inputs, outputs)
       conf_man.update_creds_from_metadata_server(app)
 
    except Exception, e:
@@ -146,18 +146,28 @@ def task_loop(app):
 
             data        =  ast.literal_eval(sreq)
             job_id      =  data.get('job_id')
+            jobtype     =  data.get('jobtype')
+            executable  =  data.get('executable')
+            args        =  data.get('args')
             inputs      =  data.get('inputs')
             outputs     =  data.get('outputs')
-            jobtype     =  data.get('jobtype')
+
 
             for key in data:
                print "{0} : {1}".format(key, data[key])
 
-            status      =  exec_job(app, jobtype, job_id, inputs, outputs)
+            status      =  exec_job(app,
+                                    jobtype,
+                                    job_id,
+                                    executable,
+                                    args,
+                                    inputs,
+                                    outputs)
+
             if status == True:
-               conf_man.send_success_email(data, app)
+               conf_man.send_success_mail(data, app)
             else:
-               conf_man.send_failure_email(data, app)
+               conf_man.send_failure_mail(data, app)
 
             # TODO : CLeanup
             print "At deletion : ", msg
