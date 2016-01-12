@@ -152,7 +152,7 @@ def init(app):
                         aws_secret_access_key=app.config['keys.key_secret'],
                         security_token=app.config['keys.key_token'])
 
-    dyno = Table(app.config['dynamodb.table_name'],
+    dyno = Table(app.config["instance.tags"]["DynamoDBTableName"],#app.config['dynamodb.table_name'],                 
                  schema=[HashKey("job_id")],
                  connection=ddb.connect_to_region(app.config['dynamodb.region'],
                                                   aws_access_key_id=app.config['keys.key_id'],
@@ -182,7 +182,7 @@ def connect_to_dynamodb(app):
                                    aws_secret_access_key=app.config['keys.key_secret'],
                                    security_token=app.config['keys.key_token'])
 
-    dyno = Table(app.config['dynamodb.table_name'],
+    dyno = Table(app.config["instance.tags"]["DynamoDBTableName"], #app.config['dynamodb.table_name'],
                  schema=[HashKey("CustomerUUID")],
                  connection=dbconn)
 
