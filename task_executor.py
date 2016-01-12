@@ -206,7 +206,7 @@ if __name__ == "__main__":
                        format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
                        datefmt='%m-%d %H:%M')
 
-   logging.debug("\n{0}\nStarting webserver\n{0}\n".format("*"*50))
+   logging.debug("\n{0}\nStarting task_executor\n{0}\n".format("*"*50))
    app = conf_man.load_configs(args.conffile);
 
    task_loop(app)
