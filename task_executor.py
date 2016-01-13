@@ -54,6 +54,9 @@ class Timer(object):
 
 def get_inputs(app, inputs):
    print "In get_inputs"
+   if not inputs:
+      return
+
    for i in inputs:
       print "Staging_inputs : ", i
       utils.download_file(i["src"], i["dest"])
@@ -62,6 +65,9 @@ def get_inputs(app, inputs):
 
 def put_outputs(app, outputs):
    print "In put_outputs"
+   if not outputs:
+      return
+
    for out in outputs:
       print "Outputs : ", out
       target = out["dest"].split('/', 1)
@@ -144,7 +150,9 @@ def task_loop(app):
             if not sreq :
                continue
 
+            
             data        =  ast.literal_eval(sreq)
+            print "Data : {0}".format(data)
             job_id      =  data.get('job_id')
             jobtype     =  data.get('jobtype')
             executable  =  data.get('executable')
@@ -152,6 +160,7 @@ def task_loop(app):
             inputs      =  data.get('inputs')
             outputs     =  data.get('outputs')
 
+            print "Data : {0}".format(data)
 
             for key in data:
                print "{0} : {1}".format(key, data[key])
@@ -163,6 +172,8 @@ def task_loop(app):
                                     args,
                                     inputs,
                                     outputs)
+
+            print "Status : ", status
 
             if status == True:
                conf_man.send_success_mail(data, app)
