@@ -28,13 +28,14 @@ def submit_task(app, task_desc_file):
                          uid=uid,
                          time=t,
                          tstamp=tstamp)
-
+    print "-"*50
     print task_desc
+    print "-"*50
     data = ast.literal_eval(task_desc)
 
     dutils.dynamodb_update(app.config["dyno.conn"], data)
     sns_sqs.publish(app.config["sns.conn"], app.config["instance.tags"]["JobsSNSTopicARN"],
-                    json.dumps(task_desc))
+                    data)
     return uid
 
 
