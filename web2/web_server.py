@@ -319,7 +319,6 @@ def upload_done():
         }
 
     dynamodb_update(dynotable,  data)
-
     print "Publishing : ", sns_sqs.publish(sns, topic_arn, data)
 
     ##################################################################
