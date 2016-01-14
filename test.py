@@ -13,6 +13,8 @@ import argparse
 import bottle
 from bottle import template
 import ast
+
+
 def update_record(record, key, value):
     record[key] = value
     record.save(overwrite=True)
@@ -38,25 +40,48 @@ def submit_task(app, task_desc_file):
                     data)
     return uid
 
+def debug_print(string):
+    if GLOBAL_VERBOSE :
+        print string
 
 def cancel_task(app, jobid):
-    print "Cancelling task : {0}".format(jobid)
-    #record = dutils.dynamodb_get(app.config["dyno.conn"], jobid)
+    debug_print("Cancelling task : {0}".format(jobid))
 
-    record = dutils.dynamodb_get(app.config["dyno.conn"])
-    print record
+    record = dutils.dynamodb_get(app.config["dyno.conn"], jobid)
+    tstamp = str(time.strftime('%Y-%m-%d %H:%M:%S'))
+
+    update_record(record, "status", "cancelled")
+    update_record(record, "reason", "User request cancel")
+    update_record(record, "cancel_time", tstamp)
+    debug_print ("{0} - {1} - {2}".format(record["job_id"], record["status"], record["reason"]))
+    return True
+
+def status_task(app, jobid):
+    debug_print("Status task : {0}".format(jobid))
+
+    record = dutils.dynamodb_get(app.config["dyno.conn"], jobid)
+    status = {}
+
+    if GLOBAL_VERBOSE:        
+        for item in record.items():
+            print "|{0:10}  | {1:50}".format(item[0], item[1])
+        
+    print record["status"]
+    return record["status"]
     
-    
+GLOBAL_VERBOSE=False
+
 if __name__ == "__main__":
 
     parser   = argparse.ArgumentParser()
     parser.add_argument("-j", "--jobinfo",  help="json job description or jobid", required=True)
     parser.add_argument("-r", "--request",  help="Request type [submit, status, cancel]", required=True)
     parser.add_argument("-c", "--conffile", default="production.conf", help="Config file path. Defaults to ./test.conf")
+    parser.add_argument("-v", "--verbose",  dest='verbose', action='store_true', help="Verbose output")
     args   = parser.parse_args()
 
-    if args.jobinfo :        
-        print args.jobinfo
+    if args.verbose is True:
+        GLOBAL_VERBOSE=True
 
     app = conf_man.load_configs(args.conffile)
 
