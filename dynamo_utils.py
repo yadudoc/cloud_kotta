@@ -6,7 +6,7 @@ from boto.dynamodb2.table import Table
 # Update job information in dynamodb
 ##################################################################
 def dynamodb_update(table, data):
-        print "Updating db with : {0}".format(data)
+        #print "Updating db with : {0}".format(data)
         return table.put_item(data=data, overwrite=True)
 
 ##################################################################
