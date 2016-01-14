@@ -66,6 +66,9 @@ def update_creds_from_metadata_server(app):
     data = requests.get(URL).json()
     app.config["identity"] = data
 
+    if "doReload" in app.config and app.config["doReload"] == True:
+        init(app)
+
     return True
 
 
@@ -165,6 +168,7 @@ def init(app):
     app.config["ses.conn"]  = ses
     app.config["s3.conn"]   = s3
     app.config["dyno.conn"] = dyno
+    app.config["doReload"]  = True
 
     return app
 
