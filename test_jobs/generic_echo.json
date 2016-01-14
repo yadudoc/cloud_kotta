@@ -6,7 +6,7 @@
   "args"            : "\"Hello World\"",
   "outputs"         : [{"src": "STDOUT.txt",  "dest": "klab-jobs/outputs/{{uid}}/STDOUT.txt"},
 		       {"src": "STDERR.txt",  "dest": "klab-jobs/outputs/{{uid}}/STDERR.txt"}],
- "submit_time"      : "{{time}}",
+ "submit_time"      : {{time}},
  "submit_stamp"     : "{{tstamp}}",
  "status"           : "pending"
 }
