@@ -217,7 +217,9 @@ def job_info(job_id):
     pairs = []
     for k in item.keys():
         print "{0} : {1}".format(k, item[k])
-
+        if k.startswith("i_") :
+            continue
+        
         if k in ['submit_time', 'complete_time']:
             pairs.append([k, time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(item[k]))])
         

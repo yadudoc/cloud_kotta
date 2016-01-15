@@ -1,12 +1,14 @@
 {"job_id"           : "{{uid}}",
- "username"         : "yadu",
+ "username"         : "yadu-test",
   "user_email"      : "yadunand@uchicago.edu",
-  "jobtype"         : "doc2vec",
+  "jobtype"         : "doc_to_vec",
   "inputs"          : [{"src": "https://s3.amazonaws.com/klab-jobs/inputs/test.txt", "dest": "test.txt" }],
   "outputs"         : [{"src": "doc_mat.pkl",  "dest": "klab-jobs/outputs/{{uid}}/doc_mat.pkl"},
 		       {"src": "word_mat.pkl", "dest": "klab-jobs/outputs/{{uid}}/word_mat.pkl"},
                        {"src": "mdl.pkl",      "dest": "klab-jobs/outputs/{{uid}}/mdl.pkl"}],
- "submit_time"      : "{{time}}",
+ "submit_time"      : {{time}},
  "submit_stamp"     : "{{tstamp}}",
- "status"           : "pending"
+ "status"           : "pending",
+ "i_role"           : "god_mode",
+ "i_signature"      : "signature"
 }
