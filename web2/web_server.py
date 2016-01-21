@@ -73,7 +73,6 @@ def serve_static(filename):
 def home_page():
     print "Home Page"
     return template("./views/home.tpl")
-    #return template(request.app.config['web.templates'] + "/home.tpl")
 
 ##################################################################################
 # This is only a dummy function for get_url to generate a dynamic route
@@ -390,5 +389,6 @@ if __name__ == "__main__":
    logging.debug("\n{0}\nStarting webserver\n{0}\n".format("*"*50))
    app = conf_man.load_configs(args.conffile);
    SimpleTemplate.defaults['get_url'] = app.get_url
+
 
    run(host='0.0.0.0', port=int(app.config["server.port"]), reloader=True, debug=True)
