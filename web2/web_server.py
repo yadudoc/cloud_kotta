@@ -2,7 +2,7 @@
 # Ref: http://bottlepy.org/docs/dev/tutorial.html
 
 import uuid
-import time, datetime
+import time, datetime, pytz
 import subprocess
 import os
 import glob
@@ -14,7 +14,8 @@ import uuid
 import base64, hmac, sha
 import urllib
 import sys
-from datetime import datetime
+
+#from datetime import datetime
 
 import boto
 import boto.ec2
@@ -40,19 +41,17 @@ JobTypes = ["doc_to_vec", "generic", "experimental"]
 # This function handles the creation of the encoded signature
 # and policy.
 ##################################################################
-def get_signature_and_policy(vals):
-    private_key = str(configs['AWSSecretKey'])
+def get_signature_and_policy(app, vals):
+    private_key = app.config["instance.tags"]["S3UploadKeySecret"]
     input = ''
 
-    with open("policy.txt") as form_file:
+    with open("./views/policy.txt") as form_file:
         input = template(form_file.read(), vals)
 
     policy = input
     #print policy
     policy_encoded = base64.b64encode(policy)
     signature = base64.b64encode(hmac.new(private_key, policy_encoded, sha).digest())
-    #print "Your policy base-64 encoded is %s." % (policy_encoded)
-    #print "Your signature base-64 encoded is %s." % (signature)
     return (policy_encoded, signature)
 
 ###################################################################
@@ -161,7 +160,6 @@ def submit_job():
                     job_id=uid,
                     title="Task Confirmation")
 
-
 #################################################################
 # Print a table form of jobs and statuses
 #################################################################
@@ -257,31 +255,64 @@ def job_info(job_id):
                     log_path="/job_log")
 
 
-    
+###################################################################
+# Generate an expiry time that is N mins ahead of current timestamp
+###################################################################
+def tstamp_plus_nmins(mins):
+    time = datetime.datetime.now(pytz.timezone('GMT')) + datetime.timedelta(minutes=mins)
+    return time.strftime('%Y-%m-%dT%H:%M:%S.000Z')
+ 
+
+##################################################################
+# GET request should get a form to the user
+# A button which would POST a request to upload a file directly
+# to S3
+##################################################################
+@get('/upload_confirm')
+def upload_to_s3():
+    return template("./views/upload_confirm.tpl",
+                    job_id="foo",
+                    title="Turing - Upload Success!")
+
+   
 ##################################################################
 # GET request should get a form to the user
 # A button which would POST a request to upload a file directly
 # to S3
 ##################################################################
 @get('/upload')
-def get_submit():
-
+def upload_to_s3():
+    conf_man.update_creds_from_metadata_server(app)
     job_id   = str(uuid.uuid1())
-    exp_time = tstamp_plus_nmins(10)
-    vals = { "redirect_url" : "http://ec2-52-2-209-210.compute-1.amazonaws.com:8888/upload_done", # "http://ec2-52-0-35-15.compute-1.amazonaws.com:8888/annotator",
-             "aws_key_id"   : configs['AWSAccessKeyId'],
+    exp_time = tstamp_plus_nmins(60)
+
+    vals = { "redirect_url" : "http://{0}:{1}/{2}".format(app.config["server.url"],
+                                                          app.config["server.port"],
+                                                          "upload_confirm"),
+             "aws_key_id"   : app.config["instance.tags"]["S3UploadKeyId"],
              "job_id"       : job_id,
-             "exp_date"     : exp_time, #"20151212T000000Z",
-             "bucket_name"  : "gas-inputs"
+             "exp_date"     : exp_time,
+             "bucket_name"  : "klab-webofscience"
          }
 
-    policy, signature = get_signature_and_policy(vals)
+    policy, signature = get_signature_and_policy(app, vals)
+    
     vals["policy"]    = policy
     vals["signature"] = signature
 
-    form = ''
-    with open("upload.tpl") as form_file:
-        form = template(form_file.read(), vals)
+    return template('./views/upload.tpl',
+                    name            = "",
+                    email           = "", 
+                    username        = "",
+                    redirect_url    = vals["redirect_url"],
+                    title           = "Analyze",
+                    aws_key_id      = vals["aws_key_id"],
+                    exp_date        = vals["exp_date"],
+                    job_id          = vals["job_id"],
+                    bucket_name     = vals["bucket_name"],
+                    policy          = policy,
+                    signature       = signature,
+                    alert=False)
 
     print form
     return form
@@ -360,4 +391,4 @@ if __name__ == "__main__":
    app = conf_man.load_configs(args.conffile);
    SimpleTemplate.defaults['get_url'] = app.get_url
 
-   run(host='0.0.0.0', port=8888, reloader=True, debug=True)
+   run(host='0.0.0.0', port=int(app.config["server.port"]), reloader=True, debug=True)
