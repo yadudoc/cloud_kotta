@@ -5,7 +5,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{title or 'JES'}}</title>
+    <title>{{title or 'Turing'}}</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{get_url('static', filename='img/favicon.ico')}}" />
     <link rel="icon" type="image/x-icon" href="{{get_url('static', filename='img/favicon.ico')}}" />
 
@@ -30,7 +30,7 @@
 	      <span class="icon-bar"></span>
 	      <span class="icon-bar"></span>
 	    </button>
-	    <a class="navbar-brand" href="/">Job Execution Service</a>
+	    <a class="navbar-brand" href="/">Turing</a>
 	  </div>
 	  <div class="collapse navbar-collapse">
 	    <ul class="nav navbar-nav navbar-right">
