@@ -14,7 +14,7 @@ import uuid
 import base64, hmac, sha
 import urllib
 import sys
-
+import cherrypy
 #from datetime import datetime
 
 import boto
@@ -175,7 +175,7 @@ def list_jobs():
                str(r["submit_stamp"]), str(r["username"])]
         table_tpl.append(row)
 
-    table = sorted(table_tpl, key=lambda row: datetime.strptime(row[2], '%Y-%m-%d %H:%M:%S'))
+    table = sorted(table_tpl, key=lambda row: datetime.datetime.strptime(row[2], '%Y-%m-%d %H:%M:%S'))
     return template("./views/jobs.tpl",
                     title="Task Status",
                     table=table)
@@ -313,8 +313,36 @@ def upload_to_s3():
                     signature       = signature,
                     alert=False)
 
-    print form
-    return form
+
+##################################################################
+# GET request should get a form to the user
+# A button which would POST a request to upload a file directly
+# to S3
+##################################################################
+@get('/login')
+def login():
+    conf_man.update_creds_from_metadata_server(app)
+    job_id   = str(uuid.uuid1())
+    exp_time = tstamp_plus_nmins(60)
+    return template('./views/login.tpl',
+                    aws_client_id   = app.config["server.aws_client_id"],
+                    username        = "",
+                    alert=False)
+
+
+##################################################################
+# GET request should get a form to the user
+# A button which would POST a request to upload a file directly
+# to S3
+##################################################################
+@get('/handle_login')
+def handle_login():
+    conf_man.update_creds_from_metadata_server(app)
+    return template("./views/upload_confirm.tpl",
+                    job_id="foo",
+                    title="Turing - Login Success!")
+
+
 
 ##################################################################
 # HW5
@@ -391,4 +419,4 @@ if __name__ == "__main__":
    SimpleTemplate.defaults['get_url'] = app.get_url
 
 
-   run(host='0.0.0.0', port=int(app.config["server.port"]), reloader=True, debug=True)
+   run(host='0.0.0.0', port=int(app.config["server.port"]), reloader=True, debug=True, server='cherrypy')
