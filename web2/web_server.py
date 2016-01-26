@@ -130,8 +130,10 @@ def submit_job():
     elif jobtype == "generic":
         data = {"job_id"           : uid,
                 "username"         : username,
+                "executable"       : executable,
+                "args"             : args,
                 "user_email"       : email,
-                "jobtype"          : "bash_executor",
+                "jobtype"          : "generic",
                 "inputs"           : [],
                 "outputs"          : [],
                 "submit_time"      : int(time.time()),
@@ -146,9 +148,12 @@ def submit_job():
                                         "dest": input_url.split('/')[-1]}])
             elif k.startswith('output_file'):
                 output_file = request.POST.get(k)
+                print "Outfile : ", output_file
                 data["outputs"].extend([{"src" : output_file, 
                                          "dest": "klab-jobs/outputs/{0}/{1}".format(uid, output_file)}])
+        print "*" * 50
         print data
+        print "*" * 50
         
 
     dutils.dynamodb_update(app.config["dyno.conn"], data)
@@ -175,7 +180,7 @@ def list_jobs():
                str(r["submit_stamp"]), str(r["username"])]
         table_tpl.append(row)
 
-    table = sorted(table_tpl, key=lambda row: datetime.datetime.strptime(row[2], '%Y-%m-%d %H:%M:%S'))
+    table = sorted(table_tpl, key=lambda row: datetime.datetime.strptime(row[2], '%Y-%m-%d %H:%M:%S'), reverse=True)
     return template("./views/jobs.tpl",
                     title="Task Status",
                     table=table)
