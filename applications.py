@@ -2,7 +2,6 @@
 import sys
 import os
 import subprocess
-
 sys.path.append("../ncses/doc2vec/")
 
 import pipeline2 as d2v
@@ -57,6 +56,7 @@ JOBS = { "doc_to_vec" : doc_to_vec,
          "generic"    : generic_executor,
          "python"     : python_executor,
          "experimental": experimental }
+
 
 def test():
     uid="fasdsadsa"
