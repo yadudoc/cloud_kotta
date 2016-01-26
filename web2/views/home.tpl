@@ -9,7 +9,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
-        <h1>Turing Works</h1>
+        <h1>Turing Compute</h1>
         <p> Scientific computation in Fire and Forget format. </p>
         <br />
         <br />
