@@ -35,7 +35,7 @@
     <div class="row">
       <div class="form-group col-md-4">
         <label for="arguments">Arguments</label>
-        <input class="form-control input-lg input_url required" type="text" name="arguments" id="arguments" placeholder="60" />
+        <input class="form-control input-lg input_url required" type="text" name="args" id="args" placeholder="60" />
       </div>
     </div>
 
@@ -55,16 +55,17 @@
 
     <div class="row">
       <div class="form-group col-md-4">
-        <input class="form-control input-lg input_url " type="text" name="stdout_file" id="output_file" placeholder="STDOUT.txt" />
+        <input class="form-control input-lg input_url " type="text" name="stdout_file" id="output_file" value="STDOUT.txt" />
       </div>
     </div>
 
     <div class="row">
       <div class="form-group col-md-4">
-        <input class="form-control input-lg input_url " type="text" name="stderr_file" id="output_file" placeholder="STDERR.txt" />
+        <input class="form-control input-lg input_url " type="text" name="stderr_file" id="output_file" value="STDERR.txt" placeholder="STDERR.txt" />
       </div>
     </div>
 
+    <!-- 
     <div id="dynamicOutput">
     <div class="row">
       <div class="form-group col-md-4">
@@ -75,7 +76,7 @@
     </div>
      <input type="button" value="Add another output file" onClick="addInput('dynamicOutput');">
      </br></br>
-
+     -->
     <div class="form-actions">
       <input class="btn btn-lg btn-primary" type="submit" value="submit" />
     </div>
