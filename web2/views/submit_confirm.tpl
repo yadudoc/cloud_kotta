@@ -11,4 +11,4 @@
 
 </div>
 
-%rebase('views/base', title='JES - Confirm')
+%rebase('views/base', title='Turing-Confirm')
