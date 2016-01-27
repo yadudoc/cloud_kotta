@@ -33,9 +33,13 @@
 	    <img src="/static/Knowledge-Lab-icon-final.png" height= "50" width="50" style="float:left;"/>
 	    <a class="navbar-brand" style="float:right" href="/">Turing</a>
 	  </div>
+	  
 	  <div class="collapse navbar-collapse">
 	    <ul class="nav navbar-nav navbar-right">
-	      <!-- <li><a href="{{get_url('submit_task')}}">Submit Job</a></li> -->
+	      %if session.get("logged_in") is None :
+	      <li><a href="{{get_url('login')}}">Login</a></li>
+
+	      %else :
 	      <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Submit Job<b class="caret"></b></a>
                 <ul class="dropdown-menu">
@@ -45,8 +49,12 @@
                 </ul>
               </li>
 	      <li><a href="{{get_url('jobs')}}">Previous Jobs</a></li>
-	      <!-- <li class="dropdown">
-	      </li> -->
+	      <li class="dropdown">
+		<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{session["username"]}}<b class="caret"></b></a>
+		<ul class="dropdown-menu">
+		  <li><a href="{{get_url('logout')}}">Logout</a></li>
+		</ul>
+	      </li>
 	      %end
 	    </ul>
 	  </div> <!--/.nav-collapse -->
