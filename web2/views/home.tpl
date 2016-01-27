@@ -31,4 +31,4 @@
     </div>
 </div>
 
-%rebase('views/base.tpl', title="JES - Home")
+%rebase('views/base.tpl', title="Turing - Home")

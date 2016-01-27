@@ -26,7 +26,7 @@ from boto.dynamodb2.table import Table
 # Bottle and webframework imports
 import bottle
 from bottle import template
-from bottle import route, get, post, request
+from bottle import route, get, post, request, hook, redirect
 from bottle import response, static_file
 from bottle import app, SimpleTemplate, run
 from beaker.middleware import SessionMiddleware
@@ -69,21 +69,25 @@ def tstamp_plus_nmins(mins):
 def serve_static(filename):
     # Tell Bottle where static files should be served from
     return static_file(filename, root="static/")
-    return static_file(filename, root=request.app.config['web.static_root'])
-
-
+    #return static_file(filename, root=request.app.config['web.static_root'])
 
 @route('/', method='GET', name="home")
 def home_page():
+    session = bottle.request.environ.get('beaker.session')
+    print session
+    #print request.app
     print "Home Page"
-    return template("./views/home.tpl")
+    return template("./views/home.tpl",
+                    session=session)
 
 ##################################################################################
 # This is only a dummy function for get_url to generate a dynamic route
 ##################################################################################
 @route('/submit', method='GET', name="submit")
 def url_maker_submit_job():    
+    session = bottle.request.environ.get('beaker.session')
     return template("./views/error.tpl",
+                    session=session,
                 error_str="{0} is not a valid Job Type")    
 
 ##################################################################################
@@ -91,23 +95,29 @@ def url_maker_submit_job():
 ##################################################################################
 @route('/submit/<jobtype>', method='GET', name="submit_job")
 def submit_job(jobtype):
+    session = bottle.request.environ.get('beaker.session')
+
     if jobtype in JobTypes :
         t = template("./views/submit_{0}.tpl".format(jobtype),
                      email="",
                      username="",
-                     jobtype=jobtype)
+                     jobtype=jobtype,
+                     session=session)
 
     else:
         t = template("./views/error.tpl",
                      error_str="{0} is not a valid Job Type",
                      email="",
-                     username="")
- 
+                     username="",
+                     session=session)
+                    
     return t
 
 @route('/submit_task', method='POST', name="submit_task")
 def submit_job():
-    conf_man.update_creds_from_metadata_server(app)
+    
+    session = bottle.request.environ.get('beaker.session')
+    conf_man.update_creds_from_metadata_server(request.app)
     username  = request.POST.get('username').strip()
     email     = request.POST.get('email').strip()
     input_url = request.POST.get('input_url')
@@ -160,21 +170,25 @@ def submit_job():
         print "*" * 50
         
 
-    dutils.dynamodb_update(app.config["dyno.conn"], data)
-    sns_sqs.publish(app.config["sns.conn"], app.config["instance.tags"]["JobsSNSTopicARN"],
+    dutils.dynamodb_update(request.app.config["dyno.conn"], data)
+    sns_sqs.publish(request.app.config["sns.conn"], app.config["instance.tags"]["JobsSNSTopicARN"],
                     json.dumps(data))
 
     return template("./views/submit_confirm.tpl",
                     job_id=uid,
-                    title="Task Confirmation")
+                    title="Task Confirmation",
+                    session=session)
 
 #################################################################
 # Print a table form of jobs and statuses
 #################################################################
 @route('/jobs', method='GET', name="jobs")
 def list_jobs():
-    conf_man.update_creds_from_metadata_server(app)
-    results = app.config["dyno.conn"].scan()
+
+    session = bottle.request.environ.get('beaker.session')
+
+    conf_man.update_creds_from_metadata_server(request.app)
+    results = request.app.config["dyno.conn"].scan()
     table_tpl = []
 
     print "Jobs: "
@@ -187,7 +201,9 @@ def list_jobs():
     table = sorted(table_tpl, key=lambda row: datetime.datetime.strptime(row[2], '%Y-%m-%d %H:%M:%S'), reverse=True)
     return template("./views/jobs.tpl",
                     title="Task Status",
-                    table=table)
+                    table=table,
+                    session=session)
+            
 
 #################################################################
 # Generate signed url
@@ -210,8 +226,9 @@ def generate_signed_url(key_path, app):
 
 @route('/jobs/<job_id>', method='GET', name="job_info")
 def job_info(job_id):
-    conf_man.update_creds_from_metadata_server(app)
-    dyntable = app.config['dyno.conn']
+    session = bottle.request.environ.get('beaker.session')
+    conf_man.update_creds_from_metadata_server(request.app)
+    dyntable = request.app.config['dyno.conn']
     try:
         item = dyntable.get_item(job_id=job_id)
     except ItemNotFound:
@@ -257,7 +274,8 @@ def job_info(job_id):
                     table= pairs, # Body
                     s3_inputs_bucket="https://s3.amazonaws.com/gas-inputs",
                     s3_results_bucket="https://s3.amazonaws.com",
-                    log_path="/job_log")
+                    log_path="/job_log",
+                    session=session)
 
 
 ###################################################################
@@ -275,9 +293,11 @@ def tstamp_plus_nmins(mins):
 ##################################################################
 @get('/upload_confirm')
 def upload_to_s3():
+    session = bottle.request.environ.get('beaker.session')
     return template("./views/upload_confirm.tpl",
                     job_id="foo",
-                    title="Turing - Upload Success!")
+                    title="Turing - Upload Success!",
+                    session=session)
 
    
 ##################################################################
@@ -287,20 +307,21 @@ def upload_to_s3():
 ##################################################################
 @get('/upload')
 def upload_to_s3():
-    conf_man.update_creds_from_metadata_server(app)
+    session = bottle.request.environ.get('beaker.session')
+    conf_man.update_creds_from_metadata_server(request.app)
     job_id   = str(uuid.uuid1())
     exp_time = tstamp_plus_nmins(60)
 
-    vals = { "redirect_url" : "http://{0}:{1}/{2}".format(app.config["server.url"],
-                                                          app.config["server.port"],
+    vals = { "redirect_url" : "http://{0}:{1}/{2}".format(request.app.config["server.url"],
+                                                          request.app.config["server.port"],
                                                           "upload_confirm"),
-             "aws_key_id"   : app.config["instance.tags"]["S3UploadKeyId"],
+             "aws_key_id"   : request.app.config["instance.tags"]["S3UploadKeyId"],
              "job_id"       : job_id,
              "exp_date"     : exp_time,
              "bucket_name"  : "klab-webofscience"
          }
 
-    policy, signature = get_signature_and_policy(app, vals)
+    policy, signature = get_signature_and_policy(request.app, vals)
     
     vals["policy"]    = policy
     vals["signature"] = signature
@@ -317,6 +338,19 @@ def upload_to_s3():
                     bucket_name     = vals["bucket_name"],
                     policy          = policy,
                     signature       = signature,
+                    alert=False,
+                    session=session)
+
+
+@get('/logout', method='GET', name="logout")
+def logout():
+    session  = bottle.request.environ.get('beaker.session')
+    print session
+    username = session["username"]
+    session  = None
+    return template('./views/logout.tpl',
+                    username=username,
+                    session=session,
                     alert=False)
 
 
@@ -325,14 +359,14 @@ def upload_to_s3():
 # A button which would POST a request to upload a file directly
 # to S3
 ##################################################################
-@get('/login')
+@get('/login', method='GET', name="login")
 def login():
-    conf_man.update_creds_from_metadata_server(app)
-    job_id   = str(uuid.uuid1())
-    exp_time = tstamp_plus_nmins(60)
+    #conf_man.update_creds_from_metadata_server(request.app)
+    session = bottle.request.environ.get('beaker.session')
     return template('./views/login.tpl',
-                    aws_client_id   = app.config["server.aws_client_id"],
+                    aws_client_id   = request.app.config["server.aws_client_id"],
                     username        = "",
+                    session=session,
                     alert=False)
 
 
@@ -343,17 +377,21 @@ def login():
 ##################################################################
 @get('/handle_login')
 def handle_login():
-    conf_man.update_creds_from_metadata_server(app)
+    session = bottle.request.environ.get('beaker.session')
+    conf_man.update_creds_from_metadata_server(request.app)
     access_token  = request.params.get("access_token")
     expires_in    = request.params.get("expires_in")
-    aws_client_id = app.config["server.aws_client_id"]
-    name, email, user_id = identity.get_identity_from_token(access_token, aws_client_id);
+    aws_client_id = request.app.config["server.aws_client_id"]
+    user_id, name, email = identity.get_identity_from_token(access_token, aws_client_id);
 
+    session["logged_in"] = True
+    session["user_id"]   = user_id
+    session["username"]  = name
+    session["email"]     = email
+    print session
     return template("./views/login_confirm.tpl",
-                    userid = user_id,
-                    email  = email,
-                    username = name,
-                    title="Turing - Login Success!")
+                    title="Turing - Login Success!",
+                    session=session)
 
 
 
@@ -390,10 +428,21 @@ if __name__ == "__main__":
 
    session_options = {'session.type': 'cookie',
                       'session.cookie_expires': True,
-                      'session.timeout': app.config['server.session.timeout'],
-                      'session.httponly': True}
+                      'session.auto': True, # Saves the cookie automatically on update
+                      'session.encrypt_key': app.config['server.session.encrypt_key'],
+                      'session.validate_key': app.config['server.session.validate_key'],
+                      'session.timeout': app.config['server.session.timeout']}
+   #'session.httponly': True}
 
-   SimpleTemplate.defaults['get_url'] = app.get_url
+   app = SessionMiddleware(app, session_options)
+   SimpleTemplate.defaults['get_url'] = app.wrap_app.get_url
 
+   #SimpleTemplate.defaults['get_url'] = app.get_url
 
-   run(host='0.0.0.0', port=int(app.config["server.port"]), reloader=True, debug=True, server='cherrypy')
+   run(app=app,
+       host='0.0.0.0', 
+       #port=int(app.config["server.port"]), 
+       port=int(app.wrap_app.config["server.port"]), 
+       reloader=True, 
+       debug=True, 
+       server='cherrypy')
