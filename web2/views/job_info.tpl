@@ -49,4 +49,4 @@
 
 
 </div>
-%rebase('views/base', title='JES-Job Info')
+%rebase('views/base', title='Turing-Job Info')
