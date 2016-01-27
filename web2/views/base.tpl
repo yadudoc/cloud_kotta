@@ -6,8 +6,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{title or 'Turing'}}</title>
-    <link rel="shortcut icon" type="image/x-icon" href="{{get_url('static', filename='img/favicon.ico')}}" />
-    <link rel="icon" type="image/x-icon" href="{{get_url('static', filename='img/favicon.ico')}}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{get_url('static', filename='/favicon.ico')}}" />
+    <link rel="icon" type="image/x-icon" href="{{get_url('static', filename='/favicon.ico')}}" />
 
     <!-- CSS files -->
     <link rel="stylesheet" type="text/css" href="{{get_url('static', filename='css/bootstrap.min.css')}}" />
@@ -30,7 +30,8 @@
 	      <span class="icon-bar"></span>
 	      <span class="icon-bar"></span>
 	    </button>
-	    <a class="navbar-brand" href="/">Turing</a>
+	    <img src="/static/Knowledge-Lab-icon-final.png" height= "50" width="50" style="float:left;"/>
+	    <a class="navbar-brand" style="float:right" href="/">Turing</a>
 	  </div>
 	  <div class="collapse navbar-collapse">
 	    <ul class="nav navbar-nav navbar-right">
