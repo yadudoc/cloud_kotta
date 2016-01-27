@@ -2,7 +2,7 @@
   "username"        : "yadu-test",
   "user_email"      : "yadunand@uchicago.edu",
   "executable"      : "/bin/echo",
-  "jobtype"         : "generic",
+  "jobtype"         : "generic",  
   "args"            : "\"Hello World\"",
   "outputs"         : [{"src": "STDOUT.txt",  "dest": "klab-jobs/outputs/{{uid}}/STDOUT.txt"},
 		       {"src": "STDERR.txt",  "dest": "klab-jobs/outputs/{{uid}}/STDERR.txt"}],
