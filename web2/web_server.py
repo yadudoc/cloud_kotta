@@ -14,9 +14,8 @@ import uuid
 import base64, hmac, sha
 import urllib
 import sys
-import cherrypy
-#from datetime import datetime
 
+# Boto imports
 import boto
 import boto.ec2
 from boto.s3.connection import S3Connection
@@ -24,16 +23,21 @@ import boto.dynamodb2 as ddb
 from boto.dynamodb2.fields import HashKey
 from boto.dynamodb2.table import Table
 
+# Bottle and webframework imports
 import bottle
 from bottle import template
 from bottle import route, get, post, request
 from bottle import response, static_file
 from bottle import app, SimpleTemplate, run
+from beaker.middleware import SessionMiddleware
+import cherrypy
 
+# My libraries
 import s3_utils as s3
 import sns_sqs
 import dynamo_utils as dutils
 import config_manager as conf_man
+import identity
 
 JobTypes = ["doc_to_vec", "generic", "experimental"]
 
@@ -184,9 +188,6 @@ def list_jobs():
     return template("./views/jobs.tpl",
                     title="Task Status",
                     table=table)
-
-    #return template(request.app.config['web.templates'] + "/home.tpl")
-
 
 #################################################################
 # Generate signed url
@@ -343,8 +344,15 @@ def login():
 @get('/handle_login')
 def handle_login():
     conf_man.update_creds_from_metadata_server(app)
-    return template("./views/upload_confirm.tpl",
-                    job_id="foo",
+    access_token  = request.params.get("access_token")
+    expires_in    = request.params.get("expires_in")
+    aws_client_id = app.config["server.aws_client_id"]
+    name, email, user_id = identity.get_identity_from_token(access_token, aws_client_id);
+
+    return template("./views/login_confirm.tpl",
+                    userid = user_id,
+                    email  = email,
+                    username = name,
                     title="Turing - Login Success!")
 
 
@@ -356,48 +364,6 @@ def handle_login():
 def dynamodb_update(table, data):
     table.put_item(data=data, overwrite=True)
     return True
-
-
-annotator_url="http://52.2.101.61:8888/annotator"
-topic_arn  = 'arn:aws:sns:us-east-1:127134666975:yadunand-job-notifications'
-##################################################################
-# HW5
-# GET request should get a form to the user
-# A button which would POST a request to upload a file directly
-# to S3
-##################################################################
-@route('/upload_done', method='GET')
-def upload_done():
-    src_bucket  =  request.params.get('bucket')
-    key         =  request.params.get('key')
-    etag        =  request.params.get('etag')
-    dest_bucket =  'gas-results'
-    response.status = 400
-
-    data = {"job_id"           : key.split('/')[-1],
-            "username"         : s3.get_s3_meta(s3conn, src_bucket, key, 'username'),
-            "s3_inputs_bucket" : src_bucket,
-            "s3_key_input_file": key,
-            "input_file_name"  : s3.get_s3_meta(s3conn, src_bucket, key, 'filename'),
-            "submit_time"      : int(time.time()),
-            "status"           : "pending"
-        }
-
-    dynamodb_update(dynotable,  data)
-    print "Publishing : ", sns_sqs.publish(sns, topic_arn, data)
-
-    ##################################################################
-    #HW5 Part1
-    '''
-    url = annotator_url
-    headers = {'Content-Type' : 'application/json'}
-    ann_request = urllib2.Request(url, json.dumps(data), headers)
-    annotator_response = urllib2.urlopen(ann_request)
-    '''
-    ##################################################################
-    response.content_type = 'application/json'
-    return data #annotator_response
-
 
 if __name__ == "__main__":
 
@@ -421,6 +387,12 @@ if __name__ == "__main__":
 
    logging.debug("\n{0}\nStarting webserver\n{0}\n".format("*"*50))
    app = conf_man.load_configs(args.conffile);
+
+   session_options = {'session.type': 'cookie',
+                      'session.cookie_expires': True,
+                      'session.timeout': app.config['server.session.timeout'],
+                      'session.httponly': True}
+
    SimpleTemplate.defaults['get_url'] = app.get_url
 
 
