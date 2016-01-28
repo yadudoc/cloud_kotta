@@ -139,7 +139,6 @@ def submit_job(jobtype):
 ##################################################################################
 @route('/submit_task', method='POST', name="submit_task")
 def submit_job():
-    
     session = bottle.request.environ.get('beaker.session')
     conf_man.update_creds_from_metadata_server(request.app)
     username  = request.POST.get('username').strip()
@@ -195,7 +194,7 @@ def submit_job():
         
 
     dutils.dynamodb_update(request.app.config["dyno.conn"], data)
-    sns_sqs.publish(request.app.config["sns.conn"], app.config["instance.tags"]["JobsSNSTopicARN"],
+    sns_sqs.publish(request.app.config["sns.conn"], request.app.config["instance.tags"]["JobsSNSTopicARN"],
                     json.dumps(data))
 
     return template("./views/submit_confirm.tpl",
@@ -211,16 +210,17 @@ def list_jobs():
 
     session = bottle.request.environ.get('beaker.session')
     require_login(session)
+    current_user = session["user_id"]
 
     conf_man.update_creds_from_metadata_server(request.app)
-    results = request.app.config["dyno.conn"].scan()
+    results = request.app.config["dyno.conn"].scan(username__eq=current_user)
     table_tpl = []
 
     print "Jobs: "
     print "-"*50
     for r in results:
         row = [str(r["job_id"]), str(r["status"]), 
-               str(r["submit_stamp"]), str(r["username"])]
+               str(r["submit_stamp"])] #, str(r["username"])]
         table_tpl.append(row)
 
     table = sorted(table_tpl, key=lambda row: datetime.datetime.strptime(row[2], '%Y-%m-%d %H:%M:%S'), reverse=True)
@@ -413,7 +413,8 @@ def upload_to_s3():
 @get('/logout', method='GET', name="logout")
 def logout():
     session  = bottle.request.environ.get('beaker.session')
-    print session
+    require_login(session)
+    
     username = session["username"]
     session["logged_in"] = False
     session["user_id"]   = None
@@ -459,6 +460,8 @@ def handle_login():
     aws_client_id = request.app.config["server.aws_client_id"]
     user_id, name, email = identity.get_identity_from_token(access_token, aws_client_id);
     user_info = identity.find_user_role(request.app, user_id)
+
+    
     if not user_info :
         return template("./views/login_reject.tpl",
                         title="Turing - Login Rejected!",
@@ -471,7 +474,9 @@ def handle_login():
     session["logged_in"] = True
     session["user_id"]   = user_id
     session["username"]  = name
-    session["email"]     = email
+    session["email"]     = user_info["email"] #email
+    session["user_role"] = user_info["role"]
+
     print session
     return template("./views/login_confirm.tpl",
                     title="Turing - Login Success!",
