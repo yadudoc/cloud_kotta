@@ -58,19 +58,32 @@ def get_signature_and_policy(app, vals):
     signature = base64.b64encode(hmac.new(private_key, policy_encoded, sha).digest())
     return (policy_encoded, signature)
 
+##################################################################
+# Update job information in dynamodb
+##################################################################
+def dynamodb_update(table, data):
+    table.put_item(data=data, overwrite=True)
+    return True
+
+
 ###################################################################
 # Generate an expiry time that is N mins ahead of current timestamp
 ###################################################################
 def tstamp_plus_nmins(mins):
     return datetime.datetime.fromtimestamp(time.time()+(60*mins)).strftime('%Y%m%d%H%M%SZ')
 
-
+###################################################################
+# route to serve static content to internal pages
+###################################################################
 @route('/static/<filename:path>', method='GET', name="static")
 def serve_static(filename):
     # Tell Bottle where static files should be served from
     return static_file(filename, root="static/")
     #return static_file(filename, root=request.app.config['web.static_root'])
 
+###################################################################
+# Home!
+###################################################################
 @route('/', method='GET', name="home")
 def home_page():
     session = bottle.request.environ.get('beaker.session')
@@ -88,7 +101,15 @@ def url_maker_submit_job():
     session = bottle.request.environ.get('beaker.session')
     return template("./views/error.tpl",
                     session=session,
-                error_str="{0} is not a valid Job Type")    
+                    error_str="{0} is not a valid Job Type")    
+##################################################################################
+# Helper function to ensure that the user is logged in
+##################################################################################
+def require_login(session):
+    if not session:
+        redirect("/login")
+    if session.get("logged_in") != True:
+        redirect("/login")
 
 ##################################################################################
 # Handles the different job types.
@@ -96,7 +117,7 @@ def url_maker_submit_job():
 @route('/submit/<jobtype>', method='GET', name="submit_job")
 def submit_job(jobtype):
     session = bottle.request.environ.get('beaker.session')
-
+    require_login(session)
     if jobtype in JobTypes :
         t = template("./views/submit_{0}.tpl".format(jobtype),
                      email="",
@@ -113,6 +134,9 @@ def submit_job(jobtype):
                     
     return t
 
+##################################################################################
+# Submit tasks
+##################################################################################
 @route('/submit_task', method='POST', name="submit_task")
 def submit_job():
     
@@ -186,6 +210,7 @@ def submit_job():
 def list_jobs():
 
     session = bottle.request.environ.get('beaker.session')
+    require_login(session)
 
     conf_man.update_creds_from_metadata_server(request.app)
     results = request.app.config["dyno.conn"].scan()
@@ -226,7 +251,10 @@ def generate_signed_url(key_path, app):
 
 @route('/jobs/<job_id>', method='GET', name="job_info")
 def job_info(job_id):
+    
     session = bottle.request.environ.get('beaker.session')
+    require_login(session)
+
     conf_man.update_creds_from_metadata_server(request.app)
     dyntable = request.app.config['dyno.conn']
     try:
@@ -272,8 +300,6 @@ def job_info(job_id):
     return template('./views/job_info',
                     title="Job",
                     table= pairs, # Body
-                    s3_inputs_bucket="https://s3.amazonaws.com/gas-inputs",
-                    s3_results_bucket="https://s3.amazonaws.com",
                     log_path="/job_log",
                     session=session)
 
@@ -291,26 +317,68 @@ def tstamp_plus_nmins(mins):
 # A button which would POST a request to upload a file directly
 # to S3
 ##################################################################
-@get('/upload_confirm')
-def upload_to_s3():
+@get('/browse', method='GET', name="browse")
+def browse_folders():
     session = bottle.request.environ.get('beaker.session')
+    list_buckets = ["klab-webofscience", "klab-jobs"]
+    
+    signed_url = s3.generate_signed_url(request.app.config["s3.conn"],
+                                        bucket,
+                                        key,
+                                        1500)   # Duration
+    link = '<a href="{0}">{1}</a>'.format(signed_url,
+                                          key.split('/')[-1])
+    unsigned = "https://s3.amazonaws.com/klab-webofscience/uploads/amzn1.account.AEKWXVYINCBBNY5MPRMOYND6CWWA/Screenshot+from+2016-01-27+01%3A18%3A51.png"
     return template("./views/upload_confirm.tpl",
+                    signed_url=link,
+                    unsigned=unsigned,
                     job_id="foo",
                     title="Turing - Upload Success!",
                     session=session)
 
-   
+
 ##################################################################
 # GET request should get a form to the user
 # A button which would POST a request to upload a file directly
 # to S3
 ##################################################################
-@get('/upload')
+@get('/upload_confirm')
 def upload_to_s3():
     session = bottle.request.environ.get('beaker.session')
+    
+    bucket  =  request.params.get('bucket')
+    key     =  request.params.get('key')
+    etag    =  request.params.get('etag')
+    signed_url = s3.generate_signed_url(request.app.config["s3.conn"],
+                                        bucket,
+                                        key,
+                                        1500)   # Duration
+    link = '<a href="{0}">{1}</a>'.format(signed_url,
+                                          key.split('/')[-1])
+    unsigned = "https://s3.amazonaws.com/{0}/{1}".format(bucket, key)
+        
+    #"klab-webofscience/uploads/amzn1.account.AEKWXVYINCBBNY5MPRMOYND6CWWA/Screenshot+from+2016-01-27+01%3A18%3A51.png"
+    return template("./views/upload_confirm.tpl",
+                    signed_url=link,
+                    unsigned = unsigned,
+                    job_id="foo",
+                    title="Turing - Upload Success!",
+                    session=session)
+
+##################################################################
+# GET request should get a form to the user
+# A button which would POST a request to upload a file directly
+# to S3
+##################################################################
+@get('/upload', method='GET', name="upload")
+def upload_to_s3():
+    session = bottle.request.environ.get('beaker.session')
+    require_login(session)
+
     conf_man.update_creds_from_metadata_server(request.app)
     job_id   = str(uuid.uuid1())
     exp_time = tstamp_plus_nmins(60)
+    bucket_name = "klab-webofscience" #"klab-jobs"
 
     vals = { "redirect_url" : "http://{0}:{1}/{2}".format(request.app.config["server.url"],
                                                           request.app.config["server.port"],
@@ -318,7 +386,7 @@ def upload_to_s3():
              "aws_key_id"   : request.app.config["instance.tags"]["S3UploadKeyId"],
              "job_id"       : job_id,
              "exp_date"     : exp_time,
-             "bucket_name"  : "klab-webofscience"
+             "bucket_name"  : bucket_name
          }
 
     policy, signature = get_signature_and_policy(request.app, vals)
@@ -331,7 +399,6 @@ def upload_to_s3():
                     email           = "", 
                     username        = "",
                     redirect_url    = vals["redirect_url"],
-                    title           = "Analyze",
                     aws_key_id      = vals["aws_key_id"],
                     exp_date        = vals["exp_date"],
                     job_id          = vals["job_id"],
@@ -339,6 +406,7 @@ def upload_to_s3():
                     policy          = policy,
                     signature       = signature,
                     alert=False,
+                    title="Upload data",
                     session=session)
 
 
@@ -347,10 +415,16 @@ def logout():
     session  = bottle.request.environ.get('beaker.session')
     print session
     username = session["username"]
-    session  = None
+    session["logged_in"] = False
+    session["user_id"]   = None
+    session["username"]  = None
+    session["email"]     = None
+    session.delete()
+
     return template('./views/logout.tpl',
                     username=username,
                     session=session,
+                    title="Logging out",
                     alert=False)
 
 
@@ -371,9 +445,10 @@ def login():
 
 
 ##################################################################
-# GET request should get a form to the user
-# A button which would POST a request to upload a file directly
-# to S3
+# Handle the redirect from Login with Amazon.
+# Retrieve user identity from Amazon with the temp access_token
+# Use id to verify against valid users and get appropriate role.
+# Get temporary keys for the role and post to session.
 ##################################################################
 @get('/handle_login')
 def handle_login():
@@ -383,7 +458,16 @@ def handle_login():
     expires_in    = request.params.get("expires_in")
     aws_client_id = request.app.config["server.aws_client_id"]
     user_id, name, email = identity.get_identity_from_token(access_token, aws_client_id);
+    user_info = identity.find_user_role(request.app, user_id)
+    if not user_info :
+        return template("./views/login_reject.tpl",
+                        title="Turing - Login Rejected!",
+                        username = name,
+                        user_id  = user_id,                    
+                        email    = email,
+                        session  = session)
 
+    
     session["logged_in"] = True
     session["user_id"]   = user_id
     session["username"]  = name
@@ -393,15 +477,6 @@ def handle_login():
                     title="Turing - Login Success!",
                     session=session)
 
-
-
-##################################################################
-# HW5
-# Update job information in dynamodb
-##################################################################
-def dynamodb_update(table, data):
-    table.put_item(data=data, overwrite=True)
-    return True
 
 if __name__ == "__main__":
 
