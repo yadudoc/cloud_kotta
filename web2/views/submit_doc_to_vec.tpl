@@ -8,15 +8,18 @@
   <form role="form" action="{{get_url('submit_task')}}" method="post" name="submit_task">
 
     <input type="hidden" name="jobtype" id="jobtype" value="{{jobtype}}" /><br/>
-
+    <!-- 
     <div class="row">
       <div class="form-group col-md-4">
         <label for="name">Username</label>
         <input class="form-control input-lg required" type="text" name="username" id="username"
                value="{{username}}" placeholder="Enter a username" />
       </div>
-    </div>
+    </div> -->
 
+    <input type="hidden" name="username" value="{{session["user_id"]}}"/>
+
+    <!--
     <div class="row">
       <div class="form-group col-md-5">
         <label for="name">E-mail Address</label>
@@ -24,6 +27,8 @@
                value="{{email}}" placeholder="Enter your e-mail address" />
       </div>
     </div>
+    -->
+    <input type="hidden" name="email" value="{{session["email"]}}"/>
 
     <!--
     <div class="dropdown">
