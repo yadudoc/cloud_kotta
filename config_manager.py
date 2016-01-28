@@ -205,6 +205,7 @@ def load_configs(filename):
 
     for keys in app.config:
         if keys.startswith('keys.'):
+            print keys
             keyfile = app.config[keys].replace('\"', '')
 
             logging.debug("Keyfile : {0}".format(keyfile.replace('\"', '')))
