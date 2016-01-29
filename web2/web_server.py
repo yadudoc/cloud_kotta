@@ -138,11 +138,11 @@ def submit_job(jobtype):
 # Submit tasks
 ##################################################################################
 @route('/submit_task', method='POST', name="submit_task")
-def submit_job():
+def submit_task():
     session = bottle.request.environ.get('beaker.session')
     conf_man.update_creds_from_metadata_server(request.app)
-
-    username  = request.POST.get('username').strip()
+    # Fixing naming issue with names in forms
+    user_id   = request.POST.get('username').strip() # Username in the form is the user_id
     email     = request.POST.get('email').strip()
     input_url = request.POST.get('input_url')
     jobtype   = request.POST.get('jobtype').strip()
@@ -150,13 +150,16 @@ def submit_job():
     args      = request.POST.get('args')
     walltime  = request.POST.get('walltime')
     queue     = request.POST.get('queue')
+    username  = session["username"]
+    role      = session["user_role"]
 
     uid = str(uuid.uuid1())
 
     if jobtype == "doc_to_vec":        
         data = {"job_id"           : uid,
                 "username"         : username,
-                "friendly_name"    : session["name"],
+                "i_user_id"        : user_id,
+                "i_user_role"      : role,
                 "user_email"       : email,
                 "jobtype"          : "doc_to_vec",
                 "inputs"           : [{"src": input_url, "dest": input_url.split('/')[-1] }],
@@ -175,23 +178,45 @@ def submit_job():
         
         data = {"job_id"           : uid,
                 "username"         : username,
-                "friendly_name"    : session["name"],
+                "i_user_id"        : user_id,
+                "i_user_role"      : role,
                 "user_email"       : email,
-                "jobtype"          : "doc_to_vec",
-                "inputs"           : [{"src": input_url, "dest": input_url.split('/')[-1] }],
-                "outputs"          : [{"src": "doc_mat.pkl",  "dest": "klab-jobs/outputs/{0}/doc_mat.pkl".format(uid)},
-                                      {"src": "word_mat.pkl", "dest": "klab-jobs/outputs/{0}/word_mat.pkl".format(uid)},
-                                      {"src": "mdl.pkl",      "dest": "klab-jobs/outputs/{0}/mdl.pkl".format(uid)}],
+                "executable"       : executable,
+                "args"             : args,                
+                "i_script"         : request.POST.get('script'),
+                "i_script_name"    : request.POST.get('script_name'),
+                "jobtype"          : "script",
                 "submit_time"      : int(time.time()),
                 "submit_stamp"     : str(time.strftime('%Y-%m-%d %H:%M:%S')),
                 "queue"            : queue,
+                "outputs"          : [],
+                "inputs"           : [],
                 "status"           : "pending"
             }
+        data["outputs"].extend([{"src" : i_script_name, 
+                                 "dest": "klab-jobs/outputs/{0}/{1}".format(uid, i_script_name)}])
+
+        for k in request.POST.keys():
+            if k.startswith('input_url'):
+                input_url =  request.POST.get(k)
+                data["inputs"].extend([{"src" : input_url, 
+                                        "dest": input_url.split('/')[-1]}])
+            elif k.startswith('output_file'):
+                output_file = request.POST.get(k)
+                print "Outfile : ", output_file
+                data["outputs"].extend([{"src" : output_file, 
+                                         "dest": "klab-jobs/outputs/{0}/{1}".format(uid, output_file)}])
+
+        print "*" * 50
+        print data
+        print "*" * 50
 
     elif jobtype == "generic":
+        
         data = {"job_id"           : uid,
                 "username"         : username,
-                "friendly_name"    : session["name"],
+                "i_user_id"        : user_id,
+                "i_user_role"      : role,
                 "executable"       : executable,
                 "args"             : args,
                 "user_email"       : email,
@@ -214,18 +239,15 @@ def submit_job():
                 print "Outfile : ", output_file
                 data["outputs"].extend([{"src" : output_file, 
                                          "dest": "klab-jobs/outputs/{0}/{1}".format(uid, output_file)}])
-        print "*" * 50
-        print data
-        print "*" * 50
         
-    dutils.dynamodb_update(request.app.config["dyno.conn"], data)
+    #dutils.dynamodb_update(request.app.config["dyno.conn"], data)
 
     qname = "TestJobsSNSTopicARN"
     if queue in ["Test", "Prod"]:
         qname = queue + "JobsSNSTopicARN"
 
-    sns_sqs.publish(request.app.config["sns.conn"], request.app.config["instance.tags"][qname],
-                    json.dumps(data))
+    #sns_sqs.publish(request.app.config["sns.conn"], request.app.config["instance.tags"][qname],
+    #                json.dumps(data))
 
     return template("./views/submit_confirm.tpl",
                     job_id=uid,
@@ -243,7 +265,7 @@ def list_jobs():
     current_user = session["user_id"]
 
     conf_man.update_creds_from_metadata_server(request.app)
-    results = request.app.config["dyno.conn"].scan(username__eq=current_user)
+    results = request.app.config["dyno.conn"].scan(i_user_id__eq=current_user)
     table_tpl = []
 
     print "Jobs: "
