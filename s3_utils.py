@@ -24,8 +24,13 @@ def upload_s3_keys(s3conn, source, bucket_name, prefix, meta):
 
 # Download a key from the bucket
 def download_s3_keys(s3conn, bucket_name, prefix, target):
-    bucket  = s3conn.get_bucket(bucket_name, validate=False)
-    key     = bucket.get_key(prefix)
+    try:
+        bucket  = s3conn.get_bucket(bucket_name, validate=False)
+        key     = bucket.get_key(prefix)
+    except S3ResponseError :
+        print "ERROR: Could not access the bucket"
+        raise
+
     print "filename", key
     key.get_contents_to_filename(target)
     return key
