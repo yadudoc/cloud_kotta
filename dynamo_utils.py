@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from boto.dynamodb2.fields import HashKey
 from boto.dynamodb2.table import Table
-
+import boto.dynamodb2 as ddb
 ##################################################################
 # Update job information in dynamodb
 ##################################################################
@@ -15,6 +15,16 @@ def dynamodb_update(table, data):
 ##################################################################
 def dynamodb_get(table, job_id):
         return table.get_item(job_id=job_id)
+
+def connect_to_db(app, table_name, haskkey):
+    dyno = Table(table_name,
+                 schema=[HashKey(hashkey)],
+                 connection=ddb.connect_to_region(app.config['dynamodb.region'],
+                                                  aws_access_key_id=app.config['keys.key_id'],
+                                                  aws_secret_access_key=app.config['keys.key_secret'],
+                                                  security_token=app.config['keys.key_token']))
+    return dyno
+
 
 
 def test():
