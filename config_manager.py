@@ -78,7 +78,7 @@ def send_success_mail(data, app):
     sesconn     =  app.config['ses.conn']
     job_id      =  data.get('job_id')
     rec_email   =  data.get('user_email')
-    rec_name    =  data.get('username')
+    rec_name    =  data.get('friendly_name') #data.get('username')
     src_email   =  app.config['ses.email_sender']
     url         =  app.config['server.url']
 
@@ -101,7 +101,7 @@ def send_failure_mail(data, app):
     sesconn     =  app.config['ses.conn']
     job_id      =  data.get('job_id')
     rec_email   =  data.get('user_email')
-    rec_name    =  data.get('username')
+    rec_name    =  data.get('friendly_name') #data.get('username')
     src_email   =  app.config['ses.email_sender']
     url         =  app.config['server.url']
 
