@@ -39,7 +39,7 @@ import dynamo_utils as dutils
 import config_manager as conf_man
 import identity
 
-JobTypes = ["doc_to_vec", "generic", "experimental"]
+JobTypes = ["doc_to_vec", "generic", "experimental", "script"]
 
 ##################################################################
 # This function handles the creation of the encoded signature
@@ -141,12 +141,15 @@ def submit_job(jobtype):
 def submit_job():
     session = bottle.request.environ.get('beaker.session')
     conf_man.update_creds_from_metadata_server(request.app)
+
     username  = request.POST.get('username').strip()
     email     = request.POST.get('email').strip()
     input_url = request.POST.get('input_url')
     jobtype   = request.POST.get('jobtype').strip()
     executable= request.POST.get('executable')
     args      = request.POST.get('args')
+    walltime  = request.POST.get('walltime')
+    queue     = request.POST.get('queue')
 
     uid = str(uuid.uuid1())
 
@@ -161,6 +164,25 @@ def submit_job():
                                       {"src": "mdl.pkl",      "dest": "klab-jobs/outputs/{0}/mdl.pkl".format(uid)}],
                 "submit_time"      : int(time.time()),
                 "submit_stamp"     : str(time.strftime('%Y-%m-%d %H:%M:%S')),
+                "queue"            : queue,
+                "status"           : "pending"
+                
+            }
+
+    elif jobtype == "script":        
+        script = request.POST.get('script')
+        
+        data = {"job_id"           : uid,
+                "username"         : username,
+                "user_email"       : email,
+                "jobtype"          : "doc_to_vec",
+                "inputs"           : [{"src": input_url, "dest": input_url.split('/')[-1] }],
+                "outputs"          : [{"src": "doc_mat.pkl",  "dest": "klab-jobs/outputs/{0}/doc_mat.pkl".format(uid)},
+                                      {"src": "word_mat.pkl", "dest": "klab-jobs/outputs/{0}/word_mat.pkl".format(uid)},
+                                      {"src": "mdl.pkl",      "dest": "klab-jobs/outputs/{0}/mdl.pkl".format(uid)}],
+                "submit_time"      : int(time.time()),
+                "submit_stamp"     : str(time.strftime('%Y-%m-%d %H:%M:%S')),
+                "queue"            : queue,
                 "status"           : "pending"
             }
 
@@ -175,6 +197,7 @@ def submit_job():
                 "outputs"          : [],
                 "submit_time"      : int(time.time()),
                 "submit_stamp"     : str(time.strftime('%Y-%m-%d %H:%M:%S')),
+                "queue"            : queue,
                 "status"           : "pending"
             }
 
@@ -192,9 +215,13 @@ def submit_job():
         print data
         print "*" * 50
         
-
     dutils.dynamodb_update(request.app.config["dyno.conn"], data)
-    sns_sqs.publish(request.app.config["sns.conn"], request.app.config["instance.tags"]["JobsSNSTopicARN"],
+
+    qname = "TestJobsSNSTopicARN"
+    if queue in ["Test", "Prod"]:
+        qname = queue + "JobsSNSTopicARN"
+
+    sns_sqs.publish(request.app.config["sns.conn"], request.app.config["instance.tags"][qname],
                     json.dumps(data))
 
     return template("./views/submit_confirm.tpl",
@@ -298,7 +325,7 @@ def job_info(job_id):
 
     print pairs
     return template('./views/job_info',
-                    title="Job",
+                    title="Job - Info",
                     table= pairs, # Body
                     log_path="/job_log",
                     session=session)
