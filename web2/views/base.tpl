@@ -36,15 +36,24 @@
 	  
 	  <div class="collapse navbar-collapse">
 	    <ul class="nav navbar-nav navbar-right">
-	      %if session.get("logged_in") is None :
+	      %if session is None or session.get("logged_in") is not True :
 	      <li><a href="{{get_url('login')}}">Login</a></li>
 
 	      %else :
+	      <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Data<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="{{get_url('submit')}}/doc_to_vec">Browse</a></li>
+                  <li><a href="{{get_url('upload')}}">Upload</a></li>
+                </ul>
+              </li>
+
 	      <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Submit Job<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="{{get_url('submit')}}/doc_to_vec">Doc To Vector</a></li>
                   <li><a href="{{get_url('submit')}}/generic">Generic Executable</a></li>
+		  <li><a href="{{get_url('submit')}}/script">Script</a></li>
 		  <li><a href="{{get_url('submit')}}/experimental">Experimental</a></li>
                 </ul>
               </li>
