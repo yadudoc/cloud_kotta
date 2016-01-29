@@ -34,14 +34,48 @@ def generic_executor(job_id, executable, args, inputs, outputs):
     # everything is OK!
     return True
 
-def python_executor (job_id, executable, args, inputs, outputs):
+def script_executor(job_id, executable, args, inputs, outputs, job_desc):
+    try :
+        script_file = job_desc.get('i_script_name')
+        script      = job_desc.get('i_script')
+        with open(script_file, 'w') as ofile:
+            ofile.write(script)
+        os.chmod(script_file, 0o744)
+
+        print "Running {0} {1}".format(executable, args)
+        std_out = open("STDOUT.txt", 'w')
+        std_err = open("STDERR.txt", 'w')
+        print [executable, args], "stdout='STDOUT.txt', stderr='STDERR.txt'"
+        pid = subprocess.Popen([executable, args], stdout=std_out, stderr=std_err)
+        pid.wait()
+        std_out.close()
+        std_err.close()
+    # Invalid value provided
+    except ValueError as e:
+        logging.error("ValueError : {0}".format(e));
+        raise
+
+    # Failed to execute
+    except OSError as e:
+        logging.error("OSError : {0}".format(e));
+        raise
+
+    # Unknown error
+    except Exception as e:
+        logging.error("Generic Error : {0}".format(e));
+        raise
+
+    # everything is OK!
     return True
 
-def experimental (job_id, executable, args, inputs, outputs):
+def python_executor (job_id, executable, args, inputs, outputs, job_desc):
+    return True
+
+def experimental (job_id, executable, args, inputs, outputs, job_desc):
     return True
 
 
-def doc_to_vec (job_id, executable, args, inputs, outputs):
+def doc_to_vec (job_id, executable, args, inputs, outputs, job_desc):
 
     try:
         d2v.pipeline(inputs, outputs)
@@ -54,6 +88,7 @@ def doc_to_vec (job_id, executable, args, inputs, outputs):
 # Job Definitions
 JOBS = { "doc_to_vec" : doc_to_vec,
          "generic"    : generic_executor,
+         "script"     : script_executor,
          "python"     : python_executor,
          "experimental": experimental }
 
