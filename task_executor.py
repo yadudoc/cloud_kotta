@@ -14,6 +14,7 @@ import os
 import applications as apps
 import s3_utils as s3
 import dynamo_utils as dutils
+import re
 
 metadata_server="http://169.254.169.254/latest/meta-data/"
 
@@ -52,14 +53,39 @@ class Timer(object):
          if self.verbose:
             print 'elapsed time: %f ms' % self.msecs
 
-def get_inputs(app, inputs):
+def get_inputs(app, inputs, auth):
    print "In get_inputs"
    if not inputs:
       return
 
    for i in inputs:
       print "Staging_inputs : ", i
-      utils.download_file(i["src"], i["dest"])
+
+      if i["src"].startswith("http://"):
+         print "Downloading {0} via http".format(i["src"])
+         utils.download_file(i["src"], i["dest"])
+      
+      elif re.search("https://s3.*amazonaws.com/", i["src"]):
+         s3_path = re.sub("https://s3.*amazonaws.com/", "", i["src"])
+         tmp     = s3_path.split('/', 1)
+         s3_bucket = tmp[0]
+         s3_key    = tmp[1]
+         #destination = s3_path.rsplit('/',1)[-1]
+         print s3_bucket
+         print s3_key
+         print "Downloading {0} via s3 provider".format(i["src"])
+         try:
+            s3.download_s3_keys(app.config["s3.conn"],
+                                s3_bucket,
+                                s3_key,
+                                i["dest"])
+         except Exception, e:
+            print "Download from s3 failed "
+            raise
+
+      else:
+         print "No match. Could not fetch data"
+      
    return
 
 
@@ -84,7 +110,7 @@ def update_record(record, key, value):
    record.save(overwrite=True)
    return
 
-def exec_job(app, jobtype, job_id, executable, args, inputs, outputs, data):
+def exec_job(app, jobtype, job_id, executable, args, inputs, outputs, data, auth):
 
    # Save current folder and chdir to a temporary folder
    conf_man.update_creds_from_metadata_server(app)
@@ -98,11 +124,16 @@ def exec_job(app, jobtype, job_id, executable, args, inputs, outputs, data):
 
    # Download data to the temp folder
    update_record(record, "status", "staging_inputs")
-   get_inputs(app, inputs)
+   try:
+      get_inputs(app, inputs, auth)
+   except Exception, e:
+      update_record(record, "ERROR", "Failed to download inputs {0}".format(e))
+      logging.error("Failed to download inputs")
+      return False
 
 
-   update_record(record, "status", "processing")
    # Execute the task
+   update_record(record, "status", "processing")
    if jobtype not in apps.JOBS:
       logging.error("Jobtype : {0} does not exist".format(jobtype))
       print "Unable to process jobtype : {0}".format(jobtype)
@@ -158,8 +189,14 @@ def task_loop(app):
             executable  =  data.get('executable')
             args        =  data.get('args')
             inputs      =  data.get('inputs')
+            inputs      =  data.get('inputs')
             outputs     =  data.get('outputs')
-
+            user_auth   =  {"user"      : data.get('i_user'),
+                            "role"      : data.get('i_role'),
+                            "token"     : data.get('i_token'),
+                            "keyid"     : data.get('i_keyid'),
+                            "keysecret" : data.get('i_keysecret')}
+            
             print "Data : {0}".format(data)
 
             for key in data:
@@ -172,7 +209,9 @@ def task_loop(app):
                                     args,
                                     inputs,
                                     outputs,
-                                    data)
+                                    data,
+                                    user_auth)
+            
 
             print "Status : ", status
 
