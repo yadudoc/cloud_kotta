@@ -14,7 +14,7 @@ def get_uuid():
 def publish(sns_conn, topicARN, message):
     sns_conn.publish(topic=topicARN, message=message)
 
-def sns_test(data, sns_conn, topic_arn):
+def sns_test(sns_conn, topic_arn):
     uid = get_uuid()
     data = {"job_id"           : uid,
             "username"         : "yadu",
