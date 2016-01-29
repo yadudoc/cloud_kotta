@@ -156,6 +156,7 @@ def submit_job():
     if jobtype == "doc_to_vec":        
         data = {"job_id"           : uid,
                 "username"         : username,
+                "friendly_name"    : session["name"],
                 "user_email"       : email,
                 "jobtype"          : "doc_to_vec",
                 "inputs"           : [{"src": input_url, "dest": input_url.split('/')[-1] }],
@@ -174,6 +175,7 @@ def submit_job():
         
         data = {"job_id"           : uid,
                 "username"         : username,
+                "friendly_name"    : session["name"],
                 "user_email"       : email,
                 "jobtype"          : "doc_to_vec",
                 "inputs"           : [{"src": input_url, "dest": input_url.split('/')[-1] }],
@@ -189,6 +191,7 @@ def submit_job():
     elif jobtype == "generic":
         data = {"job_id"           : uid,
                 "username"         : username,
+                "friendly_name"    : session["name"],
                 "executable"       : executable,
                 "args"             : args,
                 "user_email"       : email,
