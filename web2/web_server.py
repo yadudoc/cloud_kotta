@@ -138,7 +138,7 @@ def submit_job(jobtype):
 # Submit tasks
 ##################################################################################
 @route('/submit_task', method='POST', name="submit_task")
-def submit_task():
+def submit_job_description():
     session = bottle.request.environ.get('beaker.session')
     conf_man.update_creds_from_metadata_server(request.app)
     # Fixing naming issue with names in forms
@@ -173,9 +173,16 @@ def submit_task():
                 
             }
 
-    elif jobtype == "script":        
+    elif jobtype == "script":
+        print "--" * 40
+
         script = request.POST.get('script')
-        
+        script_name = request.POST.get('script_name')
+
+        inputs = request.POST.get('inputs')
+        inputs = [{"src":x.strip(), "dest":x.strip().split('/')[-1]} for x in inputs.split(',')]
+        print inputs
+
         data = {"job_id"           : uid,
                 "username"         : username,
                 "i_user_id"        : user_id,
@@ -183,8 +190,8 @@ def submit_task():
                 "user_email"       : email,
                 "executable"       : executable,
                 "args"             : args,                
-                "i_script"         : request.POST.get('script'),
-                "i_script_name"    : request.POST.get('script_name'),
+                "i_script"         : script,
+                "i_script_name"    : script_name,
                 "jobtype"          : "script",
                 "submit_time"      : int(time.time()),
                 "submit_stamp"     : str(time.strftime('%Y-%m-%d %H:%M:%S')),
@@ -193,9 +200,10 @@ def submit_task():
                 "inputs"           : [],
                 "status"           : "pending"
             }
-        data["outputs"].extend([{"src" : i_script_name, 
-                                 "dest": "klab-jobs/outputs/{0}/{1}".format(uid, i_script_name)}])
 
+        data["outputs"].extend([{"src" : script_name, 
+                                 "dest": "klab-jobs/outputs/{0}/{1}".format(uid, script_name)}])
+        
         for k in request.POST.keys():
             if k.startswith('input_url'):
                 input_url =  request.POST.get(k)
@@ -207,9 +215,11 @@ def submit_task():
                 data["outputs"].extend([{"src" : output_file, 
                                          "dest": "klab-jobs/outputs/{0}/{1}".format(uid, output_file)}])
 
-        print "*" * 50
-        print data
-        print "*" * 50
+        #print "*" * 50
+        #for k in data:
+        #    print "{0:20} | {1:20}".format(k, data.get(k))
+        #print "--" * 40
+
 
     elif jobtype == "generic":
         
@@ -240,14 +250,14 @@ def submit_task():
                 data["outputs"].extend([{"src" : output_file, 
                                          "dest": "klab-jobs/outputs/{0}/{1}".format(uid, output_file)}])
         
-    #dutils.dynamodb_update(request.app.config["dyno.conn"], data)
+    dutils.dynamodb_update(request.app.config["dyno.conn"], data)
 
     qname = "TestJobsSNSTopicARN"
     if queue in ["Test", "Prod"]:
         qname = queue + "JobsSNSTopicARN"
 
-    #sns_sqs.publish(request.app.config["sns.conn"], request.app.config["instance.tags"][qname],
-    #                json.dumps(data))
+    sns_sqs.publish(request.app.config["sns.conn"], request.app.config["instance.tags"][qname],
+                    json.dumps(data))
 
     return template("./views/submit_confirm.tpl",
                     job_id=uid,
@@ -271,11 +281,11 @@ def list_jobs():
     print "Jobs: "
     print "-"*50
     for r in results:
-        row = [str(r["job_id"]), str(r["status"]), 
-               str(r["submit_stamp"])] #, str(r["username"])]
+        row = [str(r["job_id"]), str(r["status"]),  
+               str(r["jobtype"]), str(r["submit_stamp"])]
         table_tpl.append(row)
 
-    table = sorted(table_tpl, key=lambda row: datetime.datetime.strptime(row[2], '%Y-%m-%d %H:%M:%S'), reverse=True)
+    table = sorted(table_tpl, key=lambda row: datetime.datetime.strptime(row[3], '%Y-%m-%d %H:%M:%S'), reverse=True)
     return template("./views/jobs.tpl",
                     title="Task Status",
                     table=table,
@@ -330,6 +340,9 @@ def job_info(job_id):
             pairs.append([k, link])
             
         elif k in ['outputs']:
+            if item["status"].lower() not in ["completed", "failed"]:
+                continue
+
             for out in item[k]:
                 print "output ", out
                 #signed_url = generate_signed_url(out["dest"], request.app)
