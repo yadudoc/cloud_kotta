@@ -15,6 +15,7 @@ import applications as apps
 import s3_utils as s3
 import dynamo_utils as dutils
 import re
+import shutil
 
 metadata_server="http://169.254.169.254/latest/meta-data/"
 
@@ -117,7 +118,13 @@ def exec_job(app, jobtype, job_id, executable, args, inputs, outputs, data, auth
 
    cwd    = os.getcwd()
    tmpdir = "/tmp/task_executor_jobs/{0}".format(job_id)
-   os.makedirs(tmpdir)
+   try:
+      os.makedirs(tmpdir)
+   except:
+      print "Tmpdir {0} exists. Deleting and recreating".format(tmpdir)
+      shutil.rmtree(tmpdir)
+      os.makedirs(tmpdir)
+
    os.chdir(tmpdir)
 
    record = dutils.dynamodb_get(app.config["dyno.conn"], job_id)
