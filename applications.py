@@ -6,7 +6,8 @@ import logging
 
 sys.path.append("../ncses/doc2vec/")
 
-import pipeline2 as d2v
+#import pipeline2 as d2v
+import turing_updated_pipeline as d2v
 
 def generic_executor(job_id, executable, args, inputs, outputs):
     try :
@@ -80,7 +81,11 @@ def experimental (job_id, executable, args, inputs, outputs, job_desc):
 def doc_to_vec (job_id, executable, args, inputs, outputs, job_desc):
 
     try:
-        d2v.pipeline(inputs, outputs)
+        if len(inputs) == 1:            
+            d2v.main(inputs[0]["dest"])
+        elif len(inputs) == 2:
+            d2v.main(inputs[0]["dest"], inputs[1]["dest"])
+
     except Exception as e:
         logging.error("Caught exception : {0}".format(e))
         raise
