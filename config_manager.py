@@ -54,7 +54,7 @@ def update_creds_from_metadata_server(app):
     app.config["keys.key_token"]  = str(data['Token'])
 
     URL  = app.config["metadata.metaserver"]
-    data = requests.get(URL).text
+    data = requests.get(URL+"instance-id").text
     app.config["instance_id"] = str(data)
 
     URL  = app.config["metadata.metaserver"]
@@ -124,11 +124,18 @@ def init(app):
                                       aws_access_key_id=app.config['keys.key_id'],
                                       aws_secret_access_key=app.config['keys.key_secret'],
                                       security_token=app.config['keys.key_token'])
-
+    #print "instance id : ", app.config["instance_id"]
     # Get meta tags
+    reservation = ec2.get_all_instances(instance_ids=app.config["instance_id"])
     meta_tags = {}
-    for tag in ec2.get_all_tags():
-        meta_tags[str(tag.name)] = str(tag.value)
+    if reservation :
+        for tag in reservation[0].instances[0].tags:
+            meta_tags[str(tag)] = str(reservation[0].instances[0].tags[tag])
+            #print str(tag), str(reservation[0].instances[0].tags[tag])
+
+    #meta_tags = {}
+    #for tag in ec2.get_all_tags():
+    #    meta_tags[str(tag.name)] = str(tag.value)
 
     # Log the metadata tags
     app.config["instance.tags"] = meta_tags
