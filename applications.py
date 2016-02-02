@@ -2,6 +2,8 @@
 import sys
 import os
 import subprocess
+import logging
+
 sys.path.append("../ncses/doc2vec/")
 
 import pipeline2 as d2v
