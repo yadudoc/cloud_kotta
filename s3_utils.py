@@ -38,10 +38,10 @@ def download_s3_keys(s3conn, bucket_name, prefix, target):
 
 def generate_signed_url(s3conn, bucket_name, prefix, duration):
     bucket  = s3conn.get_bucket(bucket_name, validate=False)
-    key     = bucket.get_key(prefix)
-    if key:
+    try:
+        key     = bucket.get_key(prefix)
         return key.generate_url(duration, method='GET')
-    else:
+    except:    
         return None
 
 def test():
