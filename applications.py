@@ -3,9 +3,9 @@ import sys
 import os
 import subprocess
 import logging
+import command
 
 sys.path.append("../ncses/doc2vec/")
-
 #import pipeline2 as d2v
 import turing_updated_pipeline as d2v
 
@@ -15,6 +15,7 @@ def generic_executor(job_id, executable, args, inputs, outputs):
         std_out = open("STDOUT.txt", 'w')
         std_err = open("STDERR.txt", 'w')
         print [executable, args], "stdout='STDOUT.txt', stderr='STDERR.txt'"
+        
         pid = subprocess.Popen([executable, args], stdout=std_out, stderr=std_err)
         pid.wait()
         std_out.close()
@@ -37,7 +38,28 @@ def generic_executor(job_id, executable, args, inputs, outputs):
     # everything is OK!
     return True
 
-def script_executor(job_id, executable, args, inputs, outputs, job_desc):
+def script_executor (app, job_desc):
+
+    inputs   = job_desc['inputs']
+    walltime = int(job_desc.get("walltime", 24*60*60))
+    job_id   = job_desc["job_id"]
+
+    retcode  = 9999
+
+    try:
+        cmd = "{0} {1}".format(cmd, inputs[0]["dest"])
+        elif len(inputs) == 2:
+            cmd = "{0} {1}".format(cmd, inputs[0]["dest"], inputs[1]["dest"])
+
+        logging.debug("doc_to_vec, executing {0}".format(cmd))
+        retcode = command.execute(app, cmd, walltime, job_id)
+
+    except Exception as e:
+        logging.error("Caught exception : {0}".format(e))
+        raise
+
+    return retcode
+
     try :
         script_file = job_desc.get('i_script_name')
         script      = job_desc.get('i_script')
@@ -71,26 +93,36 @@ def script_executor(job_id, executable, args, inputs, outputs, job_desc):
     # everything is OK!
     return True
 
-def python_executor (job_id, executable, args, inputs, outputs, job_desc):
+def python_executor (app, job_desc):
     return True
 
-def experimental (job_id, executable, args, inputs, outputs, job_desc):
+def experimental (app, job_desc):
     return True
 
 
-def doc_to_vec (job_id, executable, args, inputs, outputs, job_desc):
+def doc_to_vec (app, job_desc):
+
+    inputs   = job_desc['inputs']
+    cmd      = "python /home/ubuntu/ncses/doc2vec/turing_updated_pipeline.py"
+    walltime = int(job_desc.get("walltime", 24*60*60))
+    job_id   = job_desc["job_id"]
+
+    retcode  = 9999
 
     try:
         if len(inputs) == 1:            
-            d2v.main(inputs[0]["dest"])
+            cmd = "{0} {1}".format(cmd, inputs[0]["dest"])
         elif len(inputs) == 2:
-            d2v.main(inputs[0]["dest"], inputs[1]["dest"])
+            cmd = "{0} {1}".format(cmd, inputs[0]["dest"], inputs[1]["dest"])
+
+        logging.debug("doc_to_vec, executing {0}".format(cmd))
+        retcode = command.execute(app, cmd, walltime, job_id)
 
     except Exception as e:
         logging.error("Caught exception : {0}".format(e))
         raise
 
-    return True
+    return retcode
 
 # Job Definitions
 JOBS = { "doc_to_vec" : doc_to_vec,
