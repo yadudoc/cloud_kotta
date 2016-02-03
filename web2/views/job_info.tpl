@@ -13,7 +13,17 @@
       }
 </style>
 
+
 <div id="main">
+
+
+    <div class="row">
+      <div class="form-group col-md-4">
+       <a href="{{get_url('job_cancel')}}/{{job_id}}" class="btn btn-danger" role="button">Cancel Job</a>
+      </div>
+    </div>
+    
+
      <div class="table-responsive">
      <table class="table">
      %for row in table:

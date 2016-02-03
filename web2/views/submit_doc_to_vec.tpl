@@ -15,8 +15,15 @@
 
     <div class="row">
       <div class="form-group col-md-4">
-        <label for="input_url">Input URL</label>
-        <input class="form-control input-lg input_url required" type="URL" name="input_url" id="input_url" placeholder="http://" />
+        <label for="document_url">Document URL</label>
+        <input class="form-control input-lg input_url required" type="URL" name="input_url" placeholder="http://" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-4">
+        <label for="model_url">Model URL (optional)</label>
+        <input class="form-control input-lg input_url" type="URL" name="model_url" placeholder="http://" />
       </div>
     </div>
 
