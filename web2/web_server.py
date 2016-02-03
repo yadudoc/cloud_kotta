@@ -134,6 +134,7 @@ def submit_job(jobtype):
                     
     return t
 
+
 ##################################################################################
 # Submit tasks
 ##################################################################################
@@ -155,7 +156,7 @@ def submit_job_description():
 
     uid = str(uuid.uuid1())
 
-    if jobtype == "doc_to_vec":        
+    if jobtype == "doc_to_vec":
         data = {"job_id"           : uid,
                 "username"         : username,
                 "i_user_id"        : user_id,
@@ -165,22 +166,36 @@ def submit_job_description():
                 "inputs"           : [{"src": input_url, "dest": input_url.split('/')[-1] }],
                 "outputs"          : [{"src": "doc_mat.pkl",  "dest": "klab-jobs/outputs/{0}/doc_mat.pkl".format(uid)},
                                       {"src": "word_mat.pkl", "dest": "klab-jobs/outputs/{0}/word_mat.pkl".format(uid)},
-                                      {"src": "mdl.pkl",      "dest": "klab-jobs/outputs/{0}/mdl.pkl".format(uid)}],
+                                      {"src": "mdl.pkl",      "dest": "klab-jobs/outputs/{0}/mdl.pkl".format(uid)},
+                                      {"src": "STDOUT.txt",   "dest": "klab-jobs/outputs/{0}/STDOUT.txt".format(uid)},
+                                      {"src": "STDERR.txt",   "dest": "klab-jobs/outputs/{0}/STDERR.txt".format(uid)},
+                                      {"src": "pipeline.log", "dest": "klab-jobs/outputs/{0}/pipeline.log".format(uid)}],
                 "submit_time"      : int(time.time()),
                 "submit_stamp"     : str(time.strftime('%Y-%m-%d %H:%M:%S')),
+                "walltime"         : walltime,
                 "queue"            : queue,
                 "status"           : "pending"
                 
             }
+        model_url = request.POST.get('model_url')
+        if model_url :
+            print "Model url : {0}".format(model_url)
+            data["inputs"].extend([{"src": model_url, "dest": model_url.split('/')[-1]}])
+            print data["inputs"]
+        else:
+            print "Model URL not present"
+
+
 
     elif jobtype == "script":
         print "--" * 40
 
-        script = request.POST.get('script')
+        script = request.POST.get('script').rstrip('\r')
         script_name = request.POST.get('script_name')
 
-        inputs = request.POST.get('inputs')
-        inputs = [{"src":x.strip(), "dest":x.strip().split('/')[-1]} for x in inputs.split(',')]
+        inputs = request.POST.get('inputs')        
+        if inputs:
+            inputs = [{"src":x.strip(), "dest":x.strip().split('/')[-1]} for x in inputs.split(',')]
         print inputs
 
         data = {"job_id"           : uid,
@@ -198,6 +213,7 @@ def submit_job_description():
                 "queue"            : queue,
                 "outputs"          : [],
                 "inputs"           : [],
+                "walltime"         : walltime,
                 "status"           : "pending"
             }
 
@@ -215,6 +231,7 @@ def submit_job_description():
                 data["outputs"].extend([{"src" : output_file, 
                                          "dest": "klab-jobs/outputs/{0}/{1}".format(uid, output_file)}])
 
+        print data
         #print "*" * 50
         #for k in data:
         #    print "{0:20} | {1:20}".format(k, data.get(k))
@@ -249,7 +266,7 @@ def submit_job_description():
                 print "Outfile : ", output_file
                 data["outputs"].extend([{"src" : output_file, 
                                          "dest": "klab-jobs/outputs/{0}/{1}".format(uid, output_file)}])
-        
+       
     dutils.dynamodb_update(request.app.config["dyno.conn"], data)
 
     qname = "TestJobsSNSTopicARN"
@@ -257,7 +274,7 @@ def submit_job_description():
         qname = queue + "JobsSNSTopicARN"
 
     sns_sqs.publish(request.app.config["sns.conn"], request.app.config["instance.tags"][qname],
-                    json.dumps(data))
+                   json.dumps(data))
 
     return template("./views/submit_confirm.tpl",
                     job_id=uid,
@@ -310,6 +327,35 @@ def generate_signed_url(key_path, app):
                                                                      app.config['keys.key_id'],
                                                                      exp_time,
                                                                      signature);
+
+@route('/cancel', method='GET', name="job_cancel")
+def cancel(job_id):
+    return
+
+#################################################################
+# Cancel a job
+#################################################################
+@route('/cancel/<job_id>', method='GET', name="cancel")
+def job_cancel(job_id):
+    
+    session = bottle.request.environ.get('beaker.session')
+    require_login(session)
+
+    conf_man.update_creds_from_metadata_server(request.app)
+    dyntable = request.app.config['dyno.conn']
+
+    try:
+        tstamp = str(time.strftime('%Y-%m-%d %H:%M:%S'))
+        item = dyntable.get_item(job_id=job_id)
+        item["status"] = "cancelled"
+        item["reason"] =  "User request cancel"
+        item["cancel_time"] = tstamp
+        dynamodb_update(dyntable, item)
+
+    except ItemNotFound:
+        return "The requested job_id was not found in the jobs database"
+
+    redirect('/jobs/' + job_id)
 
 @route('/jobs/<job_id>', method='GET', name="job_info")
 def job_info(job_id):
@@ -364,6 +410,7 @@ def job_info(job_id):
     print pairs
     return template('./views/job_info',
                     title="Job - Info",
+                    job_id=job_id,
                     table= pairs, # Body
                     log_path="/job_log",
                     session=session)
