@@ -4,6 +4,8 @@ import subprocess
 import threading
 import os
 import time
+import dynamo_utils as dutils
+import config_manager as cm
 
 ############################################################################
 # Default params
@@ -13,9 +15,21 @@ WALLTIME_EXCEEDED = 1001
 KILLED_BY_REQUEST = 1002
 
 ############################################################################
+# Check dynamodb to ensure that the application has not been cancelled
+############################################################################
+def statecheck(app, job_id):
+    print "Statecheck"
+    cm.update_creds_from_metadata_server(app)
+    record = dutils.dynamodb_get(app.config["dyno.conn"], job_id)
+    if record["status"] == "cancelled":
+        print "Cancelled"
+        return False
+    print "Job not cancelled"
+
+############################################################################
 # Run a command
 ############################################################################
-def RunCommand (cmd, walltime, statecheck):
+def execute (app, cmd, walltime, job_id):
     
     print "RunCommand Started   {0}".format(cmd)
 
@@ -44,7 +58,7 @@ def RunCommand (cmd, walltime, statecheck):
             proc.kill()
             return WALLTIME_EXCEEDED
 
-        if statecheck(cmd['job_id']) :
+        if statecheck(app, job_id) :
             print "Termination request received. killing process"
             proc.kill()
             return KILLED_BY_REQUEST
@@ -54,24 +68,22 @@ def RunCommand (cmd, walltime, statecheck):
     print "RunCommand Completed {0}".format(cmd)
 
 
-
-cmd = {"job_id"     : 123123,
-       "executable" : "/bin/echo",
-       "args"       : "hello"}
+def testing():
+    cmd = {"job_id"     : 123123,
+           "executable" : "/bin/echo",
+           "args"       : "hello"}
        
-def foo():
-    return False
+    
+    status = execute("/bin/doo Hello World", 5, None)
+    if status == 127 :
+        print "Pass"
+    else:
+        print "Failed test"
 
-status = RunCommand("/bin/doo Hello World", 5, foo)
-if status == 127 :
-    print "Pass"
-else:
-    print "Failed test"
-
-status = RunCommand('/bin/echo "Hello World"; sleep 8', 10, foo)
-if status == 0 :
-    print "Pass"
-else:
-    print "Failed test"
-
+    status = execute('/bin/echo "Hello World"; sleep 8', 10, None)
+    if status == 0 :
+        print "Pass"
+    else:
+        print "Failed test"
+            
 
