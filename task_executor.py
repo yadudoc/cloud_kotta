@@ -111,6 +111,7 @@ def update_record(record, key, value):
    record.save(overwrite=True)
    return
 
+   
 def exec_job(app, jobtype, job_id, executable, args, inputs, outputs, data, auth):
 
    # Save current folder and chdir to a temporary folder
@@ -148,7 +149,7 @@ def exec_job(app, jobtype, job_id, executable, args, inputs, outputs, data, auth
    print "JOBS : ", apps.JOBS[jobtype]
 
    try:
-      apps.JOBS[jobtype](job_id, executable, args, inputs, outputs, data)
+      returncode = apps.JOBS[jobtype](app, data)
       conf_man.update_creds_from_metadata_server(app)
 
    except Exception, e:
@@ -222,7 +223,7 @@ def task_loop(app):
 
             print "Status : ", status
 
-            if status == True:
+            if status == 0:
                conf_man.send_success_mail(data, app)
             else:
                conf_man.send_failure_mail(data, app)
