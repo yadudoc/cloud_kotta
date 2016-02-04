@@ -5,7 +5,7 @@
 
 <div class="row">
      <hr />
-     Your job has been submitted with Job_id:{{job_id}}.</br>
+     Your job has been submitted with Job_id: <a href="{{get_url('jobs')}}/{{job_id}}">{{job_id}}</a>.</br>
      Check here :<a href="{{get_url('jobs')}}">Jobs!</a>
 </div>
 

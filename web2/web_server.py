@@ -148,8 +148,9 @@ def submit_job_description():
     input_url = request.POST.get('input_url')
     jobtype   = request.POST.get('jobtype').strip()
     executable= request.POST.get('executable')
-    args      = request.POST.get('args')
+    args      = request.POST.get('args', '')
     walltime  = request.POST.get('walltime')
+    walltime  = int(walltime) * 60;
     queue     = request.POST.get('queue')
     username  = session["username"]
     role      = session["user_role"]
@@ -190,7 +191,7 @@ def submit_job_description():
     elif jobtype == "script":
         print "--" * 40
 
-        script = request.POST.get('script').rstrip('\r')
+        script = request.POST.get('script')#.rstrip('\r')
         script_name = request.POST.get('script_name')
 
         inputs = request.POST.get('inputs')        
@@ -231,11 +232,11 @@ def submit_job_description():
                 data["outputs"].extend([{"src" : output_file, 
                                          "dest": "klab-jobs/outputs/{0}/{1}".format(uid, output_file)}])
 
-        print data
-        #print "*" * 50
-        #for k in data:
-        #    print "{0:20} | {1:20}".format(k, data.get(k))
-        #print "--" * 40
+        print "*" * 50
+        for k in data:
+            print k
+            print "{0:20} | {1:20}".format(k, data.get(k))
+        print "--" * 40
 
 
     elif jobtype == "generic":
