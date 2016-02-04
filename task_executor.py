@@ -148,6 +148,8 @@ def exec_job(app, jobtype, job_id, executable, args, inputs, outputs, data, auth
       return False
    print "JOBS : ", apps.JOBS[jobtype]
 
+   status = True
+   returncode = 0
    try:
       returncode = apps.JOBS[jobtype](app, data)
       conf_man.update_creds_from_metadata_server(app)
@@ -157,17 +159,22 @@ def exec_job(app, jobtype, job_id, executable, args, inputs, outputs, data, auth
       update_record(record, "complete_time", time.time())
       update_record(record, "ERROR", str(e));
       print "Job execution failed : {0}".format(e)
-      os.chdir(cwd)
-      return False
-      #pass
-
+      status = False
 
    update_record(record, "status", "staging_outputs")
    # Upload the result to S3
    put_outputs(app, outputs)
 
-   update_record(record, "status", "completed")
-   update_record(record, "complete_time", time.time())
+   if returncode != 0 :
+      update_record(record, "status", "failed");
+      update_record(record, "complete_time", time.time())
+      update_record(record, "ERROR", str(e));
+      update_record(record, "ERROR_CODE", returncode);
+      status = False
+   else:
+      update_record(record, "status", "completed")
+      update_record(record, "complete_time", time.time())
+
    # Chdir back to the original folder
    os.chdir(cwd)
    return True
@@ -223,7 +230,7 @@ def task_loop(app):
 
             print "Status : ", status
 
-            if status == 0:
+            if status == True:
                conf_man.send_success_mail(data, app)
             else:
                conf_man.send_failure_mail(data, app)
