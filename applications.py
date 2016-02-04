@@ -59,34 +59,6 @@ def script_executor (app, job_desc):
 
     return retcode
 
-    try :
-
-        print "Running {0} {1}".format(executable, args)
-        std_out = open("STDOUT.txt", 'w')
-        std_err = open("STDERR.txt", 'w')
-        print [executable, args], "stdout='STDOUT.txt', stderr='STDERR.txt'"
-        pid = subprocess.Popen([executable, args], stdout=std_out, stderr=std_err)
-        pid.wait()
-        std_out.close()
-        std_err.close()
-    # Invalid value provided
-    except ValueError as e:
-        logging.error("ValueError : {0}".format(e));
-        raise
-
-    # Failed to execute
-    except OSError as e:
-        logging.error("OSError : {0}".format(e));
-        raise
-
-    # Unknown error
-    except Exception as e:
-        logging.error("Generic Error : {0}".format(e));
-        raise
-
-    # everything is OK!
-    return True
-
 def python_executor (app, job_desc):
     return True
 
