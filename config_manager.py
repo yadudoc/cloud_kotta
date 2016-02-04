@@ -88,7 +88,7 @@ def send_success_mail(data, app):
                     url=url)
 
     st = sesconn.send_email(src_email,
-                            "[JES] Your Job has completed",
+                            "[Turing] Your Job has completed",
                             body,
                             [rec_email])
     print st
@@ -111,7 +111,7 @@ def send_failure_mail(data, app):
                     url=url)
 
     st = sesconn.send_email(src_email,
-                            "[JES] Your Job has failed",
+                            "[Turing] Your Job has failed",
                             body,
                             [rec_email])
     print st
