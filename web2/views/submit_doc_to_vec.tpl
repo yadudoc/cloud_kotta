@@ -30,7 +30,7 @@
     <div class="row">
       <div class="form-group col-md-4">
         <label for="walltime">Walltime in minutes</label>
-        <input class="form-control input-lg" type="text" name="walltime" id="walltime" placeholder="5" default="5"/>
+        <input class="form-control input-lg required" type="text" name="walltime" id="walltime"  value="5"/>
       </div>
     </div>
 
