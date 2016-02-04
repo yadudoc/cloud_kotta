@@ -5,10 +5,6 @@ import subprocess
 import logging
 import command
 
-sys.path.append("../ncses/doc2vec/")
-#import pipeline2 as d2v
-import turing_updated_pipeline as d2v
-
 def generic_executor(job_id, executable, args, inputs, outputs):
     try :
         print "Running {0} {1}".format(executable, args)
