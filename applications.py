@@ -5,10 +5,6 @@ import subprocess
 import logging
 import command
 
-sys.path.append("../ncses/doc2vec/")
-#import pipeline2 as d2v
-import turing_updated_pipeline as d2v
-
 def generic_executor(job_id, executable, args, inputs, outputs):
     try :
         print "Running {0} {1}".format(executable, args)
@@ -40,18 +36,21 @@ def generic_executor(job_id, executable, args, inputs, outputs):
 
 def script_executor (app, job_desc):
 
-    inputs   = job_desc['inputs']
-    walltime = int(job_desc.get("walltime", 24*60*60))
-    job_id   = job_desc["job_id"]
+    inputs      = job_desc['inputs']
+    walltime    = int(job_desc.get("walltime", 24*60*60))
+    job_id      = job_desc["job_id"]
+    script_file = job_desc.get('i_script_name')
+    script      = job_desc.get('i_script')
+    cmd         = job_desc["executable"]
+
+    with open(script_file, 'w') as ofile:
+        ofile.write(script)
+        os.chmod(script_file, 0o744)
 
     retcode  = 9999
 
     try:
-        cmd = "{0} {1}".format(cmd, inputs[0]["dest"])
-        elif len(inputs) == 2:
-            cmd = "{0} {1}".format(cmd, inputs[0]["dest"], inputs[1]["dest"])
-
-        logging.debug("doc_to_vec, executing {0}".format(cmd))
+        logging.debug("script_executor, executing {0}".format(cmd))
         retcode = command.execute(app, cmd, walltime, job_id)
 
     except Exception as e:
@@ -61,11 +60,6 @@ def script_executor (app, job_desc):
     return retcode
 
     try :
-        script_file = job_desc.get('i_script_name')
-        script      = job_desc.get('i_script')
-        with open(script_file, 'w') as ofile:
-            ofile.write(script)
-        os.chmod(script_file, 0o744)
 
         print "Running {0} {1}".format(executable, args)
         std_out = open("STDOUT.txt", 'w')
