@@ -15,21 +15,28 @@
 
     <div class="row">
       <div class="form-group col-md-4">
-        <label for="document_url">Document URL</label>
-        <input class="form-control input-lg input_url required" type="URL" name="input_url" placeholder="http://" />
+        <label for="document_url">Document file URL <font color=#800000>*</font> </label>
+        <input class="form-control input-lg input_url required" type="URL" name="input_url" placeholder="https://...document.csv" />
       </div>
     </div>
 
     <div class="row">
       <div class="form-group col-md-4">
-        <label for="model_url">Model URL (optional)</label>
-        <input class="form-control input-lg input_url" type="URL" name="model_url" placeholder="http://" />
+        <label for="model_url">Model file URL </label>
+        <input class="form-control input-lg input_url" type="URL" name="model_url" placeholder="https://...mdl.pkl" />
       </div>
     </div>
 
     <div class="row">
       <div class="form-group col-md-4">
-        <label for="walltime">Walltime in minutes</label>
+        <label for="model_url">Parameters file URL </label>
+        <input class="form-control input-lg input_url" type="URL" name="params_url" placeholder="https://...params.json" />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-4">
+        <label for="walltime">Walltime in minutes <font color=#800000>*</font> </label>
         <input class="form-control input-lg required" type="text" name="walltime" id="walltime"  value="5"/>
       </div>
     </div>
