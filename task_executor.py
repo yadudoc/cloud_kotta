@@ -84,6 +84,25 @@ def get_inputs(app, inputs, auth):
             print "Download from s3 failed "
             raise
 
+      elif i["src"].startswith("s3://"):
+
+         
+         tmp     = s3_path.split('/', 1)
+         s3_bucket = tmp[0]
+         s3_key    = tmp[1]
+         #destination = s3_path.rsplit('/',1)[-1]
+         print s3_bucket
+         print s3_key
+         print "Downloading {0} via s3 provider".format(i["src"])
+         try:
+            s3.download_s3_keys(app.config["s3.conn"],
+                                s3_bucket,
+                                s3_key,
+                                i["dest"])
+         except Exception, e:
+            print "Download from s3 failed "
+            raise
+
       else:
          print "No match. Could not fetch data"
       
@@ -97,7 +116,12 @@ def put_outputs(app, outputs):
 
    for out in outputs:
       print "Outputs : ", out
+      if not os.path.exists(out["src"]):
+         print "Missing file. Continuing"
+         continue
+
       target = out["dest"].split('/', 1)
+
       s3.upload_s3_keys(app.config["s3.conn"],
                         out["src"], # Source filename
                         target[0],  # Bucket name
@@ -136,6 +160,8 @@ def exec_job(app, jobtype, job_id, executable, args, inputs, outputs, data, auth
       get_inputs(app, inputs, auth)
    except Exception, e:
       update_record(record, "ERROR", "Failed to download inputs {0}".format(e))
+      update_record(record, "status", "failed")
+      update_record(record, "complete_time", time.time())
       logging.error("Failed to download inputs")
       return False
 
@@ -268,6 +294,8 @@ if __name__ == "__main__":
       print "Cannot proceed. Exiting"
       exit(-1)
 
+   print get_instance_starttime()
+   exit(0)
    logging.basicConfig(filename=args.logfile, level=conf_man.log_levels[args.verbose],
                        format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
                        datefmt='%m-%d %H:%M')
@@ -276,4 +304,4 @@ if __name__ == "__main__":
    app = conf_man.load_configs(args.conffile);
 
    task_loop(app)
-   #print get_instance_starttime()
+
