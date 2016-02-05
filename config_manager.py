@@ -203,7 +203,7 @@ def load_configs(filename):
     app = bottle.default_app()
     try:
         app.config.load_config(filename)
-    except Exception, e:
+    except Exception as e:
         logging.error("Exception {0} in load_config".format(e))
         exit(-1)
 
