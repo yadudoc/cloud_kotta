@@ -77,9 +77,9 @@ def doc_to_vec (app, job_desc):
 
     try:
         if len(inputs) == 1:            
-            cmd = "{0} {1}".format(cmd, inputs[0]["dest"])
+            cmd = "{0} -d {1}".format(cmd, inputs[0]["dest"])
         elif len(inputs) == 2:
-            cmd = "{0} {1}".format(cmd, inputs[0]["dest"], inputs[1]["dest"])
+            cmd = "{0} -d {1} -m {2}".format(cmd, inputs[0]["dest"], inputs[1]["dest"])
 
         logging.debug("doc_to_vec, executing {0}".format(cmd))
         retcode = command.execute(app, cmd, walltime, job_id)
