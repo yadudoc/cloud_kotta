@@ -85,7 +85,7 @@ def doc_to_vec (app, job_desc):
             elif i["type"] == "params":
                 cmd = cmd + " -p {0}".format(i["dest"])
 
-            elif i["type"] == "model" 
+            elif i["type"] == "model":
                 cmd = cmd + " -m {0}".format(i["dest"])
 
             else:
