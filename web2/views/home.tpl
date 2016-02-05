@@ -21,8 +21,8 @@
 
     <div class="row">
         <div class="col-md-6 left">
-            <h1>Turing complete</h1>
-        	<p>Definitely turing complete! </br> -Johny Bravo</br>Cartoon Network</p>
+            <h1>Ace the Turing test!</h1>
+        	<p>Beats the average grad student hands down!</br> -Prof. Farnsworth</br>Planet Express</p>
         </div>
         <div class="col-md-6 right">
             <h1>Website undersells the infrastructure</h1>
