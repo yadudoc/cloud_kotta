@@ -16,6 +16,7 @@ import s3_utils as s3
 import dynamo_utils as dutils
 import re
 import shutil
+import sys
 
 metadata_server="http://169.254.169.254/latest/meta-data/"
 
@@ -80,8 +81,8 @@ def get_inputs(app, inputs, auth):
                                 s3_bucket,
                                 s3_key,
                                 i["dest"])
-         except Exception, e:
-            print "Download from s3 failed "
+         except Exception as e:
+            print "Download from s3 failed {0}".format(e)
             raise
 
       elif i["src"].startswith("s3://"):
@@ -99,8 +100,8 @@ def get_inputs(app, inputs, auth):
                                 s3_bucket,
                                 s3_key,
                                 i["dest"])
-         except Exception, e:
-            print "Download from s3 failed "
+         except Exception as e:
+            print "Download from s3 failed {0}".format(e)
             raise
 
       else:
@@ -121,7 +122,6 @@ def put_outputs(app, outputs):
          continue
 
       target = out["dest"].split('/', 1)
-
       s3.upload_s3_keys(app.config["s3.conn"],
                         out["src"], # Source filename
                         target[0],  # Bucket name
@@ -158,7 +158,8 @@ def exec_job(app, jobtype, job_id, executable, args, inputs, outputs, data, auth
    update_record(record, "status", "staging_inputs")
    try:
       get_inputs(app, inputs, auth)
-   except Exception, e:
+   except Exception as e:
+      print "Exception info : ".format(sys.exc_info()[0])
       update_record(record, "ERROR", "Failed to download inputs {0}".format(e))
       update_record(record, "status", "failed")
       update_record(record, "complete_time", time.time())
@@ -178,9 +179,10 @@ def exec_job(app, jobtype, job_id, executable, args, inputs, outputs, data, auth
    returncode = 0
    try:
       returncode = apps.JOBS[jobtype](app, data)
+      print "Returncode : {0}".format(returncode)
       conf_man.update_creds_from_metadata_server(app)
 
-   except Exception, e:
+   except Exception as e:
       update_record(record, "status", "Failed");
       update_record(record, "complete_time", time.time())
       update_record(record, "ERROR", str(e));
@@ -194,7 +196,6 @@ def exec_job(app, jobtype, job_id, executable, args, inputs, outputs, data, auth
    if returncode != 0 :
       update_record(record, "status", "failed");
       update_record(record, "complete_time", time.time())
-      update_record(record, "ERROR", str(e));
       update_record(record, "ERROR_CODE", returncode);
       status = False
    else:
@@ -266,10 +267,11 @@ def task_loop(app):
             res = q.delete_message(msg)
             print "Deleting message from queue, status : ",res;
 
-         except Exception, e:
-               # The stdout/stder are being logged into a file
-               # on the machine
-               print "Job failed to complete : {0}".format(e)
+         except Exception as e:
+               print "Job failed to complete : {0}".format(sys.exc_info()[0])
+               res = q.delete_message(msg)
+               print "Deleting message from queue, status : ",res;
+
                #pass
 
       else:
@@ -295,7 +297,7 @@ if __name__ == "__main__":
       exit(-1)
 
    print get_instance_starttime()
-   exit(0)
+
    logging.basicConfig(filename=args.logfile, level=conf_man.log_levels[args.verbose],
                        format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
                        datefmt='%m-%d %H:%M')

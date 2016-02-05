@@ -17,14 +17,15 @@ KILLED_BY_REQUEST = 1002
 ############################################################################
 # Check dynamodb to ensure that the application has not been cancelled
 ############################################################################
-def statecheck(app, job_id):
+def check_if_cancelled(app, job_id):
     print "Statecheck"
     cm.update_creds_from_metadata_server(app)
     record = dutils.dynamodb_get(app.config["dyno.conn"], job_id)
     if record["status"] == "cancelled":
         print "Cancelled"
-        return False
+        return True
     print "Job not cancelled"
+    return False
 
 ############################################################################
 # Run a command
@@ -58,7 +59,7 @@ def execute (app, cmd, walltime, job_id):
             proc.kill()
             return WALLTIME_EXCEEDED
 
-        if statecheck(app, job_id) :
+        if check_if_cancelled(app, job_id) :
             print "Termination request received. killing process"
             proc.kill()
             return KILLED_BY_REQUEST
