@@ -164,7 +164,7 @@ def submit_job_description():
                 "i_user_role"      : role,
                 "user_email"       : email,
                 "jobtype"          : "doc_to_vec",
-                "inputs"           : [{"src": input_url, "dest": input_url.split('/')[-1] }],
+                "inputs"           : [{"type": "doc", "src": input_url, "dest": input_url.split('/')[-1] }],
                 "outputs"          : [{"src": "doc_mat.pkl",  "dest": "klab-jobs/outputs/{0}/doc_mat.pkl".format(uid)},
                                       {"src": "word_mat.pkl", "dest": "klab-jobs/outputs/{0}/word_mat.pkl".format(uid)},
                                       {"src": "mdl.pkl",      "dest": "klab-jobs/outputs/{0}/mdl.pkl".format(uid)},
@@ -181,11 +181,18 @@ def submit_job_description():
         model_url = request.POST.get('model_url')
         if model_url :
             print "Model url : {0}".format(model_url)
-            data["inputs"].extend([{"src": model_url, "dest": model_url.split('/')[-1]}])
+            data["inputs"].extend([{"type": "model", "src": model_url, "dest": model_url.split('/')[-1]}])
             print data["inputs"]
         else:
             print "Model URL not present"
 
+        params_url = request.POST.get('params_url')
+        if params_url :
+            print "Params url : {0}".format(params_url)
+            data["inputs"].extend([{"type": "params", "src": params_url, "dest": params_url.split('/')[-1]}])
+            print data["inputs"]
+        else:
+            print "Params URL not present"
 
 
     elif jobtype == "script":
