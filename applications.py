@@ -5,6 +5,8 @@ import subprocess
 import logging
 import command
 
+UNKNOWN_ARGS = -5
+
 def generic_executor(job_id, executable, args, inputs, outputs):
     try :
         print "Running {0} {1}".format(executable, args)
@@ -76,10 +78,18 @@ def doc_to_vec (app, job_desc):
     retcode  = 9999
 
     try:
-        if len(inputs) == 1:            
-            cmd = "{0} -d {1}".format(cmd, inputs[0]["dest"])
-        elif len(inputs) == 2:
-            cmd = "{0} -d {1} -m {2}".format(cmd, inputs[0]["dest"], inputs[1]["dest"])
+        for i in inputs:
+            if i["type"] == "doc":
+                cmd = cmd + " -d {0}".format(i["dest"])
+
+            elif i["type"] == "params":
+                cmd = cmd + " -p {0}".format(i["dest"])
+
+            elif i["type"] == "model" 
+                cmd = cmd + " -m {0}".format(i["dest"])
+
+            else:
+                return UNKNOWN_ARGS
 
         logging.debug("doc_to_vec, executing {0}".format(cmd))
         retcode = command.execute(app, cmd, walltime, job_id)
