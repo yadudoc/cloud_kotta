@@ -434,17 +434,9 @@ def tstamp_plus_nmins(mins):
 def browse_folders():
     session = bottle.request.environ.get('beaker.session')
     list_buckets = ["klab-webofscience", "klab-jobs"]
+
     
-    signed_url = s3.generate_signed_url(request.app.config["s3.conn"],
-                                        bucket,
-                                        key,
-                                        1500)   # Duration
-    link = '<a href="{0}">{1}</a>'.format(signed_url,
-                                          key.split('/')[-1])
-    unsigned = "https://s3.amazonaws.com/klab-webofscience/uploads/amzn1.account.AEKWXVYINCBBNY5MPRMOYND6CWWA/Screenshot+from+2016-01-27+01%3A18%3A51.png"
     return template("./views/upload_confirm.tpl",
-                    signed_url=link,
-                    unsigned=unsigned,
                     job_id="foo",
                     title="Turing - Upload Success!",
                     session=session)
