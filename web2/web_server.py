@@ -154,7 +154,7 @@ def submit_job_description():
     queue     = request.POST.get('queue')
     username  = session["username"]
     role      = session["user_role"]
-
+    outputs   = request.POST.get('outputs', None)
     uid = str(uuid.uuid1())
 
     if jobtype == "doc_to_vec":
@@ -205,7 +205,7 @@ def submit_job_description():
         if inputs:
             inputs = [{"src":x.strip(), "dest":x.strip().split('/')[-1]} for x in inputs.split(',')]
         print inputs
-
+            
         data = {"job_id"           : uid,
                 "username"         : username,
                 "i_user_id"        : user_id,
@@ -229,11 +229,18 @@ def submit_job_description():
                                  "dest": "klab-jobs/outputs/{0}/{1}".format(uid, script_name)}])
         
         for k in request.POST.keys():
+            print "Key : {0}".format(k)
             if k.startswith('input_url'):
                 input_url =  request.POST.get(k)
                 data["inputs"].extend([{"src" : input_url, 
                                         "dest": input_url.split('/')[-1]}])
-            elif k.startswith('output_file'):
+            elif k == "outputs":
+                for outfile in outputs.split(','):
+                    outfile = outfile.lstrip().rstrip()                    
+                    data["outputs"].extend([{"src" : outfile, 
+                                             "dest": "klab-jobs/outputs/{0}/{1}".format(uid, outfile)}])
+
+            elif k.startswith('output_'):
                 output_file = request.POST.get(k)
                 print "Outfile : ", output_file
                 data["outputs"].extend([{"src" : output_file, 
@@ -244,10 +251,10 @@ def submit_job_description():
             print k
             print "{0:20} | {1:20}".format(k, data.get(k))
         print "--" * 40
-
+        
 
     elif jobtype == "generic":
-        
+             
         data = {"job_id"           : uid,
                 "username"         : username,
                 "i_user_id"        : user_id,
@@ -276,6 +283,14 @@ def submit_job_description():
                                          "dest": "klab-jobs/outputs/{0}/{1}".format(uid, output_file)}])
        
     dutils.dynamodb_update(request.app.config["dyno.conn"], data)
+
+    enable_mock = False
+
+    if enable_mock :
+        return template("./views/submit_confirm.tpl",
+                        job_id="MOCK-{0}".format(uid),
+                        title="Task Confirmation - MOCK",
+                        session=session)
 
     qname = "TestJobsSNSTopicARN"
     if queue in ["Test", "Prod"]:
