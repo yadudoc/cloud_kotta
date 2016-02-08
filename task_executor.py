@@ -19,6 +19,7 @@ import shutil
 import sys
 
 metadata_server="http://169.254.169.254/latest/meta-data/"
+clean_tmp_dirs = True
 
 def get_instance_starttime() :
    try:
@@ -239,9 +240,12 @@ def exec_job(app, jobtype, job_id, executable, args, inputs, outputs, data, auth
       update_record(record, "ERROR_CODE", returncode);
       status = False
    else:
+      
       update_record(record, "status", "completed")
       update_record(record, "complete_time", time.time())
 
+   if clean_tmp_dirs:
+      shutil.rmtree(tmpdir)
    # Chdir back to the original folder
    os.chdir(cwd)
    return True
