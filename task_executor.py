@@ -122,11 +122,16 @@ def put_outputs(app, outputs):
          continue
 
       target = out["dest"].split('/', 1)
-      s3.upload_s3_keys(app.config["s3.conn"],
-                        out["src"], # Source filename
-                        target[0],  # Bucket name
-                        target[1],  # Prefix
-                        {"Owner": "Yadu"})
+      try:
+         s3.upload_s3_keys(app.config["s3.conn"],
+                           out["src"], # Source filename
+                           target[0],  # Bucket name
+                           target[1],  # Prefix
+                           {"Owner": "Yadu"})
+
+      except Exception as e:
+         print "Download from s3 failed {0}".format(e)
+         raise
 
    return
 
