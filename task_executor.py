@@ -123,14 +123,21 @@ def put_outputs(app, outputs):
 
       target = out["dest"].split('/', 1)
       try:
+         '''
          s3.upload_s3_keys(app.config["s3.conn"],
                            out["src"], # Source filename
                            target[0],  # Bucket name
                            target[1],  # Prefix
                            {"Owner": "Yadu"})
-
+         '''
+         s3.fast_upload_s3_keys(app.config["s3.conn"],
+                                out["src"], # Source filename
+                                target[0],  # Bucket name
+                                target[1],  # Prefix
+                                {"Owner": "Yadu"})
+      
       except Exception as e:
-         print "Download from s3 failed {0}".format(e)
+         print "Upload to s3 failed {0}".format(e)
          raise
 
    return
@@ -145,7 +152,11 @@ def exec_job(app, jobtype, job_id, executable, args, inputs, outputs, data, auth
 
    # Save current folder and chdir to a temporary folder
    conf_man.update_creds_from_metadata_server(app)
+   record = dutils.dynamodb_get(app.config["dyno.conn"], job_id)
 
+   ##############################################################################
+   # Setup dirs for execution
+   ##############################################################################
    cwd    = os.getcwd()
    tmpdir = "/tmp/task_executor_jobs/{0}".format(job_id)
    try:
@@ -154,13 +165,14 @@ def exec_job(app, jobtype, job_id, executable, args, inputs, outputs, data, auth
       print "Tmpdir {0} exists. Deleting and recreating".format(tmpdir)
       shutil.rmtree(tmpdir)
       os.makedirs(tmpdir)
-
    os.chdir(tmpdir)
 
-   record = dutils.dynamodb_get(app.config["dyno.conn"], job_id)
 
-   # Download data to the temp folder
+   ##############################################################################
+   # Download the inputs to the temp folder
+   ##############################################################################
    update_record(record, "status", "staging_inputs")
+   stagein_start = time.time()
    try:
       get_inputs(app, inputs, auth)
    except Exception as e:
@@ -170,9 +182,12 @@ def exec_job(app, jobtype, job_id, executable, args, inputs, outputs, data, auth
       update_record(record, "complete_time", time.time())
       logging.error("Failed to download inputs")
       return False
+   stagein_total = time.time() - stagein_start
 
-
-   # Execute the task
+   ##############################################################################
+   # Download the inputs to the temp folder
+   ##############################################################################
+   # Check if job is valid
    update_record(record, "status", "processing")
    if jobtype not in apps.JOBS:
       logging.error("Jobtype : {0} does not exist".format(jobtype))
@@ -182,6 +197,7 @@ def exec_job(app, jobtype, job_id, executable, args, inputs, outputs, data, auth
 
    status = True
    returncode = 0
+   process_start = time.time()
    try:
       returncode = apps.JOBS[jobtype](app, data)
       print "Returncode : {0}".format(returncode)
@@ -193,10 +209,29 @@ def exec_job(app, jobtype, job_id, executable, args, inputs, outputs, data, auth
       update_record(record, "ERROR", str(e));
       print "Job execution failed : {0}".format(e)
       status = False
+   process_total = time.time() - process_start
 
+   ##############################################################################
+   # Upload the results to the S3
+   ##############################################################################
    update_record(record, "status", "staging_outputs")
+   stageout_start = time.time()
+
    # Upload the result to S3
-   put_outputs(app, outputs)
+   try:
+      put_outputs(app, outputs)
+   except Exception as e:
+      print "Exception info : ".format(sys.exc_info()[0])
+      update_record(record, "ERROR", "Failed to upload outputs {0}".format(e))
+      update_record(record, "status", "failed")
+      update_record(record, "complete_time", time.time())
+      logging.error( "Failed to upload inputs")
+      return False
+   stageout_total = time.time() - stageout_start
+
+   update_record(record, "z_stagein_dur",    stagein_total)
+   update_record(record, "z_stageout_dur",   stageout_total)
+   update_record(record, "z_processing_dur", process_total)
 
    if returncode != 0 :
       update_record(record, "status", "failed");
