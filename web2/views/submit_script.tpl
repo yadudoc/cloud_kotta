@@ -45,6 +45,13 @@ echo "Hello World"
     </div>
 
     <div class="row">
+      <div class="form-group col-md-10">
+        <label for="outputs">Outputs</label>
+        <input class="form-control input-lg input_url" type="text" name="outputs" placeholder="myresult.dat, myapp.log"/>
+      </div>
+    </div>
+
+    <div class="row">
       <div class="form-group col-md-4">
         <input class="form-control input-lg input_url " type="text" name="output_file_stdout" id="output_file" value="STDOUT.txt" />
       </div>
