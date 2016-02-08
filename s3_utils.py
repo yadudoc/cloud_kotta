@@ -4,7 +4,7 @@ import sys
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 import json
-
+import command
 
 ################################################################
 # 1. Get s3connection object
@@ -21,6 +21,23 @@ def upload_s3_keys(s3conn, source, bucket_name, prefix, meta):
 
     k.set_contents_from_filename(source)
     k.set_metadata('time', "foo")
+
+################################################################
+# 1. Get s3connection object
+# 2. Get the bucket from the connection
+# 3. List the keys and inormation under the bucket for keys matching provided prefix
+# Return a list of dicts
+################################################################
+def fast_upload_s3_keys(s3conn, source, bucket_name, prefix, meta):
+    cmd = {"job_id"     : "Upload",
+           "executable" : "aws",
+           "args"       : "s3 cp {0} s3://{1}/{2}".format(source, 
+                                                          bucket_name,
+                                                          prefix) }
+
+    # execute_wait(app, cmd, walltime, job_id)
+    duration= execute_wait(None, cmd, None, None)
+    return duration
 
 # Download a key from the bucket
 def download_s3_keys(s3conn, bucket_name, prefix, target):
@@ -53,4 +70,7 @@ def test():
                    "outputs/test/webserver.log",
                    {"Owner":"Yadu"})
 
-#test()
+
+if __name__ == "__main__":
+    test()
+    
