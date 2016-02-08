@@ -29,14 +29,11 @@ def upload_s3_keys(s3conn, source, bucket_name, prefix, meta):
 # Return a list of dicts
 ################################################################
 def fast_upload_s3_keys(s3conn, source, bucket_name, prefix, meta):
-    cmd = {"job_id"     : "Upload",
-           "executable" : "aws",
-           "args"       : "s3 cp {0} s3://{1}/{2}".format(source, 
-                                                          bucket_name,
-                                                          prefix) }
-
+    cmd = "aws s3 cp --region us-east-1 {0} s3://{1}/{2}".format(source,
+                                                                 bucket_name,
+                                                                 prefix)
     # execute_wait(app, cmd, walltime, job_id)
-    duration= execute_wait(None, cmd, None, None)
+    duration = command.execute_wait(None, cmd, None, None)
     return duration
 
 # Download a key from the bucket
@@ -64,11 +61,18 @@ def generate_signed_url(s3conn, bucket_name, prefix, duration):
 def test():
     import config_manager as cm
     app = cm.load_configs("production.conf")
+    '''
     upload_s3_keys(app.config["s3.conn"],
                    "web_server.log",
                    "klab-jobs",
                    "outputs/test/webserver.log",
                    {"Owner":"Yadu"})
+    '''
+    print fast_upload_s3_keys(app.config["s3.conn"],
+                              "web_server.log",
+                              "klab-jobs",
+                              "outputs/test/webserver.log",
+                              {"Owner":"Yadu"})
 
 
 if __name__ == "__main__":
