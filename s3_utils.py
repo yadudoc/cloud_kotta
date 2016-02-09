@@ -5,7 +5,7 @@ from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 import json
 import command
-
+import os
 ################################################################
 # 1. Get s3connection object
 # 2. Get the bucket from the connection
@@ -35,6 +35,17 @@ def fast_upload_s3_keys(s3conn, source, bucket_name, prefix, meta):
     # execute_wait(app, cmd, walltime, job_id)
     duration = command.execute_wait(None, cmd, None, None)
     return duration
+
+
+def smart_upload_s3_keys(s3conn, source, bucket_name, prefix, meta):
+    
+    cmd = "aws s3 cp --region us-east-1 {0} s3://{1}/{2}".format(source,
+                                                                 bucket_name,
+                                                                 prefix)
+    # execute_wait(app, cmd, walltime, job_id)
+    duration = command.execute_wait(None, cmd, None, None)
+    return duration
+
 
 # Download a key from the bucket
 def download_s3_keys(s3conn, bucket_name, prefix, target):
