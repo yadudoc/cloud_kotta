@@ -13,6 +13,7 @@ import os
 # Return a list of dicts
 ################################################################
 def upload_s3_keys(s3conn, source, bucket_name, prefix, meta):
+    start = time.time()
     bucket  = s3conn.get_bucket(bucket_name, validate=False)
     k       = Key(bucket)
     k.key   = prefix
@@ -21,6 +22,8 @@ def upload_s3_keys(s3conn, source, bucket_name, prefix, meta):
 
     k.set_contents_from_filename(source)
     k.set_metadata('time', "foo")
+
+    return time.time() - start
 
 ################################################################
 # 1. Get s3connection object
@@ -39,11 +42,12 @@ def fast_upload_s3_keys(s3conn, source, bucket_name, prefix, meta):
 
 def smart_upload_s3_keys(s3conn, source, bucket_name, prefix, meta):
     
-    cmd = "aws s3 cp --region us-east-1 {0} s3://{1}/{2}".format(source,
-                                                                 bucket_name,
-                                                                 prefix)
-    # execute_wait(app, cmd, walltime, job_id)
-    duration = command.execute_wait(None, cmd, None, None)
+    # Use aws s3 cli only if file size is larger than 10 Mb
+    if os.stat(source).st_size > 10*1024*1024:
+        duration = fast_upload_s3_keys(s3conn, source, bucket_name, prefix, meta)
+    else:
+        duration = upload_s3_keys(s3conn, source, bucket_name, prefix, meta)
+
     return duration
 
 
