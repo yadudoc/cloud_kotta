@@ -198,14 +198,9 @@ def submit_job_description():
     elif jobtype == "script":
         print "--" * 40
 
-        script = request.POST.get('script')#.rstrip('\r')
+        script = request.POST.get('script').rstrip('\r')
         script_name = request.POST.get('script_name')
 
-        inputs = request.POST.get('inputs')        
-        if inputs:
-            inputs = [{"src":x.strip(), "dest":x.strip().split('/')[-1]} for x in inputs.split(',')]
-        print inputs
-            
         data = {"job_id"           : uid,
                 "username"         : username,
                 "i_user_id"        : user_id,
@@ -234,7 +229,15 @@ def submit_job_description():
                 input_url =  request.POST.get(k)
                 data["inputs"].extend([{"src" : input_url, 
                                         "dest": input_url.split('/')[-1]}])
+            elif k == "inputs" :
+                inputs = request.POST.get(k)
+                if inputs :
+                    inp = [{"src":x.strip(), "dest":x.strip().split('/')[-1]} for x in inputs.split(',')]
+                    data["inputs"].extend(inp)
+                
             elif k == "outputs":
+                if not outputs :
+                    continue
                 for outfile in outputs.split(','):
                     outfile = outfile.lstrip().rstrip()                    
                     data["outputs"].extend([{"src" : outfile, 
@@ -248,7 +251,7 @@ def submit_job_description():
 
         print "*" * 50
         for k in data:
-            print k
+            #print k
             print "{0:20} | {1:20}".format(k, data.get(k))
         print "--" * 40
         
@@ -282,8 +285,6 @@ def submit_job_description():
                 data["outputs"].extend([{"src" : output_file, 
                                          "dest": "klab-jobs/outputs/{0}/{1}".format(uid, output_file)}])
        
-    dutils.dynamodb_update(request.app.config["dyno.conn"], data)
-
     enable_mock = False
 
     if enable_mock :
@@ -292,18 +293,20 @@ def submit_job_description():
                         title="Task Confirmation - MOCK",
                         session=session)
 
+
+    dutils.dynamodb_update(request.app.config["dyno.conn"], data)
     qname = "TestJobsSNSTopicARN"
     if queue in ["Test", "Prod"]:
         qname = queue + "JobsSNSTopicARN"
-
+            
     sns_sqs.publish(request.app.config["sns.conn"], request.app.config["instance.tags"][qname],
-                   json.dumps(data))
+                    json.dumps(data))
 
     return template("./views/submit_confirm.tpl",
                     job_id=uid,
                     title="Task Confirmation",
                     session=session)
-
+            
 #################################################################
 # Print a table form of jobs and statuses
 #################################################################
