@@ -3,6 +3,7 @@
   <h2>Submit Task</h2>
 </div>
 
+
 <p>Please provide the information below to submit a Document2Vector task.</p>
 <div class="form-wrapper">
   <form role="form" action="{{get_url('submit_task')}}" method="post" name="submit_task">
@@ -85,6 +86,7 @@ echo "Hello World"
     </div>
   </form>
 </div>
+
 
 %end
 
