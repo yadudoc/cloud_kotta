@@ -45,8 +45,10 @@ def smart_upload_s3_keys(s3conn, source, bucket_name, prefix, meta):
     
     # Use aws s3 cli only if file size is larger than 10 Mb
     if os.stat(source).st_size > 10*1024*1024:
+        print "File size > 1MB. Using aws s3 cli"
         duration = fast_upload_s3_keys(s3conn, source, bucket_name, prefix, meta)
     else:
+        print "File size < 1MB. Using upload_s3_keys"
         duration = upload_s3_keys(s3conn, source, bucket_name, prefix, meta)
 
     return duration
