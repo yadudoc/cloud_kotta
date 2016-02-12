@@ -67,6 +67,14 @@ def download_s3_keys(s3conn, bucket_name, prefix, target):
     key.get_contents_to_filename(target)
     return key
 
+# Download a key from the bucket
+def fast_download_s3_keys(s3conn, bucket_name, prefix, target):
+    cmd = "aws s3 cp --region us-east-1 s3://{1}/{2} {0} ".format(source,
+                                                                  bucket_name,
+                                                                  prefix)
+    duration = command.execute_wait(None, cmd, None, None)
+    return duration
+
 
 def generate_signed_url(s3conn, bucket_name, prefix, duration):
     bucket  = s3conn.get_bucket(bucket_name, validate=False)
