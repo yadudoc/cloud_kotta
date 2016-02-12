@@ -89,10 +89,10 @@ def get_inputs(app, inputs, auth):
       elif i["src"].startswith("s3://"):
 
          
-         tmp     = s3_path.split('/', 1)
+         s3_path   = i["src"].strip("s3://")
+         tmp       = s3_path.split('/', 1)         
          s3_bucket = tmp[0]
          s3_key    = tmp[1]
-         #destination = s3_path.rsplit('/',1)[-1]
          print s3_bucket
          print s3_key
          print "Downloading {0} via s3 provider".format(i["src"])
