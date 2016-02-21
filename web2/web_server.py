@@ -14,6 +14,7 @@ import uuid
 import base64, hmac, sha
 import urllib
 import sys
+import utils
 
 # Boto imports
 import boto
@@ -457,15 +458,79 @@ def tstamp_plus_nmins(mins):
 ##################################################################
 @get('/browse', method='GET', name="browse")
 def browse_folders():
+    print "In browse : "
     session = bottle.request.environ.get('beaker.session')
     list_buckets = ["klab-webofscience", "klab-jobs"]
 
-    
-    return template("./views/upload_confirm.tpl",
-                    job_id="foo",
-                    title="Turing - Upload Success!",
-                    session=session)
+    r_bucket  =  request.params.get('bucket')
+    r_key     =  request.params.get('key')
 
+    print "Bucket :  ", r_bucket
+    print "Key    :  ", r_key
+
+    keys   = s3.list_s3_path(request.app, r_bucket, r_key)
+
+    table = []
+    headers = ["URL", "Size (B)", "Last Modified", "Storage Class"]
+    # Find paths
+    dirs       = []
+    files      = []
+    dirlookup  = []
+
+    # Add parent link
+    parent     = r_key.rsplit('/', 1)[0]
+    if parent == r_key:
+        parent = ""
+    link = '<i><a href="{0}?bucket={1}&key={2}">{3}</a></i>'.format(request.app.get_url("/browse"),
+                                                                    r_bucket,
+                                                                    parent,
+                                                                    "..")
+    dirs.append([link, "Parent", "", ""])
+    for key in keys:
+        #Check if key is in current dir or a dir name
+        relative_path = str((key.name).strip(r_key))
+        print "Rel path : ", relative_path
+
+        if relative_path.startswith('/'):
+            relative_path = relative_path[1:]
+
+        print "Rel path : ", relative_path
+
+        print relative_path
+        folder = relative_path.split('/')
+        print "folder : ", folder
+        if len(folder) > 1 : 
+            dirname = ''
+            if r_key :
+                dirname = r_key + '/'
+
+            link = '<i><a href="{0}?bucket={1}&key={2}">{3}</a></i>'.format(request.app.get_url("/browse"),
+                                                                     r_bucket,
+                                                                     dirname + folder[0],
+                                                                     folder[0])
+            item = [link, "Directory", key.last_modified, ""]
+            if folder[0] not in dirlookup:
+                dirlookup.append(folder[0])
+                dirs.append(item)
+            
+        elif len(folder) == 1:
+            path = '<a href="s3://{0}/{1}">{2}</a>'.format(r_bucket,
+                                                           key.name,
+                                                           key.name.split('/')[-1])
+            files.append([path, utils.file_size_human(key.size), key.last_modified, key.storage_class])        
+
+    table.append(headers)
+    print table
+
+    table.extend(dirs)
+    print table
+    table.extend(files)
+    print table
+    
+    return template('./views/browser.tpl',
+                    title = "/{0}/{1}".format(r_bucket, r_key),
+                    table = table, # Body
+                    session=session)
 
 ##################################################################
 # GET request should get a form to the user
@@ -508,11 +573,10 @@ def upload_to_s3():
     conf_man.update_creds_from_metadata_server(request.app)
     job_id   = str(uuid.uuid1())
     exp_time = tstamp_plus_nmins(60)
-    bucket_name = "klab-webofscience" #"klab-jobs"
+    bucket_name =  "klab-jobs" #"klab-webofscience" #
 
-    vals = { "redirect_url" : "http://{0}:{1}/{2}".format(request.app.config["server.url"],
-                                                          request.app.config["server.port"],
-                                                          "upload_confirm"),
+    vals = { "redirect_url" : "{0}/{1}".format(request.app.config["server.url"],
+                                               "upload_confirm"),
              "aws_key_id"   : request.app.config["instance.tags"]["S3UploadKeyId"],
              "job_id"       : job_id,
              "exp_date"     : exp_time,
