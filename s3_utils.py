@@ -4,8 +4,9 @@ import sys
 from boto.s3.connection import S3Connection
 from boto.s3.key import Key
 import json
+import time
 import command
-
+import os
 ################################################################
 # 1. Get s3connection object
 # 2. Get the bucket from the connection
@@ -13,6 +14,7 @@ import command
 # Return a list of dicts
 ################################################################
 def upload_s3_keys(s3conn, source, bucket_name, prefix, meta):
+    start = time.time()
     bucket  = s3conn.get_bucket(bucket_name, validate=False)
     k       = Key(bucket)
     k.key   = prefix
@@ -21,6 +23,8 @@ def upload_s3_keys(s3conn, source, bucket_name, prefix, meta):
 
     k.set_contents_from_filename(source)
     k.set_metadata('time', "foo")
+
+    return time.time() - start
 
 ################################################################
 # 1. Get s3connection object
@@ -36,6 +40,20 @@ def fast_upload_s3_keys(s3conn, source, bucket_name, prefix, meta):
     duration = command.execute_wait(None, cmd, None, None)
     return duration
 
+
+def smart_upload_s3_keys(s3conn, source, bucket_name, prefix, meta):
+    
+    # Use aws s3 cli only if file size is larger than 10 Mb
+    if os.stat(source).st_size > 10*1024*1024:
+        print "File size > 1MB. Using aws s3 cli"
+        duration = fast_upload_s3_keys(s3conn, source, bucket_name, prefix, meta)
+    else:
+        print "File size < 1MB. Using upload_s3_keys"
+        duration = upload_s3_keys(s3conn, source, bucket_name, prefix, meta)
+
+    return duration
+
+
 # Download a key from the bucket
 def download_s3_keys(s3conn, bucket_name, prefix, target):
     try:
@@ -48,6 +66,14 @@ def download_s3_keys(s3conn, bucket_name, prefix, target):
     print "filename", key
     key.get_contents_to_filename(target)
     return key
+
+# Download a key from the bucket
+def fast_download_s3_keys(s3conn, bucket_name, prefix, target):
+    cmd = "aws s3 cp --region us-east-1 s3://{1}/{2} {0} ".format(source,
+                                                                  bucket_name,
+                                                                  prefix)
+    duration = command.execute_wait(None, cmd, None, None)
+    return duration
 
 
 def generate_signed_url(s3conn, bucket_name, prefix, duration):

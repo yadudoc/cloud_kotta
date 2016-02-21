@@ -79,8 +79,8 @@ def execute (app, cmd, walltime, job_id):
 ############################################################################
 def execute_wait (app, cmd, walltime, job_id):
     start_t = time.time()
-    std_out = open("STDOUT.txt", 'w')
-    std_err = open("STDERR.txt", 'w')
+    std_out = open("exec_wait.out.txt", 'w')
+    std_err = open("exec_wait.err.txt", 'w')
     start_time = time.time()    
     try :
         proc = subprocess.Popen(cmd, stdout=std_out, stderr=std_err, shell=True)
