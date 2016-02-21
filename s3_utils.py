@@ -58,23 +58,50 @@ def generate_signed_url(s3conn, bucket_name, prefix, duration):
     except:    
         return None
 
-def test():
-    import config_manager as cm
-    app = cm.load_configs("production.conf")
-    '''
+def test_uploads(app):
     upload_s3_keys(app.config["s3.conn"],
                    "web_server.log",
                    "klab-jobs",
                    "outputs/test/webserver.log",
                    {"Owner":"Yadu"})
-    '''
+    
     print fast_upload_s3_keys(app.config["s3.conn"],
                               "web_server.log",
                               "klab-jobs",
                               "outputs/test/webserver.log",
                               {"Owner":"Yadu"})
 
+def list_s3_path(app, bucket_name, prefix):
+    s3conn = app.config["s3.conn"]
+
+    keys = None
+
+    try:
+        bucket = s3conn.get_bucket(bucket_name)
+        keys = bucket.get_all_keys(prefix=prefix)
+
+    except Exception, e:
+        print "Caught exception with message {1}".format(e, e.error_message)
+
+    return keys
+
+def test_list(app):
+    bucket_name = "klab-jobs"
+    s3conn = app.config["s3.conn"]
+
+    try:
+        bucket = s3conn.get_bucket(bucket_name)
+        keys = bucket.get_all_keys(prefix="inputs/")
+
+    except Exception, e:
+        print "Caught exception with message {1}".format(e, e.error_message)
+
+    for key in keys:
+        print key, key.size, key.last_modified
 
 if __name__ == "__main__":
-    test()
-    
+    import config_manager as cm
+    app = cm.load_configs("production.conf")
+
+    #test_uploads(app)
+    test_list(app)

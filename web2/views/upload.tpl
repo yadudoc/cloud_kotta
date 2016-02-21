@@ -6,7 +6,7 @@
 <p>You file will be uploaded and stored encrypted in your folder.</p>
 <div class="form-wrapper">
 
-    <form action="http://klab-webofscience.s3.amazonaws.com/" method="post" enctype="multipart/form-data">
+    <form action="http://{{bucket_name}}.s3.amazonaws.com/" method="post" enctype="multipart/form-data">
         <input type="hidden" name="key" value="uploads/{{session["user_id"]}}/${filename}" />
 	<input type="hidden" name="acl" value="private"/>
         <input type="hidden" name="success_action_redirect" value="{{redirect_url}}">
