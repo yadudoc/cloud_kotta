@@ -19,7 +19,7 @@ import shutil
 import sys
 
 metadata_server="http://169.254.169.254/latest/meta-data/"
-clean_tmp_dirs = True
+clean_tmp_dirs = False
 
 def get_instance_starttime() :
    try:
@@ -89,10 +89,10 @@ def get_inputs(app, inputs, auth):
       elif i["src"].startswith("s3://"):
 
          
-         tmp     = s3_path.split('/', 1)
+         s3_path   = i["src"].strip("s3://")
+         tmp       = s3_path.split('/', 1)         
          s3_bucket = tmp[0]
          s3_key    = tmp[1]
-         #destination = s3_path.rsplit('/',1)[-1]
          print s3_bucket
          print s3_key
          print "Downloading {0} via s3 provider".format(i["src"])
@@ -118,20 +118,14 @@ def put_outputs(app, outputs):
 
    for out in outputs:
       print "Outputs : ", out
+      '''
       if not os.path.exists(out["src"]):
          print "Missing file. Continuing"
          continue
-
+      '''
       target = out["dest"].split('/', 1)
       try:
-         '''
-         s3.upload_s3_keys(app.config["s3.conn"],
-                           out["src"], # Source filename
-                           target[0],  # Bucket name
-                           target[1],  # Prefix
-                           {"Owner": "Yadu"})
-         '''
-         s3.fast_upload_s3_keys(app.config["s3.conn"],
+         s3.smart_upload_s3_keys(app.config["s3.conn"],
                                 out["src"], # Source filename
                                 target[0],  # Bucket name
                                 target[1],  # Prefix
@@ -139,7 +133,6 @@ def put_outputs(app, outputs):
       
       except Exception as e:
          print "Upload to s3 failed {0}".format(e)
-         raise
 
    return
 
@@ -320,6 +313,7 @@ def task_loop(app):
 
       else:
          print "{0}: Waiting for job description".format(time.time())
+         print get_instance_starttime()
          logging.debug("{0}: Waiting for job description".format(time.time()))
 
       conf_man.update_creds_from_metadata_server(app)
@@ -329,7 +323,7 @@ if __name__ == "__main__":
 
    parser   = argparse.ArgumentParser()
    parser.add_argument("-v", "--verbose", default="DEBUG", help="set level of verbosity, DEBUG, INFO, WARN")
-   parser.add_argument("-l", "--logfile", default="web_server.log", help="Logfile path. Defaults to ./web_server.log")
+   parser.add_argument("-l", "--logfile", default="task_executor.log", help="Logfile path. Defaults to ./task_executor.log")
    parser.add_argument("-c", "--conffile", default="test.conf", help="Config file path. Defaults to ./test.conf")
    parser.add_argument("-j", "--jobid", type=str, action='append')
    parser.add_argument("-i", "--workload_id", default=None)
@@ -339,8 +333,6 @@ if __name__ == "__main__":
       print "Unknown verbosity level : {0}".format(args.verbose)
       print "Cannot proceed. Exiting"
       exit(-1)
-
-   print get_instance_starttime()
 
    logging.basicConfig(filename=args.logfile, level=conf_man.log_levels[args.verbose],
                        format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
