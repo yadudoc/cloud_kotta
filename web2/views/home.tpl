@@ -2,7 +2,7 @@
 <div class="jumbotron center">
 	<div class="container">
 	    <h1>Scalable. Secure. Simple.</h1>
-	    <p>Simpler than hiring grad students to do the work for you!</p>
+	    <p>Scientific computation in Fire and Forget format.</p>
 	</div>
 </div>
 
@@ -10,7 +10,7 @@
     <div class="row">
         <div class="col-sm-12">
         <h1>Turing Compute</h1>
-        <p> Scientific computation in Fire and Forget format. </p>
+        <p> A Simple Task-Execution system </p>
         <br />
         <br />
         <br />
@@ -21,14 +21,15 @@
 
     <div class="row">
         <div class="col-md-6 left">
-            <h1>Ace the Turing test!</h1>
-        	<p>Beats the average grad student hands down!</br> -Prof. Farnsworth</br>Planet Express</p>
+            <h1>Compute System</h1>
+        	<p>Choose from 2CPU-8GbRAM to 40CPU-244GbRAM configurations</p>
         </div>
         <div class="col-md-6 right">
-            <h1>Website undersells the infrastructure</h1>
-        	<p>Best bang for the buck. </br> -Mr. PointHair</br>Manager Path-E-Tech</p>
+            <h1>Unlimited<font color=#800000>*</font> Storage</h1>
+        	<p>Reliable encrypted storage backed by Amazon's S3</p>
         </div>
     </div>
+
 </div>
 
 %rebase('views/base.tpl', title="Turing - Home")
