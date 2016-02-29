@@ -95,6 +95,15 @@ def send_success_mail(data, app):
     return st
 
 ##################################################################
+# Verify and add user to email list
+##################################################################
+def verify_email(app, email):
+    sesconn     =  app.config['ses.conn']
+    st = sesconn.verify_email_address(email)
+    print st
+    return st
+
+##################################################################
 # Send condolences for job failure
 ##################################################################
 def send_failure_mail(data, app):
