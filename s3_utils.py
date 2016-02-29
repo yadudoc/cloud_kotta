@@ -7,6 +7,14 @@ import json
 import time
 import command
 import os
+
+def get_s3_conn(key_id, key_secret, token):
+    s3   = S3Connection(aws_access_key_id=key_id,
+                        aws_secret_access_key=key_secret,
+                        security_token=token)
+    return s3
+
+
 ################################################################
 # 1. Get s3connection object
 # 2. Get the bucket from the connection
@@ -41,7 +49,7 @@ def fast_upload_s3_keys(s3conn, source, bucket_name, prefix, meta):
     return duration
 
 
-def smart_upload_s3_keys(s3conn, source, bucket_name, prefix, meta):
+def smart_upload_s3_keys(s3conn, source, bucket_name, prefix, meta, auth):
     
     # Use aws s3 cli only if file size is larger than 10 Mb
     if os.stat(source).st_size > 10*1024*1024:
