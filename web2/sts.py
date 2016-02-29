@@ -60,5 +60,23 @@ if __name__ == "__main__" :
 
         # Use the Amazon S3 resource object that is now configured with the 
         # credentials to access your S3 buckets. 
-        for bucket in s3_resource.buckets.all():
-            print(bucket.name)
+        try :
+            for bucket in s3_resource.buckets.all():
+                print(bucket.name)
+
+        except Exception, e:
+            print "Failed to do : list_buckets"
+
+        try :
+            
+            s3_client = boto3.client(
+                's3',
+                aws_access_key_id = credentials['AccessKeyId'],
+                aws_secret_access_key = credentials['SecretAccessKey'],
+                aws_session_token = credentials['SessionToken'],
+            )
+            print s3_client.list_objects(Bucket='klab-jobs',
+                                   MaxKeys=10)
+
+        except Exception, e:
+            print "Failed to do : list klab-jobs"

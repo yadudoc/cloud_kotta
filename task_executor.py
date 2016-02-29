@@ -17,6 +17,7 @@ import dynamo_utils as dutils
 import re
 import shutil
 import sys
+import sts
 
 metadata_server="http://169.254.169.254/latest/meta-data/"
 clean_tmp_dirs = False
@@ -56,7 +57,17 @@ class Timer(object):
          if self.verbose:
             print 'elapsed time: %f ms' % self.msecs
 
+
 def get_inputs(app, inputs, auth):
+
+   try:
+      print "Attempting to switch roles to : {0}".format(auth["role"])
+      creds = sts.get_temp_creds(auth["role"])
+      print_creds(creds)
+   except Exception as e:
+      print "Caught exception : {0}".format(e)
+      raise
+   
    print "In get_inputs"
    if not inputs:
       return
@@ -270,8 +281,8 @@ def task_loop(app):
             inputs      =  data.get('inputs')
             inputs      =  data.get('inputs')
             outputs     =  data.get('outputs')
-            user_auth   =  {"user"      : data.get('i_user'),
-                            "role"      : data.get('i_role'),
+            user_auth   =  {"user"      : data.get('i_user_id'),
+                            "role"      : data.get('i_user_role'),
                             "token"     : data.get('i_token'),
                             "keyid"     : data.get('i_keyid'),
                             "keysecret" : data.get('i_keysecret')}
