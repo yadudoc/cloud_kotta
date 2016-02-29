@@ -39,6 +39,7 @@ import sns_sqs
 import dynamo_utils as dutils
 import config_manager as conf_man
 import identity
+import sts
 
 JobTypes = ["doc_to_vec", "generic", "experimental", "script"]
 
@@ -630,6 +631,11 @@ def logout():
 ##################################################################
 @get('/login', method='GET', name="login")
 def login():
+    print request.headers.keys()
+    if request.headers.get("X-Forwarded-Proto") != "https":
+        print "Forwarding to https"
+        redirect(request.app.config["server.url"] + "/login")
+
     #conf_man.update_creds_from_metadata_server(request.app)
     session = bottle.request.environ.get('beaker.session')
     return template('./views/login.tpl',
@@ -652,6 +658,20 @@ def handle_login():
     access_token  = request.params.get("access_token")
     expires_in    = request.params.get("expires_in")
     aws_client_id = request.app.config["server.aws_client_id"]
+
+    print "="*50
+    print "Access_token : ", access_token
+    print "aws_client_id: ", aws_client_id
+    print "expires_in   : ", expires_in
+    print "="*50
+
+    role_arn = "arn:aws:iam::968994658855:role/Turing_Federator"
+    creds = sts.get_temp_creds_from_web_identity(role_arn,
+                                                 access_token,
+                                                 aws_client_id)
+    print "got creds"
+    print creds
+    
     user_id, name, email = identity.get_identity_from_token(access_token, aws_client_id);
     user_info = identity.find_user_role(request.app, user_id)
 
