@@ -63,7 +63,11 @@ def get_inputs(app, inputs, auth):
    try:
       print "Attempting to switch roles to : {0}".format(auth["role"])
       creds = sts.get_temp_creds(auth["role"])
-      print_creds(creds)
+      sts.print_creds(creds)
+      s3conn  = s3.get_s3_conn( creds["AccessKeyId"], 
+                                creds["SecretAccessKey"],
+                                creds["SessionToken"] )
+      
    except Exception as e:
       print "Caught exception : {0}".format(e)
       raise
@@ -89,7 +93,7 @@ def get_inputs(app, inputs, auth):
          print s3_key
          print "Downloading {0} via s3 provider".format(i["src"])
          try:
-            s3.download_s3_keys(app.config["s3.conn"],
+            s3.download_s3_keys(s3conn,
                                 s3_bucket,
                                 s3_key,
                                 i["dest"])
@@ -108,7 +112,7 @@ def get_inputs(app, inputs, auth):
          print s3_key
          print "Downloading {0} via s3 provider".format(i["src"])
          try:
-            s3.download_s3_keys(app.config["s3.conn"],
+            s3.download_s3_keys(s3conn,
                                 s3_bucket,
                                 s3_key,
                                 i["dest"])

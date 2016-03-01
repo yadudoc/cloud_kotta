@@ -14,7 +14,6 @@ def get_s3_conn(key_id, key_secret, token):
                         security_token=token)
     return s3
 
-
 ################################################################
 # 1. Get s3connection object
 # 2. Get the bucket from the connection
@@ -49,7 +48,7 @@ def fast_upload_s3_keys(s3conn, source, bucket_name, prefix, meta):
     return duration
 
 
-def smart_upload_s3_keys(s3conn, source, bucket_name, prefix, meta, auth):
+def smart_upload_s3_keys(s3conn, source, bucket_name, prefix, meta):
     
     # Use aws s3 cli only if file size is larger than 10 Mb
     if os.stat(source).st_size > 10*1024*1024:
@@ -83,7 +82,7 @@ def fast_download_s3_keys(s3conn, bucket_name, prefix, target):
     duration = command.execute_wait(None, cmd, None, None)
     return duration
 
-
+    
 def generate_signed_url(s3conn, bucket_name, prefix, duration):
     bucket  = s3conn.get_bucket(bucket_name, validate=False)
     try:
