@@ -33,7 +33,7 @@ def check_if_cancelled(app, job_id):
 ############################################################################
 # Run a command
 ############################################################################
-def execute (app, cmd, walltime, job_id):
+def execute (app, cmd, walltime, job_id, env_vars={}):
     
     start_t = time.time()
     print "RunCommand Started   {0}".format(cmd)
@@ -41,8 +41,13 @@ def execute (app, cmd, walltime, job_id):
     std_out = open("STDOUT.txt", 'w')
     std_err = open("STDERR.txt", 'w')
 
+    env = os.environ.copy()
+    for k in env_vars:
+        env[k] = env_vars[k]
+    env["TURING_JOB_ID"] = job_id
+
     start_time = time.time()    
-    proc = subprocess.Popen(cmd, stdout=std_out, stderr=std_err, shell=True)
+    proc = subprocess.Popen(cmd, stdout=std_out, stderr=std_err, env=env, shell=True)
 
     time.sleep(1)
 
