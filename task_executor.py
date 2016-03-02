@@ -88,34 +88,30 @@ def get_inputs(app, inputs, auth):
          tmp     = s3_path.split('/', 1)
          s3_bucket = tmp[0]
          s3_key    = tmp[1]
-         #destination = s3_path.rsplit('/',1)[-1]
-         print s3_bucket
-         print s3_key
          print "Downloading {0} via s3 provider".format(i["src"])
-         try:
-            s3.download_s3_keys(s3conn,
-                                s3_bucket,
-                                s3_key,
-                                i["dest"])
+         try:         
+            s3.smart_download_s3_keys(s3conn,
+                                      s3_bucket,
+                                      s3_key,
+                                      i["dest"],
+                                      creds)
          except Exception as e:
             print "Download from s3 failed {0}".format(e)
             raise
 
       elif i["src"].startswith("s3://"):
-
          
          s3_path   = i["src"].strip("s3://")
          tmp       = s3_path.split('/', 1)         
          s3_bucket = tmp[0]
          s3_key    = tmp[1]
-         print s3_bucket
-         print s3_key
          print "Downloading {0} via s3 provider".format(i["src"])
          try:
-            s3.download_s3_keys(s3conn,
-                                s3_bucket,
-                                s3_key,
-                                i["dest"])
+            s3.smart_download_s3_keys(s3conn,
+                                      s3_bucket,
+                                      s3_key,
+                                      i["dest"],
+                                      creds)
          except Exception as e:
             print "Download from s3 failed {0}".format(e)
             raise

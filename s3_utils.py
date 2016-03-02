@@ -75,11 +75,35 @@ def download_s3_keys(s3conn, bucket_name, prefix, target):
     return key
 
 # Download a key from the bucket
-def fast_download_s3_keys(s3conn, bucket_name, prefix, target):
-    cmd = "aws s3 cp --region us-east-1 s3://{1}/{2} {0} ".format(source,
-                                                                  bucket_name,
-                                                                  prefix)
+def fast_download_s3_keys(creds, bucket_name, prefix, target):
+    env_vars = "AWS_ACCESS_KEY_ID={0};AWS_SECRET_ACCESS_KEY={1};AWS_SESSION_TOKEN={2};AWS_DEFAULT_REGION={3}".format(creds["AccessKeyId"], creds["SecretAccessKey"], creds["SessionToken"], "us-east-1")
+    cmd = "{3};aws s3 cp --region us-east-1 s3://{1}/{2} {0} ".format(target,
+                                                                      bucket_name,
+                                                                      prefix,
+                                                                      env_vars)
     duration = command.execute_wait(None, cmd, None, None)
+    return duration
+
+
+# Download a key from the bucket
+def smart_download_s3_keys(s3conn, bucket_name, prefix, target, creds):
+    start = time.time()
+    try:
+        bucket  = s3conn.get_bucket(bucket_name, validate=False)
+        key     = bucket.get_key(prefix)
+    except S3ResponseError :
+        print "ERROR: Could not access the bucket"
+        raise
+
+
+    if key.size > 10*1024*1024 :
+        print "File > 10Mb: downloading with s3 cli"
+        duration = fast_download_s3_keys(creds, bucket_name, prefix, target)
+    else:
+        print "File < 10Mb: using get_contents_to_file"
+        key.get_contents_to_filename(target)
+        duration = time.time() - start
+
     return duration
 
     
