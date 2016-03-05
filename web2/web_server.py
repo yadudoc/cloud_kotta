@@ -163,7 +163,7 @@ def submit_job_description():
         data = {"job_id"           : uid,
                 "username"         : username,
                 "i_user_id"        : user_id,
-                "i_user_role"      : role,
+                "i_user_role"      : "arn:aws:iam::{0}:role/{1}".format(request.app.config["iam.project"], role),
                 "user_email"       : email,
                 "jobtype"          : "doc_to_vec",
                 "inputs"           : [{"type": "doc", "src": input_url, "dest": input_url.split('/')[-1] }],
@@ -206,7 +206,7 @@ def submit_job_description():
         data = {"job_id"           : uid,
                 "username"         : username,
                 "i_user_id"        : user_id,
-                "i_user_role"      : role,
+                "i_user_role"      : "arn:aws:iam::{0}:role/{1}".format(request.app.config["iam.project"], role),
                 "user_email"       : email,
                 "executable"       : executable,
                 "args"             : args,                
@@ -263,7 +263,7 @@ def submit_job_description():
         data = {"job_id"           : uid,
                 "username"         : username,
                 "i_user_id"        : user_id,
-                "i_user_role"      : role,
+                "i_user_role"      : "arn:aws:iam::{0}:role/{1}".format(request.app.config["iam.project"], role),
                 "executable"       : executable,
                 "args"             : args,
                 "user_email"       : email,
@@ -624,6 +624,36 @@ def logout():
                     alert=False)
 
 
+@get('/tempkeys', method='GET', name="tempkeys")
+def get_temp_keys():
+    session  = bottle.request.environ.get('beaker.session')
+    require_login(session)
+    
+    username = session["username"]
+    try:
+        user_info = identity.find_user_role(request.app, session["user_id"])
+        # This is a vulnerability. We need to check everytime if the access_tokens 
+        # are valid and alive with the api.amazon.com
+        print user_info
+        role      = "klab_public"
+        creds     = sts.get_temp_creds(role)
+        return template('./views/tempkeys.tpl',
+                        username        = username,
+                        session         = session,
+                        AccessKeyId     = creds["AccessKeyId"],
+                        SecretAccessKey = creds["SecretAccessKey"],
+                        Token           = creds["SessionToken"],
+                        Expiration      = creds["Expiration"],
+                        title="Temporary keys",
+                        alert=False)
+        
+    except Exception as e:
+        return template('./views/logout.tpl',
+                    username=username,
+                    session=session,
+                    title="Failed to get temporary keys",
+                    alert=False)
+
 ##################################################################
 # GET request should get a form to the user
 # A button which would POST a request to upload a file directly
@@ -659,22 +689,9 @@ def handle_login():
     expires_in    = request.params.get("expires_in")
     aws_client_id = request.app.config["server.aws_client_id"]
 
-    print "="*50
-    print "Access_token : ", access_token
-    print "aws_client_id: ", aws_client_id
-    print "expires_in   : ", expires_in
-    print "="*50
-
-    role_arn = "arn:aws:iam::968994658855:role/Turing_Federator"
-    creds = sts.get_temp_creds_from_web_identity(role_arn,
-                                                 access_token,
-                                                 aws_client_id)
-    print "got creds"
-    print creds
     
     user_id, name, email = identity.get_identity_from_token(access_token, aws_client_id);
     user_info = identity.find_user_role(request.app, user_id)
-
     
     if not user_info :
         return template("./views/login_reject.tpl",

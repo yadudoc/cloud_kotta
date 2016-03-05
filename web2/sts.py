@@ -28,33 +28,12 @@ def get_temp_creds(role_arn):
     credentials = assumedRoleObject['Credentials']
     return credentials
 
-
-def get_temp_creds_from_web_identity(role_arn, token, client_id):
-    sts_client = boto3.client('sts')
-    creds = sts_client.assume_role_with_web_identity(RoleArn=role_arn,
-                                                     RoleSessionName="FooSession",
-                                                     WebIdentityToken=token,
-                                                     ProviderId="www.amazon.com",
-                                                     DurationSeconds=3600)
-    return creds
-    
-
 def print_creds(creds):
     print "Expiration : ", creds["Expiration"]
     print "Key Id     : ", creds["AccessKeyId"]
     print "Secret Key : ", creds["SecretAccessKey"]
     print "Token      : ", creds["SessionToken"]
 
-
-
-# This test continues to fail. I do not know why.
-# * Needs new tokens when testing.
-def test_web_identity():
-    token     = "Atza|IQEBLjAsAhQYkhVyWkVS9C9SwodMeqpTORKqhgIUKpyuEBVc1t7qfy9nAdJ1OrRxd0HTiAHBdy9pliwTVUDB7AUdCJgQltlw05g4WcECVX1pCVvBcRTQZOzJSVLixiuUnurZTFkRIbGiUVI_PgIX8pBGeQyKY9l3KyiTTngUzTAxQh4Sd9DwYy--LY9MTGDKJI6RIFbo4PnZVpmV6QGul4LKWB4rOesh8txR0K2MclsCEf5HfI8i63VEB0YjKsBnLkP7iGneIwEyZoRgToOkwMUFDoO1ygjZc48qWEMxxWL-Wxp4BVZGkIQ0XitNahcYWX_n8OPchUfeMFJTaG1ITkV7xl0T1CQAxt46wLdPX6Wj7GKsOm2DpRfCyDbeHeER7SqucyH8PNJr0Qr5qYiDlfdtew"
-    client_id = "amzn1.application-oa2-client.57a1520802fa47d9a1ebd0536d0c29a3"
-    role_arn = "arn:aws:iam::968994658855:role/Turing_Federator"
-
-    print creds;
 
 if __name__ == "__main__" :
 
