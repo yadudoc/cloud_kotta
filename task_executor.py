@@ -18,6 +18,7 @@ import re
 import shutil
 import sys
 import sts
+import seppukku
 
 metadata_server="http://169.254.169.254/latest/meta-data/"
 clean_tmp_dirs = False
@@ -29,6 +30,7 @@ def get_instance_starttime() :
       return datetime.strptime(last_mod, "%a, %d %b %Y %H:%M:%S %Z")
    except e:
       print "Caught exception : {0}".format(e)
+
 
 def get_metainfo() :
    try:
@@ -324,7 +326,7 @@ def task_loop(app):
 
       else:
          print "{0}: Waiting for job description".format(time.time())
-         print get_instance_starttime()
+         seppukku.die_at_hour_edge(app, dry_run=True)
          logging.debug("{0}: Waiting for job description".format(time.time()))
 
       conf_man.update_creds_from_metadata_server(app)
