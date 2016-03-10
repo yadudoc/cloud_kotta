@@ -15,6 +15,9 @@ import requests
 
 
 SERVER_URL="http://52.2.217.165:8888"
+SUBMIT_URL=SERVER_URL+"/rest/v1/submit_task"
+STATUS_URL=SERVER_URL+"/rest/v1/status_task"
+CANCEL_URL=SERVER_URL+"/rest/v1/cancel_task"
 
 def get_access_token(authfile):
     print "Authfile : ", authfile
@@ -37,19 +40,16 @@ def submit_task(task_desc_file, auth_file):
 
     with open(task_desc_file, 'r') as f:
         task_desc = f.read()
-    data = ast.literal_eval(task_desc)
-    data["job_id"] = uid
-
+    data                 = ast.literal_eval(task_desc)
+    data["access_token"] = auth['access_token']
     #########################
-    print "-"*50
-    for k in data:
-        print "{0}: {1}".format(k, data[k])
-    print "-"*50
+    #print "-"*50
+    #for k in data:
+    #    print "{0}: {1}".format(k, data[k])
+    #print "-"*50
     #########################
 
-    r = requests.post(SERVER_URL + "/rest/submit_task", data={"job_desc"     : json.dumps(data),
-                                                              "access_token" : auth['access_token'] })
-    #print r.json()
+    r = requests.post(SUBMIT_URL, data=data)
     return r
 
 def debug_print(string):
@@ -70,18 +70,14 @@ def cancel_task(jobid):
 
 def status_task(jobid):
     debug_print("Status task : {0}".format(jobid))
-
     status = {}
-
-    r = requests.post(SERVER_URL + "/rest/status_task", data={"job_desc"     : json.dumps(data),
-                                                              "access_token" : auth['access_token'] })
+    record = requests.get(STATUS_URL + "/{0}".format(jobid))
     
-    if GLOBAL_VERBOSE:        
-        for item in record.items():
-            print "|{0:10}  | {1:50}".format(item[0], item[1])
+    results = record.json()
+    for item in results:
+        print "|{0:10}  | {1:50}".format(item, results[item])
         
-    print record["status"]
-    return record["status"]
+    return results
     
 GLOBAL_VERBOSE=False
 
@@ -109,11 +105,12 @@ if __name__ == "__main__":
             exit(-1)
             
         print get_access_token(args.authfile)
-        uid = submit_task(args.jobinfo, args.authfile)
-        print "Uid : {0}".format(uid)
+        uid = submit_task(args.jobinfo, args.authfile)        
+        print "uid : {0}".format(uid.json())
 
     elif args.request.lower() == "status":
-        status_task( args.jobinfo)
+        results= status_task( args.jobinfo)
+        print results["status"]
 
     elif args.request.lower() == "cancel":
         cancel_task( args.jobinfo)
