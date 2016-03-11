@@ -21,7 +21,7 @@ def kill_self(app, dry_run=False):
     rc = app.config["ec2.conn"].terminate_instances(instance_ids=[instance_id], dry_run=dry_run)
     return rc
 
-def die_at_hour_edge () :
+def die_at_hour_edge (app, dry_run=False) :
     # Die at 5 mins
     start_time = get_instance_starttime()
     current_time = datetime.now()
@@ -34,6 +34,7 @@ def die_at_hour_edge () :
 
     if partial_hour > 58 :
         print "Time to die"
+        kill_self(app, dry_run=dry_run)
     else:
         print "Wait till 2 mins to hour to die"
     

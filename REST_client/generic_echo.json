@@ -1,0 +1,11 @@
+{ "user_email"         : "yadunand@uchicago.edu",
+  "executable"         : "/bin/echo test.sh",
+  "queue"              : "Test",
+  "script_name"        : "test.sh",
+  "script"             : "#!/bin/bash \n echo Hello World &> foo.txt ", 
+  "jobtype"            : "script",
+  "output_file_stdout" : "STDOUT.txt",
+  "output_file_stderr" : "STDERR.txt",
+  "outputs"            : "foo.txt",
+  "walltime"           : "5"
+}
