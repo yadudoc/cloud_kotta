@@ -13,17 +13,18 @@ def get_identity_from_token(access_token, client_id):
     if result.status_code != 200 :
         print "Failed to verify origin of authentication token"
         logging.error("Failed to verify origin of authentication token")
-        return None, None, None
+        return None, None, "Failed to verify origin of authentication token"
 
     if result.json()['aud'] != client_id:
         print "Error: Blocking attempt to subvert authentication token"
-        return None, None, None
+        return None, None, "Error: Blocking attempt to subvert authentication token"
 
     headers = {'Authorization' : 'bearer ' + access_token}
     result = requests.get("https://api.amazon.com/user/profile?access_token=" + access_token, headers=headers)
     if result.status_code != 200 :
         print "Error: Failed to verify User"
-    
+        return None, None, "Failed to verify user"
+
     r = result.json()
     print r
     return r['user_id'], r['name'], r['email']
