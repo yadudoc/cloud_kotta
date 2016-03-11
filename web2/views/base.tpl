@@ -52,9 +52,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Submit Job<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="{{get_url('submit')}}/doc_to_vec">Doc To Vector</a></li>
-                  <li><a href="{{get_url('submit')}}/generic">Generic Executable</a></li>
 		  <li><a href="{{get_url('submit')}}/script">Script</a></li>
-		  <li><a href="{{get_url('submit')}}/experimental">Experimental</a></li>
                 </ul>
               </li>
 	      <li><a href="{{get_url('jobs')}}">Previous Jobs</a></li>
