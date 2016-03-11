@@ -19,6 +19,7 @@ SERVER_URL="http://52.2.217.165:8888"
 SUBMIT_URL=SERVER_URL+"/rest/v1/submit_task"
 STATUS_URL=SERVER_URL+"/rest/v1/status_task"
 CANCEL_URL=SERVER_URL+"/rest/v1/cancel_task"
+LIST_URL  =SERVER_URL+"/rest/v1/list_tasks"
 
 def debug_print(string):
     if GLOBAL_VERBOSE :
@@ -39,21 +40,14 @@ def get_access_token(authfile):
 
 def submit_task(task_desc_file, auth_file):
 
-    uid = str(uuid.uuid1())
     auth = get_access_token(auth_file)
 
     with open(task_desc_file, 'r') as f:
         task_desc = f.read()
     data                 = ast.literal_eval(task_desc)
     data["access_token"] = auth['access_token']
-    #########################
-    #print "-"*50
-    #for k in data:
-    #    print "{0}: {1}".format(k, data[k])
-    #print "-"*50
-    #########################
-
     r = requests.post(SUBMIT_URL, data=data)
+
     return r.json()
 
 def cancel_task(jobid):
@@ -124,6 +118,23 @@ def fetch_outputs(jobid):
         
     return results
     
+def list_jobs(authfile):
+    auth = get_access_token(authfile)
+
+    data = {"access_token" : auth['access_token']}
+    r = requests.get(LIST_URL, data=data)
+
+    results =  r.json()
+    if results['status'] == "Success":
+        print "{0:40}|{1:15}|{2:10}|{3:20}".format("JOBID", "STATUS", "JOBTYPE", "SUBMIT_STAMP")
+        for index in results['items']:
+            print "{0:40}|{1:15}|{2:10}|{3:20}".format(results['items'][index]["job_id"],
+                                                       results['items'][index]["status"],
+                                                       results['items'][index]["jobtype"],
+                                                       results['items'][index]["submit_stamp"])
+
+    return results
+    
 GLOBAL_VERBOSE=False
 
 
@@ -132,7 +143,7 @@ if __name__ == "__main__":
     parser   = argparse.ArgumentParser()
     parser.add_argument("-j", "--jobinfo",  help="json job description or jobid", required=True)
     parser.add_argument("-a", "--authfile", help="File with auth info")
-    parser.add_argument("-r", "--request",  help="Request type [submit, status, cancel, fetch]", required=True)
+    parser.add_argument("-r", "--request",  help="Request type [submit, status, cancel, fetch, list]", required=True)
     parser.add_argument("-c", "--conffile", default="production.conf", help="Config file path. Defaults to ./test.conf")
     parser.add_argument("-v", "--verbose",  dest='verbose', action='store_true', help="Verbose output")
     args   = parser.parse_args()
@@ -163,6 +174,13 @@ if __name__ == "__main__":
 
     elif args.request.lower() == "fetch":
         fetch_outputs( args.jobinfo)
+
+    elif args.request.lower() == "list":
+        if not args.authfile :
+            print "[ERROR] Authfile missing. Cannot submit job without authfile"
+            exit(-1)
+
+        list_jobs( args.authfile)
 
     else:
         print "Unknown request"
