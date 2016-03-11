@@ -15,7 +15,7 @@ import base64, hmac, sha
 import urllib
 import sys
 import utils
-
+import ast
 # Boto imports
 import boto
 import boto.ec2
@@ -41,7 +41,7 @@ import config_manager as conf_man
 import identity
 import sts
 
-JobTypes = ["doc_to_vec", "generic", "experimental", "script"]
+JobTypes = ["doc_to_vec", "script"]
 
 ##################################################################
 # This function handles the creation of the encoded signature
@@ -89,8 +89,6 @@ def serve_static(filename):
 @route('/', method='GET', name="home")
 def home_page():
     session = bottle.request.environ.get('beaker.session')
-    print session
-    #print request.app
     print "Home Page"
     return template("./views/home.tpl",
                     session=session)
@@ -132,98 +130,90 @@ def submit_job(jobtype):
                      error_str="{0} is not a valid Job Type",
                      email="",
                      username="",
-                     session=session)
-                    
+                     session=session)                    
     return t
 
 
-##################################################################################
-# Submit tasks
-##################################################################################
-@route('/submit_task', method='POST', name="submit_task")
-def submit_job_description():
-    session = bottle.request.environ.get('beaker.session')
-    conf_man.update_creds_from_metadata_server(request.app)
-    # Fixing naming issue with names in forms
-    user_id   = request.POST.get('username').strip() # Username in the form is the user_id
-    email     = request.POST.get('email').strip()
+################################################################################
+# Use the access_token to verify the user and get her account details
+################################################################################
+def validate_session(app ,access_token):
+                    
+    if not access_token:
+        return None
+
+    aws_client_id        = request.app.config["server.aws_client_id"]
+    user_id, name, email = identity.get_identity_from_token(access_token, aws_client_id);
+    if not user_id or not name:
+        return None
+
+    print "User_id : ", user_id
+    print "Name    : ", name
+    print "Email   : ", email
+    user_info = identity.find_user_role(request.app, user_id)
+    
+    info = {"user_id"   : user_id,
+            "name"      : name,
+            "username"  : name,
+            "email"     : user_info["email"], #email
+            "user_role" : user_info["role"] }
+
+    return info
+
+def _submit_task(request, session):
+
+    user_id   = session["user_id"]
     input_url = request.POST.get('input_url')
     jobtype   = request.POST.get('jobtype').strip()
-    executable= request.POST.get('executable')
-    args      = request.POST.get('args', '')
-    walltime  = request.POST.get('walltime')
-    walltime  = int(walltime) * 60;
-    queue     = request.POST.get('queue')
-    username  = session["username"]
-    role      = session["user_role"]
     outputs   = request.POST.get('outputs', None)
-    uid = str(uuid.uuid1())
+    uid       = str(uuid.uuid1())
+    queue     = request.POST.get('queue')
 
-    if jobtype == "doc_to_vec":
-        data = {"job_id"           : uid,
-                "username"         : username,
-                "i_user_id"        : user_id,
-                "i_user_role"      : "arn:aws:iam::{0}:role/{1}".format(request.app.config["iam.project"], role),
-                "user_email"       : email,
-                "jobtype"          : "doc_to_vec",
-                "inputs"           : [{"type": "doc", "src": input_url, "dest": input_url.split('/')[-1] }],
-                "outputs"          : [{"src": "doc_mat.pkl",  "dest": "klab-jobs/outputs/{0}/doc_mat.pkl".format(uid)},
-                                      {"src": "word_mat.pkl", "dest": "klab-jobs/outputs/{0}/word_mat.pkl".format(uid)},
-                                      {"src": "mdl.pkl",      "dest": "klab-jobs/outputs/{0}/mdl.pkl".format(uid)},
-                                      {"src": "STDOUT.txt",   "dest": "klab-jobs/outputs/{0}/STDOUT.txt".format(uid)},
-                                      {"src": "STDERR.txt",   "dest": "klab-jobs/outputs/{0}/STDERR.txt".format(uid)},
-                                      {"src": "pipeline.log", "dest": "klab-jobs/outputs/{0}/pipeline.log".format(uid)}],
-                "submit_time"      : int(time.time()),
-                "submit_stamp"     : str(time.strftime('%Y-%m-%d %H:%M:%S')),
-                "walltime"         : walltime,
-                "queue"            : queue,
-                "status"           : "pending"
-                
+    data      = {"job_id"           : uid,
+                 "username"         : session["username"],
+                 "i_user_id"        : session["user_id"],
+                 "i_user_role"      : "arn:aws:iam::{0}:role/{1}".format(request.app.config["iam.project"], session["user_role"]),
+                 "user_email"       : session["email"],
+                 "submit_time"      : int(time.time()),
+                 "submit_stamp"     : str(time.strftime('%Y-%m-%d %H:%M:%S')),
+                 "walltime"         : int(request.POST.get('walltime')) * 60,
+                 "queue"            : queue,
+                 "jobtype"          : jobtype,
+                 "status"           : "pending"                
             }
+    
+    ##############################################################################################################
+    # Doc_to_vec specific attributes
+    ##############################################################################################################
+    if jobtype == "doc_to_vec":
+
+        data["inputs"]   =  [{"type": "doc", "src": input_url, "dest": input_url.split('/')[-1] }],
+        data["outputs"]  =  [{"src": "doc_mat.pkl",  "dest": "klab-jobs/outputs/{0}/doc_mat.pkl".format(uid)},
+                             {"src": "word_mat.pkl", "dest": "klab-jobs/outputs/{0}/word_mat.pkl".format(uid)},
+                             {"src": "mdl.pkl",      "dest": "klab-jobs/outputs/{0}/mdl.pkl".format(uid)},
+                             {"src": "STDOUT.txt",   "dest": "klab-jobs/outputs/{0}/STDOUT.txt".format(uid)},
+                             {"src": "STDERR.txt",   "dest": "klab-jobs/outputs/{0}/STDERR.txt".format(uid)},
+                             {"src": "pipeline.log", "dest": "klab-jobs/outputs/{0}/pipeline.log".format(uid)}]
+
         model_url = request.POST.get('model_url')
         if model_url :
-            print "Model url : {0}".format(model_url)
             data["inputs"].extend([{"type": "model", "src": model_url, "dest": model_url.split('/')[-1]}])
-            print data["inputs"]
-        else:
-            print "Model URL not present"
 
         params_url = request.POST.get('params_url')
         if params_url :
-            print "Params url : {0}".format(params_url)
             data["inputs"].extend([{"type": "params", "src": params_url, "dest": params_url.split('/')[-1]}])
-            print data["inputs"]
-        else:
-            print "Params URL not present"
-
 
     elif jobtype == "script":
-        print "--" * 40
 
-        script = request.POST.get('script').rstrip('\r')
-        script_name = request.POST.get('script_name')
+        data["executable"]    = request.POST.get('executable')
+        data["args"]          = request.POST.get('args', '')
+        data["i_script"]      = request.POST.get('script').rstrip('\r')
+        data["i_script_name"] = request.POST.get('script_name')
+        data["outputs"]       = []
+        data["inputs"]        = []
 
-        data = {"job_id"           : uid,
-                "username"         : username,
-                "i_user_id"        : user_id,
-                "i_user_role"      : "arn:aws:iam::{0}:role/{1}".format(request.app.config["iam.project"], role),
-                "user_email"       : email,
-                "executable"       : executable,
-                "args"             : args,                
-                "i_script"         : script,
-                "i_script_name"    : script_name,
-                "jobtype"          : "script",
-                "submit_time"      : int(time.time()),
-                "submit_stamp"     : str(time.strftime('%Y-%m-%d %H:%M:%S')),
-                "queue"            : queue,
-                "outputs"          : [],
-                "inputs"           : [],
-                "walltime"         : walltime,
-                "status"           : "pending"
-            }
-
-        data["outputs"].extend([{"src" : script_name, 
-                                 "dest": "klab-jobs/outputs/{0}/{1}".format(uid, script_name)}])
+        data["outputs"].extend([{"src" : data["i_script_name"], 
+                                 "dest": "klab-jobs/outputs/{0}/{1}".format(uid, data["i_script_name"])}])
         
         for k in request.POST.keys():
             print "Key : {0}".format(k)
@@ -253,41 +243,12 @@ def submit_job_description():
 
         print "*" * 50
         for k in data:
-            #print k
             print "{0:20} | {1:20}".format(k, data.get(k))
         print "--" * 40
         
-
-    elif jobtype == "generic":
-             
-        data = {"job_id"           : uid,
-                "username"         : username,
-                "i_user_id"        : user_id,
-                "i_user_role"      : "arn:aws:iam::{0}:role/{1}".format(request.app.config["iam.project"], role),
-                "executable"       : executable,
-                "args"             : args,
-                "user_email"       : email,
-                "jobtype"          : "generic",
-                "inputs"           : [],
-                "outputs"          : [],
-                "submit_time"      : int(time.time()),
-                "submit_stamp"     : str(time.strftime('%Y-%m-%d %H:%M:%S')),
-                "queue"            : queue,
-                "status"           : "pending"
-            }
-
-        for k in request.POST.keys():
-            if k.startswith('input_url'):
-                input_url =  request.POST.get(k)
-                data["inputs"].extend([{"src" : input_url, 
-                                        "dest": input_url.split('/')[-1]}])
-            elif k.startswith('output_file'):
-                output_file = request.POST.get(k)
-                print "Outfile : ", output_file
-                data["outputs"].extend([{"src" : output_file, 
-                                         "dest": "klab-jobs/outputs/{0}/{1}".format(uid, output_file)}])
        
     enable_mock = False
+    #enable_mock = True
 
     if enable_mock :
         return template("./views/submit_confirm.tpl",
@@ -300,14 +261,62 @@ def submit_job_description():
     qname = "TestJobsSNSTopicARN"
     if queue in ["Test", "Prod"]:
         qname = queue + "JobsSNSTopicARN"
-            
+    else:
+        raise Exception("Queue : [{0}] is not valid".format(queue))
+
     sns_sqs.publish(request.app.config["sns.conn"], request.app.config["instance.tags"][qname],
                     json.dumps(data))
+
+    return uid
+
+
+##################################################################################
+# Submit tasks via REST
+##################################################################################
+@route('/rest/v1/submit_task', method='POST', name="submit_task_rest")
+def submit_job_description():
+    print "Rest Interface for submit_task"
+    session = bottle.request.environ.get('beaker.session')
+    response.content_type = 'application/json'
+    
+    if request.POST.get("access_token"):
+        print "Attempt to auth with access_token"
+        user_info = validate_session(request.app, request.POST.get("access_token"))
+        if not user_info :
+            return {"status" : "Fail",
+                    "reason" : "Failed to authenticate"}
+
+        session.update(user_info)
+        session["logged_in"] = True
+        #print "Session : ",session
+    else:        
+        return {"status" : "Fail",
+                "reason" : "access_token missing"}
+    try:
+        uid = _submit_task(request, session)
+    except Exception as e:
+        return {"status" : "Fail",
+                "reason" : "{0}".format(e)}
+        
+    return {"status" : "Success", 
+            "job_id" : uid} 
+
+
+##################################################################################
+# Submit tasks
+##################################################################################
+@route('/submit_task', method='POST', name="submit_task")
+def submit_job_description():
+    session = bottle.request.environ.get('beaker.session')
+    conf_man.update_creds_from_metadata_server(request.app)
+
+    uid = _submit_task(request, session)
 
     return template("./views/submit_confirm.tpl",
                     job_id=uid,
                     title="Task Confirmation",
                     session=session)
+        
             
 #################################################################
 # Print a table form of jobs and statuses
@@ -335,6 +344,46 @@ def list_jobs():
                     title="Task Status",
                     table=table,
                     session=session)
+
+#################################################################
+# Print a table form of jobs and statuses
+#################################################################
+@route('/rest/v1/list_tasks', method='GET', name="jobs_list_rest")
+def list_jobs_rest():
+    print "Rest Interface for list_task"
+    session = bottle.request.environ.get('beaker.session')
+    response.content_type = 'application/json'
+    
+    if request.POST.get("access_token"):
+        print "Attempt to auth with access_token"
+        user_info = validate_session(request.app, request.POST.get("access_token"))
+        if not user_info :
+            return {"status" : "Fail",
+                    "reason" : "Failed to authenticate"}
+
+        session.update(user_info)
+        session["logged_in"] = True
+        #print "Session : ",session
+    else:        
+        return {"status" : "Fail",
+                "reason" : "access_token missing"}
+
+    
+    conf_man.update_creds_from_metadata_server(request.app)
+    results = request.app.config["dyno.conn"].scan(i_user_id__eq=session['user_id'])
+    table_tpl = {}
+
+    table_tpl['items'] = {}
+    print "Jobs: "
+    print "-"*50
+    for i,r in enumerate(results):
+        table_tpl['items'][i] = { "job_id"       : str(r["job_id"]),
+                                  "status"       : str(r["status"]),
+                                  "jobtype"      : str(r["jobtype"]),
+                                  "submit_stamp" : str(r["submit_stamp"])}
+
+    table_tpl['status'] = "Success"
+    return table_tpl
             
 
 #################################################################
@@ -385,6 +434,80 @@ def job_cancel(job_id):
 
     redirect('/jobs/' + job_id)
 
+
+
+def get_job_info(request, job_id):
+    dyntable = request.app.config['dyno.conn']
+    try:
+        item = dyntable.get_item(job_id=job_id)
+    except ItemNotFound:
+        return "The requested job_id was not found in the jobs database"
+
+    pairs = []
+    for k in item.keys():
+        print "{0} : {1}".format(k, item[k])
+        if k.startswith("i_") :
+            continue
+        
+        if k in ['submit_time', 'complete_time']:
+            pairs.append([k, time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(item[k]))])
+        
+        elif k in ['inputs']:
+            link       = '<a href="{0}">{1}</a>'.format(item[k][0]['src'], 
+                                                        item[k][0]['dest'])
+            print link
+            pairs.append([k, link])
+            
+        elif k in ['outputs']:
+            if item["status"].lower() not in ["completed", "failed"]:
+                continue
+
+            for out in item[k]:
+                print "output ", out
+                #signed_url = generate_signed_url(out["dest"], request.app)
+                target = out["dest"].split('/', 1)
+                signed_url = s3.generate_signed_url(request.app.config["s3.conn"],
+                                                    target[0], # Bucket name
+                                                    target[1], # Prefix
+                                                    1500)      # Duration
+                if signed_url :
+                    link       = '<a href="{0}">{1}</a>'.format(signed_url, out["src"])
+                else:
+                    link       = "<i>{0}</i>".format(out["src"])
+
+                pairs.append([k, link])
+                        
+        else:
+            pairs.append([k, item[k]])
+
+    return pairs
+
+#################################################################
+# Show job attributes
+#################################################################
+@route('/rest/v1/status_task/<job_id>', method='GET', name="job_info")
+def job_info(job_id):
+    
+    session = bottle.request.environ.get('beaker.session')
+    conf_man.update_creds_from_metadata_server(request.app)
+    response.content_type = 'application/json'
+
+    pairs = get_job_info(request, job_id)
+    result = {}
+    result['items'] = {}
+    print "Pairs : ", pairs
+    for i,p in enumerate(pairs):
+        print p
+        result['items'][i] = {p[0]:p[1]}
+        if p[0] == "status":
+            result['status'] = p[1]
+    #print result
+    return result
+    #return json.dumps(pairs)
+
+#################################################################
+# Show job attributes
+#################################################################
 @route('/jobs/<job_id>', method='GET', name="job_info")
 def job_info(job_id):
     
