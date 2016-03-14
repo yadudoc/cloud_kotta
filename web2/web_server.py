@@ -166,7 +166,7 @@ def _submit_task(request, session):
     input_url = request.POST.get('input_url')
     jobtype   = request.POST.get('jobtype').strip()
     outputs   = request.POST.get('outputs', None)
-    uid       = str(uuid.uuid1())
+    uid       = str(uuid.uuid4())
     queue     = request.POST.get('queue')
 
     data      = {"job_id"           : uid,
@@ -187,7 +187,9 @@ def _submit_task(request, session):
     ##############################################################################################################
     if jobtype == "doc_to_vec":
 
-        data["inputs"]   =  [{"type": "doc", "src": input_url, "dest": input_url.split('/')[-1] }],
+        print "Inputs : ", [{"type": "doc", "src": input_url, "dest": input_url.split('/')[-1] }]
+
+        data["inputs"]   =  [{"type": "doc", "src": input_url, "dest": input_url.split('/')[-1] }]
         data["outputs"]  =  [{"src": "doc_mat.pkl",  "dest": "klab-jobs/outputs/{0}/doc_mat.pkl".format(uid)},
                              {"src": "word_mat.pkl", "dest": "klab-jobs/outputs/{0}/word_mat.pkl".format(uid)},
                              {"src": "mdl.pkl",      "dest": "klab-jobs/outputs/{0}/mdl.pkl".format(uid)},
@@ -695,7 +697,7 @@ def upload_to_s3():
     require_login(session)
 
     conf_man.update_creds_from_metadata_server(request.app)
-    job_id   = str(uuid.uuid1())
+    job_id   = str(uuid.uuid4())
     exp_time = tstamp_plus_nmins(60)
     bucket_name =  "klab-jobs" #"klab-webofscience" #
 
