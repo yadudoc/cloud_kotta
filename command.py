@@ -45,6 +45,7 @@ def execute (app, cmd, walltime, job_id, env_vars={}):
     for k in env_vars:
         env[k] = env_vars[k]
     env["TURING_JOB_ID"] = job_id
+    env["HOME"] = "/home/ubuntu"
 
     start_time = time.time()    
     proc = subprocess.Popen(cmd, stdout=std_out, stderr=std_err, env=env, shell=True)
