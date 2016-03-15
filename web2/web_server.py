@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # Ref: http://bottlepy.org/docs/dev/tutorial.html
-
 import uuid
 import time, datetime, pytz
 import subprocess
@@ -40,6 +39,8 @@ import dynamo_utils as dutils
 import config_manager as conf_man
 import identity
 import sts
+from utils import *
+from usage_stats import *
 
 JobTypes = ["doc_to_vec", "script"]
 
@@ -102,14 +103,6 @@ def url_maker_submit_job():
     return template("./views/error.tpl",
                     session=session,
                     error_str="{0} is not a valid Job Type")    
-##################################################################################
-# Helper function to ensure that the user is logged in
-##################################################################################
-def require_login(session):
-    if not session:
-        redirect("/login")
-    if session.get("logged_in") != True:
-        redirect("/login")
 
 ##################################################################################
 # Handles the different job types.
