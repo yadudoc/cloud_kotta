@@ -1,0 +1,29 @@
+With multiple regions possible in future upgrades, it becomes difficult to query each machine individually.
+It becomes much simpler if we were to put the responsibility of sending a heartbeat back.
+
+The machines could be in four different states :
+1. Executing some job
+2. Idle and waiting for a job
+3. Booting up and not yet able to phone home
+4. Unable to contact home, byzantine failure ...
+
+
+When the machine is just booting up, there's nothing that need to be done, besides making sure
+that the machine does not get killed accidentally. Booting up should not be confused with a failure
+and we need to determine when booting up has failed and the machine is deemed to have failed.
+
+When the machine is idle, and there's no jobs to execute, the machine could either wait for new
+jobs or die. The logic of deciding when the machines die is better arbitrated by a separate machine
+since we allow arbitrary codes to execute on the worker nodes. Also to note is that the role for
+the worker machines much not be capable of launching any ec2 nodes. 
+
+Security wise, if a worker is compromised, and the user gets access to the instance role (which is a highly privileged user)
+a user can easily wreak havoc. The instance roles, need to be able to access the job queues and could waste resources
+by pumping spurios tasks to the queue. The role also allows users to write to DynamoDb which could allow a malicious user
+to wipe job history and easily hide one's tracks.
+
+Ideally each instance should be tracked and shepherded by a separate, secure service.
+This service should work within the limits imposed by autoscale groups, and scale back instances when they are
+idle, or not functioning properly.
+
+
