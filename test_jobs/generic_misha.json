@@ -1,0 +1,13 @@
+{"job_id"           : "{{uid}}",
+  "username"        : "misha-test",
+  "user_email"      : "misha@uchicago.edu",
+  "jobtype"         : "generic",
+  "inputs"          : "https://s3.amazonaws.com/klab-jobs/inputs/misha/plos_one/refs_0.pickle"
+  "executable"      : "/bin/python",
+  "args"            : "\"Hello World\"",
+  "outputs"         : [{"src": "STDOUT.txt",  "dest": "klab-jobs/outputs/{{uid}}/STDOUT.txt"},
+		       {"src": "STDERR.txt",  "dest": "klab-jobs/outputs/{{uid}}/STDERR.txt"}],
+ "submit_time"      : {{time}},
+ "submit_stamp"     : "{{tstamp}}",
+ "status"           : "pending"
+}
