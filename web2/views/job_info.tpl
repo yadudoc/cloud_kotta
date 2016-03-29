@@ -21,11 +21,15 @@
       <div class="form-group col-md-4">
        <a href="{{get_url('job_cancel')}}/{{job_id}}" class="btn btn-danger" role="button">Cancel Job</a>
       </div>
-    </div>
-    
+      <div class="form-group col-md-4">
+       <a href="{{get_url('job_cancel')}}/{{job_id}}" class="btn btn-warning" role="button">Redo Job</a>
+      </div>
 
-     <div class="table-responsive">
-     <table class="table">
+    </div>
+   
+    <!--     <div class="table-responsive"> -->
+     <div class="container">
+     <table class="table table-hover">
      %for row in table:
      <tr>
     %for i,col in enumerate(row):
