@@ -4,7 +4,7 @@
 </div>
 
 
-<p>Please provide the information below to submit a Document2Vector task.</p>
+<p>Please provide the information below to submit a generic script for execution</p>
 <div class="form-wrapper">
   <form role="form" action="{{get_url('submit_task')}}" method="post" name="submit_task">
 
