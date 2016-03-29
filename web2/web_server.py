@@ -102,7 +102,7 @@ def url_maker_submit_job():
     session = bottle.request.environ.get('beaker.session')
     return template("./views/error.tpl",
                     session=session,
-                    error_str="{0} is not a valid Job Type")    
+                    error_str="You've requested an invalid Job Type")    
 
 ##################################################################################
 # Handles the different job types.
@@ -120,7 +120,7 @@ def submit_job(jobtype):
 
     else:
         t = template("./views/error.tpl",
-                     error_str="{0} is not a valid Job Type",
+                     error_str="{0} is not a valid Job Type".format(jobtype),
                      email="",
                      username="",
                      session=session)                    

@@ -14,9 +14,20 @@
 </style>
 
 <div id="main">
-     <div class="table-responsive">
+     <!-- 
+     <div class="table-responsive">     
      <table class="table">
-      </br>
+     -->
+     <div class="table-responsive">
+     <table class="table table-hover">
+     <thead>
+	<tr>
+		<th>Job ID</th>
+        	<th>Status</th>
+        	<th>Job Type</th>
+        	<th>Submit time</th>
+      	</tr>
+      </thead>
       </br>
       %for row in table:
           <tr>
