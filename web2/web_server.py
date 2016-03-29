@@ -693,6 +693,7 @@ def upload_to_s3():
     job_id   = str(uuid.uuid4())
     exp_time = tstamp_plus_nmins(60)
     bucket_name =  "klab-jobs" #"klab-webofscience" #
+    print "Uploads page"
 
     vals = { "redirect_url" : "{0}/{1}".format(request.app.config["server.url"],
                                                "upload_confirm"),
@@ -701,6 +702,8 @@ def upload_to_s3():
              "exp_date"     : exp_time,
              "bucket_name"  : bucket_name
          }
+
+    print "Uploading with key : {0}".format(request.app.config["instance.tags"]["S3UploadKeyId"])
 
     policy, signature = get_signature_and_policy(request.app, vals)
     

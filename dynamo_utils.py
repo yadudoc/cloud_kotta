@@ -16,7 +16,7 @@ def dynamodb_update(table, data):
 def dynamodb_get(table, job_id):
         return table.get_item(job_id=job_id)
 
-def connect_to_db(app, table_name, haskkey):
+def connect_to_db(app, table_name, hashkey):
     dyno = Table(table_name,
                  schema=[HashKey(hashkey)],
                  connection=ddb.connect_to_region(app.config['dynamodb.region'],
