@@ -41,8 +41,8 @@ import identity
 import sts
 from utils import *
 from usage_stats import *
+from resubmit import *
 
-JobTypes = ["doc_to_vec", "script"]
 
 ##################################################################
 # This function handles the creation of the encoded signature
@@ -115,6 +115,7 @@ def submit_job(jobtype):
         t = template("./views/submit_{0}.tpl".format(jobtype),
                      email="",
                      username="",
+                     prefill=None,
                      jobtype=jobtype,
                      session=session)
 
@@ -430,17 +431,12 @@ def job_cancel(job_id):
     redirect('/jobs/' + job_id)
 
 
-
 def get_job_info(request, job_id):
-    dyntable = request.app.config['dyno.conn']
-    try:
-        item = dyntable.get_item(job_id=job_id)
-    except ItemNotFound:
-        return "The requested job_id was not found in the jobs database"
 
+    item = dutils.get_job(request, job_id)
     pairs = []
     for k in item.keys():
-        print "{0} : {1}".format(k, item[k])
+        #print "{0} : {1}".format(k, item[k])
         if k.startswith("i_") :
             continue
         
@@ -458,7 +454,7 @@ def get_job_info(request, job_id):
                 continue
 
             for out in item[k]:
-                print "output ", out
+                #print "output ", out
                 #signed_url = generate_signed_url(out["dest"], request.app)
                 target = out["dest"].split('/', 1)
                 signed_url = s3.generate_signed_url(request.app.config["s3.conn"],
@@ -499,6 +495,7 @@ def job_info(job_id):
     #print result
     return result
     #return json.dumps(pairs)
+
 
 #################################################################
 # Show job attributes

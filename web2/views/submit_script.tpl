@@ -17,38 +17,59 @@
     <div class="row">
       <div class="form-group col-md-4">
         <label for="executable">Command</label>
-        <input class="form-control input-lg input_url required" type="text" id="executable" name="executable" value="/bin/bash myscript.sh" />
+	%if prefill :
+	        <input class="form-control input-lg input_url required" type="text" id="executable" name="executable" value="{{prefill['executable']}}" />
+	%else:
+	        <input class="form-control input-lg input_url required" type="text" id="executable" name="executable" value="/bin/bash myscript.sh" />
+	%end
       </div>
     </div>
 
     <div class="row">
        <div class="form-group col-md-8">
           <label for="script">Script (Script will run as root)</label>
+	%if prefill :
+          <textarea class="form-control input_lg" rows="5" name="script" id="script" >{{prefill['i_script']}}</textarea>
+	%else:
           <textarea class="form-control input_lg" rows="5" name="script" id="script" >
 #!/bin/bash
 echo "Hello World"
 </textarea>
+
+	%end
        </div>
     </div>
 
     <div class="row">
       <div class="form-group col-md-4">
         <label for="script_name">Filename for script</label>
-        <input class="form-control input-lg input_url required" type="text" name="script_name" id="args" value='myscript.sh'/>
+	%if prefill :
+		<input class="form-control input-lg input_url required" type="text" name="script_name" id="args" value="{{prefill['i_script_name']}}"/>
+	%else:
+		<input class="form-control input-lg input_url required" type="text" name="script_name" id="args" value='myscript.sh'/>
+	%end
       </div>
     </div>
 
     <div class="row">
       <div class="form-group col-md-10">
         <label for="inputs">Inputs</label>
-        <input class="form-control input-lg input_url" type="text" name="inputs" placeholder="https://goo.gl/Acuznd, https://s3.amazonaws.com/klab-data/uploads/bill/heateqn1d_FTCS.m"/>
+	%if prefill :
+		<input class="form-control input-lg input_url" type="text" name="inputs" value="{{prefill['inputs']}}"/>
+	%else:
+	        <input class="form-control input-lg input_url" type="text" name="inputs" placeholder="https://goo.gl/Acuznd, https://s3.amazonaws.com/klab-data/uploads/bill/heateqn1d_FTCS.m"/>
+	%end
       </div>
     </div>
 
     <div class="row">
       <div class="form-group col-md-10">
         <label for="outputs">Outputs</label>
-        <input class="form-control input-lg input_url" type="text" name="outputs" placeholder="myresult.dat, myapp.log"/>
+	%if prefill :
+	        <input class="form-control input-lg input_url" type="text" name="outputs" value="{{prefill['outputs']}}"/>
+	%else:
+	        <input class="form-control input-lg input_url" type="text" name="outputs" placeholder="myresult.dat, myapp.log"/>	
+	%end
       </div>
     </div>
 
@@ -67,17 +88,31 @@ echo "Hello World"
     <div class="row">
       <div class="form-group col-md-4">
         <label for="walltime">Walltime in minutes</label>
-        <input class="form-control input-lg required" type="text" name="walltime" id="walltime" value="5"/>
+	%if prefill :
+	        <input class="form-control input-lg required" type="text" name="walltime" id="walltime" value="{{prefill['walltime']/60}}"/>
+	%else:
+	        <input class="form-control input-lg required" type="text" name="walltime" id="walltime" value="5"/>
+	%end
+
       </div>
     </div>
 
     <div class="row">
       <div class="form-group col-md-4">
         <label for="queue">Deployment Type</label>
+	%if prefill :
+	    <select class="form-control input-lg required" id="queue" name="queue" default="{{prefill['queue']}}">
+    	       <option value="Test">Testing/Dev</option>
+	       <option value="Prod">Production</option>
+            </select>
+	%else:
 	    <select class="form-control input-lg required" id="queue" name="queue" default="Test">
     	       <option value="Test">Testing/Dev</option>
 	       <option value="Prod">Production</option>
             </select>
+	%end
+
+
       </div>
     </div>
 

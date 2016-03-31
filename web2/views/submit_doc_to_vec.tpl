@@ -16,7 +16,7 @@
     <div class="row">
       <div class="form-group col-md-4">
         <label for="document_url">Document file URL <font color=#800000>*</font> </label>
-        <input class="form-control input-lg input_url required" type="URL" name="input_url" placeholder="https://...document.csv" />
+	<input class="form-control input-lg input_url required" type="URL" name="input_url" placeholder="https://...document.csv" />
       </div>
     </div>
 
