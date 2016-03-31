@@ -22,7 +22,7 @@
        <a href="{{get_url('job_cancel')}}/{{job_id}}" class="btn btn-danger" role="button">Cancel Job</a>
       </div>
       <div class="form-group col-md-4">
-       <a href="{{get_url('job_cancel')}}/{{job_id}}" class="btn btn-warning" role="button">Redo Job</a>
+       <a href="{{get_url('resubmit')}}/{{job_id}}" class="btn btn-warning" role="button">Redo Job</a>
       </div>
 
     </div>

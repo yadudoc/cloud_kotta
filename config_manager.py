@@ -18,6 +18,7 @@ import boto.ec2
 import boto.sqs
 import boto.sns
 import boto.ses
+import boto.ec2.autoscale
 from bottle import app, template
 from boto.s3.connection import S3Connection
 from datetime import datetime
@@ -166,6 +167,10 @@ def init(app):
                                       aws_secret_access_key=app.config['keys.key_secret'],
                                       security_token=app.config['keys.key_token'])
 
+    scale= boto.ec2.autoscale.AutoScaleConnection(aws_access_key_id=app.config['keys.key_id'],
+                                                  aws_secret_access_key=app.config['keys.key_secret'],
+                                                  security_token=app.config['keys.key_token'])
+
     s3   = S3Connection(aws_access_key_id=app.config['keys.key_id'],
                         aws_secret_access_key=app.config['keys.key_secret'],
                         security_token=app.config['keys.key_token'])
@@ -182,6 +187,7 @@ def init(app):
     app.config["sqs.conn"]  = sqs
     app.config["ses.conn"]  = ses
     app.config["s3.conn"]   = s3
+    app.config["scale.conn"]= scale
     app.config["dyno.conn"] = dyno
     app.config["doReload"]  = True
 
