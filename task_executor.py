@@ -160,6 +160,11 @@ def exec_job(app, jobtype, job_id, executable, args, inputs, outputs, data, auth
    # Save current folder and chdir to a temporary folder
    conf_man.update_creds_from_metadata_server(app)
    record = dutils.dynamodb_get(app.config["dyno.conn"], job_id)
+   
+   ##############################################################################
+   # Notify job execution start time
+   ##############################################################################
+   update_record(record, "start_time", time.time())
 
    ##############################################################################
    # Setup dirs for execution
@@ -238,7 +243,7 @@ def exec_job(app, jobtype, job_id, executable, args, inputs, outputs, data, auth
 
    update_record(record, "z_stagein_dur",    stagein_total)
    update_record(record, "z_stageout_dur",   stageout_total)
-   update_record(record, "z_processing_dur", process_total)
+   update_record(record, "z_processing_dur", process_total - 1)
 
    if returncode != 0 :
       update_record(record, "status", "failed");
