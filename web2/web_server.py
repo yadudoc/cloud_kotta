@@ -440,7 +440,7 @@ def get_job_info(request, job_id):
         if k.startswith("i_") :
             continue
         
-        if k in ['submit_time', 'complete_time']:
+        if k in ['submit_time', 'complete_time', 'start_time']:
             pairs.append([k, time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(item[k]))])
         
         elif k in ['inputs']:

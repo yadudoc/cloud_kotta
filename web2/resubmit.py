@@ -66,11 +66,18 @@ def re_submit_job(jobid):
         print "{0} : {1}".format(k, v)
 
         if str(k) == 'outputs' or str(k) == 'inputs':
-            mapping[k] = ', '.join([o['src'] for o in v])
+            mapping[k] = [o['src'] for o in v if o['src'] not in ['STDOUT.txt', 'STDERR.txt']]
             print "string : ", mapping[k]
 
         else:
             mapping[k] = v
+
+    print "Before trimming : ", mapping['outputs']
+    if mapping.get('i_script_name', None) != None:
+        mapping['outputs'].remove(mapping.get('i_script_name'))
+    print "After trimming : ", mapping['outputs']
+    mapping['outputs'] = ', '.join(mapping['outputs'])
+    mapping['inputs']  = ', '.join(mapping['inputs'])
     jobtype = mapping.get('jobtype', None)
     #print "inputs: ", mapping['inputs']
     #print "outputs: ", mapping['outputs']
