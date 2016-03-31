@@ -1,0 +1,8 @@
+Python, pip installable
+-----------------------
+
+bottle
+boto
+requests
+pycrypto
+beaker
