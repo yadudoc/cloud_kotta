@@ -6,15 +6,31 @@ import boto.dynamodb2 as ddb
 # Update job information in dynamodb
 ##################################################################
 def dynamodb_update(table, data):
-        #print "Updating db with : {0}".format(data)
-        return table.put_item(data=data, overwrite=True)
+    #print "Updating db with : {0}".format(data)
+    return table.put_item(data=data, overwrite=True)
+
 
 ##################################################################
-# HW5
+# Get job information from dynamodb
+##################################################################
+def get_job(request, job_id):
+    dyntable = request.app.config['dyno.conn']
+    try:
+        item = dyntable.get_item(job_id=job_id)
+    except ItemNotFound:
+        return "The requested job_id was not found in the jobs database"
+        raise
+    return item
+
+##################################################################
 # Update job information in dynamodb
 ##################################################################
 def dynamodb_get(table, job_id):
         return table.get_item(job_id=job_id)
+
+##################################################################
+# Update job information in dynamodb
+##################################################################
 
 def connect_to_db(app, table_name, hashkey):
     dyno = Table(table_name,

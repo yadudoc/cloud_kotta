@@ -54,13 +54,48 @@ def usage_stats():
     print "Jobs: "
     print "-"*50
     for r in results:
-        row = [str(r["job_id"]), str(r["status"]),  
-               str(r["jobtype"]), str(r["submit_stamp"])]
+        print r["username"]
+        row = [str(r["username"]), str(r["job_id"]), str(r["status"]),  
+               str(r["jobtype"]), str(r["submit_stamp"]), str(r["queue"])]
         table_tpl.append(row)
 
-    table = sorted(table_tpl, key=lambda row: datetime.datetime.strptime(row[3], '%Y-%m-%d %H:%M:%S'), reverse=True)
-    return template("./views/jobs.tpl",
+    stackname = request.app.config["instance.tags"]["aws:cloudformation:stack-name"]
+    myautoscale = [x for x in request.app.config["scale.conn"].get_all_groups() if x.name.startswith(stackname)]
+    
+    autoscale = {}
+    for grp in myautoscale:
+        instances = grp.instances
+        count     = len(instances)
+        print grp.name
+        print grp.name.strip("{0}-".format(stackname))
+        print grp.name.strip("{0}-".format(stackname)).startswith('Test')
+        
+        grp_name = grp.name[len(stackname)+1:]
+        
+        if grp_name.startswith('Test'):
+            
+            autoscale['test'] = [grp.min_size*100/grp.max_size,
+                                 (count-grp.min_size)*100/grp.max_size,
+                                 (grp.desired_capacity-count)*100/grp.max_size,
+                                 grp.max_size]
+            
+        elif grp_name.startswith('Prod'):
+            autoscale['prod'] = [grp.min_size*100/grp.max_size,
+                                 (count-grp.min_size)*100/grp.max_size,
+                                 (grp.desired_capacity-count)*100/grp.max_size,
+                                 grp.max_size]
+            
+        else:
+            print "Error: could not find scaling groups"
+
+
+    print autoscale
+
+
+    table = sorted(table_tpl, key=lambda row: datetime.datetime.strptime(row[4], '%Y-%m-%d %H:%M:%S'), reverse=True)
+    return template("./views/usage_stats.tpl",
                     title="Task Status",
                     table=table,
+                    autoscale=autoscale,
                     session=session)
 

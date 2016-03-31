@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 import math
+import bottle
+from bottle import template
+from bottle import route, get, post, request, hook, redirect
 
+#################################################################################
+# Some global vars
+#################################################################################
+JobTypes = ["doc_to_vec", "script"]
 
 ##################################################################################
 # Helper function to ensure that the user is logged in
@@ -11,7 +18,9 @@ def require_login(session):
     if session.get("logged_in") != True:
         redirect("/login")
 
-
+##################################################################################
+# Convert file size to human friendly
+##################################################################################
 def file_size_human(size):
     if size == 0 :
         return "0 B"
@@ -21,6 +30,9 @@ def file_size_human(size):
     return "{0:.2f} {1}".format(val, suffix[index])
 
 
+##################################################################################
+# Tests
+##################################################################################
 def test_file_size():
     print file_size_human(0)
     print file_size_human(455)
