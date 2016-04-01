@@ -166,6 +166,7 @@ def _submit_task(request, session):
     data      = {"job_id"           : uid,
                  "username"         : session["username"],
                  "i_user_id"        : session["user_id"],
+                 "jobname"          : request.POST.get('jobname', uid),
                  "i_user_role"      : "arn:aws:iam::{0}:role/{1}".format(request.app.config["iam.project"], session["user_role"]),
                  "user_email"       : session["email"],
                  "submit_time"      : int(time.time()),
@@ -433,6 +434,7 @@ def job_cancel(job_id):
 
 def get_job_info(request, job_id):
 
+    print "Job info ", "*" *50
     item = dutils.get_job(request, job_id)
     pairs = []
     for k in item.keys():
@@ -440,7 +442,7 @@ def get_job_info(request, job_id):
         if k.startswith("i_") :
             continue
         
-        if k in ['submit_time', 'complete_time', 'start_time']:
+        if k in ['submit_time', 'complete_time', 'start_time']:            
             pairs.append([k, time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(item[k]))])
         
         elif k in ['inputs']:
@@ -488,7 +490,6 @@ def job_info(job_id):
     result['items'] = {}
     print "Pairs : ", pairs
     for i,p in enumerate(pairs):
-        print p
         result['items'][i] = {p[0]:p[1]}
         if p[0] == "status":
             result['status'] = p[1]
@@ -497,6 +498,7 @@ def job_info(job_id):
     #return json.dumps(pairs)
 
 
+# TODO: Remove duplication of work with get_job_info
 #################################################################
 # Show job attributes
 #################################################################
@@ -513,44 +515,18 @@ def job_info(job_id):
     except ItemNotFound:
         return "The requested job_id was not found in the jobs database"
 
-    pairs = []
-    for k in item.keys():
-        print "{0} : {1}".format(k, item[k])
-        if k.startswith("i_") :
-            continue
-        
-        if k in ['submit_time', 'complete_time']:
-            pairs.append([k, time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(item[k]))])
-        
-        elif k in ['inputs']:
-            link       = '<a href="{0}">{1}</a>'.format(item[k][0]['src'], 
-                                                        item[k][0]['dest'])
-            print link
-            pairs.append([k, link])
-            
-        elif k in ['outputs']:
-            if item["status"].lower() not in ["completed", "failed"]:
-                continue
-
-            for out in item[k]:
-                print "output ", out
-                #signed_url = generate_signed_url(out["dest"], request.app)
-                target = out["dest"].split('/', 1)
-                signed_url = s3.generate_signed_url(request.app.config["s3.conn"],
-                                                    target[0], # Bucket name
-                                                    target[1], # Prefix
-                                                    1500)      # Duration
-                if signed_url :
-                    link       = '<a href="{0}">{1}</a>'.format(signed_url, out["src"])
-                else:
-                    link       = "<i>{0}</i>".format(out["src"])
-
-                pairs.append([k, link])
-                        
-        else:
-            pairs.append([k, item[k]])
-
+    #pairs = []
+    pairs = get_job_info(request, job_id);
+    for row in pairs:
+        # The walltime is in seconds, convert this to some human readable form
+        if row[0] == 'walltime':
+            print row[1]
+            seconds = row[1]%60
+            minutes = row[1]%(60*60)
+            hours   = row[1]%(60*60*60)
+            print "{0}H {1}M {0}S".format(hours, minutes, seconds)
     print pairs
+
     return template('./views/job_info',
                     title="Job - Info",
                     job_id=job_id,
