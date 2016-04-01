@@ -497,6 +497,10 @@ def job_info(job_id):
     return result
     #return json.dumps(pairs)
 
+def human_time(seconds):
+    m, s  = divmod(seconds, 60)
+    h, m  = divmod(m, 60)
+    return "{0:02d}:{1:02d}:{2:02d}".format(h, m, s)
 
 # TODO: Remove duplication of work with get_job_info
 #################################################################
@@ -520,11 +524,8 @@ def job_info(job_id):
     for row in pairs:
         # The walltime is in seconds, convert this to some human readable form
         if row[0] == 'walltime':
-            print row[1]
-            seconds = row[1]%60
-            minutes = row[1]%(60*60)
-            hours   = row[1]%(60*60*60)
-            print "{0}H {1}M {0}S".format(hours, minutes, seconds)
+            row[1] = human_time(int(row[1]))
+
     print pairs
 
     return template('./views/job_info',
