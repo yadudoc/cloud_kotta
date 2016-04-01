@@ -16,6 +16,18 @@
 
     <div class="row">
       <div class="form-group col-md-4">
+        <label for="jobname">Job Name</label>
+	%if prefill and 'jobname' in prefill:
+	        <input class="form-control input-lg input_url required" type="text" id="executable" name="jobname" value="{{prefill['jobname']}}" />
+	%else:
+	        <input class="form-control input-lg input_url required" type="text" id="executable" name="jobname" placeholder="A friendly name" />
+	%end
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="form-group col-md-4">
         <label for="executable">Command</label>
 	%if prefill :
 	        <input class="form-control input-lg input_url required" type="text" id="executable" name="executable" value="{{prefill['executable']}}" />
@@ -57,7 +69,7 @@ echo "Hello World"
 	%if prefill :
 		<input class="form-control input-lg input_url" type="text" name="inputs" value="{{prefill['inputs']}}"/>
 	%else:
-	        <input class="form-control input-lg input_url" type="text" name="inputs" placeholder="https://goo.gl/Acuznd, https://s3.amazonaws.com/klab-data/uploads/bill/heateqn1d_FTCS.m"/>
+	        <input class="form-control input-lg input_url" type="text" name="inputs" placeholder="Comma separated list of input URLs"/>
 	%end
       </div>
     </div>
@@ -68,20 +80,20 @@ echo "Hello World"
 	%if prefill :
 	        <input class="form-control input-lg input_url" type="text" name="outputs" value="{{prefill['outputs']}}"/>
 	%else:
-	        <input class="form-control input-lg input_url" type="text" name="outputs" placeholder="myresult.dat, myapp.log"/>	
+	        <input class="form-control input-lg input_url" type="text" name="outputs" placeholder="Comma separated list of output files"/>	
 	%end
       </div>
     </div>
 
     <div class="row">
       <div class="form-group col-md-4">
-        <input class="form-control input-lg input_url " type="text" name="output_file_stdout" id="output_file" value="STDOUT.txt" />
+        <input class="form-control input-lg uneditable-input" type="text" name="output_file_stdout" id="output_file" value="STDOUT.txt"/>
       </div>
     </div>
 
     <div class="row">
       <div class="form-group col-md-4">
-        <input class="form-control input-lg input_url " type="text" name="output_file_stderr" id="output_file" value="STDERR.txt" placeholder="STDERR.txt" />
+        <input class="form-control input-lg input_url " type="text" name="output_file_stderr" id="output_file" value="STDERR.txt"/>
       </div>
     </div>
 
@@ -101,10 +113,22 @@ echo "Hello World"
       <div class="form-group col-md-4">
         <label for="queue">Deployment Type</label>
 	%if prefill :
-	    <select class="form-control input-lg required" id="queue" name="queue" default="{{prefill['queue']}}">
+	    %if prefill["queue"] == "Test" :
+ 	    <select class="form-control input-lg required" id="queue" name="queue" default="{{prefill['queue']}}">
     	       <option value="Test">Testing/Dev</option>
 	       <option value="Prod">Production</option>
             </select>
+	    %elif prefill["queue"] == "Prod" :
+ 	    <select class="form-control input-lg required" id="queue" name="queue" default="{{prefill['queue']}}">
+	       <option value="Prod">Production</option>
+    	       <option value="Test">Testing/Dev</option>
+            </select>
+	    %else:
+ 	    <select class="form-control input-lg required" id="queue" name="queue" default="{{prefill['queue']}}">
+    	       <option value="Test">Testing/Dev</option>
+	       <option value="Prod">Production</option>
+            </select>
+	    %end
 	%else:
 	    <select class="form-control input-lg required" id="queue" name="queue" default="Test">
     	       <option value="Test">Testing/Dev</option>

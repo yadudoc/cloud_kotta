@@ -76,8 +76,17 @@ def re_submit_job(jobid):
     if mapping.get('i_script_name', None) != None:
         mapping['outputs'].remove(mapping.get('i_script_name'))
     print "After trimming : ", mapping['outputs']
-    mapping['outputs'] = ', '.join(mapping['outputs'])
-    mapping['inputs']  = ', '.join(mapping['inputs'])
+    
+    if mapping.get('outputs', None) is not None:
+        mapping['outputs'] = ', '.join(mapping['outputs'])
+    else:
+        mapping['outputs'] = ''
+
+    if mapping.get('inputs', None) is not None:
+        mapping['inputs']  = ', '.join(mapping['inputs'])
+    else:
+        mapping['inputs'] = ''
+    
     jobtype = mapping.get('jobtype', None)
     #print "inputs: ", mapping['inputs']
     #print "outputs: ", mapping['outputs']
