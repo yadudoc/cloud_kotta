@@ -54,6 +54,11 @@ def execute (app, cmd, walltime, job_id, env_vars={}):
 
     while True:
 
+        if ( int(time.time() - start_t) %(60*60)) == 0 ):
+            print "Refreshing message in queue"
+            new_msg = sns_sqs.refresh_message(app, app.config["current_msg_handle"])
+            app.config["current_msg_handle"] = new_msg
+        
         delta   =  int(time.time() - start_time)
         # Check if process has finished
         status  = proc.poll()
@@ -75,6 +80,7 @@ def execute (app, cmd, walltime, job_id, env_vars={}):
             return KILLED_BY_REQUEST
 
         time.sleep(sleep_time)
+
 
     total_t = time.time() - start_t    
     print "RunCommand Completed {0} in {1} s".format(cmd, total_t)
