@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-
 import boto
 import sys
 import json
@@ -7,6 +6,7 @@ import time
 import boto.sqs
 import config_manager as cm
 import uuid
+import ast
 
 def get_uuid():
     return str(uuid.uuid1())
@@ -53,7 +53,7 @@ def get_msg_with_attr(conn, q,  message_attr):
     while (1):
         # Introduce a higher visibility timeout to avoid the refresher seeing the same 
         # items repeatedly.
-        msg = q.read(visibility_timeout=10, wait_time_seconds=1, message_attributes=['All'])
+        msg = q.read(visibility_timeout=10, wait_time_seconds=1, message_attributes=['All']) # visibility_timeout=10,
         # Case 1 We have a valid message
         if msg:
             if "job_id" in msg.message_attributes and "type" in msg.message_attributes:
@@ -63,6 +63,8 @@ def get_msg_with_attr(conn, q,  message_attr):
                         print "We have a matching refresh job request"
                         print msg.get_body()
                         return msg
+                    else:
+                        continue
                 # Case:3 Valid message but not the one we are looking for
                 else:
                     # If we don't do anything here, the message itself will timeout and get picked up
@@ -76,34 +78,6 @@ def get_msg_with_attr(conn, q,  message_attr):
                     
     return None
 
-
-def refresh_message(sqs_conn, q, msg):
-    print "Refreshing message"
-    print msg.get_body()
-    m = json.loads(msg.get_body())
-    job_id = m.get("job_id")
-
-    attr = {"job_id": {"data_type"   : "String", 
-                       "string_value": job_id},
-            "type"  : {"data_type"   : "String", 
-                       "string_value": "refresh"}}
-    
-    status  = send_sqs_msg(sqs_conn, q, msg.get_body(), attr)
-    print "Send refresh message status : ", status
-    new_msg = get_msg_with_attr(sqs_conn, q, attr)
-    if msg:
-        print "Found our message"
-        print "deleting old message"
-        q.delete_message(msg)
-        
-    else:
-        print "No messages. Failed"
-
-    sqs_conn.change_message_visibility(q, new_msg, 60*1)
-    #sqs_conn.change_message_visibility(q, status, 60*1)
-    return new_msg
-
-
 def send_test_message(sqs_conn, q):
     job_id = get_uuid()
     attr = {"job_id": {"data_type"   : "String", 
@@ -116,20 +90,64 @@ def send_test_message(sqs_conn, q):
     
     r = send_sqs_msg(sqs_conn, q, json.dumps(msg), attr)
     return r
-    
-if __name__ == "__main__":
-    app = cm.load_configs("production.conf")
+
+def refresh_message(app, msg):
 
     sqs_conn = app.config["sqs.conn"]
     sqs_name = app.config["instance.tags"]["JobsQueueName"]
     
     q = sqs_conn.get_queue(sqs_name)
 
-    r   = send_test_message(sqs_conn, q)
-    msg = q.read(wait_time_seconds=10)
-    print "Received a message"
-    time.sleep(4)
-    msg = refresh_message(sqs_conn, q, msg)
+    print "Refreshing message"
+    print msg.get_body()
+    msg_body = msg.get_body()
+    m        = json.loads(msg_body)["Message"]
+
+    data     = ast.literal_eval(m)
+    job_id   = data.get('job_id')
+
+    print "Refreshing Job_id", job_id
+
+    attr = {"job_id": {"data_type"   : "String", 
+                       "string_value": job_id},
+            "type"  : {"data_type"   : "String", 
+                       "string_value": "refresh"}}
+
+    # Launch the refresh task
+    status  = send_sqs_msg(sqs_conn, q, msg_body, attr)
+    print "Send refresh message status : ", status
+    new_msg = get_msg_with_attr(sqs_conn, q, attr)
+    if new_msg :
+        print "Found our message"
+        print "deleting old message"
+        q.delete_message(msg)
+        
+    else:
+        print "No messages. Failed"
+
+    print "New_msg : ", new_msg    
+    #sqs_conn.change_message_visibility(q, new_msg, 60*1)
+    sqs_conn.change_message_visibility_batch(q, [(new_msg, app.config["sqs.message_visibility_timeout"])] )
+    #sqs_conn.change_message_visibility(q, status, 60*1)
+    return new_msg
+
+    
+if __name__ == "__main__":
+    app = cm.load_configs("production.conf")
+
+
+    #r   = send_test_message(sqs_conn, q)
+    while (1):
+        msg = q.read(wait_time_seconds=10)
+        if  msg:
+            print "Received a message"
+            time.sleep(4)
+            new_msg = refresh_message(app, msg)
+            q.delete_message(msg)
+            print "Refreshed and deleted old message"
+        else:
+            "Sleeping ..."
+            
     
 #sns_test(app.config["sns.conn"], app.config["instance.tags"]["JobsSNSTopicARN"])
 #sqs_test(app.config["sqs.conn"], app.config["instance.tags"]["JobsQueueName"])
