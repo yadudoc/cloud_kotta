@@ -278,6 +278,7 @@ def task_loop(app):
             if not sreq :
                continue
 
+            app.config["current_msg_handle"] = msg
             
             data        =  ast.literal_eval(sreq)
             print "Data : {0}".format(data)
