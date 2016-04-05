@@ -46,7 +46,7 @@ def die_at_hour_edge (app, dry_run=False) :
 
     print "Minutes from hour edge ", 60 - partial_hour
 
-    if partial_hour > 56 :
+    if partial_hour > 58 :
         print "Time to die"
         #kill_self(app, dry_run=dry_run)
         request_kill_from_controller(app, dry_run=True)
