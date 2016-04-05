@@ -12,7 +12,6 @@ import sys
 
 import boto.ec2.cloudwatch
 
-
 def get_connection(app):
     cloudwatch  = boto.ec2.cloudwatch.connect_to_region(app.config["identity"]['region'],
                                                     aws_access_key_id=app.config['keys.key_id'],
@@ -45,7 +44,6 @@ def watch_loop(app):
                                                                                       inflight))
             print r
         time.sleep(60)
-        
 
 if __name__ == "__main__":
 
