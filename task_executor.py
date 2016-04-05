@@ -19,6 +19,8 @@ import shutil
 import sys
 import sts
 import seppukku
+import sns_sqs
+import inspect
 
 metadata_server="http://169.254.169.254/latest/meta-data/"
 clean_tmp_dirs = False
@@ -262,26 +264,30 @@ def exec_job(app, jobtype, job_id, executable, args, inputs, outputs, data, auth
    return True
 
 def task_loop(app):
-   sqs_conn = app.config["sqs.conn"]
-   sqs_name = app.config["instance.tags"]["JobsQueueName"]
+   sqs_conn  = app.config["sqs.conn"]
+   pending   = app.config["instance.tags"]["JobsQueueName"]
+   active    = app.config["instance.tags"]["ActiveQueueName"]
+   pending_q = sqs_conn.get_queue(pending)
+   active_q  = sqs_conn.get_queue(active)
 
-   q = sqs_conn.get_queue(sqs_name)
 
    while 1:
-      msg = q.read(wait_time_seconds=20)
-      if msg:
-         # Too many things could fail here, do a blanket
-         # Try catch
-         try:
-            sreq = json.loads(msg.get_body())["Message"]
+      # Wait to read a message from the pending_q
+      msg = pending_q.read(wait_time_seconds=20)
 
+      print "Received message from pending_q"
+      if msg:         
+         # Too many things could fail here, do a blanket
+         # Try catch      
+         try:
+
+            sreq = json.loads(msg.get_body())["Message"]
             if not sreq :
                continue
 
             app.config["current_msg_handle"] = msg
             
             data        =  ast.literal_eval(sreq)
-            print "Data : {0}".format(data)
             job_id      =  data.get('job_id')
             jobtype     =  data.get('jobtype')
             executable  =  data.get('executable')
@@ -294,12 +300,17 @@ def task_loop(app):
                             "token"     : data.get('i_token'),
                             "keyid"     : data.get('i_keyid'),
                             "keysecret" : data.get('i_keysecret')}
-            
-            print "Data : {0}".format(data)
 
+            # Post the job to the active queue and delete it from the pending queue
+            attr, current_msg = sns_sqs.post_message_to_active(app, active_q, msg.get_body(), job_id)
+            print "Posted job from pending to active queue"
+            if not pending_q.delete_message(msg):
+               print "Deleting message from pending queue failed"
+            
             for key in data:
                print "{0} : {1}".format(key, data[key])
 
+            print "Starting task"
             status      =  exec_job(app,
                                     jobtype,
                                     job_id,
@@ -310,7 +321,6 @@ def task_loop(app):
                                     data,
                                     user_auth)
             
-
             print "Status : ", status
 
             if status == True:
@@ -320,15 +330,15 @@ def task_loop(app):
 
             # TODO : CLeanup
             print "At deletion : ", msg
-            res = q.delete_message(msg)
-            print "Deleting message from queue, status : ",res;
+            #res = active_q.delete_message(current_msg)
+            if not  sns_sqs.delete_message_from_active(sqs_conn, active_q, attr):
+               print "Messages deleted : ", count
 
          except Exception as e:
                print "Job failed to complete : {0}".format(sys.exc_info()[0])
-               res = q.delete_message(msg)
-               print "Deleting message from queue, status : ",res;
-
-               #pass
+               print "Trace : ", inspect.trace()
+               if not  sns_sqs.delete_message_from_active(sqs_conn, active_q, attr):
+                  print "Messages deleted : ", count
 
       else:
          print "{0}: Waiting for job description".format(time.time())
@@ -353,10 +363,10 @@ if __name__ == "__main__":
       print "Cannot proceed. Exiting"
       exit(-1)
 
+   
    logging.basicConfig(filename=args.logfile, level=conf_man.log_levels[args.verbose],
                        format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
                        datefmt='%m-%d %H:%M')
-
    logging.debug("\n{0}\nStarting task_executor\n{0}\n".format("*"*50))
    app = conf_man.load_configs(args.conffile);
 
