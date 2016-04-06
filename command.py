@@ -27,8 +27,43 @@ def check_if_cancelled(app, job_id):
     if record["status"] == "cancelled":
         print "Cancelled"
         return True
+
+    try :
+        proc = subprocess.Popen("foo", stdout=std_out, stderr=std_err, shell=True)
+        proc.wait()
+    except Exception as e:
+        print "Caught exception : {0}".format(e)
+        return -1
+
     print "Job not cancelled"
     return False
+
+
+def update_record(record, key, value):
+   record[key] = value
+   record.save(overwrite=True)
+   return
+
+############################################################################
+# Update dynamodb with usage stats
+############################################################################
+def update_usage_stats(app, job_id):
+    if not job_id :
+        return False
+
+    print "Usage_stats"
+
+    cmd = "/home/ubuntu/task_engine/system_stats.sh"
+    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+    out, err = proc.communicate()
+    
+    cm.update_creds_from_metadata_server(app)
+    record = dutils.dynamodb_get(app.config["dyno.conn"], job_id)
+    
+    old = record.get("usage_stats", "")
+    current = old + out
+    update_record(record, "usage_stats", current)
+    return
 
 ############################################################################
 # Run a command
@@ -51,10 +86,10 @@ def execute (app, cmd, walltime, job_id, env_vars={}):
     proc = subprocess.Popen(cmd, stdout=std_out, stderr=std_err, env=env, shell=True)
 
     time.sleep(1)
-
+    t_last_update = 0
     while True:
 
-        delta   =  int(time.time() - start_time)
+        delta   =  int(time.time() - start_time)        
         # Check if process has finished
         status  =  proc.poll()
         print status
@@ -74,9 +109,15 @@ def execute (app, cmd, walltime, job_id, env_vars={}):
             proc.kill()
             return KILLED_BY_REQUEST
 
+        # Update for the first time and subsequently everytime when
+        # more than 60s has elapsed since t_last_update.
+        if (counter == 0) or ((delta - t_last_update) > 60) :
+            update_usage_stats(app, job_id)
+            t_last_update = delta
+
         time.sleep(sleep_time)
-
-
+        
+        
     total_t = time.time() - start_t    
     print "RunCommand Completed {0} in {1} s".format(cmd, total_t)
     return total_t
@@ -108,6 +149,10 @@ def testing():
            "executable" : "/bin/echo",
            "args"       : "hello"}
        
+    job_id = "ce19ede4-da29-48e5-abcf-2eff53778333"
+    update_usage_stats(app, job_id)
+    update_usage_stats(app, job_id)
+    exit(0)
     
     status = execute(app, "/bin/doo Hello World", 5, None)
     if status == 127 :
