@@ -228,6 +228,7 @@ def exec_job(app, jobtype, job_id, executable, args, inputs, outputs, data, auth
    ##############################################################################
    # Upload the results to the S3
    ##############################################################################
+   record = dutils.dynamodb_get(app.config["dyno.conn"], job_id)
    update_record(record, "status", "staging_outputs")
    stageout_start = time.time()
 
