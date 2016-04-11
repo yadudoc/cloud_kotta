@@ -13,10 +13,57 @@
       }
 </style>
 
+<script src="{{get_url('static', filename='js/Chart.min.js')}}"></script>
 
 <div id="main">
 
 
+     <div style="width:100%">
+            <div>
+                <canvas id="canvas" height="450" width="1200"></canvas>
+            </div>
+        </div>
+
+
+        <script>
+          var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
+          var lineChartData = {
+            labels : {{tdata}},
+            datasets : [
+                {
+                    label: "CPU",
+                    fillColor : "rgba(220,220,220,0.2)",
+                    strokeColor : "rgba(220,220,220,1)",
+                    pointColor : "rgba(220,220,220,1)",
+                    pointStrokeColor : "#fff",
+                    pointHighlightFill : "#fff",
+                    pointHighlightStroke : "rgba(220,220,220,1)",
+                    data : {{mmax}}
+                },
+                {
+                    label: "Memory"
+                    fillColor : "rgba(151,187,205,0.2)",
+                    strokeColor : "rgba(151,187,205,1)",
+                    pointColor : "rgba(151,187,205,1)",
+                    pointStrokeColor : "#fff",
+                    pointHighlightFill : "#fff",
+                    pointHighlightStroke : "rgba(151,187,205,1)",
+                    data : {{mcur}}
+                }
+            ]
+
+        }
+
+    window.onload = function(){
+        var ctx = document.getElementById("canvas").getContext("2d");
+        window.myLine = new Chart(ctx).Line(lineChartData, {
+            responsive: true
+        });
+    }
+
+
+    </script>
+     
     <div class="row">
       <div class="form-group col-md-4">
        <a href="{{get_url('job_cancel')}}/{{job_id}}" class="btn btn-danger" role="button">Cancel Job</a>
