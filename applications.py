@@ -42,7 +42,7 @@ def script_executor (app, job_desc):
     walltime    = int(job_desc.get("walltime", 24*60*60))
     job_id      = job_desc["job_id"]
     script_file = job_desc.get('i_script_name')
-    script      = job_desc.get('i_script')
+    script      = job_desc.get('i_script').strip('\r')
     cmd         = job_desc["executable"]
 
     with open(script_file, 'w') as ofile:
