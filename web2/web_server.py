@@ -332,7 +332,14 @@ def list_jobs():
     print "Jobs: "
     print "-"*50
     for r in results:
-        row = [str(r["job_id"]), str(r["status"]),  
+        jobinfourl = request.app.get_url('/jobs')+"/"+str(r["job_id"])
+        joburl     = ''
+        if r["jobname"] :
+            joburl = '<a href="{0}">{1}</a>'.format(jobinfourl, r["jobname"])
+        else:
+            joburl = '<a href="{0}">{1}</a>'.format(jobinfourl, str(r["job_id"]))
+                                                
+        row = [joburl , str(r["status"]),  
                str(r["jobtype"]), str(r["submit_stamp"])]
         table_tpl.append(row)
 
@@ -431,14 +438,27 @@ def job_cancel(job_id):
 
     redirect('/jobs/' + job_id)
 
+import re
+def get_data(data):
+    info = re.findall('{(.*?)}', data, re.S)
+    
+    dmem = []
+    dcpu = []
+    dtime = []
+    for d in info:
+        dpoint = json.loads('{' + d + '}')
+        dmem.append(dpoint['mem'])
+        dcpu.append(dpoint['cpu'])
+        dtime.append(dpoint['time'])
+
+    return dtime, dcpu, dtime
 
 def get_job_info(request, job_id):
 
-    print "Job info ", "*" *50
     item = dutils.get_job(request, job_id)
     pairs = []
     for k in item.keys():
-        #print "{0} : {1}".format(k, item[k])
+
         if k.startswith("i_") :
             continue
         
@@ -448,7 +468,6 @@ def get_job_info(request, job_id):
         elif k in ['inputs']:
             link       = '<a href="{0}">{1}</a>'.format(item[k][0]['src'], 
                                                         item[k][0]['dest'])
-            print link
             pairs.append([k, link])
             
         elif k in ['outputs']:
@@ -456,8 +475,6 @@ def get_job_info(request, job_id):
                 continue
 
             for out in item[k]:
-                #print "output ", out
-                #signed_url = generate_signed_url(out["dest"], request.app)
                 target = out["dest"].split('/', 1)
                 signed_url = s3.generate_signed_url(request.app.config["s3.conn"],
                                                     target[0], # Bucket name
@@ -502,6 +519,21 @@ def human_time(seconds):
     h, m  = divmod(m, 60)
     return "{0:02d}:{1:02d}:{2:02d}".format(h, m, s)
 
+
+def extract_usage_stats(data):
+    key  = 'usage_stats'
+    if not data:
+        return (None, None, None, None)
+        
+    data = '[' + data.replace('}{', '},{') + ']'
+    ddata = ast.literal_eval(data)
+    #tdata     = ["{0}".format(time.strftime('%H:%M:%S', time.localtime(float(x['time'])))) for x in ddata]
+    tdata     = [float(x['time']) for x in ddata]
+    cdata     = [float(x['cpu'].split(', ')[0])  for x in ddata]
+    mmax      = [float(x['mem'].split(', ')[0])  for x in ddata]
+    mcurrent  = [float(x['mem'].split(', ')[1])  for x in ddata]
+    return (tdata, cdata, mmax, mcurrent)    
+    
 # TODO: Remove duplication of work with get_job_info
 #################################################################
 # Show job attributes
@@ -512,25 +544,39 @@ def job_info(job_id):
     session = bottle.request.environ.get('beaker.session')
     require_login(session)
 
+    '''
     conf_man.update_creds_from_metadata_server(request.app)
     dyntable = request.app.config['dyno.conn']
     try:
         item = dyntable.get_item(job_id=job_id)
     except ItemNotFound:
         return "The requested job_id was not found in the jobs database"
-
+    '''
     #pairs = []
+
     pairs = get_job_info(request, job_id);
+    tdata, cdata, mmax, mcur = None, None, None, None
     for row in pairs:
         # The walltime is in seconds, convert this to some human readable form
         if row[0] == 'walltime':
             row[1] = human_time(int(row[1]))
+            
+        if row[0] == 'usage_stats':
+            tdata, cdata, mmax, mcur = extract_usage_stats(row[1])
+            raw = row[1]
+            _tdata, _cdata, _mmax = get_data(raw)
 
-    print pairs
+    print tdata            
+    #print pairs
+    
 
     return template('./views/job_info',
                     title="Job - Info",
                     job_id=job_id,
+                    tdata  =_tdata,
+                    cdata  =_cdata,
+                    mmax   =_mmax,
+                    mcur   =_mmax, #mcur,
                     table= pairs, # Body
                     log_path="/job_log",
                     session=session)

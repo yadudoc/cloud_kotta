@@ -89,7 +89,7 @@ def watch_loop(app):
                     print "Instances in this group : ", autoscale[qtype]["instances"]
 
                     while (1):
-                        messages = q.get_messages(num_messages=10, visibility_timeout=1, wait_time_seconds=1, message_attributes=['All'])
+                        messages = q.get_messages(num_messages=10, visibility_timeout=2, wait_time_seconds=1, message_attributes=['All'])
                         if not messages:
                             break
                         for msg in messages:
@@ -99,7 +99,8 @@ def watch_loop(app):
                                 if autoscale[qtype]["current"] > autoscale[qtype]["min"]:
                                     print "Kill : {0}".format(msg.message_attributes["instance_id"]["string_value"])
                                     kill_instance(app, msg.message_attributes["instance_id"]["string_value"], autoscale[qtype])
-                                    q.delete_message(msg)
+                                    
+                                q.delete_message(msg)
                             # Message is a regular job
                             else:
                                 job_id      = msg.message_attributes["job_id"]["string_value"]
