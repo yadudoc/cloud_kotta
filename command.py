@@ -11,6 +11,7 @@ import config_manager as cm
 # Default params
 ############################################################################
 sleep_time = 5
+USAGE_UPDATE_TIME = 120
 WALLTIME_EXCEEDED = 1001
 KILLED_BY_REQUEST = 1002
 
@@ -28,13 +29,6 @@ def check_if_cancelled(app, job_id):
         print "Cancelled"
         return True
 
-    try :
-        proc = subprocess.Popen("foo", stdout=std_out, stderr=std_err, shell=True)
-        proc.wait()
-    except Exception as e:
-        print "Caught exception : {0}".format(e)
-        return -1
-
     print "Job not cancelled"
     return False
 
@@ -51,18 +45,23 @@ def update_usage_stats(app, job_id):
     if not job_id :
         return False
 
-    print "Usage_stats"
+    print "Updating usage_stats"
 
-    cmd = "/home/ubuntu/task_engine/system_stats.sh"
-    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE)
-    out, err = proc.communicate()
+    try:
+        cmd = ["/home/ubuntu/task_engine/system_stats.sh", "{0}".format(time.time())]
+        proc = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+        out, err = proc.communicate()
+    except Exception as e:
+        print "Failed to run system_stats.sh"
+        print "Caught exception : {0}".format(e)
+        return
     
     cm.update_creds_from_metadata_server(app)
     record = dutils.dynamodb_get(app.config["dyno.conn"], job_id)
-    
+
     old = record.get("usage_stats", "")
-    current = old + out
-    update_record(record, "usage_stats", current)
+    current = old + out.strip('\n')
+    st = update_record(record, "usage_stats", current)
     return
 
 ############################################################################
@@ -111,7 +110,7 @@ def execute (app, cmd, walltime, job_id, env_vars={}):
 
         # Update for the first time and subsequently everytime when
         # more than 60s has elapsed since t_last_update.
-        if (counter == 0) or ((delta - t_last_update) > 120) :
+        if (t_last_update == 0) or ((delta - t_last_update) > USAGE_UPDATE_TIME) :
             update_usage_stats(app, job_id)
             t_last_update = delta
 
