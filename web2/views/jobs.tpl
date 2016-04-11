@@ -22,7 +22,7 @@
      <table class="table table-hover">
      <thead>
 	<tr>
-		<th>Job ID</th>
+		<th>Job Name/ID</th>
         	<th>Status</th>
         	<th>Job Type</th>
         	<th>Submit time</th>
@@ -32,11 +32,14 @@
       %for row in table:
           <tr>
         %for i,col in enumerate(row):
+            <td>{{!col}}</td>
+	     <!--
             %if i == 0 :
 	    <td><a href="{{get_url('jobs')}}/{{col}}">{{col}}</a></td>
             %else :
             <td>{{col}}</td>
             %end
+	    -->
         %end	
               </tr>
           %end

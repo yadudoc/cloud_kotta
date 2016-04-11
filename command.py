@@ -111,7 +111,7 @@ def execute (app, cmd, walltime, job_id, env_vars={}):
 
         # Update for the first time and subsequently everytime when
         # more than 60s has elapsed since t_last_update.
-        if (counter == 0) or ((delta - t_last_update) > 60) :
+        if (counter == 0) or ((delta - t_last_update) > 120) :
             update_usage_stats(app, job_id)
             t_last_update = delta
 
