@@ -68,7 +68,3 @@ if __name__ == "__main__":
    logging.debug("\n{0}\nStarting task_executor\n{0}\n".format("*"*50))
    app = conf_man.load_configs(args.conffile);
    watch_loop(app)
-
-
-
-
