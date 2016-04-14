@@ -6,6 +6,7 @@ import subprocess
 import os
 import glob
 import json
+import csv
 import logging
 import argparse
 import urllib2
@@ -438,21 +439,6 @@ def job_cancel(job_id):
 
     redirect('/jobs/' + job_id)
 
-import re
-def get_data(data):
-    info = re.findall('{(.*?)}', data, re.S)
-    
-    dmem = []
-    dcpu = []
-    dtime = []
-    for d in info:
-        dpoint = json.loads('{' + d + '}')
-        dmem.append(dpoint['mem'])
-        dcpu.append(dpoint['cpu'])
-        dtime.append(dpoint['time'])
-
-    return dtime, dcpu, dtime
-
 def get_job_info(request, job_id):
 
     item = dutils.get_job(request, job_id)
@@ -520,20 +506,28 @@ def human_time(seconds):
     return "{0:02d}:{1:02d}:{2:02d}".format(h, m, s)
 
 
-def extract_usage_stats(data):
+def extract_usage_stats(data, fname):
     key  = 'usage_stats'
     if not data:
-        return (None, None, None, None)
+        return "None"
         
     data = '[' + data.replace('}{', '},{') + ']'
     ddata = ast.literal_eval(data)
-    #tdata     = ["{0}".format(time.strftime('%H:%M:%S', time.localtime(float(x['time'])))) for x in ddata]
-    tdata     = [float(x['time']) for x in ddata]
-    cdata     = [float(x['cpu'].split(', ')[0])  for x in ddata]
-    mmax      = [float(x['mem'].split(', ')[0])  for x in ddata]
-    mcurrent  = [float(x['mem'].split(', ')[1])  for x in ddata]
-    return (tdata, cdata, mmax, mcurrent)    
-    
+    with open(fname, 'w') as csvfile:
+        fieldnames = ['time', 'cpu', 'memmax', 'memcur']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
+        for row in ddata[::int(math.floor(len(ddata)/100)+1)]:
+            writer.writerow({'time': str(time.strftime('%H:%M:%S', time.localtime(float(row['time'])))),
+                             #'time': "foo", #row['time'], 
+                             'cpu' : row['cpu'].split(', ')[0],
+                             'memmax' : row['mem'].split(', ')[0],
+                             'memcur' : row['mem'].split(', ')[1],
+                         })
+        
+    return fname
+
+
 # TODO: Remove duplication of work with get_job_info
 #################################################################
 # Show job attributes
@@ -544,39 +538,25 @@ def job_info(job_id):
     session = bottle.request.environ.get('beaker.session')
     require_login(session)
 
-    '''
-    conf_man.update_creds_from_metadata_server(request.app)
-    dyntable = request.app.config['dyno.conn']
-    try:
-        item = dyntable.get_item(job_id=job_id)
-    except ItemNotFound:
-        return "The requested job_id was not found in the jobs database"
-    '''
-    #pairs = []
-
     pairs = get_job_info(request, job_id);
     tdata, cdata, mmax, mcur = None, None, None, None
+    fname = "None"
     for row in pairs:
         # The walltime is in seconds, convert this to some human readable form
         if row[0] == 'walltime':
             row[1] = human_time(int(row[1]))
             
         if row[0] == 'usage_stats':
-            tdata, cdata, mmax, mcur = extract_usage_stats(row[1])
-            raw = row[1]
-            _tdata, _cdata, _mmax = get_data(raw)
-
-    print tdata            
-    #print pairs
-    
-
+            fname = extract_usage_stats(row[1], "static/data/{0}.csv".format(job_id))
+            index = pairs.index(row)
+            del pairs[index]
+            if fname != "None":
+                fname = "https://turingcompute.net/" + fname
+            
     return template('./views/job_info',
                     title="Job - Info",
                     job_id=job_id,
-                    tdata  =_tdata,
-                    cdata  =_cdata,
-                    mmax   =_mmax,
-                    mcur   =_mmax, #mcur,
+                    usage_csv = fname,
                     table= pairs, # Body
                     log_path="/job_log",
                     session=session)
