@@ -864,16 +864,12 @@ if __name__ == "__main__":
                       'session.encrypt_key': app.config['server.session.encrypt_key'],
                       'session.validate_key': app.config['server.session.validate_key'],
                       'session.timeout': app.config['server.session.timeout']}
-   #'session.httponly': True}
 
    app = SessionMiddleware(app, session_options)
    SimpleTemplate.defaults['get_url'] = app.wrap_app.get_url
 
-   #SimpleTemplate.defaults['get_url'] = app.get_url
-
    run(app=app,
        host='0.0.0.0', 
-       #port=int(app.config["server.port"]), 
        port=int(app.wrap_app.config["server.port"]), 
        reloader=True, 
        debug=True, 
