@@ -131,6 +131,11 @@ def refresh_message(app, msg):
     #sqs_conn.change_message_visibility(q, status, 60*1)
     return new_msg
 
+def post_message_to_pending(app, pending_q, msg, job_id):
+    print "Posting job_id:{0} to pending_q:{1} ".format(job_id, pending_q)
+    # Take the message and put it in the pending_q
+    current_msg = app.config['sqs.conn'].send_message(pending_q, msg)
+    return current_msg
 
 
 def post_message_to_active(app, active_q, msg, job_id):
