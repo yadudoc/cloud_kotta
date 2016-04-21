@@ -12,6 +12,7 @@ import sys
 
 import boto.ec2.cloudwatch
 
+########################################################################################################
 def get_connection(app):
     cloudwatch  = boto.ec2.cloudwatch.connect_to_region(app.config["identity"]['region'],
                                                     aws_access_key_id=app.config['keys.key_id'],
@@ -19,6 +20,7 @@ def get_connection(app):
                                                     security_token=app.config['keys.key_token'])
     return cloudwatch
 
+########################################################################################################
 def watch_loop(app):
     
     cloudwatch = get_connection(app)
@@ -45,6 +47,7 @@ def watch_loop(app):
             print r
         time.sleep(60)
 
+########################################################################################################
 if __name__ == "__main__":
 
    parser   = argparse.ArgumentParser()

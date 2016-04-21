@@ -11,7 +11,6 @@ import logging
 import argparse
 import urllib2
 import uuid
-import base64, hmac, sha
 import urllib
 import sys
 import utils
@@ -44,44 +43,36 @@ from utils import *
 from usage_stats import *
 from resubmit import *
 
-
-##################################################################
-# This function handles the creation of the encoded signature
-# and policy.
-##################################################################
-def get_signature_and_policy(app, vals):
-    private_key = app.config["instance.tags"]["S3UploadKeySecret"]
-    input = ''
-
-    with open("./views/policy.txt") as form_file:
-        input = template(form_file.read(), vals)
-
-    policy = input
-    #print policy
-    policy_encoded = base64.b64encode(policy)
-    signature = base64.b64encode(hmac.new(private_key, policy_encoded, sha).digest())
-    return (policy_encoded, signature)
-
-##################################################################
-# Update job information in dynamodb
-##################################################################
+########################################################################################################
 def dynamodb_update(table, data):
-    table.put_item(data=data, overwrite=True)
-    return True
+    """
+    Update job information in dynamodb
+    Args :
+         table object
+         data to update the table with
+    Returns:
+         True : If success.
+    """
+    return table.put_item(data=data, overwrite=True)
 
 
-###################################################################
-# Generate an expiry time that is N mins ahead of current timestamp
-###################################################################
+########################################################################################################
 def tstamp_plus_nmins(mins):
+    """
+    Generate an expiry time that is N mins ahead of current timestamp
+    Args :
+          mins : Number of minutes from current time
+    Returns:
+          A datetime object which is mins ahead of current time
+    """
     return datetime.datetime.fromtimestamp(time.time()+(60*mins)).strftime('%Y%m%d%H%M%SZ')
 
-###################################################################
-# route to serve static content to internal pages
-###################################################################
+########################################################################################################
 @route('/static/<filename:path>', method='GET', name="static")
 def serve_static(filename):
-    # Tell Bottle where static files should be served from
+    """
+    Helper route to serve static content to internal pages
+    """
     return static_file(filename, root="static/")
     #return static_file(filename, root=request.app.config['web.static_root'])
 
@@ -658,6 +649,8 @@ def browse_folders():
 ##################################################################
 @get('/upload_confirm')
 def upload_to_s3():
+    
+    print "Upload page"
     session = bottle.request.environ.get('beaker.session')
     
     bucket  =  request.params.get('bucket')
@@ -671,7 +664,6 @@ def upload_to_s3():
                                           key.split('/')[-1])
     unsigned = "https://s3.amazonaws.com/{0}/{1}".format(bucket, key)
         
-    #"klab-webofscience/uploads/amzn1.account.AEKWXVYINCBBNY5MPRMOYND6CWWA/Screenshot+from+2016-01-27+01%3A18%3A51.png"
     return template("./views/upload_confirm.tpl",
                     signed_url=link,
                     unsigned = unsigned,
@@ -709,7 +701,7 @@ def upload_to_s3():
     
     vals["policy"]    = policy
     vals["signature"] = signature
-
+    print "policy, signature : ", policy, signature
     return template('./views/upload.tpl',
                     name            = "",
                     email           = "", 
@@ -856,6 +848,9 @@ if __name__ == "__main__":
                        datefmt='%m-%d %H:%M')
 
    logging.debug("\n{0}\nStarting webserver\n{0}\n".format("*"*50))
+   # Limit boto logging to only critical messages to prevent boto logs from overwhelming 
+   # webserver logs
+   logging.getLogger('boto').setLevel(logging.CRITICAL)
    app = conf_man.load_configs(args.conffile);
 
    session_options = {'session.type': 'cookie',
