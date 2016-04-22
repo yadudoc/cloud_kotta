@@ -17,6 +17,7 @@
       }
 </style>
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script> 
 <script src="{{get_url('static', filename='js/d3.v3.min.js')}}"></script>
 
@@ -108,6 +109,9 @@
       </div>
       <div class="form-group col-md-4">
        <a href="{{get_url('resubmit')}}/{{job_id}}" class="btn btn-warning" role="button">Redo Job</a>
+      </div>
+      <div class="form-group col-md-4">
+       <a href="{{get_url('resubmit')}}/{{job_id}}" class="btn btn-success" role="button">Publish Outputs</a>
       </div>
 
     </div>
