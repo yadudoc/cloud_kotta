@@ -568,11 +568,17 @@ def tstamp_plus_nmins(mins):
 ##################################################################
 @get('/browse', method='GET', name="browse")
 def browse_folders():
+    session = bottle.request.environ.get('beaker.session')
+    require_login(session)
     print "In browse : "
     session = bottle.request.environ.get('beaker.session')
     list_buckets = ["klab-webofscience", "klab-jobs"]
 
-    r_bucket  =  request.params.get('bucket')
+    #r_bucket  =  request.params.get('bucket')
+    # Before we allow users to query and lookup any bucket,
+    # We need to ensure that the files they access are tied to their specific
+    # roles/policies     
+    r_bucket  =  "klab-jobs"
     r_key     =  request.params.get('key')
 
     print "Bucket :  ", r_bucket
