@@ -28,7 +28,18 @@ def find_user_role(app, dyno, user_id):
 
     return results
 
+def verify_email_address(app, email):
 
+    ses  = app.config["ses.conn"]
+    data = ses.list_verified_email_addresses()
+    if data :
+        emails = data["ListVerifiedEmailAddressesResponse"]["ListVerifiedEmailAddressesResult"]["VerifiedEmailAddresses"]
+        if email not in emails:
+            cm.verify_email(app, email)
+
+    else:
+        print "Unable to fetch list of verified emails"
+        return
 
 if __name__ == "__main__":
 
@@ -58,6 +69,7 @@ if __name__ == "__main__":
         if args.email != None and args.email != user["email"]:
             print "Mismatch in Email: Arg:{0}  DB:{1}".format(args.email, user["email"])
             user["email"] = args.email
+            verify_email_address(app, args.email)
 
         if args.role != None and args.role != user["role"]:
             print "Mismatch in Role : Arg:{0}  DB:{1}".format(args.role, user["role"])
@@ -72,7 +84,9 @@ if __name__ == "__main__":
             'email'   : args.email,
             'role'    : args.role}
 
+    verify_email_address(app, args.email)
     status = dyno.put_item(data=user, overwrite=True)
     print "Create user status : {0}".format(status)
+
     exit(0)
     
