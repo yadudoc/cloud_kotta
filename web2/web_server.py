@@ -604,17 +604,12 @@ def browse_folders():
     dirs.append([link, "Parent", "", ""])
     for key in keys:
         #Check if key is in current dir or a dir name
-        relative_path = str((key.name).strip(r_key))
-        print "Rel path : ", relative_path
+        relative_path = str(key.name).replace(r_key, '', 1)
 
         if relative_path.startswith('/'):
             relative_path = relative_path[1:]
-
-        print "Rel path : ", relative_path
-
-        print relative_path
         folder = relative_path.split('/')
-        print "folder : ", folder
+
         if len(folder) > 1 : 
             dirname = ''
             if r_key :
