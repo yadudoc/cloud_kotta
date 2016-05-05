@@ -15,7 +15,7 @@ from urlparse import urlparse
 import requests
 import urllib
 
-SERVER_URL="http://52.2.217.165:8888"
+SERVER_URL="http://turingcompute.net:8888"
 SUBMIT_URL=SERVER_URL+"/rest/v1/submit_task"
 STATUS_URL=SERVER_URL+"/rest/v1/status_task"
 CANCEL_URL=SERVER_URL+"/rest/v1/cancel_task"
