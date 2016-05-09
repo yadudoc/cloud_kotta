@@ -19,11 +19,12 @@ import boto.sqs
 import boto.sns
 import boto.ses
 import boto.ec2.autoscale
+import pkg_resources
 from bottle import app, template
 from boto.s3.connection import S3Connection
 from datetime import datetime
 from datetime import date
-from dateutil.relativedelta import relativedelta
+import task_engine
 
 log_levels = { "DEBUG"   : logging.DEBUG,
                "INFO"    : logging.INFO,
@@ -72,6 +73,14 @@ def update_creds_from_metadata_server(app):
     return True
 
 
+
+def get_package_data(datafile):
+    ''' Get package data from relative path
+    '''
+    pkgpath = task_engine.__path__[0]
+    return os.path.join(pkgpath, datafile)
+    
+
 ##################################################################
 # Annoy human with email
 ##################################################################
@@ -83,15 +92,17 @@ def send_success_mail(data, app):
     src_email   =  app.config['ses.email_sender']
     url         =  app.config['server.url']
 
-    body = template('./templates/completion_email.tpl',
-                    username=rec_name,
-                    job_id=job_id,
-                    url=url)
 
-    st = sesconn.send_email(src_email,
-                            "[Turing] Your Job has completed",
-                            body,
-                            [rec_email])
+    templatefl  = get_package_data("templates/completion_email.tpl")         
+    body        = template(templatefl,
+                           username=rec_name,
+                           job_id=job_id,
+                           url=url)
+
+    st          = sesconn.send_email(src_email,
+                                     "[Turing] Your Job has completed",
+                                     body,
+                                     [rec_email])
     print st
     return st
 
@@ -115,15 +126,17 @@ def send_failure_mail(data, app):
     src_email   =  app.config['ses.email_sender']
     url         =  app.config['server.url']
 
-    body = template('./templates/failure_email.tpl',
-                    username=rec_name,
-                    job_id=job_id,
-                    url=url)
 
-    st = sesconn.send_email(src_email,
-                            "[Turing] Your Job has failed",
-                            body,
-                            [rec_email])
+    templatefl  = get_package_data("templates/failure_email.tpl") 
+    body        = template(templatefl,
+                           username=rec_name,
+                           job_id=job_id,
+                           url=url)
+    
+    st          = sesconn.send_email(src_email,
+                                    "[Turing] Your Job has failed",
+                                     body,
+                                     [rec_email])
     print st
     return st
 
