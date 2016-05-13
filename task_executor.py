@@ -23,7 +23,7 @@ import sns_sqs
 import inspect
 
 metadata_server="http://169.254.169.254/latest/meta-data/"
-clean_tmp_dirs = False
+clean_tmp_dirs = True
 
 def get_instance_starttime() :
    try:
