@@ -11,7 +11,9 @@ import shutil
 import sys
 import boto.ec2.cloudwatch
 import sns_sqs
-
+import boto.dynamodb2 as ddb
+import boto.dynamodb2.exceptions
+import dynamo_utils as dutils
 ########################################################################################################
 def kill_instance(app, instance_id, scale_group):
     """
@@ -83,14 +85,20 @@ def get_autoscale_info(app, stack_name):
     return autoscale
 
 ########################################################################################################
-def post_message_to_pending(app, msg):
+def post_message_to_pending(app, msg, active_q, pending_q):
     """
     Posts message to the pending queue
     """
-    
+    print msg
+    #print json.loads(msg.get_body())["Message"]
+    # Post message to pending_q
+    sns_sqs.post_message_to_pending(app, pending_q, msg.get_body(), "job_id:none")
+    # Delete message from the active_q
+    active_q.delete_message(msg)
+    return 
 
 ########################################################################################################
-def check_job_status(app, msg, job_id, instance_id, autoscalegrp):
+def check_job_status(app, msg, job_id, instance_id, autoscalegrp, active_q, pending_q):
     """
     Check the job status:
     Cover two situations :
@@ -111,7 +119,7 @@ def check_job_status(app, msg, job_id, instance_id, autoscalegrp):
         # Job needs to go back in the queue.
         print "[INFO] : job_id:{0} on instance_id:{1} : BUT MISSING".format(job_id, instance_id)
         # Move job into the pending queue for rerun, but add info on this being a reattempt
-        
+        post_message_to_pending(app, msg, active_q, pending_q)
     return
 
 ########################################################################################################
@@ -203,8 +211,21 @@ def watch_loop(app):
                 else:
                     job_id      = msg.message_attributes["job_id"]["string_value"]
                     instance_id = msg.message_attributes["instance_id"]["string_value"]
-                    print "Job_id: {0}  Active on Instance: {1}".format(job_id, instance_id)
-                    check_job_status(app, msg, job_id, instance_id, autoscale[qtype])
+
+                    try:
+                        record      = dutils.dynamodb_get(app.config["dyno.conn"], job_id)
+                    except Exception, e:
+                        print "JOb {0} not found in dynamodb"
+                        print "Deleting the message"
+                        q.delete_message(msg)                
+                        record      = None
+                        
+                    if record and record["status"] in ["completed", "failed"]:
+                        print "Job {0} is {1} -> Deleting the active job message".format(job_id, record["status"])
+                        q.delete_message(msg)
+                    else:
+                        print "Job_id: {0}  Active on Instance: {1}".format(job_id, instance_id)
+                        check_job_status(app, msg, job_id, instance_id, autoscale[qtype], q, p_q)
                     
     return None
         
