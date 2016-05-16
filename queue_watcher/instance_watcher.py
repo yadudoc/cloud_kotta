@@ -89,7 +89,7 @@ def post_message_to_pending(app, msg, active_q, pending_q):
     """
     Posts message to the pending queue
     """
-    print msg
+    logging.debug("post_message_to_pending: posting lost log back to pending_q")
     #print json.loads(msg.get_body())["Message"]
     # Post message to pending_q
     sns_sqs.post_message_to_pending(app, pending_q, msg.get_body(), "job_id:none")
@@ -109,17 +109,20 @@ def check_job_status(app, msg, job_id, instance_id, autoscalegrp, active_q, pend
     """
     ec2conn  = app.config["ec2.conn"]
 
-    print "Instances in the current group : ", autoscalegrp["instances"]
-    if instance_id in autoscalegrp["instances"]:
+    logging.debug("Instances in the current group : ", autoscalegrp["instances"])
+    current_instances = [ x.instance_id for x in autoscalegrp["instances"]]
+    if instance_id in current_instances:
+        #print "Instance_id:{0}  in  {1}".format(instance_id, current_instances)
         # Check if the instance has gone rogue.
         # This is harder right now.
-        print "[INFO] : job_id:{0} on instance_id{1} : {2}".format(job_id, instance_id, autoscalegrp["instances"])
+        logging.debug("[INFO] : job_id:{0} on instance_id{1} : {2}".format(job_id, instance_id, autoscalegrp["instances"]))
     else:
+        #print "Instance_id:{0} *NOT* in  {1}".format(instance_id, current_instances)
         # Instance is missing. Job is clearly abandoned.
         # Job needs to go back in the queue.
-        print "[INFO] : job_id:{0} on instance_id:{1} : BUT MISSING".format(job_id, instance_id)
+        logging.debug("[INFO] : job_id:{0} on instance_id:{1} : BUT MISSING".format(job_id, instance_id))
         # Move job into the pending queue for rerun, but add info on this being a reattempt
-        post_message_to_pending(app, msg, active_q, pending_q)
+        #post_message_to_pending(app, msg, active_q, pending_q)
     return
 
 ########################################################################################################
@@ -215,16 +218,15 @@ def watch_loop(app):
                     try:
                         record      = dutils.dynamodb_get(app.config["dyno.conn"], job_id)
                     except Exception, e:
-                        print "JOb {0} not found in dynamodb"
-                        print "Deleting the message"
+                        logging.debug("JOb {0} not found in dynamodb \nDeleting the message")
                         q.delete_message(msg)                
                         record      = None
                         
                     if record and record["status"] in ["completed", "failed"]:
-                        print "Job {0} is {1} -> Deleting the active job message".format(job_id, record["status"])
+                        logging.debug("Job {0} is {1} -> Deleting the active job message".format(job_id, record["status"]))
                         q.delete_message(msg)
                     else:
-                        print "Job_id: {0}  Active on Instance: {1}".format(job_id, instance_id)
+                        logging.debug("Job_id: {0}  Active on Instance: {1}".format(job_id, instance_id))
                         check_job_status(app, msg, job_id, instance_id, autoscale[qtype], q, p_q)
                     
     return None
