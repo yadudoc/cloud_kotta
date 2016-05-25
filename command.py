@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 
-import subprocess
+import subprocess32 as subprocess
 import threading
 import os
 import time
 import dynamo_utils as dutils
 import config_manager as cm
+import shlex
 
 ############################################################################
 # Default params
@@ -82,9 +83,24 @@ def execute (app, cmd, walltime, job_id, env_vars={}):
     env["HOME"] = "/home/ubuntu"
 
     start_time = time.time()    
-    proc = subprocess.Popen(cmd, stdout=std_out, stderr=std_err, env=env, shell=True)
+    if walltime < 301 :
+        try:
+            proc = subprocess.Popen(shlex.split(cmd), stdout=std_out, stderr=std_err, env=env)
+            retcode = proc.wait(timeout=walltime)
+            return retcode
 
-    time.sleep(1)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+            return WALLTIME_EXCEEDED
+
+        except Exception, e:
+            print "Process exited with exception : ", e
+            return -1
+
+    else:
+        proc = subprocess.Popen(cmd, stdout=std_out, stderr=std_err, env=env, shell=True)
+    
+    #time.sleep(1)
     t_last_update = 0
     while True:
 
@@ -151,9 +167,20 @@ def testing():
     job_id = "ce19ede4-da29-48e5-abcf-2eff53778333"
     update_usage_stats(app, job_id)
     update_usage_stats(app, job_id)
-    exit(0)
     
     status = execute(app, "/bin/doo Hello World", 5, None)
+    if status == 127 :
+        print "Pass"
+    else:
+        print "Failed test"
+
+    status = execute(app, "/bin/sleep 0", 5, None)
+    if status == 127 :
+        print "Pass"
+    else:
+        print "Failed test"
+
+    status = execute(app, "/bin/sleep 60", 1, None)
     if status == 127 :
         print "Pass"
     else:
