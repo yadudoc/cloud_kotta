@@ -1,0 +1,16 @@
+Infrastructure Definition for KLAB TuringCompute
+================================================
+
+
+Please note that this configuration alone is not sufficient to launch the services.
+You need to set up the following persistent system separately:
+
+1. DynamoDB
+2. Route53 routes  (optional)
+3. IAM roles for internal services : web-server role and task-executor.
+
+The above will be provided as Cloudformation configs. (Future work).
+
+
+
+
