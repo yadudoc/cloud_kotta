@@ -44,7 +44,10 @@ def script_executor (app, job_desc):
     script_file = job_desc.get('i_script_name')
     script      = job_desc.get('i_script').strip('\r')
     cmd         = job_desc["executable"]
+    env         = {"wosuser"    : job_desc.get('i_wosuser', 'None'),                   
+                   "wospasswd"  : job_desc.get('i_wospasswd', 'None')}
 
+    print env
     with open(script_file, 'w') as ofile:
         ofile.write(script)
         os.chmod(script_file, 0o744)
@@ -53,7 +56,7 @@ def script_executor (app, job_desc):
 
     try:
         logging.debug("script_executor, executing {0}".format(cmd))
-        retcode = command.execute(app, cmd, walltime, job_id)
+        retcode = command.execute(app, cmd, walltime, job_id, env)
 
     except Exception as e:
         logging.error("Caught exception : {0}".format(e))
