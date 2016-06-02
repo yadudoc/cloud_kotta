@@ -104,7 +104,7 @@ def get_inputs(app, inputs, auth):
             raise
 
       elif i["src"].startswith("s3://"):
-         
+        
          s3_path   = i["src"].strip("s3://")
          tmp       = s3_path.split('/', 1)         
          s3_bucket = tmp[0]

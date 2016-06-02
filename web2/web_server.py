@@ -154,10 +154,15 @@ def _submit_task(request, session):
     outputs   = request.POST.get('outputs', None)
     uid       = str(uuid.uuid4())
     queue     = request.POST.get('queue')
+    results   = request.app.config["dyno.conn"].scan(i_user_id__eq=user_id)
+
+    results   = identity.get_wos_dbinfo(request.app, user_id)
 
     data      = {"job_id"           : uid,
                  "username"         : session["username"],
                  "i_user_id"        : session["user_id"],
+                 "i_wosuser"        : results.get("wos_user", "None"),
+                 "i_wospasswd"      : results.get("wos_passwd", "None"),
                  "jobname"          : request.POST.get('jobname', uid),
                  "i_user_role"      : "arn:aws:iam::{0}:role/{1}".format(request.app.config["iam.project"], session["user_role"]),
                  "user_email"       : session["email"],
@@ -168,7 +173,7 @@ def _submit_task(request, session):
                  "jobtype"          : jobtype,
                  "status"           : "pending"                
             }
-    
+
     ##############################################################################################################
     # Doc_to_vec specific attributes
     ##############################################################################################################
@@ -205,7 +210,7 @@ def _submit_task(request, session):
                                  "dest": "klab-jobs/outputs/{0}/{1}".format(uid, data["i_script_name"])}])
         
         for k in request.POST.keys():
-            print "Key : {0}".format(k)
+            #print "Key : {0}".format(k)
             if k.startswith('input_url'):
                 input_url =  request.POST.get(k)
                 data["inputs"].extend([{"src" : input_url, 
@@ -230,10 +235,10 @@ def _submit_task(request, session):
                 data["outputs"].extend([{"src" : output_file, 
                                          "dest": "klab-jobs/outputs/{0}/{1}".format(uid, output_file)}])
 
-        print "*" * 50
-        for k in data:
-            print "{0:20} | {1:20}".format(k, data.get(k))
-        print "--" * 40
+        #print "*" * 50
+        #for k in data:
+        #    print "{0:20} | {1:20}".format(k, data.get(k))
+        #print "--" * 40
         
        
     enable_mock = False

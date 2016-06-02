@@ -79,6 +79,8 @@ h4,h5 {
 .navbar-brand {
     font-weight: 600;
     font-size: 24px;
+    margin-left: -20px;
+    margin-top: -7px; 
 }
 .navbar li a, .navbar-brand {
     color: #555555;
