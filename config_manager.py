@@ -87,13 +87,15 @@ def send_success_mail(data, app):
                     username=rec_name,
                     job_id=job_id,
                     url=url)
+    try:
+        st = sesconn.send_email(src_email,
+                                "[Turing] Your Job has completed",
+                                body,
+                                [rec_email])
+    except Exception as e:
+        return False
 
-    st = sesconn.send_email(src_email,
-                            "[Turing] Your Job has completed",
-                            body,
-                            [rec_email])
-    print st
-    return st
+    return True
 
 ##################################################################
 # Verify and add user to email list
@@ -119,13 +121,15 @@ def send_failure_mail(data, app):
                     username=rec_name,
                     job_id=job_id,
                     url=url)
+    try:
+        st = sesconn.send_email(src_email,
+                                "[Turing] Your Job has failed",
+                                body,
+                                [rec_email])
+    except Exception, e:
+        return False
 
-    st = sesconn.send_email(src_email,
-                            "[Turing] Your Job has failed",
-                            body,
-                            [rec_email])
-    print st
-    return st
+    return True
 
 
 def init(app):
