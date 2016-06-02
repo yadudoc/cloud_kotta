@@ -66,3 +66,22 @@ def find_user_role(app, user_id):
         return None
 
     return results
+
+def get_wos_dbinfo(app, user_id):
+
+    table_name = app.config['dynamodb.turing_users']
+    hashkey    = "user_id"
+    dyno = Table(table_name,
+                 schema=[HashKey(hashkey)],
+                 connection=ddb.connect_to_region(app.config['dynamodb.region'],
+                                                  aws_access_key_id=app.config['keys.key_id'],
+                                                  aws_secret_access_key=app.config['keys.key_secret'],
+                                                  security_token=app.config['keys.key_token']))
+
+
+    try:
+        results = dyno.get_item(user_id=user_id)
+    except ddb.exceptions.ItemNotFound:
+        return None
+    
+    return results
