@@ -329,17 +329,9 @@ def task_loop(app):
             else:
                conf_man.send_failure_mail(data, app)
 
-            # TODO : CLeanup
-            print "At deletion : ", msg
-            #res = active_q.delete_message(current_msg)
-            if not  sns_sqs.delete_message_from_active(sqs_conn, active_q, attr):
-               print "Messages deleted : ", count
-
          except Exception as e:
                print "Job failed to complete : {0}".format(sys.exc_info()[0])
-               print "Trace : ", inspect.trace()
-               if not  sns_sqs.delete_message_from_active(sqs_conn, active_q, attr):
-                  print "Messages deleted : ", count
+               print "Trace : ", inspect.trace()               
 
       else:
          print "{0}: Waiting for job description".format(time.time())
