@@ -30,8 +30,9 @@
 	      <span class="icon-bar"></span>
 	      <span class="icon-bar"></span>
 	    </button>
-	    <img src="/static/Knowledge-Lab-icon-final.png" height= "50" width="50" style="float:left;"/>
-	    <a class="navbar-brand" style="float:right" href="/">Turing</a>
+	    <img src="/static/Knowledge-Lab-icon-final.png" height= "50" width="45" style="float:left;"/>
+	    <a class="navbar-brand" style="float:right" href="/">otta</a>
+	    <!-- <a class="navbar-brand" style="float:right" href="/">Turing</a> -->
 	  </div>
 	  
 	  <div class="collapse navbar-collapse">

@@ -15,6 +15,6 @@ if __name__ == "__main__" :
     app = cm.load_configs("production.conf")
     results = app.config["dyno.conn"].scan(jobname__eq=jobname)
     for r in results:
-        print "Deleting {0}-{1}".format(r['jobname'], r['job_id'])
+        print "Deleting {0}-{1} {2} {3} {4}".format(r['jobname'], r['job_id'], r['submit_stamp'], r['start_time'], r['complete_time'])
         r.delete()
         
