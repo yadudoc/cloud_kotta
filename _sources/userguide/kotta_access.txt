@@ -1,24 +1,19 @@
-Bastion Access
-==============
+Cloud Kotta Access
+==================
 
-Generating SSH keys:
---------------------
+An instance of Cloud Kotta is hosted at https://turingcompute.net and is open to members and affiliates of `KnowledgeLab<http://www.knowledgelab.org/>`_ and the `MetaKnowledge network<http://www.knowledgelab.org/people/leadership/>`_.
 
-Generate an SSH key following this document :
-https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/
-Please note the following:
-1.  Do *NOT* send me your private key
-2.  Please send public key as an attachment rather than pasting it's contents
-
-Creating a user on Bastion:
+Access to TuringCompute.net
 ---------------------------
-Once you have an ssh public key, either mail it to "yadu@uchicago.edu" as an attachment or
-send it to @yadu on Channel:#cloudkotta under the KnowledgeLab organization.
 
-Logging in:
------------
+If you do not have access to TuringCompute please follow these steps:
 
-.. code-block:: bash
-   :linenos: 
+1. Go to `https://turingcompute.net/login`_
+2. Click the Login with Amazon button
+3. Use an Amazon account (not AWS) to login
+4. Once you login, you will be forwarded to a page which says *Turing - Login Rejected!* along with some information.
+5. Copy this information and
+   * If you are on the KnowledgeLab slack account, direct message @yadunand this information
+   * Alternatively email *yadu@uchicago.edu* this information for access.
+6. To add permissions for protected datasets contact the admin(s) over Slack.
 
-   ssh <username>@bastion.turingcompute.net
