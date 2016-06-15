@@ -13,17 +13,20 @@ User Guide
 ==========
 
 .. toctree::
-   :maxdepth: 1
+   :maxdepth: 2
 
+   userguide/overview
    userguide/bastion_access
    userguide/kotta_access
-
+   userguide/data_management
+   userguide/submitting_jobs
 
 Developer Guide
 ===============
 
 All source code and cloudformation templates used are hosted here :
 https://github.com/yadudoc/cloud_kotta
+
 
 
 Contents:

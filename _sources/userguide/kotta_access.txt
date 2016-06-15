@@ -10,12 +10,14 @@ Access to TuringCompute.net
 
 If you do not have access to TuringCompute please follow these steps:
 
-1. Go to `https://turingcompute.net/login`_
+1. Go to `<https://turingcompute.net/login>`_
 2. Click the Login with Amazon button
 3. Use an Amazon account (not AWS) to login
 4. Once you login, you will be forwarded to a page which says *Turing - Login Rejected!* along with some information.
 5. Copy this information and
-   * If you are on the KnowledgeLab slack account, direct message @yadunand this information
-   * Alternatively email *yadu@uchicago.edu* this information for access.
+
+   *   If you are on the KnowledgeLab slack account, direct message @yadunand this information
+   *   Alternatively email *yadu@uchicago.edu* this information for access.
+
 6. To add permissions for protected datasets contact the admin(s) over Slack.
 
