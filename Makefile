@@ -46,7 +46,7 @@ help:
 
 .PHONY: clean
 clean:
-	rm -rf $(BUILDDIR)/* *~
+	rm -rf $(BUILDDIR)/* *~ ./_static ./_sources ./_templates
 
 .PHONY: html
 html:
@@ -54,6 +54,7 @@ html:
 	@echo
 	@echo "Build finished. The HTML pages are in $(BUILDDIR)/html."
 	sed -i 's/max-width:800px/\/\*max-width:800px\*\//' $(BUILDDIR)/html/_static/css/theme.css
+	cp -rv $(BUILDDIR)/html/* .
 
 .PHONY: dirhtml
 dirhtml:
