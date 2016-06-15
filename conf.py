@@ -53,7 +53,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Cloud Kotta'
-copyright = u'2016, Yadu Nand Babuji'
+copyright = u'2016, KnowledgeLab'
 author = u'Yadu Nand Babuji'
 
 # The version info for the project you're documenting, acts as replacement for
