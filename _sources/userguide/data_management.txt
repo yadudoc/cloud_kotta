@@ -60,7 +60,3 @@ However, an authenticated user can always load the url of the job, and get a fre
 
 
 
-
-
-
-

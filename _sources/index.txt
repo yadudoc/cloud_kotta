@@ -31,7 +31,9 @@ The code and the Cloudformation templates used to build the Infrastructure on AW
    :caption: Developer Documentation
 
    devguide/overview
-   
+   devguide/contributing
+   devguide/license
+
 
 .. toctree::
    :maxdepth: 2
