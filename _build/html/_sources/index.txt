@@ -4,35 +4,40 @@
    contain the root `toctree` directive.
 
 Cloud Kotta Documentation
-=========================
+#########################
 
 Welcome to Cloud Kotta documentation. Cloud Kotta is a cloud framework that allows users to run computation tasks on protected data sets in a secure environment.
 
+The code and the Cloudformation templates used to build the Infrastructure on AWS is open source and `available on github <https://github.com/yadudoc/cloud_kotta>`_/
 
-User Guide
-==========
-
-.. toctree::
-   :maxdepth: 2
-
-   userguide/overview
-   userguide/bastion_access
-   userguide/kotta_access
-   userguide/data_management
-   userguide/submitting_jobs
-
-Developer Guide
-===============
-
-All source code and cloudformation templates used are hosted here :
-https://github.com/yadudoc/cloud_kotta
-
-
-
-Contents:
+.. _user_docs:
 
 .. toctree::
    :maxdepth: 3
+   :caption: User Documentation
+
+   userguide/overview   
+   userguide/kotta_access
+   userguide/getting_started
+   userguide/data_management
+   userguide/submitting_jobs
+   userguide/bastion_access
+   
+
+.. _dev_docs:
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Developer Documentation
+
+   devguide/overview
+   
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Contact
+
+   contact
 
 
 Indices and tables

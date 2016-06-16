@@ -1,7 +1,9 @@
+.. _ref_kotta_access:
+
 Cloud Kotta Access
 ==================
 
-An instance of Cloud Kotta is hosted at https://turingcompute.net and is open to members and 
+An instance of Cloud Kotta is hosted at `<https://turingcompute.net>`_ and is open to members and 
 affiliates of `KnowledgeLab <http://www.knowledgelab.org/>`_ and the 
 `MetaKnowledge Network <http://www.knowledgelab.org/people/leadership/>`_.
 
