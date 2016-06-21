@@ -56,7 +56,15 @@
 		  <li><a href="{{get_url('submit')}}/script">Script</a></li>
                 </ul>
               </li>
-	      <li><a href="{{get_url('jobs')}}">Previous Jobs</a></li>
+
+	      <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Previous Jobs<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="{{get_url('jobs')}}">My Jobs</a></li>
+		  <li><a href="{{get_url('published_jobs')}}">Published Jobs</a></li>
+                </ul>
+              </li>
+
 	      <li class="dropdown">
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{session["username"]}}<b class="caret"></b></a>
 		<ul class="dropdown-menu">

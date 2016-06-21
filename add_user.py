@@ -2,12 +2,23 @@
 import json
 import requests
 import logging
+import uuid
 from boto.dynamodb2.fields import HashKey
 from boto.dynamodb2.table import Table
 import boto.dynamodb2 as ddb
 import dynamo_utils as dutils
 import config_manager as cm
 import argparse
+import bottle
+
+def load_config(filename):
+    app = bottle.default_app()
+    try:
+        app.config.load_config(filename)
+    except Exception as e:
+        logging.error("Exception {0} in load_config".format(e))
+        exit(-1)
+    return app
 
 def connect(app):
     table_name = app.config['dynamodb.turing_users']
@@ -41,10 +52,28 @@ def verify_email_address(app, email):
         print "Unable to fetch list of verified emails"
         return
 
+import MySQLdb as mysqldb
+        
+def update_db(app, statements):
+    print "Connecting to {0} as {1}".format(app.config["database.passwd"], app.config["database.url"])
+    db = mysqldb.connect(host = app.config["database.url"],
+                         port = int(app.config["database.port"]),
+                         user = app.config["database.user"],
+                         passwd = app.config["database.passwd"])
+                         
+    cursor = db.cursor()
+    for line in statements:
+        cursor.execute(line)
+        for row in cursor.fetchall():
+            print row[0]
+            
+    db.close()
+    
 if __name__ == "__main__":
 
     parser   = argparse.ArgumentParser()
     parser.add_argument("-c", "--conffile", default="production.conf", help="Config file path. Defaults to ./test.conf")
+    parser.add_argument("-w", "--webofscience", default=None, help="Config file path for webofscience")
     parser.add_argument("-u", "--user_id", required=True, help="Amazon user id");
     parser.add_argument("-n", "--name", help="Name of new user,in quotes");
     parser.add_argument("-e", "--email", help="Email address of new user");
@@ -52,11 +81,16 @@ if __name__ == "__main__":
     args   = parser.parse_args()
 
     app = cm.load_configs(args.conffile)
-    print args.user_id
-    print args.name
-    print args.email
-    print args.role
 
+    wos_user   = None
+    wos_passwd = None
+    if args.webofscience :
+        dbconf = load_config(args.webofscience)
+        wos_user     = args.name.replace(' ', '').lower()
+        wos_passwd   = str(uuid.uuid4()).replace('-', '')[0:20]
+        
+    #update_db(app, ["use wos;", "show tables"])
+    #exit(0)
     dyno = connect(app)
 
     user = find_user_role(app, dyno, args.user_id)
@@ -65,7 +99,7 @@ if __name__ == "__main__":
         if args.name != None and args.name != user["name"]:
             print "Mismatch in Name : Arg:{0}  DB:{1}".format(args.name, user["name"])
             user["name"] = args.name
-            
+
         if args.email != None and args.email != user["email"]:
             print "Mismatch in Email: Arg:{0}  DB:{1}".format(args.email, user["email"])
             user["email"] = args.email
@@ -75,6 +109,11 @@ if __name__ == "__main__":
             print "Mismatch in Role : Arg:{0}  DB:{1}".format(args.role, user["role"])
             user["role"] = args.role
 
+        if args.webofscience:
+            print "Updating wos username and passwd"
+            user["wos_user"]   = wos_user
+            user["wos_passwd"] = wos_passwd
+
         status = dyno.put_item(data=user, overwrite=True)
         print "Update user status : {0}".format(status)
         exit(0)
@@ -83,6 +122,10 @@ if __name__ == "__main__":
             'name'    : args.name,
             'email'   : args.email,
             'role'    : args.role}
+
+    if args.webofscience :
+        user['wos_user']   = wos_user
+        user['wos_passwd'] = wos_passwd
 
     verify_email_address(app, args.email)
     status = dyno.put_item(data=user, overwrite=True)
