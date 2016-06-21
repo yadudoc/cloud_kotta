@@ -42,6 +42,7 @@ import sts
 from utils import *
 from usage_stats import *
 from resubmit import *
+from publish import *
 
 ########################################################################################################
 def dynamodb_update(table, data):
