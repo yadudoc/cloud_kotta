@@ -42,12 +42,11 @@ def script_executor (app, job_desc):
     walltime    = int(job_desc.get("walltime", 24*60*60))
     job_id      = job_desc["job_id"]
     script_file = job_desc.get('i_script_name')
-    script      = job_desc.get('i_script').strip('\r')
+    script      = job_desc.get('i_script').replace('\r\n', '\n')
     cmd         = job_desc["executable"]
     env         = {"wosuser"    : job_desc.get('i_wosuser', 'None'),                   
                    "wospasswd"  : job_desc.get('i_wospasswd', 'None')}
 
-    print env
     with open(script_file, 'w') as ofile:
         ofile.write(script)
         os.chmod(script_file, 0o744)
