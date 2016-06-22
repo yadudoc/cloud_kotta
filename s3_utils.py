@@ -110,7 +110,6 @@ def smart_download_s3_keys(s3conn, bucket_name, prefix, target, creds):
         print "ERROR: Could not access the bucket"
         raise
 
-    duration = key.get_contents_to_filename(target)
     return duration
 
     
