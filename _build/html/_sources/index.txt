@@ -21,9 +21,10 @@ The code and the Cloudformation templates used to build the Infrastructure on AW
    userguide/getting_started
    userguide/data_management
    userguide/submitting_jobs
+   userguide/publishing
    userguide/bastion_access
    userguide/cli
-   
+	     
 
 .. _dev_docs:
 

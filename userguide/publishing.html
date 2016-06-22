@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Managing Jobs &mdash; Cloud Kotta beta documentation</title>
+  <title>Publishing Jobs &mdash; Cloud Kotta beta documentation</title>
   
 
   
@@ -32,7 +32,9 @@
   
 
   
-    <link rel="top" title="Cloud Kotta beta documentation" href="../index.html"/> 
+    <link rel="top" title="Cloud Kotta beta documentation" href="../index.html"/>
+        <link rel="next" title="Bastion Access" href="bastion_access.html"/>
+        <link rel="prev" title="Submitting Jobs" href="submitting_jobs.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -82,13 +84,17 @@
             
             
                 <p class="caption"><span class="caption-text">User Documentation</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kotta_access.html">Cloud Kotta Access</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data_management.html">Data Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="submitting_jobs.html">Submitting Jobs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="publishing.html">Publishing Jobs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Publishing Jobs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#how-to-publish-a-job">How to Publish a job</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#guidelines-for-publishing">Guidelines for Publishing</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="bastion_access.html">Bastion Access</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cli.html">Commandline Client for Cloud Kotta</a></li>
 </ul>
@@ -131,11 +137,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-    <li>Managing Jobs</li>
+    <li>Publishing Jobs</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/userguide/managing_jobs.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/userguide/publishing.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -145,33 +151,48 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="managing-jobs">
-<h1>Managing Jobs<a class="headerlink" href="#managing-jobs" title="Permalink to this headline">¶</a></h1>
-<p>Cloud Kotta makes it easy to keep track of your jobs by maintaining complete history of your jobs.
-The <a class="reference external" href="https://turingcompute.net/jobs">Previous Jobs</a> tab allows you to view this history. The following
-sections cover the different modes of interaction possible.</p>
+  <div class="section" id="publishing-jobs">
+<h1>Publishing Jobs<a class="headerlink" href="#publishing-jobs" title="Permalink to this headline">¶</a></h1>
+<p>The publish feature makes it easy to share code and results.
+Published jobs are visible to all authenticated users.</p>
+<div class="section" id="how-to-publish-a-job">
+<h2>How to Publish a job<a class="headerlink" href="#how-to-publish-a-job" title="Permalink to this headline">¶</a></h2>
+<p>Select a particular job that you would like to publish. On the page you should be seeing
+3 buttons that say <strong>Cancel Job</strong>, <strong>Redo Job</strong>, <strong>Publish Job</strong>.</p>
+<p>Clicking the <strong>Publish Job</strong> takes you to the Publish page. Here you are required to fill out
+a meaningful name for the job and a short job description. At the minimum your job description must cover the following:</p>
+<ol class="arabic simple">
+<li>What does the job do ?</li>
+<li>Is it CPU/RAM/IO intensive</li>
+<li>If it is not multi-threaded/multi-processing note that.</li>
+<li>If your code accesses protected data sets, note that as a requirement.</li>
+<li>Describe each input file and expected format.</li>
+<li>Describe each output file and expected format.</li>
+</ol>
 </div>
-<div class="section" id="job-status">
-<h1>Job Status<a class="headerlink" href="#job-status" title="Permalink to this headline">¶</a></h1>
-<p>Jobs have the following states:</p>
-<ul class="simple">
-<li><strong>Pending</strong> : Jobs are in pending state when they are waiting in queue for execution. While wait times are generally under 5 minutes,
-depending on the configuration of the pool you are submitting to, wait times can vary.</li>
-<li><strong>Staging In</strong> : The job has been launched on a compute node, and the input files are being fetched from remote storage to the local disks.</li>
-<li><strong>Processing</strong> : The job is being executed on the compute node.</li>
-<li><strong>Staging Out</strong> : The job has completed execution and the output files are being transferred from local disk to remote storage.</li>
-<li><strong>Failed</strong> : The job has completed execution with failures.</li>
-<li><strong>Completed</strong> : The job has completed execution without failures.</li>
-</ul>
+<div class="section" id="guidelines-for-publishing">
+<h2>Guidelines for Publishing<a class="headerlink" href="#guidelines-for-publishing" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Do <strong>NOT</strong> publish any results that is <strong>derived from a private dataset</strong> such as Web of Science without prior approval from the <a class="reference internal" href="../contact.html#ref-admins"><span class="std std-ref">Administrators</span></a>.</li>
+<li>Do <strong>NOT</strong> publish content going into a manuscript before publication</li>
+<li>Add a complete and meaningful job description, when in doubt ask another human.</li>
+</ol>
 </div>
-<div class="section" id="job-history">
-<h1>Job History<a class="headerlink" href="#job-history" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
            </div>
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="bastion_access.html" class="btn btn-neutral float-right" title="Bastion Access" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="submitting_jobs.html" class="btn btn-neutral" title="Submitting Jobs" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
