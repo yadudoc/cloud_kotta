@@ -67,7 +67,7 @@ def get_inputs(app, inputs, auth):
    try:
       print "Attempting to switch roles to : {0}".format(auth["role"])
       creds = sts.get_temp_creds(auth["role"])
-      sts.print_creds(creds)
+      #sts.print_creds(creds)
       s3conn  = s3.get_s3_conn( creds["AccessKeyId"], 
                                 creds["SecretAccessKey"],
                                 creds["SessionToken"] )
@@ -356,10 +356,12 @@ if __name__ == "__main__":
       print "Cannot proceed. Exiting"
       exit(-1)
 
-   
+
    logging.basicConfig(filename=args.logfile, level=conf_man.log_levels[args.verbose],
                        format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
                        datefmt='%m-%d %H:%M')
+   logging.getLogger('boto').setLevel(logging.CRITICAL)   
+
    logging.debug("\n{0}\nStarting task_executor\n{0}\n".format("*"*50))
    app = conf_man.load_configs(args.conffile);
 
