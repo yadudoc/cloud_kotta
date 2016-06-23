@@ -25,6 +25,17 @@
     <input type="hidden" name="jobid" value="{{jobid}}"/>
 
     <div class="row">
+      <div class="form-group col-md-10">
+           <p>
+      	       <font color=#800000>Please read guidelines for publishing jobs <a href="http://docs.cloudkotta.org/userguide/publishing.html">here</a></br>
+	       Jobs which are not compliant will be removed.
+	       </font>
+           </p>
+      </div>
+    </div>
+
+
+    <div class="row">
       <div class="form-group col-md-4">
         <label for="jobname">Job Name</label>
 	%if prefill and 'jobname' in prefill:
@@ -38,8 +49,8 @@
     <div class="row">
        <div class="form-group col-md-8">
           <label for="jobdesc">Job Description</label>
-	%if prefill and 'i_script' in prefill:
-          <textarea class="form-control input_lg" rows="5" name="jobdesc" id="jobdesc" >{{prefill['i_script']}}</textarea>
+	%if prefill and 'description' in prefill:
+          <textarea class="form-control input_lg" rows="5" name="jobdesc" id="jobdesc" >{{prefill['description']}}</textarea>
 	%else:
           <textarea class="form-control input_lg" rows="5" name="jobdesc" id="script" >
 Job Behavior: What does this job do? What are it's Compute requirements ?

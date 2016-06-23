@@ -442,7 +442,7 @@ def get_job_info(request, job_id):
     pairs = []
     for k in item.keys():
 
-        if k.startswith("i_") :
+        if k.startswith("i_") and k != 'i_ispublished':
             continue
         
         if k in ['submit_time', 'complete_time', 'start_time']:            
@@ -538,8 +538,14 @@ def job_info(job_id):
     pairs = get_job_info(request, job_id);
     tdata, cdata, mmax, mcur = None, None, None, None
     fname = "None"
+    published = False
     for row in pairs:
         # The walltime is in seconds, convert this to some human readable form
+        if row[0] == 'i_ispublished':
+            if int(row[1]) == 1:
+                published = True
+                print "setting  published to True"
+
         if row[0] == 'walltime':
             row[1] = human_time(int(row[1]))
             
@@ -554,6 +560,7 @@ def job_info(job_id):
                     title="Job - Info",
                     job_id=job_id,
                     usage_csv = fname,
+                    published=published,
                     table= pairs, # Body
                     log_path="/job_log",
                     session=session)

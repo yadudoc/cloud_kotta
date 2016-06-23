@@ -48,6 +48,16 @@ def url_maker_resubmit_job():
                     session=session,
                     error_str="You've requested an invalid Job Type")    
 
+##################################################################################
+# This is only a dummy function for get_url to generate a dynamic route
+##################################################################################
+@route('/retract', method='GET', name="retract")
+def url_maker_retract_job():    
+    session = bottle.request.environ.get('beaker.session')
+    return template("./views/error.tpl",
+                    session=session,
+                    error_str="You've requested an invalid Job Type")    
+
 
 #################################################################
 # Print a table form of jobs and statuses
@@ -73,7 +83,9 @@ def published_jobs():
         else:
             joburl = '<a href="{0}">{1}</a>'.format(jobinfourl, str(r["job_id"]))
                                                 
-        row = [joburl , str(r["description"]), str(r["username"]), str(r["publishdate"])]
+        row = [joburl , str(r["description"]).replace('\r\n', '</br>'), 
+               str(r["username"]), str(r["publishdate"])]
+        
         table_tpl.append(row)
 
     table = sorted(table_tpl, key=lambda row: datetime.datetime.strptime(row[3], '%Y-%m-%d %H:%M:%S'), reverse=True)
@@ -81,6 +93,35 @@ def published_jobs():
                     title="Published Jobs",
                     table=table,
                     session=session)
+
+
+##################################################################################
+# Handles the different job types.
+##################################################################################
+@route('/retract/<jobid>', method='GET', name="retract_job")
+def retract_job(jobid):
+
+    session = bottle.request.environ.get('beaker.session')
+    conf_man.update_creds_from_metadata_server(request.app)
+
+    record = dutils.dynamodb_get(request.app.config["dyno.conn"], jobid)
+    print record['username']
+    
+    if record['username'] == session["username"]:
+        print "Username matches"
+    else:
+        return template('./views/error.tpl',
+                        error_str="You are not the owner of this job :{0} \nInsufficient permissions to retract job".format(jobid),
+                        session=session)
+    
+    record["i_ispublished"]  = '0'
+    record.save(overwrite=True)
+
+    return template("./views/retract_confirm.tpl",
+                    job_id=jobid,
+                    title="Retract Confirmation",
+                    session=session)
+
 
 
 ##################################################################################
@@ -110,9 +151,9 @@ def publish_job(jobid):
     if jobname and jobname[0]:
         prefill = {'jobname' : jobname[0][1]}
 
-    jobdesc  = filter(lambda x: x[0] == 'jobdesc', pairs)
+    jobdesc= filter(lambda x: x[0] == 'description', pairs)
     if jobdesc and jobdesc[0]:
-        prefill['jobdesc'] = jobdesc[0][1]
+        prefill['description'] = jobdesc[0][1]
     
     print "Prefill : ", prefill;
     #return {"foo"}
