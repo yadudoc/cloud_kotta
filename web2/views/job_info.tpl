@@ -110,9 +110,15 @@
       <div class="form-group col-md-4">
        <a href="{{get_url('resubmit')}}/{{job_id}}" class="btn btn-warning" role="button">Redo Job</a>
       </div>
-      <div class="form-group col-md-4">
-       <a href="{{get_url('publish')}}/{{job_id}}" class="btn btn-success" role="button">Publish</a>
-      </div>
+      %if published == True:
+          <div class="form-group col-md-4">
+              <a href="{{get_url('retract')}}/{{job_id}}" class="btn btn-danger" role="button">Retract</a>
+          </div>
+      %else:
+          <div class="form-group col-md-4">
+              <a href="{{get_url('publish')}}/{{job_id}}" class="btn btn-success" role="button">Publish Job</a>
+          </div>
+      %end
 
     </div>
    
