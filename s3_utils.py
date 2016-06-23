@@ -7,6 +7,7 @@ import json
 import time
 import command
 import os
+#from boto.exception import S3ResponseError
 
 def get_s3_conn(key_id, key_secret, token):
     s3   = S3Connection(aws_access_key_id=key_id,
@@ -66,8 +67,8 @@ def download_s3_keys(s3conn, bucket_name, prefix, target):
     try:
         bucket  = s3conn.get_bucket(bucket_name, validate=False)
         key     = bucket.get_key(prefix)
-    except S3ResponseError :
-        print "ERROR: Could not access the bucket"
+    except Exception, e :
+        print "ERROR: Failed to download data : ", e
         raise
 
     print "filename", key
@@ -76,7 +77,7 @@ def download_s3_keys(s3conn, bucket_name, prefix, target):
 
 # Download a key from the bucket
 def fast_download_s3_keys(creds, bucket_name, prefix, target):
-    env_vars = "AWS_ACCESS_KEY_ID={0};AWS_SECRET_ACCESS_KEY={1};AWS_SECURITY_TOKEN={2};AWS_DEFAULT_REGION={3}".format(creds["AccessKeyId"], creds["SecretAccessKey"], creds["SessionToken"], "us-east-1")
+    env_vars = "export AWS_ACCESS_KEY_ID={0};export AWS_SECRET_ACCESS_KEY={1};export AWS_SECURITY_TOKEN={2};export AWS_DEFAULT_REGION={3}".format(creds["AccessKeyId"], creds["SecretAccessKey"], creds["SessionToken"], "us-east-1")
     cmd = "{3};aws s3 cp --region us-east-1 s3://{1}/{2} {0} ".format(target,
                                                                       bucket_name,
                                                                       prefix,
@@ -86,32 +87,31 @@ def fast_download_s3_keys(creds, bucket_name, prefix, target):
 
 
 # Download a key from the bucket
-# Notes:
-# Pending debug, using the temporary tokens we are not able to access the resources
-# that are only accessible using a specific role.
 def smart_download_s3_keys(s3conn, bucket_name, prefix, target, creds):
     start = time.time()
+
     try:
-        bucket  = s3conn.get_bucket(bucket_name, validate=False)
-        key     = bucket.get_key(prefix)
-    except S3ResponseError :
+        bucket   = s3conn.get_bucket(bucket_name, validate=False)
+        key      = bucket.get_key(prefix)
+
+        if key.size > 10*1024*1024 :
+            print "File > 10Mb: downloading with s3 cli"
+            duration = fast_download_s3_keys(creds, bucket_name, prefix, target)
+        else:
+            print "File < 10Mb: using get_contents_to_file"
+            key.get_contents_to_filename(target)
+            duration = time.time() - start
+
+    except boto.exception.S3ResponseError, e :
+        print "ERROR: Caught S3ResponseError: ", e
+        return -1 
+
+    except Exception, e:
         print "ERROR: Could not access the bucket"
         raise
 
-    duration = key.get_contents_to_filename(target)
     return duration
 
-    '''
-    if key.size > 10*1024*1024 :
-        print "File > 10Mb: downloading with s3 cli"
-        duration = fast_download_s3_keys(creds, bucket_name, prefix, target)
-    else:
-        print "File < 10Mb: using get_contents_to_file"
-        key.get_contents_to_filename(target)
-        duration = time.time() - start
-
-    return duration
-    '''
     
 def generate_signed_url(s3conn, bucket_name, prefix, duration):
     bucket  = s3conn.get_bucket(bucket_name, validate=False)
@@ -165,6 +165,35 @@ def test_list(app):
 if __name__ == "__main__":
     import config_manager as cm
     app = cm.load_configs("production.conf")
+    import sts
+    import s3_utils as s3
+    rolestring  = 'arn:aws:iam::968994658855:role/wos_read_access' # Left out due to security concerns
+    if not rolestring :
+        print "Fill out rolestring to continue tests"
 
+    creds = sts.get_temp_creds(rolestring)
+    s3conn  = get_s3_conn( creds["AccessKeyId"],
+                           creds["SecretAccessKey"],
+                           creds["SessionToken"] )
+    
+    
+    bucket_name = "klab-webofscience"
+    prefix = 'raw_zipfiles/1976_DSSHPSH.zip'
+    target = '/tmp/1976_DSSHPSH.zip'
+    
+    print "Listing items:"
+    bucket = s3conn.get_bucket(bucket_name)
+    print "getting keys:"
+    keys   = bucket.get_all_keys(prefix="raw_zipfiles")
+    for key in keys:
+        print key , key.size, key.last_modified
+    exit(0)
     #test_uploads(app)
-    test_list(app)
+    #test_list(app)
+    #smart_download_s3_keys(s3conn, 
+    #                       bucket_name, 
+    #                       prefix, 
+    #                       target, creds)
+
+    #print fast_download_s3_keys(creds, bucket_name, prefix, target)
+    print download_s3_keys(s3conn, bucket_name, prefix, target)
