@@ -14,7 +14,6 @@ Here's a snapshot of the Script job submission page:
 
 .. image:: ../figures/script_job.png
 
-
 A script job is the simplest, yet most flexible job type that Cloud Kotta offers.
 Here are the different parameters that it provides.
 
