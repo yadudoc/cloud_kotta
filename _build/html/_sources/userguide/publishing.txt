@@ -30,4 +30,22 @@ Guidelines for Publishing
 3. Add a complete and meaningful job description. When in doubt ask another human
 
 
+Guidelines for Publishing
+-------------------------
+
+1. Do **NOT** publish any results that are **derived from a private dataset** (e.g. Web of Science, JSTOR) without prior approval from the :ref:`ref_admins`.
+2. Do **NOT** publish results or data that are going into a manuscript prior to publication.
+3. Add a complete and meaningful job description. When in doubt ask another human
+
+Retracting a Published job
+--------------------------
+
+The owner/maintainer of a Published Job can retract a job from the Published jobs page by clicking the **Retract** button on the job info page.
+Please note that the **Retract** button merely takes the job off the Published jobs page.
+There are no group based controls on who can view your jobs, as a result if a job is published the unique job-id is known to the world and can
+be used to view the job even after it has been retracted. Therefore users are adviced to make sure that critical/sensitive results are not
+present in the jobs they publish.
+
+.. note::
+   The job-id based access is purely security by obscurity. While the input datasets are protected by role based models, the outputs attached to jobs are treated as objects that require much less protection.
  

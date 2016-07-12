@@ -17,15 +17,16 @@ Please note the following:
 
 Creating a user on Bastion:
 ---------------------------
-Once you have an ssh public key, 
+Once you have an ssh public key,
+
 * either mail it to "yadu@uchicago.edu" as an attachment 
-* send it to @yadu on Channel:#cloudkotta under the KnowledgeLab organization.
+* send it to @yadu on Channel:#cloudkotta under the KnowledgeLab organization on slack.
 
 .. note::
    Ensure that you do **not** send or share your private key with anyone else.
 
 .. note::
-   Public keys easily get mangled when copy pasted, so always send the file in its entirety.
+   Public keys easily get mangled when copy pasted, so always send the file as an attachment.
 
 
 Logging in:
@@ -35,3 +36,8 @@ Logging in:
    :linenos: 
 
    ssh <username>@bastion.turingcompute.net
+
+
+.. note::
+   Bastion is a tiny machine with just 100Gb of disk space. Avoid doing any compute tasks on this machine, and do not leave large files on filesystem.
+   
