@@ -43,13 +43,14 @@ def connect_to_db(app, table_name, hashkey):
 
 
 
-def test():
+def test_1():
     import config_manager as cm
     import time
     import uuid
     app = cm.load_configs("production.conf")
     uid = str(uuid.uuid1())
 
+    
     data = {"job_id"           : uid,
             "username"         : "yadu",
             "jobtype"          : "doc2vec",
@@ -64,4 +65,51 @@ def test():
     #dynamodb_update(app.config["dyno.conn"], data)
     dynamodb_get(app.config["dyno.conn"], uid)
 
-#test()
+
+def find_all_users(app):
+    
+    table_name = app.config['dynamodb.turing_users']
+    hashkey    = "user_id"
+    dyno = Table(table_name,
+                 schema=[HashKey(hashkey)],
+                 connection=ddb.connect_to_region(app.config['dynamodb.region'],
+                                                  aws_access_key_id=app.config['keys.key_id'],
+                                                  aws_secret_access_key=app.config['keys.key_secret'],
+                                                  security_token=app.config['keys.key_token']))
+    
+    try:
+        results = dyno.scan()
+    except ddb.exceptions.ItemNotFound:
+        return None
+
+    return results
+
+
+
+def test_2():
+    import config_manager as cm
+    app = cm.load_configs("production.conf")
+
+    results = {}
+    users = find_all_users(app)
+    for user in users:
+        print user["user_id"], user["name"]
+        all_jobs = request.app.config["dyno.conn"].scan(i_user_id__eq=user["user_id"])
+        
+        results[user["name"]] = {"Prod" : {"count" : 0,
+                                           "walltime" : 0},
+                                 "Test" : {"count" : 0,
+                                           "walltime" : 0}}
+        
+        count = 0
+        for j in all_jobs:
+            #walltime += j["walltime"]            
+            #count += 1
+            print "User:{0} Count: "
+     
+    return
+    #dynamodb_get(app.config["dyno.conn"], uid)
+
+if __name__ == "__main__":
+    print "Running Test"
+    test_2()

@@ -161,12 +161,40 @@ def test_list(app):
 
     for key in keys:
         print key, key.size, key.last_modified
+        
 
+"""
+Update_object is used to update the metadata of an object
+to indirectly update it's last-modified/create-date.
+This is used to influence the behavior of the life-cycle policies.
+"""
+def update_object(app, bucket, key, s3conn=None):
+    try:
+        if not s3conn:
+            s3conn  = app.config["s3conn"]            
+            bucket  = s3conn.get_bucket(bucket_name, validate=False)
+            key     = bucket.get_key(prefix)
+            #key.metadata.update({'last_accessed' : str(time.strftime('%Y-%m-%d %H:%M:%S'))})
+            #nkey    = key.copy(key.bucket.name, key.name, key.metadata, preserve_acl=True)
+            #nkey.metadata = key.metadata
+            key.set_metadata({'last_accessed' : str(time.strftime('%Y-%m-%d %H:%M:%S'))})
+
+    except Exception, e :
+        print "ERROR: Failed to get data/update metadata : ", e
+        raise
+
+    
 if __name__ == "__main__":
     import config_manager as cm
     app = cm.load_configs("production.conf")
     import sts
     import s3_utils as s3
+
+    bucket="klab-jobs"
+    key="uploads/amzn1.account.AEKWXVYINCBBNY5MPRMOYND6CWWA/LDRD_virtualenv.tar.gz"
+    update_object(app, bucket, key)
+    
+    exit(0)
     rolestring  = 'arn:aws:iam::968994658855:role/wos_read_access' # Left out due to security concerns
     if not rolestring :
         print "Fill out rolestring to continue tests"
