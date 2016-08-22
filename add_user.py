@@ -68,6 +68,25 @@ def update_db(app, statements):
             print row[0]
             
     db.close()
+
+def create_user(app):    
+    print "Updating wos username and passwd"
+    
+    try:
+        cmd = ["DROP USER '{0}'@'%' ;".format(app.config["wos_user"])]
+        update_db(app, cmd)
+    except Exception, e:
+        print "MYSQL threw an error from attempting DROP USER : ", e
+        
+    print app
+    print app.config["wos_user"]
+    print app.config["wos_passwd"]
+    cmd = ["CREATE USER '{0}'@'%' IDENTIFIED BY '{1}' ;".format(app.config["wos_user"], 
+                                                                app.config["wos_passwd"]),
+           "GRANT SELECT ON wos.* TO '{0}'@'%' ;".format(app.config["wos_user"])]
+    update_db(app, cmd)
+    return 
+
     
 if __name__ == "__main__":
 
@@ -82,15 +101,12 @@ if __name__ == "__main__":
 
     app = cm.load_configs(args.conffile)
 
-    wos_user   = None
-    wos_passwd = None
     if args.webofscience :
-        dbconf = load_config(args.webofscience)
-        wos_user     = args.name.replace(' ', '').lower()
-        wos_passwd   = str(uuid.uuid4()).replace('-', '')[0:20]
-        
-    #update_db(app, ["use wos;", "show tables"])
-    #exit(0)
+        w = load_config(args.webofscience)
+
+    app.config["wos_user"]   = args.name.replace(' ', '').lower()
+    app.config["wos_passwd"] = str(uuid.uuid4()).replace('-', '')[0:20]
+
     dyno = connect(app)
 
     user = find_user_role(app, dyno, args.user_id)
@@ -109,27 +125,31 @@ if __name__ == "__main__":
             print "Mismatch in Role : Arg:{0}  DB:{1}".format(args.role, user["role"])
             user["role"] = args.role
 
-        if args.webofscience:
+        if args.webofscience:            
             print "Updating wos username and passwd"
-            user["wos_user"]   = wos_user
-            user["wos_passwd"] = wos_passwd
+            user["wos_user"]   = app.config["wos_user"]
+            user["wos_passwd"] = app.config["wos_passwd"]
+            create_user(app)
 
         status = dyno.put_item(data=user, overwrite=True)
         print "Update user status : {0}".format(status)
         exit(0)
-        
-    user = {'user_id' : args.user_id,
-            'name'    : args.name,
-            'email'   : args.email,
-            'role'    : args.role}
 
-    if args.webofscience :
-        user['wos_user']   = wos_user
-        user['wos_passwd'] = wos_passwd
+    else:
+        # Creating new user:
+        user = {'user_id' : args.user_id,
+                'name'    : args.name,
+                'email'   : args.email,
+                'role'    : args.role}
 
-    verify_email_address(app, args.email)
-    status = dyno.put_item(data=user, overwrite=True)
-    print "Create user status : {0}".format(status)
+        if args.webofscience :        
+            user["wos_user"]   = app.config["wos_user"]
+            user["wos_passwd"] = app.config["wos_passwd"]
+            create_user(app)
+
+        verify_email_address(app, args.email)
+        status = dyno.put_item(data=user, overwrite=True)
+        print "Create user status : {0}".format(status)
 
     exit(0)
     

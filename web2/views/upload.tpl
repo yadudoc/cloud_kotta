@@ -3,7 +3,7 @@
   <h2>{{title}}</h2>
 </div>
 
-<p>You file will be uploaded and stored encrypted in your folder.</p>
+<p>Your file will be uploaded and stored encrypted in your folder.</p>
 <div class="form-wrapper">
 
      <!--
