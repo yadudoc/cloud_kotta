@@ -1,0 +1,422 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Submitting Jobs &mdash; Cloud Kotta beta documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Cloud Kotta beta documentation" href="../index.html"/>
+        <link rel="next" title="Publishing Jobs" href="publishing.html"/>
+        <link rel="prev" title="Data Management" href="data_management.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Cloud Kotta
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">User Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kotta_access.html">Cloud Kotta Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_management.html">Data Management</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Submitting Jobs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#defining-a-script-job">Defining a Script Job</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#job-name">Job Name</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#command">Command</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#script">Script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#filename-for-script">Filename for script</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inputs">Inputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#outputs">Outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#stdout-txt-and-stderr-txt">STDOUT.txt and STDERR.txt</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#walltime-in-minutes">Walltime in minutes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deployment-type">Deployment Type</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#testing-dev">Testing/Dev</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#production">Production</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#defining-a-doc2vec-job">Defining a Doc2Vec Job</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#document-file-url">Document file URL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#model-file-url">Model file URL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#parameters-file-url">Parameters file URL</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id1">Walltime in minutes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">Deployment Type</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="publishing.html">Publishing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bastion_access.html">Bastion Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Commandline Client for Cloud Kotta</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/license.html">License</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contact</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contact.html">Administrators</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Cloud Kotta</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Submitting Jobs</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/userguide/submitting_jobs.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="submitting-jobs">
+<h1>Submitting Jobs<a class="headerlink" href="#submitting-jobs" title="Permalink to this headline">¶</a></h1>
+<p>We refer to a complete description of the inputs, executable, outputs and the parameters within which execution must happen as a <strong>job</strong>.
+A script job is the most common type of job, which takes arbitrary code along with inputs and constraints. It is also possible to create
+templated jobs from common jobs with a fixed pattern of inputs, executables and outputs.</p>
+<div class="section" id="defining-a-script-job">
+<h2>Defining a Script Job<a class="headerlink" href="#defining-a-script-job" title="Permalink to this headline">¶</a></h2>
+<p>Here&#8217;s a snapshot of the Script job submission page:</p>
+<img alt="../_images/script_job.png" src="../_images/script_job.png" />
+<p>A script job is the simplest, yet most flexible job type that Cloud Kotta offers.
+Here are the different parameters that it provides.</p>
+<div class="section" id="job-name">
+<h3>Job Name<a class="headerlink" href="#job-name" title="Permalink to this headline">¶</a></h3>
+<p>This is simply a friendly name that could be used to identify the job. The submission system automatically issues
+a unique job id to every job, that is used internally, however is not human friendly.</p>
+</div>
+<div class="section" id="command">
+<span id="ref-command"></span><h3>Command<a class="headerlink" href="#command" title="Permalink to this headline">¶</a></h3>
+<p>This is the command that is issued on a remote machine to start the execution.
+When this command is executed here are some things to keep in mind:
+* The executable is invoked on a Ubuntu 14.04 machine (Linux).
+* The command is being executed in a remote system with superuser privileges</p>
+<blockquote>
+<div><ul class="simple">
+<li>This implies that you are allowed to install packages</li>
+</ul>
+</div></blockquote>
+<ul class="simple">
+<li>Always assume that your job is going to execute on a fresh machine. Do not assume to have applications installed by a previous job to be available.</li>
+<li>Avoid installing or leaving data in folders outside the current working directory (CWD) (This is important for the cleanup step).</li>
+<li>You can assume that the input files you specify in <cite>Inputs</cite> will be in your current working directory provided you have privileges to access them and that they exist.</li>
+</ul>
+</div>
+<div class="section" id="script">
+<span id="ref-script"></span><h3>Script<a class="headerlink" href="#script" title="Permalink to this headline">¶</a></h3>
+<p>This is the crux of the Job. Here&#8217;s where you generally write quick scripts, or in case of large pipelines, write a wrapper
+for the code that you will call. Any arbitrary code could be specified here, and we have had cases with python, bash, julia,
+perl, and wrappers that in turn compiled and ran c/c++ codes.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Go to the #cloudkotta channel for specific examples.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Git is installed on the compute nodes. It is common to clone code public repositories for large applications, which allows easy
+maintenance of large code bases separate from the job execution system.</p>
+</div>
+</div>
+<div class="section" id="filename-for-script">
+<h3>Filename for script<a class="headerlink" href="#filename-for-script" title="Permalink to this headline">¶</a></h3>
+<p>This is the filename underwhich the body of the script defined in the previous <a class="reference internal" href="#ref-script"><span class="std std-ref">Script</span></a> section is written
+to within the current working directory on the compute node. This is useful to manage extensions of say, python .py file vs a shell script with .sh extension.
+In addition naming the script file makes it easy to be invoked by the <a class="reference internal" href="#ref-command"><span class="std std-ref">Command</span></a>.</p>
+</div>
+<div class="section" id="inputs">
+<span id="ref-inputs"></span><h3>Inputs<a class="headerlink" href="#inputs" title="Permalink to this headline">¶</a></h3>
+<p>This field accepts a comma separated list of URLs of the following types:</p>
+<ul class="simple">
+<li>HTTP urls for resources hosted anywhere</li>
+<li>S3 urls which start with s3:// prefix to resources on internal buckets.</li>
+<li>HTTPs urls to S3 resources of the form :
+<a class="reference external" href="https://s3">https://s3</a>.&lt;region&gt;.amazonaws.com/&lt;bucket&gt;/&lt;path_to_object&gt;</li>
+</ul>
+<p>In order to access objects in S3 storage, the user must have sufficient access privileges.
+If you the requisite permissions and the remote resources are reachable they will be downloaded
+to the current working directory on a compute node. This is the same directory within which the
+<cite>Command</cite> will be executed.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If a resource in the comma separated list could not be reached, the system will <strong>not</strong> emit
+an error. You have to explicitly check for missing files.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If you require access to Protected data-sets please contact the system administrators.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It is common to get large packages (eg tarballs of virtual-env for python) to the CWD via <cite>Inputs</cite></p>
+</div>
+</div>
+<div class="section" id="outputs">
+<h3>Outputs<a class="headerlink" href="#outputs" title="Permalink to this headline">¶</a></h3>
+<p>This field accepts a comma separated list of files that you wish to be retrieved from the compute node
+at the end of the Job. The files that are retrieved are hosted on S3, and are server-side encrypted.
+The jobs pages will provide signed URLs that are valid for 1 hour that allows you to either view, download,
+or share (for a limited time as the URL expires) the output files.</p>
+<p>The filename could also be files listed below directories in the current working directory of the Job.</p>
+</div>
+<div class="section" id="stdout-txt-and-stderr-txt">
+<h3>STDOUT.txt and STDERR.txt<a class="headerlink" href="#stdout-txt-and-stderr-txt" title="Permalink to this headline">¶</a></h3>
+<p>These are default outputs that are created for logging the output streams from the Job. The STDOUT stream is logged to STDOUT.txt and similarly STDERR to STDERR.txt.
+These defaults are in place to aid debugging.</p>
+</div>
+<div class="section" id="walltime-in-minutes">
+<h3>Walltime in minutes<a class="headerlink" href="#walltime-in-minutes" title="Permalink to this headline">¶</a></h3>
+<p>This is a required field, that allows the user to set an upperbound on the amount of time that the Job is allowed to run.
+If the job exceeds the walltime, it is terminated and the Job will show an ERROR_CODE:1001.
+In the event of an early termination of a instance, the job is automatically resubmitted for re-execution and the job is
+again allotted the same walltime.</p>
+</div>
+<div class="section" id="deployment-type">
+<span id="ref-deployment-type"></span><h3>Deployment Type<a class="headerlink" href="#deployment-type" title="Permalink to this headline">¶</a></h3>
+<p>This is a required field that requires the user to choose from a dropdown of Deployment types.
+Cloud Kotta currently supports two deployment types:</p>
+<div class="section" id="testing-dev">
+<h4>Testing/Dev<a class="headerlink" href="#testing-dev" title="Permalink to this headline">¶</a></h4>
+<p>This deployment type is suited for short (under .5 hour) tasks that require limted CPU and memory resources.
+The Testing pool is a scalable pool of upto 10 <a class="reference external" href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/t2-instances.html">t2.small</a> instances.
+The max wait time when the pool is not at full load is under 4 minutes.</p>
+</div>
+<div class="section" id="production">
+<h4>Production<a class="headerlink" href="#production" title="Permalink to this headline">¶</a></h4>
+<p>This deployment type is suited for long running tasks that have large CPU and/or memory requirements.
+The production pool supports upto 100 instances of generally <a class="reference external" href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/t2-instances.html">r3.8xlarge</a> instances which
+come with 32 virtual CPUs and 244GB of RAM. These machines also have 2x320 GB of SSD storage on node.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Ask on the #cloudkotta channel if you are unsure about the deployment type, or if you have a specific instance type requirement.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Please post a note on the #cloudkotta channel before launching production jobs that take up more than 10 production instances for more than 2 hours.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="defining-a-doc2vec-job">
+<h2>Defining a Doc2Vec Job<a class="headerlink" href="#defining-a-doc2vec-job" title="Permalink to this headline">¶</a></h2>
+<p>Doc2Vec is a packaged application, based on <a class="reference external" href="https://radimrehurek.com/gensim/models/doc2vec.html">Doc2Vec</a> from the python GenSim package.
+Here&#8217;s a snapshot of the Doc_to_Vec job submission page:</p>
+<img alt="../_images/doc_to_vec.png" src="../_images/doc_to_vec.png" />
+<div class="section" id="document-file-url">
+<h3>Document file URL<a class="headerlink" href="#document-file-url" title="Permalink to this headline">¶</a></h3>
+<p>This is a required field. It takes a csv file with the format :</p>
+<div class="highlight-xml"><div class="highlight"><pre><span></span>&lt;Doc_id_1&gt;,&lt;document text&gt;
+..
+&lt;Doc_id_N&gt;,&lt;document text&gt;
+</pre></div>
+</div>
+</div>
+<div class="section" id="model-file-url">
+<h3>Model file URL<a class="headerlink" href="#model-file-url" title="Permalink to this headline">¶</a></h3>
+<p>This is an optional field. This is only used when a large Doc2Vec task is run in a distributed manner.
+In order to run Doc2Vec in distributed mode, initially a model is created by taking a single pass across
+the corpus to generate word and document matrices that are in the pickled model file. Following this, we
+run multiple independent jobs on slices of the corpus where word vectors are projected into this same high-dimensional space.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Contact &#64;bartleyn for info on this.</p>
+</div>
+</div>
+<div class="section" id="parameters-file-url">
+<h3>Parameters file URL<a class="headerlink" href="#parameters-file-url" title="Permalink to this headline">¶</a></h3>
+<p>Optional field. This is a URL to a json document that defines the parameters to pass to the Doc2vec run.</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span> <span class="nt">&quot;epochs&quot;</span>    <span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+  <span class="nt">&quot;min_count&quot;</span> <span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="nt">&quot;window&quot;</span>    <span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+  <span class="nt">&quot;seed&quot;</span>      <span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="nt">&quot;size&quot;</span><span class="p">:</span> <span class="mi">100</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id1">
+<h3>Walltime in minutes<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>This is a required field, that allows the user to set an upperbound on the amount of time that the Job is allowed to run.
+If the job exceeds the walltime, it is terminated and the Job will show an ERROR_CODE:1001.
+In the event of an early termination of a instance, the job is automatically resubmitted for re-execution and the job is
+again allotted the same walltime.</p>
+</div>
+<div class="section" id="id2">
+<h3>Deployment Type<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Please refer to <a class="reference internal" href="#ref-deployment-type"><span class="std std-ref">Deployment Type</span></a></p>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="publishing.html" class="btn btn-neutral float-right" title="Publishing Jobs" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="data_management.html" class="btn btn-neutral" title="Data Management" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Knowledge Lab, University of Chicago.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'beta',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,391 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Commandline Client for Cloud Kotta &mdash; Cloud Kotta beta documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Cloud Kotta beta documentation" href="../index.html"/>
+        <link rel="next" title="Overview" href="../devguide/overview.html"/>
+        <link rel="prev" title="Bastion Access" href="bastion_access.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Cloud Kotta
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">User Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kotta_access.html">Cloud Kotta Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_management.html">Data Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="submitting_jobs.html">Submitting Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="publishing.html">Publishing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bastion_access.html">Bastion Access</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Commandline Client for Cloud Kotta</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#authenticating">Authenticating</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#requests">Requests</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submit">Submit</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#status">Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fetch">Fetch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#list">List</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/license.html">License</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contact</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contact.html">Administrators</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Cloud Kotta</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Commandline Client for Cloud Kotta</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/userguide/cli.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="commandline-client-for-cloud-kotta">
+<h1>Commandline Client for Cloud Kotta<a class="headerlink" href="#commandline-client-for-cloud-kotta" title="Permalink to this headline">¶</a></h1>
+<p>While the CLI tools currently work from outside the Cloud Kotta network, they will be locked down to
+work only from the bastion host in the near future. Please keep this mind to avoid disruptions to your
+workflow.</p>
+<div class="section" id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<p>To set up the Command line client for Cloud Kotta follow these steps:</p>
+<ol class="arabic">
+<li><p class="first">The CLI client requires Python2.7 and the python <a class="reference external" href="http://docs.python-requests.org/en/master/">Requests library</a></p>
+<ul class="simple">
+<li>Follow instructions <a class="reference external" href="http://docs.python-requests.org/en/master/user/install/#install">here</a> to install the Requests library.</li>
+</ul>
+</li>
+<li><p class="first">Clone the TuringClient github repository:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone https://github.com/yadudoc/TuringClient.git
+</pre></div>
+</div>
+</li>
+<li><p class="first">Follow steps in <a class="reference internal" href="#ref-auth"><span class="std std-ref">Authenticating</span></a> to get an auth token.</p>
+</li>
+<li><p class="first">Submit a simple <em>hello world</em> job</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> TuringClient
+<span class="c1"># Edit generic_echo.json with your email address.</span>
+$ cat generic_echo.json
+<span class="o">{</span> <span class="s2">&quot;user_email&quot;</span>         : <span class="s2">&quot;&lt;YOUR EMAIL&gt;&quot;</span>,
+  <span class="s2">&quot;executable&quot;</span>         : <span class="s2">&quot;/bin/echo &#39;Hello World!&#39;&quot;</span>,
+  <span class="s2">&quot;queue&quot;</span>              : <span class="s2">&quot;Test&quot;</span>,
+  <span class="s2">&quot;script_name&quot;</span>        : <span class="s2">&quot;none.sh&quot;</span>,
+  <span class="s2">&quot;script&quot;</span>             : <span class="s2">&quot;&quot;</span>,
+  <span class="s2">&quot;jobtype&quot;</span>            : <span class="s2">&quot;script&quot;</span>,
+  <span class="s2">&quot;output_file_stdout&quot;</span> : <span class="s2">&quot;STDOUT.txt&quot;</span>,
+  <span class="s2">&quot;output_file_stderr&quot;</span> : <span class="s2">&quot;STDERR.txt&quot;</span>,
+  <span class="s2">&quot;outputs&quot;</span>            : <span class="s2">&quot;foo.txt&quot;</span>,
+  <span class="s2">&quot;walltime&quot;</span>           : <span class="s2">&quot;5&quot;</span>
+<span class="o">}</span>
+$ ./client.py -r submit -a ./auth.info -j generic_echo.json
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="authenticating">
+<span id="ref-auth"></span><h2>Authenticating<a class="headerlink" href="#authenticating" title="Permalink to this headline">¶</a></h2>
+<p>With the security constraints associated with the data stored on the various storage systems, the REST
+client requires you to have a valid access_token from logging in with amazon stored in a file. These
+tokens generally expire in 1 hour. You can always do a relogin on turingcompute to get a URL with a
+valid access_token. However this does limit scriptability/automation.</p>
+<p>Here are the steps to get this temporary access_token:</p>
+<ol class="arabic simple">
+<li>Go to <a class="reference external" href="https://turingcompute.net/login">Cloud Kotta</a></li>
+<li>Click Login with Amazon button, and login using credentials that have been registered with Cloud Kotta
+which will take you to the Login Success page.</li>
+<li>Copy the complete url from your address bar from the Login Success page to a file.</li>
+<li>Specify this file using the -a or &#8211;auth flag to the client when making requests that require user authentication.</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>The tokens issued by AWS last only for an hour.</p>
+<ul class="last simple">
+<li>One potential solution to getting long living tokens is to use the <a class="reference external" href="https://developer.amazon.com/public/apis/engage/login-with-amazon/docs/authorization_grants.html">authorization code grant method</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="requests">
+<h2>Requests<a class="headerlink" href="#requests" title="Permalink to this headline">¶</a></h2>
+<p>These are the different requests that are supported by the REST client:</p>
+<ul class="simple">
+<li><strong>submit</strong> : Submit a job (auth required)</li>
+<li><strong>status</strong> : Get the status and attributes of a specific job</li>
+<li><strong>fetch</strong>  : Get all outputs generated by a job</li>
+<li><strong>list</strong>   : List all jobs that have been submitted by the user (auth required)</li>
+<li><strong>cancel</strong> : Cancel a job (auth required, pending implementation)</li>
+</ul>
+<p>Here is a brief description of each of these different requests:</p>
+<div class="section" id="submit">
+<h3>Submit<a class="headerlink" href="#submit" title="Permalink to this headline">¶</a></h3>
+<p>To submit a job you must have a fresh auth token (less than an hour old) and a description of your
+job in JSON. The JSON description is simple and captures the executable, inputs and outputs.
+Inputs can be provided as a comma separated string in which each input is a URL. The URLs can
+be http urls or S3 urls.</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span><span class="p">{</span>
+ <span class="nt">&quot;user_email&quot;</span>         <span class="p">:</span> <span class="s2">&quot;&lt;EMAIL_ADDRESS_REGISTERED_WITH_TURING&gt;&quot;</span><span class="p">,</span>
+ <span class="nt">&quot;executable&quot;</span>         <span class="p">:</span> <span class="s2">&quot;/bin/bash test.sh&quot;</span><span class="p">,</span>
+ <span class="nt">&quot;queue&quot;</span>              <span class="p">:</span> <span class="s2">&quot;Test&quot;</span><span class="p">,</span>
+ <span class="nt">&quot;script_name&quot;</span>        <span class="p">:</span> <span class="s2">&quot;test.sh&quot;</span><span class="p">,</span>
+ <span class="nt">&quot;script&quot;</span>             <span class="p">:</span> <span class="s2">&quot;#!/bin/bash \n echo &#39;Hello World&#39; &amp;&gt; foo.txt &quot;</span><span class="p">,</span>
+ <span class="nt">&quot;jobtype&quot;</span>            <span class="p">:</span> <span class="s2">&quot;script&quot;</span><span class="p">,</span>
+ <span class="nt">&quot;output_file_stdout&quot;</span> <span class="p">:</span> <span class="s2">&quot;STDOUT.txt&quot;</span><span class="p">,</span>
+ <span class="nt">&quot;output_file_stderr&quot;</span> <span class="p">:</span> <span class="s2">&quot;STDERR.txt&quot;</span><span class="p">,</span>
+ <span class="nt">&quot;outputs&quot;</span>            <span class="p">:</span> <span class="s2">&quot;foo.txt&quot;</span><span class="p">,</span>
+ <span class="nt">&quot;walltime&quot;</span>           <span class="p">:</span> <span class="s2">&quot;5&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>[TODO] Add notes on Input URLS.</li>
+</ul>
+<p>Here&#8217;s how you would submit a job that you&#8217;ve described in json</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ ./client.py -r submit -a ./auth.info -j &lt;job_description.json&gt;
+<span class="c1"># Sample output:</span>
+<span class="o">[</span>Success<span class="o">]</span> Job_id: dds3a31e-24de-44f0-1629-040e3330eb33
+</pre></div>
+</div>
+</div>
+<div class="section" id="status">
+<h3>Status<a class="headerlink" href="#status" title="Permalink to this headline">¶</a></h3>
+<p>Each job that has been submitted successfully has a job_id associated with it
+and you can use the job_id to request the status and attributes of any job.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ ./client.py -r status -j dad3a7ae-91de-4af0-9a69-NOT-VALID
+queue                 <span class="p">|</span> Test
+submit_stamp          <span class="p">|</span> 2016-03-11 18:27:24
+submit_time           <span class="p">|</span> 2016-03-11 18:27:24
+status                <span class="p">|</span> completed
+user_email            <span class="p">|</span> yadunand@uchicago.edu
+z_processing_dur      <span class="p">|</span> 1.00426697731
+walltime              <span class="p">|</span> 300
+jobtype               <span class="p">|</span> script
+z_stageout_dur        <span class="p">|</span> 0.115742921829
+username              <span class="p">|</span> Yadu Nand B
+job_id                <span class="p">|</span> dad3a7ae-91de-4af0-9a69-NOT-VALID
+executable            <span class="p">|</span> /bin/echo test.sh
+z_stagein_dur         <span class="p">|</span> 0.134030103683
+complete_time         <span class="p">|</span> 2016-03-11 18:27:58
+outputs               <span class="p">|</span> foo.txt
+outputs               <span class="p">|</span> test.sh
+outputs               <span class="p">|</span> STDOUT.txt
+outputs               <span class="p">|</span> STDERR.txt
+completed
+</pre></div>
+</div>
+</div>
+<div class="section" id="fetch">
+<h3>Fetch<a class="headerlink" href="#fetch" title="Permalink to this headline">¶</a></h3>
+<p>In order to fetch all the outputs that have been generated by your job, you can
+use the fetch request that will download all the results</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ ./client.py -r fetch -a auth.info -j dad3a7ae-91de-4af0-9a69-0c40ee00ebf1
+Creating directory : dad3a7ae-91de-4af0-9a69-0c40ee00ebf1
+File not available : foo.txt
+Downloading file   : dad3a7ae-91de-4af0-9a69-0c40ee00ebf1/test.sh
+Downloading file   : dad3a7ae-91de-4af0-9a69-0c40ee00ebf1/STDOUT.txt
+Downloading file   : dad3a7ae-91de-4af0-9a69-0c40ee00ebf1/STDERR.txt
+</pre></div>
+</div>
+</div>
+<div class="section" id="list">
+<h3>List<a class="headerlink" href="#list" title="Permalink to this headline">¶</a></h3>
+<p>To list all jobs you have submitted you can use the list request. Please note
+that you need the auth file to make this request. Since no job_id is not meaningful
+here use &#8220;all&#8221;.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ ./client.py -r list -a auth.info -j all
+JOBID                                   <span class="p">|</span>STATUS         <span class="p">|</span>JOBTYPE   <span class="p">|</span>SUBMIT_STAMP
+cf81ba18-cc41-11e5-a3b8-12d73991dalk    <span class="p">|</span>pending        <span class="p">|</span>script    <span class="p">|</span>2016-02-05 19:51:13
+b352e7b2-cad0-11e5-a3b8-12dassa73add    <span class="p">|</span>active         <span class="p">|</span>script    <span class="p">|</span>2016-02-03 23:49:01
+3c747e80-cc42-11e5-a3b8-12d73asss212    <span class="p">|</span>completed      <span class="p">|</span>script    <span class="p">|</span>2016-02-05 19:54:15
+eac59818-cbcd-11e5-a3b8-12d7112as3k7    <span class="p">|</span>completed      <span class="p">|</span>script    <span class="p">|</span>2016-02-05 06:01:37
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../devguide/overview.html" class="btn btn-neutral float-right" title="Overview" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="bastion_access.html" class="btn btn-neutral" title="Bastion Access" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Knowledge Lab, University of Chicago.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'beta',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
