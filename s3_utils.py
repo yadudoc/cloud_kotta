@@ -189,13 +189,8 @@ if __name__ == "__main__":
     app = cm.load_configs("production.conf")
     import sts
     import s3_utils as s3
+    rolestring  = '' # Left out due to security concerns
 
-    bucket="klab-jobs"
-    key="uploads/amzn1.account.AEKWXVYINCBBNY5MPRMOYND6CWWA/LDRD_virtualenv.tar.gz"
-    update_object(app, bucket, key)
-    
-    exit(0)
-    rolestring  = 'arn:aws:iam::968994658855:role/wos_read_access' # Left out due to security concerns
     if not rolestring :
         print "Fill out rolestring to continue tests"
 
