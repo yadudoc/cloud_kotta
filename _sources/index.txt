@@ -41,7 +41,11 @@ The code and the Cloudformation templates used to build the Infrastructure on AW
    :maxdepth: 3
    :caption: Dataset Catalog
 
-   dataguide/WebOfScience
+   dataguide/wos
+   dataguide/wiki
+   dataguide/aura
+   dataguide/ieee
+
 
 .. toctree::
    :maxdepth: 2
