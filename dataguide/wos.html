@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Contributing &mdash; Cloud Kotta beta documentation</title>
+  <title>Web Of Science (WoS) &mdash; Cloud Kotta beta documentation</title>
   
 
   
@@ -36,8 +36,8 @@
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Cloud Kotta beta documentation" href="../index.html"/>
-        <link rel="next" title="License" href="license.html"/>
-        <link rel="prev" title="Overview" href="overview.html"/> 
+        <link rel="next" title="Wikipedia" href="wiki.html"/>
+        <link rel="prev" title="License" href="../devguide/license.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -98,17 +98,23 @@
 <li class="toctree-l1"><a class="reference internal" href="../userguide/cli.html">Commandline Client for Cloud Kotta</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Developer Documentation</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Contributing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/license.html">License</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Dataset Catalog</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../dataguide/wos.html">Web Of Science (WoS)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../dataguide/wiki.html">Wikipedia</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../dataguide/aura.html">UChicago AURA</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../dataguide/ieee.html">IEEE full text</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Web Of Science (WoS)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#storage-bucket">Storage bucket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#permissions">Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#processed-intermediates">Processed intermediates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wiki.html">Wikipedia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aura.html">UChicago AURA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ieee.html">IEEE full text</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contact</span></p>
 <ul>
@@ -143,11 +149,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-    <li>Contributing</li>
+    <li>Web Of Science (WoS)</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/devguide/contributing.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/dataguide/wos.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -157,10 +163,39 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="contributing">
-<h1>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h1>
-<p>Cloud Kotta is entirely open source and contribution are welcome.
-All the code is hosted currently at <a class="reference external" href="https://github.com/yadudoc/cloud_kotta">https://github.com/yadudoc/cloud_kotta</a> and is freely available.</p>
+  <div class="section" id="web-of-science-wos">
+<h1>Web Of Science (WoS)<a class="headerlink" href="#web-of-science-wos" title="Permalink to this headline">¶</a></h1>
+<p>The Knowledge Lab has licensed the Thomson Reuters&#8217; Web Of Science XML data for access to lab members as well as collaborators within the <a class="reference external" href="http://www.knowledgelab.org/people/researchers/">MetaKnowlege network</a>. We maintain the raw XML data as well as a curated relational MySQL compatible database for different modes of analyses.</p>
+<div class="section" id="storage-bucket">
+<h2>Storage bucket<a class="headerlink" href="#storage-bucket" title="Permalink to this headline">¶</a></h2>
+<p>The data is currently stored on two systems:</p>
+<ol class="arabic simple">
+<li>Complete dataset on S3 Storage : s3://klab-webofscience</li>
+<li>Sample dataset on S3 Storage   : s3://klab-webofscience-sample</li>
+<li>AWS Mysql compatible database  : wos.cluster-cvirc91pe37a.us-east-1.rds.amazonaws.com</li>
+</ol>
+</div>
+<div class="section" id="permissions">
+<h2>Permissions<a class="headerlink" href="#permissions" title="Permalink to this headline">¶</a></h2>
+<p>The data is secured within the Cloud Kotta secure data enclave and is only accessible from within the network. For access privileges please contact the <a class="reference internal" href="../contact.html#ref-admins"><span class="std std-ref">Administrators</span></a> for access.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Even derivatives from this dataset could be considered sensitive. So users are adviced to confirm with the <a class="reference internal" href="../contact.html#ref-admins"><span class="std std-ref">Administrators</span></a> before publishing jobs that have derivatives in the output set.</p>
+</div>
+</div>
+<div class="section" id="processed-intermediates">
+<h2>Processed intermediates<a class="headerlink" href="#processed-intermediates" title="Permalink to this headline">¶</a></h2>
+<p>None that are public.</p>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>Here are some jobs that use the the Web of Science datasets:</p>
+<ol class="arabic simple">
+<li><a class="reference external" href="https://turingcompute.net/jobs/0872b9d1-38cb-413c-a5d3-8a9a9a2de818">Article Influence</a></li>
+<li><a class="reference external" href="https://turingcompute.net/jobs/0e860e0a-c68c-4c76-822d-a79c06c0c466">Compute Eigenfactor</a></li>
+<li><a class="reference external" href="https://turingcompute.net/jobs/26648db6-d073-46ef-aa03-2e0bd05e57b4">WoS Schema dump</a></li>
+</ol>
+</div>
 </div>
 
 
@@ -170,10 +205,10 @@ All the code is hosted currently at <a class="reference external" href="https://
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="license.html" class="btn btn-neutral float-right" title="License" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="wiki.html" class="btn btn-neutral float-right" title="Wikipedia" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="overview.html" class="btn btn-neutral" title="Overview" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../devguide/license.html" class="btn btn-neutral" title="License" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

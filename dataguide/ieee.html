@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Overview &mdash; Cloud Kotta beta documentation</title>
+  <title>IEEE full text &mdash; Cloud Kotta beta documentation</title>
   
 
   
@@ -36,8 +36,8 @@
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Cloud Kotta beta documentation" href="../index.html"/>
-        <link rel="next" title="Cloud Kotta Access" href="kotta_access.html"/>
-        <link rel="prev" title="Cloud Kotta Documentation" href="../index.html"/> 
+        <link rel="next" title="Administrators" href="../contact.html"/>
+        <link rel="prev" title="UChicago AURA" href="aura.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -87,15 +87,15 @@
             
             
                 <p class="caption"><span class="caption-text">User Documentation</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Overview</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kotta_access.html">Cloud Kotta Access</a></li>
-<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data_management.html">Data Management</a></li>
-<li class="toctree-l1"><a class="reference internal" href="submitting_jobs.html">Submitting Jobs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="publishing.html">Publishing Jobs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="bastion_access.html">Bastion Access</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cli.html">Commandline Client for Cloud Kotta</a></li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/kotta_access.html">Cloud Kotta Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/data_management.html">Data Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/submitting_jobs.html">Submitting Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/publishing.html">Publishing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/bastion_access.html">Bastion Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/cli.html">Commandline Client for Cloud Kotta</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Developer Documentation</span></p>
 <ul>
@@ -104,11 +104,16 @@
 <li class="toctree-l1"><a class="reference internal" href="../devguide/license.html">License</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Dataset Catalog</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../dataguide/wos.html">Web Of Science (WoS)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../dataguide/wiki.html">Wikipedia</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../dataguide/aura.html">UChicago AURA</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../dataguide/ieee.html">IEEE full text</a></li>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="wos.html">Web Of Science (WoS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wiki.html">Wikipedia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aura.html">UChicago AURA</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">IEEE full text</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#storage-bucket">Storage bucket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#permissions">Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#processed-intermediates">Processed intermediates</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">Contact</span></p>
 <ul>
@@ -143,11 +148,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-    <li>Overview</li>
+    <li>IEEE full text</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/userguide/overview.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/dataguide/ieee.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -157,23 +162,22 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="overview">
-<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
-<p>Cloud Kotta is a integrated solution for delivering web scale compute on data is a secure fashion.
-The infrastructure components that provide compute-nodes, storage-disks, databases etc are provided by Amazon Web Services,
-whereas a software and security layer built over these services create a simple, scalable computing solution.
-Cloud Kotta is this meta description of infrastructure that can be used to create an on-demand virtual datacenter on AWS.</p>
-<p>A particular instance of Cloud Kotta is hosted by the <a class="reference external" href="http://www.knowledgelab.org/">KnowledgeLab</a> at the <a class="reference external" href="https://www.ci.uchicago.edu/">Computation Institute</a>.
-This instance is available currently at <a class="reference external" href="https://turingcompute.net">https://turingcompute.net</a>.</p>
-<p>Cloud Kotta primarily is a job execution system with interfaces that are reminescent of traditional cluster management systems such as Slurm, Condor etc.
-The user is able to submit, monitor and terminate jobs. An instance of Cloud Kotta in addition to these offer long term storage of all results and complete
-provenance of jobs executed.</p>
-<p>There are three interfaces through which a user interacts with the system:</p>
-<ol class="arabic simple">
-<li>The Web UI (in our case, available over <a class="reference external" href="https://turingcompute.net">https://turingcompute.net</a>)</li>
-<li>A Commandline interface</li>
-<li>A REST interface</li>
-</ol>
+  <div class="section" id="ieee-full-text">
+<h1>IEEE full text<a class="headerlink" href="#ieee-full-text" title="Permalink to this headline">¶</a></h1>
+<p>IEEE full text data is downloaded periodically onto Klabswing on weekends and is pushed to S3 storage on a 6month basis.
+This dataset is approximately 5.5TB as of Oct 2016.</p>
+<div class="section" id="storage-bucket">
+<h2>Storage bucket<a class="headerlink" href="#storage-bucket" title="Permalink to this headline">¶</a></h2>
+<p>The data is currently stored on S3 Storage : s3://klabieee</p>
+</div>
+<div class="section" id="permissions">
+<h2>Permissions<a class="headerlink" href="#permissions" title="Permalink to this headline">¶</a></h2>
+<p>This data is only accessible from within the network and by users with the requisite access privileges.</p>
+</div>
+<div class="section" id="processed-intermediates">
+<h2>Processed intermediates<a class="headerlink" href="#processed-intermediates" title="Permalink to this headline">¶</a></h2>
+<p>This data has seen very little use so far. No intermediate datasets so far despite the vast and rich nature of this dataset.</p>
+</div>
 </div>
 
 
@@ -183,10 +187,10 @@ provenance of jobs executed.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="kotta_access.html" class="btn btn-neutral float-right" title="Cloud Kotta Access" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../contact.html" class="btn btn-neutral float-right" title="Administrators" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../index.html" class="btn btn-neutral" title="Cloud Kotta Documentation" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="aura.html" class="btn btn-neutral" title="UChicago AURA" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

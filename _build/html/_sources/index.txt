@@ -16,7 +16,7 @@ The code and the Cloudformation templates used to build the Infrastructure on AW
    :maxdepth: 3
    :caption: User Documentation
 
-   userguide/overview   
+   userguide/overview
    userguide/kotta_access
    userguide/getting_started
    userguide/data_management
@@ -24,7 +24,6 @@ The code and the Cloudformation templates used to build the Infrastructure on AW
    userguide/publishing
    userguide/bastion_access
    userguide/cli
-	     
 
 .. _dev_docs:
 
@@ -35,6 +34,17 @@ The code and the Cloudformation templates used to build the Infrastructure on AW
    devguide/overview
    devguide/contributing
    devguide/license
+
+.. _data_docs:
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Dataset Catalog
+
+   dataguide/wos
+   dataguide/wiki
+   dataguide/aura
+   dataguide/ieee
 
 
 .. toctree::
