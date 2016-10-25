@@ -9,7 +9,7 @@ and must be setup manually.
 *Use at your own risk*
 
 While a single instance of this setup has seen several thousands of jobs and 75000+ core hours of usage,
-deployments have not been exercized very much due. Please contact <yadunand[at]uchicago[dot]edu> for help
+deployments have not been exercized very much due. Please contact yadunand(at)uchicago(dot)edu for help
 if you run into any issues.
 
 ## Documentation
