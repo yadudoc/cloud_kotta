@@ -431,8 +431,10 @@ def job_cancel(job_id):
         item["cancel_time"] = tstamp
         dynamodb_update(dyntable, item)
 
-    except ItemNotFound:
-        return "The requested job_id was not found in the jobs database"
+    except boto.dynamodb2.exceptions.ItemNotFound:
+        return template("./views/error.tpl",
+                        session=session,
+                        error_str="The requested job_id was not found in the jobs database")
 
     redirect('/jobs/' + job_id)
 
