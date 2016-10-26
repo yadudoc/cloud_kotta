@@ -1,0 +1,2204 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Parameters": {
+    "ProdInstanceType": {
+      "Type": "String",
+      "Default": "m4.xlarge",
+      "AllowedValues": [
+        "m4.xlarge",
+        "m4.4xlarge",
+        "c3.8xlarge",
+        "cc2.8xlarge",
+        "i2.8xlarge",
+        "r3.2xlarge",
+        "r3.8xlarge"
+      ],
+      "Description": "Instance type for Production Pool [Default:m4.xlarge]"
+    },
+    "TestInstanceType": {
+      "Type": "String",
+      "Default": "t2.small",
+      "AllowedValues": [
+        "t2.medium",
+        "t2.large",
+        "t2.small"
+      ],
+      "Description": "Instance type for Test/Dev Pool [Default:t2.small]"
+    },
+    "ProdSpotPrice": {
+      "Type": "String",
+      "Default": "1.00",
+      "Description": "Bid price for Production spot instances [Default: $1.00]"
+    },
+    "WebCertARN": {
+      "Type": "String",
+      "Default": "arn:aws:acm:us-east-1:968994658855:certificate/e97ea402-5f9c-42df-ad0c-f7b81694c506",
+      "Description": "SSL Certificate ARN from AWS Certificate manager"
+    },
+    "ProtectedBucketName": {
+      "Type": "String",
+      "Default": "klab-webofscience",
+      "Description": "Bucket designated to Protected data from Web Of Science"
+    },
+    "MaxProdInstances": {
+      "Type": "Number",
+      "Default": "10",
+      "Description": "Maximum Number of Production Instances"
+    },
+    "MinProdInstances": {
+      "Type": "Number",
+      "Default": "0",
+      "Description": "Minimum Number of Production Instances"
+    },
+    "MaxTestInstances": {
+      "Type": "Number",
+      "Default": "10",
+      "Description": "Maximum Number of Test/Dev Instances"
+    },
+    "MinTestInstances": {
+      "Type": "Number",
+      "Default": "1",
+      "Description": "Minimum Number of Test/Dev Instances"
+    },
+    "EIPAllocationIdWebServer": {
+      "Type": "String",
+      "Description": "ElasticIP Allocation-ID for WebServer"
+    },
+    "EIPAllocationIdBastionHost": {
+      "Type": "String",
+      "Description": "ElasticIP Allocation-ID for BastionHost"
+    },
+    "KeyName": {
+      "Description": "Name of SSH key to link",
+      "Type": "AWS::EC2::KeyPair::KeyName"
+    }
+  },
+  "Outputs": {
+    "PublicWebServerIpAddress": {
+      "Description": "Public WebServer",
+      "Value": {
+        "Fn::GetAtt": [
+          "WebServer",
+          "PublicIp"
+        ]
+      }
+    }
+  },
+  "Mappings": {
+    "RegionToAmi": {
+      "us-east-1": {
+        "comment": "N.Virginia",
+        "stableUbuntu": "ami-d05e75b8",
+        "word2vec": "ami-02bef168",
+        "word2vecPrev": "ami-cbe9aca1"
+      },
+      "us-west-2": {
+        "comment": "Oregon",
+        "stableUbuntu": "ami-5189a661",
+        "word2vec": "ami-8a0010eb"
+      }
+    }
+  },
+  "Metadata": {
+    "AWS::CloudFormation::Designer": {
+      "89e886b9-5358-4326-becb-3e21edef6110": {
+        "size": {
+          "width": 580,
+          "height": 430
+        },
+        "position": {
+          "x": 410,
+          "y": -130
+        },
+        "z": 0,
+        "embeds": [
+          "a6aa9095-e802-4658-9a1b-84b5e7cf382d",
+          "b4bd8791-bb7b-43d6-957b-8548c56a3abb",
+          "66357614-f8f2-4a35-9610-c1bc9b654cdb",
+          "b4bcc9c9-9472-4260-9d6d-b01369311122",
+          "514c029f-b0a4-4240-9602-c733f855c84b"
+        ]
+      },
+      "b4bcc9c9-9472-4260-9d6d-b01369311122": {
+        "size": {
+          "width": 450,
+          "height": 100
+        },
+        "position": {
+          "x": 490,
+          "y": 10
+        },
+        "z": 1,
+        "parent": "89e886b9-5358-4326-becb-3e21edef6110",
+        "embeds": [
+          "aa946222-9de1-48c2-b18d-12e105ec36c8",
+          "bc18470d-4723-4c35-a2d9-2593c8f43880"
+        ]
+      },
+      "2ec5e9ca-5e17-4454-b212-61307d7be92c": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 780,
+          "y": -210
+        },
+        "z": 0,
+        "embeds": []
+      },
+      "6581e1fc-9d5b-4a0d-8f88-e6efdaa87a4a": {
+        "source": {
+          "id": "2ec5e9ca-5e17-4454-b212-61307d7be92c"
+        },
+        "target": {
+          "id": "89e886b9-5358-4326-becb-3e21edef6110"
+        },
+        "z": 0
+      },
+      "b4bd8791-bb7b-43d6-957b-8548c56a3abb": {
+        "size": {
+          "width": 230,
+          "height": 80
+        },
+        "position": {
+          "x": 740,
+          "y": -110
+        },
+        "z": 1,
+        "parent": "89e886b9-5358-4326-becb-3e21edef6110",
+        "embeds": [
+          "d4991f34-7b9f-4b04-9a7d-f39b91ac1785"
+        ]
+      },
+      "d4991f34-7b9f-4b04-9a7d-f39b91ac1785": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 880,
+          "y": -100
+        },
+        "z": 2,
+        "parent": "b4bd8791-bb7b-43d6-957b-8548c56a3abb",
+        "embeds": [],
+        "references": [
+          "2ec5e9ca-5e17-4454-b212-61307d7be92c"
+        ]
+      },
+      "bebf82b2-d063-466c-9fee-3441e264dff7": {
+        "source": {
+          "id": "d4991f34-7b9f-4b04-9a7d-f39b91ac1785"
+        },
+        "target": {
+          "id": "2ec5e9ca-5e17-4454-b212-61307d7be92c"
+        },
+        "z": 3
+      },
+      "a6aa9095-e802-4658-9a1b-84b5e7cf382d": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 650,
+          "y": 230
+        },
+        "z": 1,
+        "parent": "89e886b9-5358-4326-becb-3e21edef6110",
+        "embeds": []
+      },
+      "967f2b82-9dc8-4462-8cd9-23a1f06e8812": {
+        "source": {
+          "id": "b4bd8791-bb7b-43d6-957b-8548c56a3abb"
+        },
+        "target": {
+          "id": "b4bcc9c9-9472-4260-9d6d-b01369311122"
+        },
+        "z": 1
+      },
+      "887bfbf7-c0ed-4480-a0b4-1a369654c45c": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 530,
+          "y": 430
+        },
+        "z": 0,
+        "embeds": []
+      },
+      "a998c5c4-0699-4573-a51f-326a9b27c515": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 1030,
+          "y": -120
+        },
+        "z": 0,
+        "embeds": [],
+        "dependson": [
+          "d07e39f6-9bcf-4b85-8709-11a8be6592de"
+        ],
+        "isrelatedto": [
+          "d07e39f6-9bcf-4b85-8709-11a8be6592de"
+        ]
+      },
+      "d07e39f6-9bcf-4b85-8709-11a8be6592de": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 1030,
+          "y": -20
+        },
+        "z": 0,
+        "embeds": []
+      },
+      "7528f051-9a1b-4198-bcca-b2c9862478f2": {
+        "source": {
+          "id": "05eb3359-51f4-4e22-ab9a-0e9346ad21fc"
+        },
+        "target": {
+          "id": "a6aa9095-e802-4658-9a1b-84b5e7cf382d"
+        },
+        "z": 11
+      },
+      "41b7d8c0-e2c4-4b78-8455-2db47ac4a1c6": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 320,
+          "y": 210
+        },
+        "z": 0,
+        "embeds": [],
+        "ismemberof": [
+          "a6aa9095-e802-4658-9a1b-84b5e7cf382d"
+        ],
+        "isrelatedto": [
+          "887bfbf7-c0ed-4480-a0b4-1a369654c45c",
+          "747b08f3-43ce-4dc8-8d6f-dd647ca7749b"
+        ]
+      },
+      "9d7dd2cb-6ae7-4f18-85bb-aaddea7a2696": {
+        "source": {
+          "id": "41b7d8c0-e2c4-4b78-8455-2db47ac4a1c6"
+        },
+        "target": {
+          "id": "a6aa9095-e802-4658-9a1b-84b5e7cf382d"
+        },
+        "z": 11
+      },
+      "909102e3-341e-47a0-b20c-f417f5302a90": {
+        "source": {
+          "id": "41b7d8c0-e2c4-4b78-8455-2db47ac4a1c6"
+        },
+        "target": {
+          "id": "89e886b9-5358-4326-becb-3e21edef6110"
+        },
+        "z": 12
+      },
+      "72743bf4-be7d-436b-99d2-af98e8e7f30c": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 320,
+          "y": 120
+        },
+        "z": 0,
+        "embeds": [],
+        "isconnectedto": [
+          "b4bcc9c9-9472-4260-9d6d-b01369311122"
+        ],
+        "isassociatedwith": [
+          "41b7d8c0-e2c4-4b78-8455-2db47ac4a1c6"
+        ],
+        "isrelatedto": [
+          "d07e39f6-9bcf-4b85-8709-11a8be6592de",
+          "a998c5c4-0699-4573-a51f-326a9b27c515",
+          "8cf68c0b-610c-48b7-a4ee-d75122df33d4",
+          "eeec7a65-ae4f-4d39-b992-6c35665ef482",
+          "166e778f-c11a-4b4c-b3f0-b39decd7be83"
+        ]
+      },
+      "12f8e786-bab9-4ecf-a7f6-59ce75a330e3": {
+        "source": {
+          "id": "72743bf4-be7d-436b-99d2-af98e8e7f30c"
+        },
+        "target": {
+          "id": "41b7d8c0-e2c4-4b78-8455-2db47ac4a1c6"
+        },
+        "z": 11
+      },
+      "6c3f1ac0-acc1-42e9-9ed5-650d4fb00d23": {
+        "source": {
+          "id": "72743bf4-be7d-436b-99d2-af98e8e7f30c"
+        },
+        "target": {
+          "id": "b4bcc9c9-9472-4260-9d6d-b01369311122"
+        },
+        "z": 12
+      },
+      "1486731f-5f48-4ce1-b798-252909cf810c": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 180,
+          "y": 120
+        },
+        "z": 0,
+        "embeds": [],
+        "isassociatedwith": [
+          "72743bf4-be7d-436b-99d2-af98e8e7f30c"
+        ]
+      },
+      "70fb766f-042a-4650-8b73-4a080c21c520": {
+        "source": {
+          "id": "1486731f-5f48-4ce1-b798-252909cf810c"
+        },
+        "target": {
+          "id": "72743bf4-be7d-436b-99d2-af98e8e7f30c"
+        },
+        "z": 11
+      },
+      "a4367dd7-1d19-4760-8d19-a7527908db56": {
+        "source": {
+          "id": "8c84286c-b7ff-49f8-ab17-02400852a9d2"
+        },
+        "target": {
+          "id": "72743bf4-be7d-436b-99d2-af98e8e7f30c"
+        },
+        "z": 11
+      },
+      "eba5c8e3-d427-4830-a04b-e5ca0573462e": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 180,
+          "y": 210
+        },
+        "z": 0,
+        "embeds": [],
+        "isassociatedwith": [
+          "72743bf4-be7d-436b-99d2-af98e8e7f30c"
+        ]
+      },
+      "3feeddbf-b54e-4a91-9389-3447839c2e12": {
+        "source": {
+          "id": "eba5c8e3-d427-4830-a04b-e5ca0573462e"
+        },
+        "target": {
+          "id": "72743bf4-be7d-436b-99d2-af98e8e7f30c"
+        },
+        "z": 11
+      },
+      "9a4936b3-411c-4617-840d-eec81eb61482": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 10,
+          "y": 120
+        },
+        "z": 0,
+        "embeds": [],
+        "isrelatedto": [
+          "1486731f-5f48-4ce1-b798-252909cf810c",
+          "72743bf4-be7d-436b-99d2-af98e8e7f30c",
+          "d07e39f6-9bcf-4b85-8709-11a8be6592de",
+          "8cf68c0b-610c-48b7-a4ee-d75122df33d4"
+        ]
+      },
+      "8700766a-eda1-4fbb-9605-990aab3de427": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 10,
+          "y": 210
+        },
+        "z": 0,
+        "embeds": [],
+        "isrelatedto": [
+          "eba5c8e3-d427-4830-a04b-e5ca0573462e",
+          "d07e39f6-9bcf-4b85-8709-11a8be6592de",
+          "8cf68c0b-610c-48b7-a4ee-d75122df33d4"
+        ]
+      },
+      "166e778f-c11a-4b4c-b3f0-b39decd7be83": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 530,
+          "y": 320
+        },
+        "z": 0,
+        "embeds": []
+      },
+      "aa946222-9de1-48c2-b18d-12e105ec36c8": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 590,
+          "y": 30
+        },
+        "z": 2,
+        "parent": "b4bcc9c9-9472-4260-9d6d-b01369311122",
+        "embeds": [],
+        "ismemberof": [
+          "a6aa9095-e802-4658-9a1b-84b5e7cf382d"
+        ],
+        "dependson": [
+          "166e778f-c11a-4b4c-b3f0-b39decd7be83",
+          "a998c5c4-0699-4573-a51f-326a9b27c515"
+        ],
+        "isrelatedto": [
+          "887bfbf7-c0ed-4480-a0b4-1a369654c45c",
+          "166e778f-c11a-4b4c-b3f0-b39decd7be83",
+          "d07e39f6-9bcf-4b85-8709-11a8be6592de",
+          "a998c5c4-0699-4573-a51f-326a9b27c515",
+          "5499fc1f-5568-44df-b5a8-52fa451022cf",
+          "eeec7a65-ae4f-4d39-b992-6c35665ef482"
+        ]
+      },
+      "9e4c9991-2969-4466-8d16-372cb41dc256": {
+        "source": {
+          "id": "aa946222-9de1-48c2-b18d-12e105ec36c8"
+        },
+        "target": {
+          "id": "a6aa9095-e802-4658-9a1b-84b5e7cf382d"
+        },
+        "z": 11
+      },
+      "b3e1c016-d71f-471c-8776-adf438b7ade5": {
+        "source": {
+          "id": "aa946222-9de1-48c2-b18d-12e105ec36c8"
+        },
+        "target": {
+          "id": "166e778f-c11a-4b4c-b3f0-b39decd7be83"
+        },
+        "z": 12
+      },
+      "a18166d4-d41d-4591-8a0b-13598b37973c": {
+        "source": {
+          "id": "aa946222-9de1-48c2-b18d-12e105ec36c8"
+        },
+        "target": {
+          "id": "a998c5c4-0699-4573-a51f-326a9b27c515"
+        },
+        "z": 13
+      },
+      "ba676da4-427d-43b3-a4bf-a12db97b7391": {
+        "source": {
+          "id": "a998c5c4-0699-4573-a51f-326a9b27c515"
+        },
+        "target": {
+          "id": "d07e39f6-9bcf-4b85-8709-11a8be6592de"
+        },
+        "z": 11
+      },
+      "1673a85b-f695-4e2c-aee4-8b2d4a4e1719": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 1130,
+          "y": -20
+        },
+        "z": 0,
+        "embeds": [],
+        "isassociatedwith": [
+          "d07e39f6-9bcf-4b85-8709-11a8be6592de"
+        ]
+      },
+      "d94023a3-ac42-4a47-8d9e-d03f140d03be": {
+        "source": {
+          "id": "1673a85b-f695-4e2c-aee4-8b2d4a4e1719"
+        },
+        "target": {
+          "id": "d07e39f6-9bcf-4b85-8709-11a8be6592de"
+        },
+        "z": 11
+      },
+      "3148b039-f4a3-419b-ac61-1c139adbb20e": {
+        "source": {
+          "id": "a36b28a0-5f89-4b06-a11a-7feea5f4d8d1"
+        },
+        "target": {
+          "id": "aa946222-9de1-48c2-b18d-12e105ec36c8"
+        },
+        "z": 11
+      },
+      "b62bf7ab-b719-4d89-aca1-4b61af55711f": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 910,
+          "y": 430
+        },
+        "z": 0,
+        "embeds": []
+      },
+      "5499fc1f-5568-44df-b5a8-52fa451022cf": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 800,
+          "y": 430
+        },
+        "z": 0,
+        "embeds": [],
+        "isrelatedto": [
+          "b62bf7ab-b719-4d89-aca1-4b61af55711f"
+        ]
+      },
+      "514c029f-b0a4-4240-9602-c733f855c84b": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 510,
+          "y": -110
+        },
+        "z": 1,
+        "parent": "89e886b9-5358-4326-becb-3e21edef6110",
+        "embeds": [],
+        "isconnectedto": [
+          "aa946222-9de1-48c2-b18d-12e105ec36c8",
+          "b4bcc9c9-9472-4260-9d6d-b01369311122"
+        ],
+        "ismemberof": [
+          "a6aa9095-e802-4658-9a1b-84b5e7cf382d"
+        ]
+      },
+      "7d0208d5-0e2f-41bd-837a-0ca1ebb55d42": {
+        "source": {
+          "id": "514c029f-b0a4-4240-9602-c733f855c84b"
+        },
+        "target": {
+          "id": "aa946222-9de1-48c2-b18d-12e105ec36c8"
+        },
+        "z": 11
+      },
+      "e55d811b-8261-4dd8-b7a9-2b3f3c07ddc9": {
+        "source": {
+          "id": "514c029f-b0a4-4240-9602-c733f855c84b"
+        },
+        "target": {
+          "id": "b4bcc9c9-9472-4260-9d6d-b01369311122"
+        },
+        "z": 11
+      },
+      "51f12142-5255-4174-a0e7-7a57b3c823e8": {
+        "source": {
+          "id": "514c029f-b0a4-4240-9602-c733f855c84b"
+        },
+        "target": {
+          "id": "a6aa9095-e802-4658-9a1b-84b5e7cf382d"
+        },
+        "z": 12
+      },
+      "eeec7a65-ae4f-4d39-b992-6c35665ef482": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 320,
+          "y": -120
+        },
+        "z": 0,
+        "embeds": [],
+        "isrelatedto": [
+          "8cf68c0b-610c-48b7-a4ee-d75122df33d4"
+        ]
+      },
+      "8cf68c0b-610c-48b7-a4ee-d75122df33d4": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 320,
+          "y": -10
+        },
+        "z": 0,
+        "embeds": []
+      },
+      "a6417e01-da7c-4fe0-8a25-d5e70d61ef78": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 220,
+          "y": -10
+        },
+        "z": 0,
+        "embeds": [],
+        "isassociatedwith": [
+          "8cf68c0b-610c-48b7-a4ee-d75122df33d4"
+        ]
+      },
+      "368a05ba-ce4d-4ba9-88b8-d1f190b4f1ac": {
+        "source": {
+          "id": "a6417e01-da7c-4fe0-8a25-d5e70d61ef78"
+        },
+        "target": {
+          "id": "8cf68c0b-610c-48b7-a4ee-d75122df33d4"
+        },
+        "z": 11
+      },
+      "e7ba7a0b-ee6b-4d26-b25d-8f34479eddac": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 1030,
+          "y": 130
+        },
+        "z": 0,
+        "embeds": [],
+        "isconnectedto": [
+          "b4bcc9c9-9472-4260-9d6d-b01369311122"
+        ],
+        "isassociatedwith": [
+          "ca5f6caa-af57-4b67-ab43-2fee44bc9608"
+        ],
+        "isrelatedto": [
+          "d07e39f6-9bcf-4b85-8709-11a8be6592de",
+          "a998c5c4-0699-4573-a51f-326a9b27c515",
+          "166e778f-c11a-4b4c-b3f0-b39decd7be83"
+        ]
+      },
+      "ca5f6caa-af57-4b67-ab43-2fee44bc9608": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 1030,
+          "y": 230
+        },
+        "z": 0,
+        "embeds": [],
+        "isconnectedto": [
+          "89e886b9-5358-4326-becb-3e21edef6110"
+        ],
+        "ismemberof": [
+          "a6aa9095-e802-4658-9a1b-84b5e7cf382d"
+        ],
+        "isrelatedto": [
+          "887bfbf7-c0ed-4480-a0b4-1a369654c45c",
+          "747b08f3-43ce-4dc8-8d6f-dd647ca7749b"
+        ]
+      },
+      "f84c0cb3-3347-4ccf-ba5d-fac6e1e5f6fc": {
+        "source": {
+          "id": "73b10390-c9cf-4611-af0b-4535ad1bdf7e"
+        },
+        "target": {
+          "id": "e7ba7a0b-ee6b-4d26-b25d-8f34479eddac"
+        },
+        "z": 11
+      },
+      "e4748b2e-fdf1-4896-8750-b6fd904886f3": {
+        "source": {
+          "id": "b1e6844b-eb01-4787-8b16-8e33f4f22207"
+        },
+        "target": {
+          "id": "e7ba7a0b-ee6b-4d26-b25d-8f34479eddac"
+        },
+        "z": 12
+      },
+      "1154cb59-edc7-4741-94d7-88e9076d1ffd": {
+        "source": {
+          "id": "e7ba7a0b-ee6b-4d26-b25d-8f34479eddac"
+        },
+        "target": {
+          "id": "ca5f6caa-af57-4b67-ab43-2fee44bc9608"
+        },
+        "z": 13
+      },
+      "fadfdabc-3099-48cd-b0dc-78e8da41f34d": {
+        "source": {
+          "id": "ca5f6caa-af57-4b67-ab43-2fee44bc9608"
+        },
+        "target": {
+          "id": "89e886b9-5358-4326-becb-3e21edef6110"
+        },
+        "z": 14
+      },
+      "13c00e7d-e922-4956-9301-c59d058e090b": {
+        "source": {
+          "id": "e7ba7a0b-ee6b-4d26-b25d-8f34479eddac"
+        },
+        "target": {
+          "id": "b4bcc9c9-9472-4260-9d6d-b01369311122"
+        },
+        "z": 15
+      },
+      "66357614-f8f2-4a35-9610-c1bc9b654cdb": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 580,
+          "y": -220
+        },
+        "z": 0,
+        "parent": "89e886b9-5358-4326-becb-3e21edef6110",
+        "embeds": [],
+        "isrelatedto": [
+          "b4bd8791-bb7b-43d6-957b-8548c56a3abb"
+        ]
+      },
+      "747b08f3-43ce-4dc8-8d6f-dd647ca7749b": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 680,
+          "y": 430
+        },
+        "z": 0,
+        "embeds": []
+      },
+      "9d2b90c3-37af-4fb1-85a1-498e6205b707": {
+        "source": {
+          "id": "1486731f-5f48-4ce1-b798-252909cf810c",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "AWS::RefLink-AWS::AutoScaling::AutoScalingGroup-AutoScalingGroupName"
+        },
+        "target": {
+          "id": "72743bf4-be7d-436b-99d2-af98e8e7f30c"
+        },
+        "z": 12
+      },
+      "1631d53f-4d4c-45f0-85df-e2fd1563d8ba": {
+        "source": {
+          "id": "72743bf4-be7d-436b-99d2-af98e8e7f30c",
+          "selector": "g:nth-child(1) g:nth-child(4) g:nth-child(1) circle:nth-child(1)     ",
+          "port": "AWS::RefLink-AWS::AutoScaling::LaunchConfiguration-LaunchConfigurationName"
+        },
+        "target": {
+          "id": "41b7d8c0-e2c4-4b78-8455-2db47ac4a1c6"
+        },
+        "z": 12
+      },
+      "bc18470d-4723-4c35-a2d9-2593c8f43880": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 690,
+          "y": 30
+        },
+        "z": 2,
+        "parent": "b4bcc9c9-9472-4260-9d6d-b01369311122",
+        "embeds": [],
+        "ismemberof": [
+          "a6aa9095-e802-4658-9a1b-84b5e7cf382d"
+        ],
+        "isrelatedto": [
+          "aa946222-9de1-48c2-b18d-12e105ec36c8"
+        ]
+      },
+      "0327d983-93cc-4774-9e63-1fdd16a91181": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 1160,
+          "y": 130
+        },
+        "z": 0,
+        "embeds": [],
+        "isassociatedwith": [
+          "e7ba7a0b-ee6b-4d26-b25d-8f34479eddac"
+        ]
+      },
+      "2c2aaa97-3a2f-49bd-9a3d-13060bedf997": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 1160,
+          "y": 230
+        },
+        "z": 0,
+        "embeds": [],
+        "isassociatedwith": [
+          "e7ba7a0b-ee6b-4d26-b25d-8f34479eddac"
+        ]
+      },
+      "a595765b-24d0-4249-862c-3b147f62acec": {
+        "source": {
+          "id": "0327d983-93cc-4774-9e63-1fdd16a91181"
+        },
+        "target": {
+          "id": "e7ba7a0b-ee6b-4d26-b25d-8f34479eddac"
+        },
+        "z": 11
+      },
+      "75e638c4-159f-46d8-adc3-4875d01c2538": {
+        "source": {
+          "id": "2c2aaa97-3a2f-49bd-9a3d-13060bedf997"
+        },
+        "target": {
+          "id": "e7ba7a0b-ee6b-4d26-b25d-8f34479eddac"
+        },
+        "z": 12
+      },
+      "e71691d5-edbe-47f6-a282-c74d74c96989": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 1310,
+          "y": 130
+        },
+        "z": 0,
+        "embeds": [],
+        "isrelatedto": [
+          "0327d983-93cc-4774-9e63-1fdd16a91181",
+          "d07e39f6-9bcf-4b85-8709-11a8be6592de"
+        ]
+      },
+      "835956ac-a21a-48f2-beb9-a94b9250ef42": {
+        "size": {
+          "width": 60,
+          "height": 60
+        },
+        "position": {
+          "x": 1310,
+          "y": 230
+        },
+        "z": 0,
+        "embeds": [],
+        "isrelatedto": [
+          "2c2aaa97-3a2f-49bd-9a3d-13060bedf997",
+          "d07e39f6-9bcf-4b85-8709-11a8be6592de"
+        ]
+      }
+    }
+  },
+  "Resources": {
+    "VPC": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/16",
+        "EnableDnsSupport": "true",
+        "EnableDnsHostnames": "true",
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Fn::Join": [
+                "-",
+                [
+                  {
+                    "Ref": "AWS::StackName"
+                  },
+                  "VPC"
+                ]
+              ]
+            }
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "89e886b9-5358-4326-becb-3e21edef6110"
+        }
+      }
+    },
+    "PublicSubnet": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.0.1/16",
+        "MapPublicIpOnLaunch": "true",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "PublicSubnet"
+          }
+        ],
+        "VpcId": {
+          "Ref": "VPC"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "b4bcc9c9-9472-4260-9d6d-b01369311122"
+        }
+      }
+    },
+    "TestIGW": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "TestGateway"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "2ec5e9ca-5e17-4454-b212-61307d7be92c"
+        }
+      }
+    },
+    "VGWA2HS2H": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "InternetGatewayId": {
+          "Ref": "TestIGW"
+        },
+        "VpcId": {
+          "Ref": "VPC"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "6581e1fc-9d5b-4a0d-8f88-e6efdaa87a4a"
+        }
+      }
+    },
+    "RouteTable": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPC"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "b4bd8791-bb7b-43d6-957b-8548c56a3abb"
+        }
+      }
+    },
+    "Internet": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "RouteTableId": {
+          "Ref": "RouteTable"
+        },
+        "GatewayId": {
+          "Ref": "TestIGW"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "d4991f34-7b9f-4b04-9a7d-f39b91ac1785"
+        }
+      }
+    },
+    "PubSec": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "Public Security group",
+        "SecurityGroupIngress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": "0",
+            "ToPort": "65000",
+            "CidrIp": "0.0.0.0/0"
+          }
+        ],
+        "SecurityGroupEgress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": "0",
+            "ToPort": "65000",
+            "CidrIp": "0.0.0.0/0"
+          }
+        ],
+        "VpcId": {
+          "Ref": "VPC"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "a6aa9095-e802-4658-9a1b-84b5e7cf382d"
+        }
+      }
+    },
+    "SUBRTE41LEV": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "RouteTable"
+        },
+        "SubnetId": {
+          "Ref": "PublicSubnet"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "967f2b82-9dc8-4462-8cd9-23a1f06e8812"
+        }
+      }
+    },
+    "ExecutorProfile": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Path": "/",
+        "Roles": [
+          "god_mode"
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "887bfbf7-c0ed-4480-a0b4-1a369654c45c"
+        }
+      }
+    },
+    "JobsSNS": {
+      "Type": "AWS::SNS::Topic",
+      "Properties": {
+        "Subscription": [
+          {
+            "Endpoint": {
+              "Fn::GetAtt": [
+                "JobsQueue",
+                "Arn"
+              ]
+            },
+            "Protocol": "sqs"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "a998c5c4-0699-4573-a51f-326a9b27c515"
+        }
+      },
+      "DependsOn": [
+        "JobsQueue"
+      ]
+    },
+    "JobsQueue": {
+      "Type": "AWS::SQS::Queue",
+      "Properties": {
+        "VisibilityTimeout": "43199"
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "d07e39f6-9bcf-4b85-8709-11a8be6592de"
+        }
+      }
+    },
+    "ProductionLaunchConfig": {
+      "Type": "AWS::AutoScaling::LaunchConfiguration",
+      "Properties": {
+        "SpotPrice": {
+          "Ref": "ProdSpotPrice"
+        },
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Join": [
+              "",
+              [
+                "#!/bin/bash\n",
+                "pip install nltk boto3 bottle \n",
+                "apt-get -y update\n",
+                "apt-get -y install awscli\n",
+                "cd /home/ubuntu\n",
+                "aws s3 cp --region us-east-1 s3://klab-jobs/inputs/yadu/software/ncses.tar.gz . ; rm -rf ncses; tar -xzf ncses.tar.gz \n",
+                "cd /home/ubuntu/task_engine\n",
+                "worker_loop (){ \n",
+                "  while : \n ",
+                "  do \n",
+                "   git pull \n",
+                "   ./task_executor.py -c production.conf &>> /var/log/worker.std.log\n",
+                "   sleep 5\n",
+                "  done\n",
+                "}\n",
+                "worker_loop & \n"
+              ]
+            ]
+          }
+        },
+        "IamInstanceProfile": {
+          "Ref": "WorkerProfile"
+        },
+        "InstanceType": {
+          "Ref": "ProdInstanceType"
+        },
+        "ImageId": {
+          "Fn::FindInMap": [
+            "RegionToAmi",
+            {
+              "Ref": "AWS::Region"
+            },
+            "word2vec"
+          ]
+        },
+        "KeyName": {
+          "Ref": "KeyName"
+        },
+        "BlockDeviceMappings": [
+          {
+            "VirtualName": "ephemeral0",
+            "DeviceName": "/dev/sdb"
+          }
+        ],
+        "SecurityGroups": [
+          {
+            "Ref": "PubSec"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "41b7d8c0-e2c4-4b78-8455-2db47ac4a1c6"
+        }
+      }
+    },
+    "ProductionAutoScaling": {
+      "Type": "AWS::AutoScaling::AutoScalingGroup",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Fn::Join": [
+                "-",
+                [
+                  {
+                    "Ref": "AWS::StackName"
+                  },
+                  "ProdWorker"
+                ]
+              ]
+            },
+            "PropagateAtLaunch": "true"
+          },
+          {
+            "Key": "role",
+            "Value": "Worker",
+            "PropagateAtLaunch": "true"
+          },
+          {
+            "Key": "DynamoDBTableName",
+            "Value": {
+              "Ref": "DynTable"
+            },
+            "PropagateAtLaunch": "true"
+          },
+          {
+            "Key": "DynamoDBTableARN",
+            "Value": "arn:aws:dynamodb:us-east-1:968994658855:table/Jobs",
+            "PropagateAtLaunch": "true"
+          },
+          {
+            "Key": "JobsQueueName",
+            "Value": {
+              "Fn::GetAtt": [
+                "ProdSQS",
+                "QueueName"
+              ]
+            },
+            "PropagateAtLaunch": "true"
+          },
+          {
+            "Key": "JobsQueueArn",
+            "Value": {
+              "Fn::GetAtt": [
+                "ProdSQS",
+                "Arn"
+              ]
+            },
+            "PropagateAtLaunch": "true"
+          },
+          {
+            "Key": "JobsSNSTopicName",
+            "Value": {
+              "Fn::GetAtt": [
+                "ProdSNS",
+                "TopicName"
+              ]
+            },
+            "PropagateAtLaunch": "true"
+          },
+          {
+            "Key": "JobsSNSTopicARN",
+            "Value": {
+              "Ref": "ProdSNS"
+            },
+            "PropagateAtLaunch": "true"
+          }
+        ],
+        "MaxSize": {
+          "Ref": "MaxProdInstances"
+        },
+        "MinSize": {
+          "Ref": "MinProdInstances"
+        },
+        "LaunchConfigurationName": {
+          "Ref": "ProductionLaunchConfig"
+        },
+        "VPCZoneIdentifier": [
+          {
+            "Ref": "PublicSubnet"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "72743bf4-be7d-436b-99d2-af98e8e7f30c"
+        }
+      }
+    },
+    "ScaleUpPolicy": {
+      "Type": "AWS::AutoScaling::ScalingPolicy",
+      "Properties": {
+        "AdjustmentType": "ChangeInCapacity",
+        "Cooldown": "240",
+        "ScalingAdjustment": "1",
+        "AutoScalingGroupName": {
+          "Ref": "ProductionAutoScaling"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "1486731f-5f48-4ce1-b798-252909cf810c"
+        }
+      }
+    },
+    "ScaleDownPolicy": {
+      "Type": "AWS::AutoScaling::ScalingPolicy",
+      "Properties": {
+        "AdjustmentType": "ChangeInCapacity",
+        "Cooldown": "60",
+        "ScalingAdjustment": "-1",
+        "AutoScalingGroupName": {
+          "Ref": "ProductionAutoScaling"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "eba5c8e3-d427-4830-a04b-e5ca0573462e"
+        }
+      }
+    },
+    "QueueWatchHigh": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "AlarmDescription": "Scale-up if SQS has more than 1 tasks for 10 minutes",
+        "MetricName": "ApproximateNumberOfMessagesVisible",
+        "Namespace": "AWS/SQS",
+        "Statistic": "Average",
+        "Period": "60",
+        "EvaluationPeriods": "1",
+        "Threshold": "0",
+        "AlarmActions": [
+          {
+            "Ref": "ScaleUpPolicy"
+          }
+        ],
+        "Dimensions": [
+          {
+            "Name": "QueueName",
+            "Value": {
+              "Fn::GetAtt": [
+                "ProdSQS",
+                "QueueName"
+              ]
+            }
+          }
+        ],
+        "ComparisonOperator": "GreaterThanThreshold"
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "9a4936b3-411c-4617-840d-eec81eb61482"
+        }
+      }
+    },
+    "QueueWatchLow": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "AlarmDescription": "Scale-down if SQS has no ",
+        "MetricName": "ApproximateNumberOfTotalMessages",
+        "Namespace": "SQS",
+        "Statistic": "Average",
+        "Period": "1200",
+        "EvaluationPeriods": "3",
+        "Threshold": "1",
+        "ComparisonOperator": "LessThanThreshold",
+        "AlarmActions": [
+          {
+            "Ref": "ScaleDownPolicy"
+          }
+        ],
+        "Dimensions": [
+          {
+            "Name": "QueueName",
+            "Value": {
+              "Fn::GetAtt": [
+                "ProdSQS",
+                "QueueName"
+              ]
+            }
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "8700766a-eda1-4fbb-9605-990aab3de427"
+        }
+      }
+    },
+    "DynTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "job_id",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "job_id",
+            "KeyType": "HASH"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": "10",
+          "WriteCapacityUnits": "10"
+        },
+        "TableName": {
+          "Fn::Join": [
+            "-",
+            [
+              {
+                "Ref": "AWS::StackName"
+              },
+              "Jobs"
+            ]
+          ]
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "166e778f-c11a-4b4c-b3f0-b39decd7be83"
+        }
+      }
+    },
+    "EipAssocWebServer": {
+      "Type": "AWS::EC2::EIPAssociation",
+      "Properties": {
+        "AllocationId": {
+          "Ref": "EIPAllocationIdWebServer"
+        },
+        "InstanceId": {
+          "Ref": "WebServer"
+        }
+      }
+    },
+    "WebServer": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Join": [
+              "",
+              [
+                "#!/bin/bash\n",
+                "apt-get -y update\n",
+                "apt-get -y install python-pip git\n",
+                "apt-get -y install awscli\n",
+                "pip install boto bottle cherrypy requests\n",
+                "cd /home/ubuntu/task_engine/web2\n",
+                "server_loop (){ \n",
+                "  git pull\n",
+                "  while : \n ",
+                "  do \n",
+                "   ./web_server.py -c production.conf &>> /var/log/webserver.std.log\n",
+                "   sleep 5\n",
+                "  done\n",
+                "}\n",
+                "server_loop & \n",
+                "wait \n"
+              ]
+            ]
+          }
+        },
+        "IamInstanceProfile": {
+          "Ref": "ExecutorProfile"
+        },
+        "SecurityGroupIds": [
+          {
+            "Ref": "PubSec"
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "role",
+            "Value": "WebServer"
+          },
+          {
+            "Key": "Name",
+            "Value": {
+              "Fn::Join": [
+                "-",
+                [
+                  {
+                    "Ref": "AWS::StackName"
+                  },
+                  "WebServer"
+                ]
+              ]
+            }
+          },
+          {
+            "Key": "DynamoDBTableName",
+            "Value": {
+              "Ref": "DynTable"
+            }
+          },
+          {
+            "Key": "S3UploadKeyId",
+            "Value": {
+              "Ref": "S3UploadKey"
+            }
+          },
+          {
+            "Key": "S3UploadKeySecret",
+            "Value": {
+              "Fn::GetAtt": [
+                "S3UploadKey",
+                "SecretAccessKey"
+              ]
+            }
+          },
+          {
+            "Key": "DynamoDBTableARN",
+            "Value": "arn:aws:dynamodb:us-east-1:968994658855:table/Jobs"
+          },
+          {
+            "Key": "JobsQueueName",
+            "Value": {
+              "Fn::GetAtt": [
+                "JobsQueue",
+                "QueueName"
+              ]
+            }
+          },
+          {
+            "Key": "JobsQueueArn",
+            "Value": {
+              "Fn::GetAtt": [
+                "JobsQueue",
+                "Arn"
+              ]
+            }
+          },
+          {
+            "Key": "TestJobsSNSTopicARN",
+            "Value": {
+              "Ref": "JobsSNS"
+            }
+          },
+          {
+            "Key": "ProdJobsSNSTopicARN",
+            "Value": {
+              "Ref": "ProdSNS"
+            }
+          }
+        ],
+        "InstanceType": "t2.small",
+        "ImageId": {
+          "Fn::FindInMap": [
+            "RegionToAmi",
+            {
+              "Ref": "AWS::Region"
+            },
+            "word2vec"
+          ]
+        },
+        "KeyName": {
+          "Ref": "KeyName"
+        },
+        "BlockDeviceMappings": [
+          {
+            "VirtualName": "ephemeral0",
+            "DeviceName": "/dev/sdb"
+          }
+        ],
+        "SubnetId": {
+          "Ref": "PublicSubnet"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "aa946222-9de1-48c2-b18d-12e105ec36c8"
+        }
+      },
+      "DependsOn": [
+        "DynTable",
+        "JobsSNS"
+      ]
+    },
+    "JobsQPolicy": {
+      "Type": "AWS::SQS::QueuePolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Id": "MyQueuePolicy",
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "Allow-User-SendMessage",
+              "Effect": "Allow",
+              "Principal": "*",
+              "Action": [
+                "sqs:SendMessage"
+              ],
+              "Resource": "*"
+            }
+          ]
+        },
+        "Queues": [
+          {
+            "Ref": "JobsQueue"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "1673a85b-f695-4e2c-aee4-8b2d4a4e1719"
+        }
+      }
+    },
+    "S3UploadUser": {
+      "Type": "AWS::IAM::User",
+      "Properties": {
+        "Path": "/",
+        "Policies": [
+          {
+            "PolicyName": "S3MultipartUpload",
+            "PolicyDocument": {
+              "Version": "2012-10-17",
+              "Statement": [
+                {
+                  "Effect": "Allow",
+                  "Action": [
+                    "s3:PutObject",
+                    "s3:GetObject",
+                    "s3:AbortMultipartUpload",
+                    "s3:ListMultipartUploadParts",
+                    "s3:ListBucketMultipartUploads"
+                  ],
+                  "Resource": [
+                    {
+                      "Fn::Join": [
+                        "",
+                        [
+                          "arn:aws:s3:::",
+                          {
+                            "Ref": "ProtectedBucketName"
+                          },
+                          "/*"
+                        ]
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "b62bf7ab-b719-4d89-aca1-4b61af55711f"
+        }
+      }
+    },
+    "S3UploadKey": {
+      "Type": "AWS::IAM::AccessKey",
+      "Properties": {
+        "Status": "Active",
+        "UserName": {
+          "Ref": "S3UploadUser"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "5499fc1f-5568-44df-b5a8-52fa451022cf"
+        }
+      }
+    },
+    "LoadBalancer": {
+      "Type": "AWS::ElasticLoadBalancing::LoadBalancer",
+      "Properties": {
+        "Listeners": [
+          {
+            "LoadBalancerPort": "80",
+            "InstancePort": "8888",
+            "Protocol": "TCP",
+            "InstanceProtocol": "TCP"
+          },
+          {
+            "LoadBalancerPort": "443",
+            "InstancePort": "8888",
+            "Protocol": "HTTPS",
+            "SSLCertificateId": {
+              "Ref": "WebCertARN"
+            }
+          }
+        ],
+        "Instances": [
+          {
+            "Ref": "WebServer"
+          }
+        ],
+        "Subnets": [
+          {
+            "Ref": "PublicSubnet"
+          }
+        ],
+        "SecurityGroups": [
+          {
+            "Ref": "PubSec"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "514c029f-b0a4-4240-9602-c733f855c84b"
+        }
+      }
+    },
+    "ProdSNS": {
+      "Type": "AWS::SNS::Topic",
+      "Properties": {
+        "Subscription": [
+          {
+            "Endpoint": {
+              "Fn::GetAtt": [
+                "ProdSQS",
+                "Arn"
+              ]
+            },
+            "Protocol": "sqs"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "eeec7a65-ae4f-4d39-b992-6c35665ef482"
+        }
+      }
+    },
+    "ProdSQS": {
+      "Type": "AWS::SQS::Queue",
+      "Properties": {
+        "VisibilityTimeout": "43199"
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "8cf68c0b-610c-48b7-a4ee-d75122df33d4"
+        }
+      }
+    },
+    "ProdQPolicy": {
+      "Type": "AWS::SQS::QueuePolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Id": "MyQueuePolicy",
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Sid": "Allow-User-SendMessage",
+              "Effect": "Allow",
+              "Principal": "*",
+              "Action": [
+                "sqs:SendMessage"
+              ],
+              "Resource": "*"
+            }
+          ]
+        },
+        "Queues": [
+          {
+            "Ref": "ProdSQS"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "a6417e01-da7c-4fe0-8a25-d5e70d61ef78"
+        }
+      }
+    },
+    "DevTestAutoScaling": {
+      "Type": "AWS::AutoScaling::AutoScalingGroup",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": {
+              "Fn::Join": [
+                "-",
+                [
+                  {
+                    "Ref": "AWS::StackName"
+                  },
+                  "AutoWorker"
+                ]
+              ]
+            },
+            "PropagateAtLaunch": "true"
+          },
+          {
+            "Key": "role",
+            "Value": "Worker",
+            "PropagateAtLaunch": "true"
+          },
+          {
+            "Key": "DynamoDBTableName",
+            "Value": {
+              "Ref": "DynTable"
+            },
+            "PropagateAtLaunch": "true"
+          },
+          {
+            "Key": "DynamoDBTableARN",
+            "Value": "arn:aws:dynamodb:us-east-1:968994658855:table/Jobs",
+            "PropagateAtLaunch": "true"
+          },
+          {
+            "Key": "JobsQueueName",
+            "Value": {
+              "Fn::GetAtt": [
+                "JobsQueue",
+                "QueueName"
+              ]
+            },
+            "PropagateAtLaunch": "true"
+          },
+          {
+            "Key": "JobsQueueArn",
+            "Value": {
+              "Fn::GetAtt": [
+                "JobsQueue",
+                "Arn"
+              ]
+            },
+            "PropagateAtLaunch": "true"
+          },
+          {
+            "Key": "JobsSNSTopicName",
+            "Value": {
+              "Fn::GetAtt": [
+                "JobsSNS",
+                "TopicName"
+              ]
+            },
+            "PropagateAtLaunch": "true"
+          },
+          {
+            "Key": "JobsSNSTopicARN",
+            "Value": {
+              "Ref": "JobsSNS"
+            },
+            "PropagateAtLaunch": "true"
+          }
+        ],
+        "MaxSize": {
+          "Ref": "MaxTestInstances"
+        },
+        "MinSize": {
+          "Ref": "MinTestInstances"
+        },
+        "LaunchConfigurationName": {
+          "Ref": "DevTestLaunchConfig"
+        },
+        "VPCZoneIdentifier": [
+          {
+            "Ref": "PublicSubnet"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "e7ba7a0b-ee6b-4d26-b25d-8f34479eddac"
+        }
+      }
+    },
+    "DevTestLaunchConfig": {
+      "Type": "AWS::AutoScaling::LaunchConfiguration",
+      "Properties": {
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Join": [
+              "",
+              [
+                "#!/bin/bash\n",
+                "pip install nltk boto3 bottle \n",
+                "apt-get -y update\n",
+                "apt-get -y install awscli\n",
+                "cd /home/ubuntu\n",
+                "aws s3 cp --region us-east-1 s3://klab-jobs/inputs/yadu/software/ncses.tar.gz . ; rm -rf ncses; tar -xzf ncses.tar.gz \n",
+                "cd /home/ubuntu/task_engine\n",
+                "worker_loop (){ \n",
+                "  while : \n ",
+                "  do \n",
+                "   git pull \n",
+                "   ./task_executor.py -c production.conf &>> /var/log/worker.std.log\n",
+                "   sleep 5\n",
+                "  done\n",
+                "}\n",
+                "worker_loop & \n"
+              ]
+            ]
+          }
+        },
+        "IamInstanceProfile": {
+          "Ref": "WorkerProfile"
+        },
+        "InstanceType": {
+          "Ref": "TestInstanceType"
+        },
+        "ImageId": {
+          "Fn::FindInMap": [
+            "RegionToAmi",
+            {
+              "Ref": "AWS::Region"
+            },
+            "word2vec"
+          ]
+        },
+        "KeyName": {
+          "Ref": "KeyName"
+        },
+        "BlockDeviceMappings": [
+          {
+            "VirtualName": "ephemeral0",
+            "DeviceName": "/dev/sdb"
+          }
+        ],
+        "SecurityGroups": [
+          {
+            "Ref": "PubSec"
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "ca5f6caa-af57-4b67-ab43-2fee44bc9608"
+        }
+      }
+    },
+    "VPCEndpointWebOfScience": {
+      "Type": "AWS::EC2::VPCEndpoint",
+      "Properties": {
+        "PolicyDocument": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Effect": "Allow",
+              "Principal": "*",
+              "Action": "*",
+              "Resource": [
+                "arn:aws:s3:::*",
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:s3:::",
+                      {
+                        "Ref": "ProtectedBucketName"
+                      },
+                      "/*"
+                    ]
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:s3:::",
+                      {
+                        "Ref": "ProtectedBucketName"
+                      }
+                    ]
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "RouteTableIds": [
+          {
+            "Ref": "RouteTable"
+          }
+        ],
+        "ServiceName": {
+          "Fn::Join": [
+            "",
+            [
+              "com.amazonaws.",
+              {
+                "Ref": "AWS::Region"
+              },
+              ".s3"
+            ]
+          ]
+        },
+        "VpcId": {
+          "Ref": "VPC"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "66357614-f8f2-4a35-9610-c1bc9b654cdb"
+        }
+      }
+    },
+    "WorkerProfile": {
+      "Type": "AWS::IAM::InstanceProfile",
+      "Properties": {
+        "Path": "/",
+        "Roles": [
+          "task_executor"
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "747b08f3-43ce-4dc8-8d6f-dd647ca7749b"
+        }
+      }
+    },
+    "EipAssocBastionHost": {
+      "Type": "AWS::EC2::EIPAssociation",
+      "Properties": {
+        "AllocationId": {
+          "Ref": "EIPAllocationIdBastionHost"
+        },
+        "InstanceId": {
+          "Ref": "BastionHost"
+        }
+      }
+    },
+    "BastionHost": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "UserData": {
+          "Fn::Base64": {
+            "Fn::Join": [
+              "",
+              [
+                "#!/bin/bash\n",
+                "apt-get -y update\n",
+                "apt-get -y install python-pip git\n",
+                "apt-get -y install awscli\n"
+              ]
+            ]
+          }
+        },
+        "SecurityGroupIds": [
+          {
+            "Ref": "PubSec"
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "Webserver_ip",
+            "Value": {
+              "Fn::GetAtt": [
+                "WebServer",
+                "PrivateIp"
+              ]
+            }
+          },
+          {
+            "Key": "role",
+            "Value": "BastionHost"
+          },
+          {
+            "Key": "Name",
+            "Value": {
+              "Fn::Join": [
+                "-",
+                [
+                  {
+                    "Ref": "AWS::StackName"
+                  },
+                  "BastionHost"
+                ]
+              ]
+            }
+          }
+        ],
+        "InstanceType": "t2.small",
+        "ImageId": {
+          "Fn::FindInMap": [
+            "RegionToAmi",
+            {
+              "Ref": "AWS::Region"
+            },
+            "word2vec"
+          ]
+        },
+        "KeyName": {
+          "Ref": "KeyName"
+        },
+        "BlockDeviceMappings": [
+          {
+            "VirtualName": "ephemeral0",
+            "DeviceName": "/dev/sdb"
+          }
+        ],
+        "SubnetId": {
+          "Ref": "PublicSubnet"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "bc18470d-4723-4c35-a2d9-2593c8f43880"
+        }
+      }
+    },
+    "DevTestScaleUpPolicy": {
+      "Type": "AWS::AutoScaling::ScalingPolicy",
+      "Properties": {
+        "AdjustmentType": "ChangeInCapacity",
+        "Cooldown": "240",
+        "ScalingAdjustment": "1",
+        "AutoScalingGroupName": {
+          "Ref": "DevTestAutoScaling"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "0327d983-93cc-4774-9e63-1fdd16a91181"
+        }
+      }
+    },
+    "DevTestScaleDownPolicy": {
+      "Type": "AWS::AutoScaling::ScalingPolicy",
+      "Properties": {
+        "AdjustmentType": "ChangeInCapacity",
+        "Cooldown": "60",
+        "ScalingAdjustment": "-1",
+        "AutoScalingGroupName": {
+          "Ref": "DevTestAutoScaling"
+        }
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "2c2aaa97-3a2f-49bd-9a3d-13060bedf997"
+        }
+      }
+    },
+    "DevTestQueueWatchHigh": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "AlarmDescription": "Scale-up if SQS has more than 1 tasks for 10 minutes",
+        "MetricName": "ApproximateNumberOfMessagesVisible",
+        "Namespace": "AWS/SQS",
+        "Statistic": "Average",
+        "Period": "60",
+        "EvaluationPeriods": "1",
+        "Threshold": "0",
+        "AlarmActions": [
+          {
+            "Ref": "DevTestScaleUpPolicy"
+          }
+        ],
+        "Dimensions": [
+          {
+            "Name": "QueueName",
+            "Value": {
+              "Fn::GetAtt": [
+                "JobsQueue",
+                "QueueName"
+              ]
+            }
+          }
+        ],
+        "ComparisonOperator": "GreaterThanThreshold"
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "e71691d5-edbe-47f6-a282-c74d74c96989"
+        }
+      }
+    },
+    "DevTestQueueWatchLow": {
+      "Type": "AWS::CloudWatch::Alarm",
+      "Properties": {
+        "AlarmDescription": "Scale-down if SQS has no ",
+        "MetricName": "ApproximateNumberOfTotalMessages",
+        "Namespace": "SQS",
+        "Statistic": "Average",
+        "Period": "120",
+        "EvaluationPeriods": "3",
+        "Threshold": "1",
+        "ComparisonOperator": "LessThanThreshold",
+        "AlarmActions": [
+          {
+            "Ref": "DevTestScaleDownPolicy"
+          }
+        ],
+        "Dimensions": [
+          {
+            "Name": "QueueName",
+            "Value": {
+              "Fn::GetAtt": [
+                "JobsQueue",
+                "QueueName"
+              ]
+            }
+          }
+        ]
+      },
+      "Metadata": {
+        "AWS::CloudFormation::Designer": {
+          "id": "835956ac-a21a-48f2-beb9-a94b9250ef42"
+        }
+      }
+    }
+  }
+}
