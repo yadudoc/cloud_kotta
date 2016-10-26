@@ -33,6 +33,7 @@ The code and the Cloudformation templates used to build the Infrastructure on AW
 
    devguide/overview
    devguide/contributing
+   devguide/deployment
    devguide/license
 
 .. _data_docs:
