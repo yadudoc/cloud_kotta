@@ -3,15 +3,27 @@ Web Of Science (WoS)
 
 The Knowledge Lab has licensed the Thomson Reuters' Web Of Science XML data for access to lab members as well as collaborators within the `MetaKnowlege network <http://www.knowledgelab.org/people/researchers/>`_. We maintain the raw XML data as well as a curated relational MySQL compatible database for different modes of analyses.
 
+
 Storage bucket
 --------------
 
-The data is currently stored on two systems:
+The data is currently stored on two systems. The raw xmls are on S3 :
 
 1. Complete dataset on S3 Storage : s3://klab-webofscience
 2. Sample dataset on S3 Storage   : s3://klab-webofscience-sample
-3. AWS Mysql compatible database  : wos.cluster-cvirc91pe37a.us-east-1.rds.amazonaws.com
+   
+The parsed relational data is hosted on 2 RDS servers.
 
+1. AWS Mysql compatible database  : wos.cluster-cvirc91pe37a.us-east-1.rds.amazonaws.com
+2. Updated MySQL database         : wos2.cvirc91pe37a.us-east-1.rds.amazonaws.com
+
+
+Schema
+------
+
+The schema for the updates MySQL database :
+
+.. image:: ../figures/wos_schema.png
 
 Permissions
 -----------

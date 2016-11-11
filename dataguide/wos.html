@@ -108,6 +108,7 @@
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Web Of Science (WoS)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#storage-bucket">Storage bucket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#schema">Schema</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#permissions">Permissions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#processed-intermediates">Processed intermediates</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
@@ -169,12 +170,21 @@
 <p>The Knowledge Lab has licensed the Thomson Reuters&#8217; Web Of Science XML data for access to lab members as well as collaborators within the <a class="reference external" href="http://www.knowledgelab.org/people/researchers/">MetaKnowlege network</a>. We maintain the raw XML data as well as a curated relational MySQL compatible database for different modes of analyses.</p>
 <div class="section" id="storage-bucket">
 <h2>Storage bucket<a class="headerlink" href="#storage-bucket" title="Permalink to this headline">¶</a></h2>
-<p>The data is currently stored on two systems:</p>
+<p>The data is currently stored on two systems. The raw xmls are on S3 :</p>
 <ol class="arabic simple">
 <li>Complete dataset on S3 Storage : s3://klab-webofscience</li>
 <li>Sample dataset on S3 Storage   : s3://klab-webofscience-sample</li>
-<li>AWS Mysql compatible database  : wos.cluster-cvirc91pe37a.us-east-1.rds.amazonaws.com</li>
 </ol>
+<p>The parsed relational data is hosted on 2 RDS servers.</p>
+<ol class="arabic simple">
+<li>AWS Mysql compatible database  : wos.cluster-cvirc91pe37a.us-east-1.rds.amazonaws.com</li>
+<li>Updated MySQL database         : wos2.cvirc91pe37a.us-east-1.rds.amazonaws.com</li>
+</ol>
+</div>
+<div class="section" id="schema">
+<h2>Schema<a class="headerlink" href="#schema" title="Permalink to this headline">¶</a></h2>
+<p>The schema for the updates MySQL database :</p>
+<img alt="../_images/wos_schema.png" src="../_images/wos_schema.png" />
 </div>
 <div class="section" id="permissions">
 <h2>Permissions<a class="headerlink" href="#permissions" title="Permalink to this headline">¶</a></h2>
