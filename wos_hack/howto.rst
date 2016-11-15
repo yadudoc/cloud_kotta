@@ -2,7 +2,10 @@ WoS Hackathon
 =============
 
 
-Please follow steps here : `http://docs.cloudkotta.org/userguide/kotta_access.html`_ to get an account.
+Please follow steps here : `<http://docs.cloudkotta.org/userguide/kotta_access.html>`_ to get an account.
+
+.. note::
+   We rely on Login with Amazon just for authentication. There is *absolutely* no linking of to your account, and I definitely cannot order cookies from your account.
 
 Datasets
 --------
@@ -22,9 +25,9 @@ The xml data is available at this url within Kotta :
    s3://klab-jobs/wos_hack/iu.tar
 
 To get a better start here's a job that completed the run on Kotta on this dataset.
-`https://turingcompute.net/jobs/f24e22ac-2d59-4073-828e-1e67c8f598cb`_
+`<https://turingcompute.net/jobs/f24e22ac-2d59-4073-828e-1e67c8f598cb>`_
 
-If you click the Redo Job button you are taken to this page `https://turingcompute.net/resubmit/f24e22ac-2d59-4073-828e-1e67c8f598cb`_ .
+If you click the Redo Job button you are taken to this page `<https://turingcompute.net/resubmit/f24e22ac-2d59-4073-828e-1e67c8f598cb>`_ .
 This shows the description of the sample job. This job runs the following script on a machine with the Kotta enclace :
 
 .. code-block:: bash
@@ -39,7 +42,7 @@ This shows the description of the sample job. This job runs the following script
                 done
                 ls -thor -R
 
-Note how the dataset `s3://klab-jobs/wos_hack/iu.tar`_ is specified in the inputs field. This ensures that when the script is executed
+Note how the dataset `<s3://klab-jobs/wos_hack/iu.tar>`_ is specified in the inputs field. This ensures that when the script is executed
 in Kotta the input files are fetched from S3 onto the current working directory hosted on local disk. I've set the walltime to 10 minutes
 since this job is very short and should be done in under a few minutes. 
 
@@ -50,6 +53,8 @@ SQL
 ^^^
 
 The XML data is highly relational, and is suited to a RDBMS environment. The xml has been ingested to a MySQL database (InnoDB engine). Please use the schema below to interact with this database, from within Kotta.
+
+Here's a sample job that simply lists the tables in the *wos_hack* database.
 
 .. code-block:: json
 

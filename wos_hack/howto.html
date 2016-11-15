@@ -171,7 +171,11 @@
             
   <div class="section" id="wos-hackathon">
 <h1>WoS Hackathon<a class="headerlink" href="#wos-hackathon" title="Permalink to this headline">¶</a></h1>
-<p>Please follow steps here : <a href="#id1"><span class="problematic" id="id2">`http://docs.cloudkotta.org/userguide/kotta_access.html`_</span></a> to get an account.</p>
+<p>Please follow steps here : <a class="reference external" href="http://docs.cloudkotta.org/userguide/kotta_access.html">http://docs.cloudkotta.org/userguide/kotta_access.html</a> to get an account.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">We rely on Login with Amazon just for authentication. There is <em>absolutely</em> no linking of to your account, and I definitely cannot order cookies from your account.</p>
+</div>
 <div class="section" id="datasets">
 <h2>Datasets<a class="headerlink" href="#datasets" title="Permalink to this headline">¶</a></h2>
 <p>There are two forms, the XML data and data ingested into a MySQL database.</p>
@@ -183,8 +187,8 @@
 <h3>XML<a class="headerlink" href="#xml" title="Permalink to this headline">¶</a></h3>
 <p>The xml data is available at this url within Kotta :</p>
 <p>To get a better start here&#8217;s a job that completed the run on Kotta on this dataset.
-<a href="#id3"><span class="problematic" id="id4">`https://turingcompute.net/jobs/f24e22ac-2d59-4073-828e-1e67c8f598cb`_</span></a></p>
-<p>If you click the Redo Job button you are taken to this page <a href="#id5"><span class="problematic" id="id6">`https://turingcompute.net/resubmit/f24e22ac-2d59-4073-828e-1e67c8f598cb`_</span></a> .
+<a class="reference external" href="https://turingcompute.net/jobs/f24e22ac-2d59-4073-828e-1e67c8f598cb">https://turingcompute.net/jobs/f24e22ac-2d59-4073-828e-1e67c8f598cb</a></p>
+<p>If you click the Redo Job button you are taken to this page <a class="reference external" href="https://turingcompute.net/resubmit/f24e22ac-2d59-4073-828e-1e67c8f598cb">https://turingcompute.net/resubmit/f24e22ac-2d59-4073-828e-1e67c8f598cb</a> .
 This shows the description of the sample job. This job runs the following script on a machine with the Kotta enclace :</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 apt-get install -y gzip gunzip
@@ -197,7 +201,7 @@ tar -xf iu.tar
 ls -thor -R
 </pre></div>
 </div>
-<p>Note how the dataset <a href="#id7"><span class="problematic" id="id8">`s3://klab-jobs/wos_hack/iu.tar`_</span></a> is specified in the inputs field. This ensures that when the script is executed
+<p>Note how the dataset <a class="reference external" href="s3://klab-jobs/wos_hack/iu.tar">s3://klab-jobs/wos_hack/iu.tar</a> is specified in the inputs field. This ensures that when the script is executed
 in Kotta the input files are fetched from S3 onto the current working directory hosted on local disk. I&#8217;ve set the walltime to 10 minutes
 since this job is very short and should be done in under a few minutes.</p>
 <p>The data is 732.5 MB</p>
@@ -205,6 +209,7 @@ since this job is very short and should be done in under a few minutes.</p>
 <div class="section" id="sql">
 <h3>SQL<a class="headerlink" href="#sql" title="Permalink to this headline">¶</a></h3>
 <p>The XML data is highly relational, and is suited to a RDBMS environment. The xml has been ingested to a MySQL database (InnoDB engine). Please use the schema below to interact with this database, from within Kotta.</p>
+<p>Here&#8217;s a sample job that simply lists the tables in the <em>wos_hack</em> database.</p>
 <div class="highlight-json"><div class="highlight"><pre><span></span>USE wos_hack;
 
 -- Publication (Publications_Delimited.txt.gz) :
