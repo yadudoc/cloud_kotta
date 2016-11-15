@@ -57,7 +57,7 @@ perl, and wrappers that in turn compiled and ran c/c++ codes.
    maintenance of large code bases separate from the job execution system.
 
 
-Filename for script
+jFilename for script
 ^^^^^^^^^^^^^^^^^^^
 
 This is the filename underwhich the body of the script defined in the previous :ref:`ref_script` section is written

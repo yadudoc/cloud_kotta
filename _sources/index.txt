@@ -47,6 +47,12 @@ The code and the Cloudformation templates used to build the Infrastructure on AW
    dataguide/aura
    dataguide/ieee
 
+.. toctree::
+   :maxdepth: 3
+   :caption: WoS Hackathon
+
+   wos_hack/howto
+
 
 .. toctree::
    :maxdepth: 2
