@@ -55,19 +55,25 @@ def verify_email_address(app, email):
 import MySQLdb as mysqldb
         
 def update_db(app, statements):
-    print "Connecting to {0} as {1}".format(app.config["database.passwd"], app.config["database.url"])
-    db = mysqldb.connect(host = app.config["database.url"],
-                         port = int(app.config["database.port"]),
-                         user = app.config["database.user"],
-                         passwd = app.config["database.passwd"])
+    # Execute on all DBs
+    for db in ["wos1", "wos2"]:
+
+        print "Connecting to {0} as {1}".format(app.config["database.{0}.passwd".format(db)], 
+                                                app.config["database.{0}.url".format(db)])
+        db = mysqldb.connect(host = app.config["database.{0}.url".format(db)],
+                             port = int(app.config["database.{0}.port".format(db)]),
+                             user = app.config["database.{0}.user".format(db)],
+                             passwd = app.config["database.{0}.passwd".format(db)])
                          
-    cursor = db.cursor()
-    for line in statements:
-        cursor.execute(line)
-        for row in cursor.fetchall():
-            print row[0]
+        cursor = db.cursor()
+        for line in statements:
+            cursor.execute(line)
+            for row in cursor.fetchall():
+                print row[0]
             
-    db.close()
+        db.close()
+
+    return
 
 def create_user(app):    
     print "Updating wos username and passwd"
@@ -103,6 +109,7 @@ if __name__ == "__main__":
 
     if args.webofscience :
         w = load_config(args.webofscience)
+
 
     app.config["wos_user"]   = args.name.replace(' ', '').lower()
     app.config["wos_passwd"] = str(uuid.uuid4()).replace('-', '')[0:20]
