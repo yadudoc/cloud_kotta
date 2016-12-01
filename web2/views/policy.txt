@@ -1,4 +1,4 @@
-{ "expiration": "2016-12-01T12:00:00.000Z",
+{ "expiration": "2017-12-01T12:00:00.000Z",
   "conditions": [
     {"bucket": "{{bucket_name}}" },
     ["starts-with", "$key", "uploads/"],
