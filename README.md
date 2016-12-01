@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Recipes for a turnkey versatile cloud execution service. This is in production at https://turingcompute.net/
+Recipes for a turnkey versatile cloud execution service. This is in production at https://turingcompute.net/ 
 Some of the auxiliary systems are not included in the cloudformation document in the infrastructure folder
 and must be setup manually.
 
