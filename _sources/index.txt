@@ -46,6 +46,7 @@ The code and the Cloudformation templates used to build the Infrastructure on AW
    dataguide/wiki
    dataguide/aura
    dataguide/ieee
+   dataguide/jstor
 
 .. toctree::
    :maxdepth: 3

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Web Of Science (WoS) &mdash; Cloud Kotta beta documentation</title>
+  <title>JSTOR ngrams &mdash; Cloud Kotta beta documentation</title>
   
 
   
@@ -36,8 +36,8 @@
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Cloud Kotta beta documentation" href="../index.html"/>
-        <link rel="next" title="Wikipedia" href="wiki.html"/>
-        <link rel="prev" title="License" href="../devguide/license.html"/> 
+        <link rel="next" title="WoS Hackathon" href="../wos_hack/howto.html"/>
+        <link rel="prev" title="IEEE full text" href="ieee.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -106,18 +106,17 @@
 </ul>
 <p class="caption"><span class="caption-text">Dataset Catalog</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Web Of Science (WoS)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#storage-bucket">Storage bucket</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#schema">Schema</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#permissions">Permissions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#processed-intermediates">Processed intermediates</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#example">Example</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="wos.html">Web Of Science (WoS)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="wiki.html">Wikipedia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="aura.html">UChicago AURA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="ieee.html">IEEE full text</a></li>
-<li class="toctree-l1"><a class="reference internal" href="jstor.html">JSTOR ngrams</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">JSTOR ngrams</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#index">Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#storage-bucket">Storage bucket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#permissions">Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sample-jobs">Sample Jobs</a></li>
+</ul>
+</li>
 </ul>
 <p class="caption"><span class="caption-text">WoS Hackathon</span></p>
 <ul>
@@ -156,11 +155,11 @@
   <ul class="wy-breadcrumbs">
     <li><a href="../index.html">Docs</a> &raquo;</li>
       
-    <li>Web Of Science (WoS)</li>
+    <li>JSTOR ngrams</li>
       <li class="wy-breadcrumbs-aside">
         
           
-            <a href="../_sources/dataguide/wos.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/dataguide/jstor.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -170,47 +169,94 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="web-of-science-wos">
-<h1>Web Of Science (WoS)<a class="headerlink" href="#web-of-science-wos" title="Permalink to this headline">¶</a></h1>
-<p>The Knowledge Lab has licensed the Thomson Reuters&#8217; Web Of Science XML data for access to lab members as well as collaborators within the <a class="reference external" href="http://www.knowledgelab.org/people/researchers/">MetaKnowlege network</a>. We maintain the raw XML data as well as a curated relational MySQL compatible database for different modes of analyses.</p>
+  <div class="section" id="jstor-ngrams">
+<h1>JSTOR ngrams<a class="headerlink" href="#jstor-ngrams" title="Permalink to this headline">¶</a></h1>
+<p>JSTOR ngrams are indexed and stored on our secure S3 Buckets. The documents are indexed by their document ids (doi&#8217;s)
+on a MySQL database as well as in a collection of CSV files.</p>
+<div class="section" id="index">
+<h2>Index<a class="headerlink" href="#index" title="Permalink to this headline">¶</a></h2>
+<p>The Jstor ngram data is stored in a collection of 500 files (each approximately 3.2GB). These files are named n000 - n499.
+The indexes contain the filename and the byte indices of each doi. The schema followed by the database is also followed by
+the csv file. Here are a few lines from the jstor database.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="14%" />
+<col width="9%" />
+<col width="16%" />
+<col width="14%" />
+<col width="13%" />
+<col width="11%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">doi</th>
+<th class="head">filename</th>
+<th class="head">line</th>
+<th class="head">byteFirst</th>
+<th class="head">byteLast</th>
+<th class="head">nNgrams</th>
+<th class="head">nWords</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>10.1086/231208</td>
+<td>n000</td>
+<td>0</td>
+<td>0</td>
+<td>2038709</td>
+<td>5</td>
+<td>26172</td>
+</tr>
+<tr class="row-odd"><td>10.1086/233855</td>
+<td>n000</td>
+<td>1</td>
+<td>2038710</td>
+<td>3517884</td>
+<td>5</td>
+<td>19995</td>
+</tr>
+<tr class="row-even"><td>10.1086/314323</td>
+<td>n000</td>
+<td>2</td>
+<td>3517885</td>
+<td>4371013</td>
+<td>5</td>
+<td>12690</td>
+</tr>
+<tr class="row-odd"><td>10.1086/316637</td>
+<td>n000</td>
+<td>3</td>
+<td>4371014</td>
+<td>4616514</td>
+<td>5</td>
+<td>7770</td>
+</tr>
+</tbody>
+</table>
+<p>To connect to the MySQL database, please contact the <a class="reference internal" href="../contact.html#ref-admins"><span class="std std-ref">Administrators</span></a> for access.
+The database is accessible at <a href="#id1"><span class="problematic" id="id2">`klab.c3se0dtaabmj.us-west-2.rds.amazonaws.com`_</span></a></p>
+<p>If you plan to use the csv index files those are accessible from within Kotta by specifying the filenames as inputs to jobs.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The jstor index database is accessible from within Kotta as well.</p>
+</div>
+</div>
 <div class="section" id="storage-bucket">
 <h2>Storage bucket<a class="headerlink" href="#storage-bucket" title="Permalink to this headline">¶</a></h2>
-<p>The data is currently stored on two systems. The raw xmls are on S3 :</p>
-<ol class="arabic simple">
-<li>Complete dataset on S3 Storage : s3://klab-webofscience</li>
-<li>Sample dataset on S3 Storage   : s3://klab-webofscience-sample</li>
-</ol>
-<p>The parsed relational data is hosted on 2 RDS servers.</p>
-<ol class="arabic simple">
-<li>AWS Mysql compatible database  : wos.cluster-cvirc91pe37a.us-east-1.rds.amazonaws.com</li>
-<li>Updated MySQL database         : wos2.cvirc91pe37a.us-east-1.rds.amazonaws.com</li>
-</ol>
-</div>
-<div class="section" id="schema">
-<h2>Schema<a class="headerlink" href="#schema" title="Permalink to this headline">¶</a></h2>
-<p>The schema for the updates MySQL database :</p>
-<img alt="../_images/wos_schema.png" src="../_images/wos_schema.png" />
+<p>The data is currently stored on S3 Storage : s3://klabjstor.</p>
+<p>The indices for the files in csv file formats are stored under the same bucket and the filenames are:
+s3://klabjstor/i{000 - 499}.csv</p>
+<p>Since the data is organized by the data file, it is rather difficult to search for a particular doi without reading all 500 csv files. For search functions, it would be more convenient to query to external database and create a list of data files required and read out specific data items.</p>
+<p>The datafiles are here:
+s3://klabjstor/n{000 - 499} are the files that contain the ngram data.</p>
 </div>
 <div class="section" id="permissions">
 <h2>Permissions<a class="headerlink" href="#permissions" title="Permalink to this headline">¶</a></h2>
-<p>The data is secured within the Cloud Kotta secure data enclave and is only accessible from within the network. For access privileges please contact the <a class="reference internal" href="../contact.html#ref-admins"><span class="std std-ref">Administrators</span></a> for access.</p>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Even derivatives from this dataset could be considered sensitive. So users are adviced to confirm with the <a class="reference internal" href="../contact.html#ref-admins"><span class="std std-ref">Administrators</span></a> before publishing jobs that have derivatives in the output set.</p>
+<p>This data is only accessible from within the network and by users with the requisite access privileges.</p>
 </div>
-</div>
-<div class="section" id="processed-intermediates">
-<h2>Processed intermediates<a class="headerlink" href="#processed-intermediates" title="Permalink to this headline">¶</a></h2>
-<p>None that are public.</p>
-</div>
-<div class="section" id="example">
-<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
-<p>Here are some jobs that use the the Web of Science datasets:</p>
-<ol class="arabic simple">
-<li><a class="reference external" href="https://turingcompute.net/jobs/0872b9d1-38cb-413c-a5d3-8a9a9a2de818">Article Influence</a></li>
-<li><a class="reference external" href="https://turingcompute.net/jobs/0e860e0a-c68c-4c76-822d-a79c06c0c466">Compute Eigenfactor</a></li>
-<li><a class="reference external" href="https://turingcompute.net/jobs/26648db6-d073-46ef-aa03-2e0bd05e57b4">WoS Schema dump</a></li>
-</ol>
+<div class="section" id="sample-jobs">
+<h2>Sample Jobs<a class="headerlink" href="#sample-jobs" title="Permalink to this headline">¶</a></h2>
+<p>Pending.</p>
 </div>
 </div>
 
@@ -221,10 +267,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="wiki.html" class="btn btn-neutral float-right" title="Wikipedia" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../wos_hack/howto.html" class="btn btn-neutral float-right" title="WoS Hackathon" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../devguide/license.html" class="btn btn-neutral" title="License" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="ieee.html" class="btn btn-neutral" title="IEEE full text" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
