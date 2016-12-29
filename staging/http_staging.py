@@ -2,7 +2,7 @@
 from __future__ import print_function
 from staging import Staging
 from executor import execute_wait
-import urllib
+from urllib2 import urlopen, HTTPError, URLError
 import hashlib
 import os
 
@@ -26,17 +26,24 @@ class HTTPStaging(Staging):
                 'errcode'   : None,
                 'errstring' : None }
         try:
-            urllib.urlretrieve(self.src, self.dest)
-        except urllib.error.URLError :
+            #urllib.urlretrieve(self.src, self.dest)
+            data = urlopen(self.src)
+            with open(self.dest, 'wb') as local_file:
+                local_file.write(data)
+
+        except HTTPError as e:
+            print("Caught HTTPError")
+            ret = { 'status'  : False,
+                    'errcode' : e.code,
+                    'errstring' : "Caught an HTTPError: {0}".format(e.reason) }
+        except URLError as e:
+            print("Caught URLError")
             ret = { 'status'  : False,
                     'errcode' : 10001,
-                    'errstring' : "Caught a URL Error" }
-        except urllib.error.HTTPError as e:
-            ret = { 'status'  : False,
-                    'errcode' : 10000 + e.code,
-                    'errstring' : "Caught an HTTP Error {0}".format(e.reason) }
-            
+                    'errstring' : "Caught URLError: {0}".format(e.reason) }
         except Exception as e:
+            # This block should never be reached
+            print("Caught Blanket Error")
             ret = { 'status'  : False,
                     'errcode' : 10000,
                     'errstring' : "{0}".format(e) }
@@ -65,8 +72,7 @@ def test1():
               "dest" : "LICENCE"}
     obj    = HTTPStaging(defn)
     status = obj.stage_in()
-    print(obj.version_info())
-    print(status)
+    assert status['errcode'] == None and status['status'] == True
 
 def test2():
     # With commit
@@ -75,13 +81,25 @@ def test2():
               "dest" : "LICENCE.2"}
     obj    = HTTPStaging(defn)
     status = obj.stage_in()
-    print(obj.version_info())
-    print(status)
+    assert status['errcode'] == None and status['status'] == True
+    assert os.path.exists('LICENCE.2')
 
 def test3():
     # Bad src
     print("Testing: Bad http repo")
     defn   = {"src"  : "https://raw.githubusercontent.com/yadudoc/cloud_kotta/master/LICENCE2",
+              "dest" : "LICENCE.3"}
+    obj    = HTTPStaging(defn)
+    status = obj.stage_in()
+
+    print(status)
+    assert status['errcode'] != None and status['status'] == False
+
+
+def test4():
+    # Bad src
+    print("Testing: Bad http repo")
+    defn   = {"src"  : "hts://raw.githubusercontent.com/yadudoc/cloud_kotta/master/LICENCE2",
               "dest" : "LICENCE.2"}
     obj    = HTTPStaging(defn)
     status = obj.stage_in()
@@ -94,5 +112,6 @@ if __name__ == "__main__" :
     test1()
     test2()
     test3()
+    test4()
 
     #shutil.rmtree(defn["dest"])
