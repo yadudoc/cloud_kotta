@@ -35,11 +35,11 @@ exit_reason = { 0   : None,
 ############################################################################
 
 
-def execute_wait (cmd, walltime, stdout_pipe=None, stderr_pipe=None) :
+def execute_wait (cmd, walltime=None, stdout_fp=None, stderr_fp=None) :
     start_t = time.time()
     
-    std_out = stdout_pipe if stdout_pipe else open("staging.out.txt", 'a')
-    std_err = stderr_pipe if stderr_pipe else open("staging.err.txt", 'a')
+    std_out = stdout_fp if stdout_fp else open("staging.out.txt", 'a')
+    std_err = stderr_fp if stderr_fp else open("staging.err.txt", 'a')
     
     ret     = {  'status'  : True,
                  'dur'     : None,
@@ -52,15 +52,17 @@ def execute_wait (cmd, walltime, stdout_pipe=None, stderr_pipe=None) :
         retcode = proc.wait()
         ret['exitcode'] = retcode
         ret['reason']   = exit_reason.get(retcode, "Unknown Reason")
+        ret['status']   = False
 
     except OSError as e:
-        print("Caught OS Error : {0}".format(e.errno))
-        print("Caught OS Error : {0}".format(e.strerror))
-        print("Caught OS Error : {0}".format(e))
-        #print("Traceback       : {0}".format(e.child_traceback))
+        ret['status']   = False
+        ret['reason']   = "OSError"
+
+
     except Exception as e:
+        ret['status']   = False
+        ret['reason']   = "Unknown error"
         print("Caught exception : {0}".format(e))
-        return -1
 
     total_t = time.time() - start_t
     ret['dur'] = total_t
@@ -90,15 +92,20 @@ if __name__ == "__main__" :
     print(ret)
     assert ret['exitcode'] == 0
 
-    cmd = "git clone {0} {1}".format("https://github.com/yadudoc/TuringClient.git", "TuringClient")
-    ret = execute_wait(cmd, None)
-    print(ret)
-    assert ret['exitcode'] == 0
-
     cmd = "rm -rf TuringClient"
     ret = execute_wait(cmd, None)
     print(ret)
     assert ret['exitcode'] == 0
+
+    cmd = "git clone {0} {1}".format("https://github.com/yadudoc/TuringClient.git", "TuringClient")
+    ret = execute_wait(cmd, None)
+    print(ret)
+    assert ret['exitcode'] == 0
+    
+    assert ret['exitcode'] == 0
+    cmd = "rm -rf TuringClient"
+    ret = execute_wait(cmd, None)
+    print(ret)
 
 
     cmd = """git clone {0} {1};
@@ -110,10 +117,14 @@ if __name__ == "__main__" :
     ret = execute_wait(cmd, None)
     print(ret)
     assert ret['exitcode'] == 0
-    
-    
+        
     cmd = "git --git-dir={0}/.git/ --work-tree={0}/ rev-parse HEAD ".format("TuringClient")
-    ret = execute_wait(cmd, None, )
+    with open("commit_hash.txt", 'w') as info_file:
+        ret = execute_wait(cmd, None, stdout_fp=info_file)
+        
+    commit_hash = open("commit_hash.txt", 'r').readlines()[0].strip()
+    print("Commit hash = {0}".format(commit_hash))
+
     print(ret)
     assert ret['exitcode'] == 0
     
