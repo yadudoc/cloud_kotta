@@ -842,6 +842,67 @@ def handle_login():
                     title="Turing - Login Success!",
                     session=session)
 
+##################################################################
+# Handle the redirect from Login with Amazon.
+# Retrieve user identity from Amazon with the temp access_token
+# Use id to verify against valid users and get appropriate role.
+# Get temporary keys for the role and post to session.
+# Reference : https://images-na.ssl-images-amazon.com/images/G/01/lwa/dev/docs/website-developer-guide._TTH_.pdf
+# Section on : Using the Authorization Code Grant
+##################################################################
+import requests
+import json
+import urllib
+@get('/handle_login_refresh')
+def handle_login_refresh():
+    session = bottle.request.environ.get('beaker.session')
+    conf_man.update_creds_from_metadata_server(request.app)
+
+    # Parse the scope and authorization code from the response
+    scope = request.params.get("scope")
+    code  = request.params.get("code")
+
+    params = { 'grant_type'   : 'authorization_code',
+               'code'         : code,
+               #'redirect_uri' : 'https://turingcompute.net/handle_login',
+               'client_id'    : request.app.config["server.aws_client_id"],
+               'client_secret': request.app.config["server.aws_client_secret"]
+             }
+    url = "https://api.amazon.com/auth/o2/token?"
+    result = requests.post(url, data=params)
+    print result.text
+    print result
+
+
+    return 
+    access_token  = request.params.get("access_token")
+    expires_in    = request.params.get("expires_in")
+    aws_client_id = request.app.config["server.aws_client_id"]
+
+    
+    user_id, name, email = identity.get_identity_from_token(access_token, aws_client_id);
+    user_info = identity.find_user_role(request.app, user_id)
+    
+    if not user_info :
+        return template("./views/login_reject.tpl",
+                        title="Turing - Login Rejected!",
+                        username = name,
+                        user_id  = user_id,                    
+                        email    = email,
+                        session  = session)
+
+    
+    session["logged_in"] = True
+    session["user_id"]   = user_id
+    session["username"]  = name
+    session["email"]     = user_info["email"] #email
+    session["user_role"] = user_info["role"]
+
+    print session
+    return template("./views/login_confirm.tpl",
+                    title="Turing - Login Success!",
+                    session=session)
+
 
 if __name__ == "__main__":
 

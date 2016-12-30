@@ -56,7 +56,9 @@ import MySQLdb as mysqldb
         
 def update_db(app, statements):
     # Execute on all DBs
-    for db in ["wos1", "wos2"]:
+    
+    #for db in ["wos1", "wos2"]:
+    for db in ["wos2"]:
 
         print "Connecting to {0} as {1}".format(app.config["database.{0}.passwd".format(db)], 
                                                 app.config["database.{0}.url".format(db)])
