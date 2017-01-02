@@ -1,6 +1,6 @@
 <div class="container">
 <div class="page-header">
-  <h2>Login with Amazon</h2>
+  <h2>Get long lived credentials.</h2>
 </div>
 
 <body>
@@ -19,7 +19,7 @@
 
 </script>
 
-<p>Use a pre-approved account for Federated Access</p>
+<p>The security token retrieved is primarily used to automate job submission via the <a href="http://docs.cloudkotta.org/userguide/cli.html">REST client</a> or the <a href="http://docs.cloudkotta.org/userguide/cli.html">Jupyter Hub interface</a>.</p>
 <div class="form-wrapper">
 
 	<div class="row">
@@ -35,7 +35,7 @@
 
 	  document.getElementById('LoginWithAmazon').onclick = function() {
 	      options = { scope : 'profile' , response_type : 'code'};
-	          amazon.Login.authorize(options, 'https://turingcompute.net/handle_login');
+	          amazon.Login.authorize(options, 'https://turingcompute.net/handle_refresh');
 		      return false;
           };
 
@@ -48,5 +48,5 @@
 %end
 
 </div>
-%rebase('views/base', title='Turing - Login')
+%rebase('views/base', title='Turing - Credentials')
 

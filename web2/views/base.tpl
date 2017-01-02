@@ -69,6 +69,7 @@
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown">{{session["username"]}}<b class="caret"></b></a>
 		<ul class="dropdown-menu">
 		  <li><a href="{{get_url('logout')}}">Logout</a></li>
+		  <li><a href="{{get_url('refresh_token')}}">Credentials</a></li>
 		</ul>
 	      </li>
 	      %end
