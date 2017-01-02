@@ -828,7 +828,7 @@ def handle_login():
     user_id, name, email = identity.get_identity_from_token(access_token, aws_client_id);
     user_info = identity.find_user_role(request.app, user_id)
     
-    if user_info :
+    if not user_info :
         return template("./views/login_reject.tpl",
                         title="Turing - Login Rejected!",
                         username = name,
