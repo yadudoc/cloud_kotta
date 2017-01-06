@@ -602,7 +602,7 @@ def browse_folders():
     keys   = s3.list_s3_path(request.app, r_bucket, r_key)
 
     table = []
-    headers = ["URL", "Size (B)", "Last Modified", "Storage Class"]
+    headers = ["URL", "Size (B)", "Last Modified", "Storage Class", "Download"]
     # Find paths
     dirs       = []
     files      = []
@@ -634,7 +634,7 @@ def browse_folders():
                                                                      r_bucket,
                                                                      dirname + folder[0],
                                                                      folder[0])
-            item = [link, "Directory", key.last_modified, ""]
+            item = [link, "Directory", key.last_modified, "", ""]
             if folder[0] not in dirlookup:
                 dirlookup.append(folder[0])
                 dirs.append(item)
@@ -643,7 +643,14 @@ def browse_folders():
             path = '<a href="s3://{0}/{1}">{2}</a>'.format(r_bucket,
                                                            key.name,
                                                            key.name.split('/')[-1])
-            files.append([path, utils.file_size_human(key.size), key.last_modified, key.storage_class])        
+            signed_url = s3.generate_signed_url(request.app.config["s3.conn"],
+                                                r_bucket, # Bucket name
+                                                key.name, # Prefix
+                                                1500)     # Duration
+            url = """<a href="{0}">
+            <img border="0" alt="Download" src="./static/60538-cloud-download.png" width="50" height="50">
+            </a>""".format(signed_url)
+            files.append([path, utils.file_size_human(key.size), key.last_modified, key.storage_class, url])
 
     table.append(headers)
     print table
