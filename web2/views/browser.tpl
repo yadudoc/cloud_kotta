@@ -21,6 +21,7 @@
       %for row in table:
           <tr>
         %for i, col in enumerate(row):
+
 	    <td>{{!col}}</td>
         %end	
            </tr>

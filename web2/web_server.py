@@ -602,7 +602,9 @@ def browse_folders():
     keys   = s3.list_s3_path(request.app, r_bucket, r_key)
 
     table = []
+
     headers = ["URL", "Size (B)", "Last Modified", "Storage Class", "Download"]
+
     # Find paths
     dirs       = []
     files      = []
@@ -821,6 +823,7 @@ def login():
 def handle_login():
     session = bottle.request.environ.get('beaker.session')
     conf_man.update_creds_from_metadata_server(request.app)
+<<<<<<< HEAD
     access_token  = request.params.get("access_token", None)
     expires_in    = request.params.get("expires_in", None)
     aws_client_id = request.app.config["server.aws_client_id"]
@@ -832,6 +835,13 @@ def handle_login():
                         session=session,
                         error_str="{0}:{1}".format(error, error_desc))
             
+=======
+    access_token  = request.params.get("access_token")
+    expires_in    = request.params.get("expires_in")
+    aws_client_id = request.app.config["server.aws_client_id"]
+
+    
+>>>>>>> 22cf07e9b79a49939aa947ff92a1845e3fe402bd
     user_id, name, email = identity.get_identity_from_token(access_token, aws_client_id);
     user_info = identity.find_user_role(request.app, user_id)
     
@@ -855,6 +865,7 @@ def handle_login():
                     title="Turing - Login Success!",
                     session=session)
 
+<<<<<<< HEAD
 
 ##################################################################
 # GET request should get a form to the user
@@ -877,6 +888,8 @@ def login():
                     alert=False)
 
 
+=======
+>>>>>>> 22cf07e9b79a49939aa947ff92a1845e3fe402bd
 ##################################################################
 # Handle the redirect from Login with Amazon.
 # Retrieve user identity from Amazon with the temp access_token
@@ -888,6 +901,7 @@ def login():
 import requests
 import json
 import urllib
+<<<<<<< HEAD
 @get('/handle_refresh', method='GET', name='handle_refresh')
 def handle_login_refresh():
     session = bottle.request.environ.get('beaker.session')
@@ -901,6 +915,20 @@ def handle_login_refresh():
     params = { 'grant_type'   : 'authorization_code',
                'code'         : code,
                'redirect_uri' : 'https://turingcompute.net/handle_refresh',
+=======
+@get('/handle_login_refresh')
+def handle_login_refresh():
+    session = bottle.request.environ.get('beaker.session')
+    conf_man.update_creds_from_metadata_server(request.app)
+
+    # Parse the scope and authorization code from the response
+    scope = request.params.get("scope")
+    code  = request.params.get("code")
+
+    params = { 'grant_type'   : 'authorization_code',
+               'code'         : code,
+               #'redirect_uri' : 'https://turingcompute.net/handle_login',
+>>>>>>> 22cf07e9b79a49939aa947ff92a1845e3fe402bd
                'client_id'    : request.app.config["server.aws_client_id"],
                'client_secret': request.app.config["server.aws_client_secret"]
              }
@@ -908,6 +936,7 @@ def handle_login_refresh():
     result = requests.post(url, data=params)
     print result.text
     print result
+<<<<<<< HEAD
     """
     result = {"access_token":"Atza|IwEBIGS6ECtOKSM6wT3LTerFRyhUaAGIhvV0VMl4scNui1FVh629siax8Cxz9cgOAxLmj9Km9m5gmMDu1hZW11uHncaiC0qxr039SCuE_-UXZ7uxCEz9WIDZUygxQSKZ_W7MlRXbANihTYjHWFCIRumdoGnxOvB0BoXZs9AkJpBvmducc7kT7fyxgeJwqGdrhHU9g2FHMTefTGwAYlwMVVL56upRn4OO95QVJBOSQ72Q_D-ppQQKvSTuuQZqvgIPhJrMXFVJJGHBjQLxicM0YHY154BgaydSf1rPHHfCF2ku6I-vzR8zWWETpC-rsp5fkIRaKleHq0NeqEt9-3OCRwMRLqivT7TrkQ-NZXZ9-QLdBaal3tiE1KosRJ82vy1X8R-9AAWw45psZgzi8tj6t7C1U3gAP6eOM1Kb1mILphFZm95jenEvAtPYXe0kluxSDDOswsWg_6SaGFJ6QG5w4D0wTsn6iYCbM3jE0WY8KQxamTFSD07g1v60UgZh_qeVbgH8s98NepXzfAyGIZ5EzGhLHmTYGuUPnVWfqeFellzDaC_ebQ","refresh_token":"Atzr|IwEBIM9WHWfHBW_sWUYxQ0oAyoDayA4dNsB1ZV-Ovh97xpuxuzfPmXGG_azQj8TLdmpdsF98ThwHiXw_Wii8BaTElBSRlNvcu2Yupt3UELiUqnyzUw5P2q-cta--_ZdAbA3gK-HOEOu1zi_xEy15ZCQKyLZA-p5iQKDCkF13DWTF_LUKdQUjd5OmZTG0Fe3CUJaUgxX6OJo9Z_GJkIjdnhBJh5E_IxgLvYjVMRgyK6UcxWF9OYbMuUgi8MYNyTlxkmjNFrfFqwE0nJH78cqL4nC4q_WzKfpB8JozIlqdzZv5NxQLordxKWLSf6e0g9MR2EcJoTHwW4QnxSUWx6nKcTzVHA2fFoKm1Q5Uu-7Dc5ir2GxquS_cUHfBoc3L-evN44P_5FCySZU0ceUoM6h_YaLHEFzs6o6RmrtvY8QvgAHmzUMsJiMU7qS-d4Lf4vgKPE5qG679eXwSzkM52Jz9Gcx3fW-FpROEwYHjOJcHnd0Qcmdfum8aMZZ_QD-aaZ9qRZMPYo4","token_type":"bearer","expires_in":3600}
     #return result
@@ -915,6 +944,11 @@ def handle_login_refresh():
                     title="Turing - Credentials",
                     session=session)
 
+=======
+
+
+    return 
+>>>>>>> 22cf07e9b79a49939aa947ff92a1845e3fe402bd
     access_token  = request.params.get("access_token")
     expires_in    = request.params.get("expires_in")
     aws_client_id = request.app.config["server.aws_client_id"]

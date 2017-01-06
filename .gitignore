@@ -1,4 +1,10 @@
 *pyc
 *log
 *~
+<<<<<<< HEAD
 *conf
+=======
+*conf
+web2/production.conf
+production.conf
+>>>>>>> 22cf07e9b79a49939aa947ff92a1845e3fe402bd
