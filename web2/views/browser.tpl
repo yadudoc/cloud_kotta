@@ -21,11 +21,7 @@
       %for row in table:
           <tr>
         %for i, col in enumerate(row):
-	    %if i == 0 :
-	    	<td>{{!col}}</td>
-	    %else:
-		<td>{{col}}</td>
-	    %end
+	    <td>{{!col}}</td>
         %end	
            </tr>
           %end
