@@ -13,34 +13,29 @@
       }
 </style>
 
-<script>
-var copyTextareaBtn = document.querySelector('.js-textareacopybtn');
-
-copyTextareaBtn.addEventListener('click', function(event) {
-  var copyTextarea = document.querySelector('.js-copytextarea');
-  copyTextarea.select();
-
-  try {
-    var successful = document.execCommand('copy');
-    var msg = successful ? 'successful' : 'unsuccessful';
-    console.log('Copying text command was ' + msg);
-  } catch (err) {
-    console.log('Oops, unable to copy');
-  }
-});
-</script>
+<script src="https://cdn.jsdelivr.net/clipboard.js/1.5.16/clipboard.min.js"></script>
 
 <div id="main">
-
+     
      <div class="table-responsive">
      <table class="table table-hover">
-     <p>
-       <textarea class="js-copytextarea">Hello I'm some text</textarea>
-     </p>
+     
+     <div style="width:100%">
+	    <label>Credentials as JSON</label>
+	    </br>
+            <div>
 
-     <p>
-       <button class="js-textareacopybtn">Copy Textarea</button>
-       </p>
+	    <pre><code id="creds">{{credentials}}</code></pre>
+
+	    <!--
+	    <button class="btn" data-clipboard-action="cut" data-clipboard-target="code#creds">
+		    Cut to clipboard
+	    </button> 
+	    -->
+            </div>
+     </div>
+
+     
      </table>
      </div>
 </div>

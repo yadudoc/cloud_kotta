@@ -265,14 +265,39 @@ def _submit_task(request, session):
     return uid
 
 
+def refresh_auth_token(request, refreshtoken):
+
+    url = 'https://api.amazon.com/auth/o2/token'
+    data = {'grant_type' : 'refresh_token',
+            'client_id'    : request.app.config["server.aws_client_id"],
+            'client_secret': request.app.config["server.aws_client_secret"],
+            'refresh_token' : request.POST.get('refresh_token') }        
+    res = requests.post(url, data)
+    if res.status_code != 200 :
+        logging.error("Failed to refresh auth token")
+        return (False, res.text)
+
+    else:
+
+        return (True, res.json())
+
 ##################################################################################
-# Submit tasks via REST
+# Handle the token validation
+# If a refresh token is provided use that to get a new auth_token
+# Else, simply use the auth_token provided
+#      Either way use the auth_token provided to establish the user's identity
 ##################################################################################
-@route('/rest/v1/submit_task', method='POST', name="submit_task_rest")
-def submit_job_description():
-    print "Rest Interface for submit_task"
-    session = bottle.request.environ.get('beaker.session')
-    response.content_type = 'application/json'
+def validate_tokens(request, session):
+    
+    access_token = request.POST.get("access_token", None)
+
+    if request.POST.get("refresh_token"):
+        print "Attempting refresh for auth with refresh token"
+        status, vals = refresh_auth_token(request, request.POST.get("refresh_token"))
+        if not status :
+            return (False, {"status" : "Fail", "reason" : vals})
+        else:
+            access_token = vals['access_token']
     
     if request.POST.get("access_token"):
         print "Attempt to auth with access_token"
@@ -283,10 +308,27 @@ def submit_job_description():
 
         session.update(user_info)
         session["logged_in"] = True
-        #print "Session : ",session
+
     else:        
-        return {"status" : "Fail",
-                "reason" : "access_token missing"}
+        return (False, {"status" : "Fail",
+                        "reason" : "access_token missing"})
+    
+    return (True, {"status" : "Okay"})
+
+
+##################################################################################
+# Submit tasks via REST
+##################################################################################
+@route('/rest/v1/submit_task', method='POST', name="submit_task_rest")
+def submit_job_description():
+    print "Rest Interface for submit_task"
+    session = bottle.request.environ.get('beaker.session')
+    response.content_type = 'application/json'
+    
+    res, res_long = validate_tokens(request,session)
+    if not res:
+        return res_long
+
     try:
         uid = _submit_task(request, session)
     except Exception as e:
@@ -914,10 +956,20 @@ def handle_login_refresh():
                'client_secret': request.app.config["server.aws_client_secret"]
              }
     url = "https://api.amazon.com/auth/o2/token?"
-    result = requests.post(url, data=params)
+    creds = requests.post(url, data=params)
+    res = json.loads(creds.text)
+
+    if res.get("error", None):
+        return template("./views/error.tpl",
+                        session=session,
+                        error_str="{0}".format(res.get("error_description", "Unknown error")))
+        
+    credentials = json.dumps(res)
     return template("./views/show_token.tpl",
                     title="Turing - Credentials",
+                    credentials=credentials,
                     session=session)
+
 
 if __name__ == "__main__":
 
