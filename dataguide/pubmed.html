@@ -1,0 +1,513 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Medline &mdash; Cloud Kotta beta documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Cloud Kotta beta documentation" href="../index.html"/>
+        <link rel="next" title="WoS Hackathon" href="../wos_hack/howto.html"/>
+        <link rel="prev" title="JSTOR ngrams" href="jstor.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Cloud Kotta
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">User Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/kotta_access.html">Cloud Kotta Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/data_management.html">Data Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/submitting_jobs.html">Submitting Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/publishing.html">Publishing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/bastion_access.html">Bastion Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/cli.html">Commandline Client for Cloud Kotta</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/deployment.html">Deploying Cloud Kotta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/license.html">License</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Dataset Catalog</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="wos.html">Web Of Science (WoS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wiki.html">Wikipedia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aura.html">UChicago AURA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ieee.html">IEEE full text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jstor.html">JSTOR ngrams</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Medline</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#connecting">Connecting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#index">Index</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">WoS Hackathon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../wos_hack/howto.html">WoS Hackathon</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contact</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contact.html">Administrators</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Cloud Kotta</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Medline</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/dataguide/pubmed.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="medline">
+<h1>Medline<a class="headerlink" href="#medline" title="Permalink to this headline">¶</a></h1>
+<p>Medline contains a variety of datasets relating to medical research, including papers from PubMed, which are indexed and stored on a MySQL database. PubMed papers are indexed by their paper ids (pmid&#8217;s).</p>
+<div class="section" id="connecting">
+<h2>Connecting<a class="headerlink" href="#connecting" title="Permalink to this headline">¶</a></h2>
+<p>After receiving permission, enter the following line in terminal:</p>
+<p>mysql -h klab.c3se0dtaabmj.us-west-2.rds.amazonaws.com -u username -p</p>
+<p>with the correct username. The initial password will be the same as the username, which should be changed by entering:</p>
+<p>set password=PASSWORD(&#8216;xxxx&#8217;);</p>
+<p>at the mySQL prompt, with the x&#8217;s representing the new password.</p>
+</div>
+<div class="section" id="index">
+<h2>Index<a class="headerlink" href="#index" title="Permalink to this headline">¶</a></h2>
+<p>Different datasets are stored in 16 separate tables within the database.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="100%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Tables_in_medline</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>abstract</td>
+</tr>
+<tr class="row-odd"><td>affiliation</td>
+</tr>
+<tr class="row-even"><td>authorId</td>
+</tr>
+<tr class="row-odd"><td>authorInitialsId</td>
+</tr>
+<tr class="row-even"><td>authority09_articlesMedline</td>
+</tr>
+<tr class="row-odd"><td>authors</td>
+</tr>
+<tr class="row-even"><td>cell_docs</td>
+</tr>
+<tr class="row-odd"><td>doc</td>
+</tr>
+<tr class="row-even"><td>grants</td>
+</tr>
+<tr class="row-odd"><td>mesh</td>
+</tr>
+<tr class="row-even"><td>nAuthorHistogram</td>
+</tr>
+<tr class="row-odd"><td>patent_docs</td>
+</tr>
+<tr class="row-even"><td>pmidAuthId</td>
+</tr>
+<tr class="row-odd"><td>pmidNumAuthors</td>
+</tr>
+<tr class="row-even"><td>pmid_ext_metadata</td>
+</tr>
+<tr class="row-odd"><td>yearPmidNumAuthors</td>
+</tr>
+</tbody>
+</table>
+<p>Each of these tables relating to PubMed papers is linked by the paper&#8217;s pmid number, with a secondary database id - these do not line up as PubMed starts the numbering in 1975 while the paper with id 1 in the database is from 1865.</p>
+<p>Here is a sample of the affiliation table:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="7%" />
+<col width="5%" />
+<col width="9%" />
+<col width="13%" />
+<col width="66%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">id</th>
+<th class="head">pmid</th>
+<th class="head">authorRank</th>
+<th class="head">affiliationRank</th>
+<th class="head">affiliation</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>4733359
+5139674
+5331998
+4554496
+4554497</td>
+<td>12265
+26707
+45516
+45517
+45518</td>
+<td>1
+1
+1
+1
+1</td>
+<td>1
+1
+1
+1
+1</td>
+<td>Pharmaceutical Research Department, Allen and Hanburys Research Ltd., Ware, Herts, U.K.
+Industrial Toxicology Research Centre, Lucknow, India.
+Department of Biochemistry, University of Mississippi Medical Center, Jackson 29216.
+Physiology Laboratory, College of Optometry, Ohio State University, Columbus 43210.
+Physiology Laboratory, College of Optometry, Ohio State University, Columbus 43210.</td>
+</tr>
+</tbody>
+</table>
+<p>id is the database id as explained above, and pmid is the PubMed id. authorRank is the order in which the author was listed for the paper, while affiliationRank is the order in which the affiliation is listed for the author (currently there are none above 1 for either rank in this table).</p>
+<p>The breakdown of the other tables is as follows:</p>
+<p>abstract
++&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+
+| Field    | Type    | Null | Key | Default | Extra |
++==========+=========+======+=====+=========+=======+
+| pmid     | int(11) | YES  | MUL | NULL    |       |
+| rank     | int(11) | YES  |     | NULL    |       |
+| abstract | text    | YES  |     | NULL    |       |
++&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+</p>
+<p>pmid is the PubMed ID number for each paper, abstract is the text abstract from the paper. Some papers have multiple sections to their abstracts, and these are numbered in rank.</p>
+<p>authorId
++&#8212;&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;&#8212;-+
+| Field  | Type    | Null | Key | Default | Extra          |
++========+=========+======+=====+=========+================+
+| id     | int(11) | NO   | PRI | NULL    | auto_increment |
+| author | text    | YES  | MUL | NULL    |                |
++&#8212;&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;&#8212;-+
+authorInitialsId
++&#8212;&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;&#8212;-+
+| Field  | Type    | Null | Key | Default | Extra          |
++========+=========+======+=====+=========+================+
+| id     | int(11) | NO   | PRI | NULL    | auto_increment |
+| author | text    | YES  | MUL | NULL    |                |
++&#8212;&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;&#8212;-+</p>
+<p>These two tables are structured identically, where all authors found in the database are ordered alphabetically by last name and are given an ID number accordingly. The authorId table lists authors full names, last first, while the authorInitialsId table lists only a first initial with the last name.
+The two databases do not, however, align with their numbering, as the full name table does have some duplicates, as authors may appear in some papers with their name listed in initial form, and in another with their full name.</p>
+<p>authority09_articlesMedline
++&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+
+| Field    | Type        | Null | Key | Default | Extra |
++==========+=============+======+=====+=========+=======+
+| ID       | int(11)     | YES  |     | NULL    |       |
+| pmid     | int(11)     | YES  |     | NULL    |       |
+| aorder   | smallint(6) | YES  |     | NULL    |       |
+| LastName | varchar(64) | YES  |     | NULL    |       |
++&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+</p>
+<p>In this table, ID is an id given to a given author, whose LastName is listed, and the pmid of all papers they are listed on, as well as the author order in which they are listed on that paper.</p>
+<p>authors
++&#8212;&#8212;&#8212;&#8211;+&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+
+| Field     | Type        | Null | Key | Default | Extra |
++===========+=============+======+=====+=========+=======+
+| id        | int(11)     | YES  |     | NULL    |       |
+| pmid      | int(11)     | YES  | MUL | NULL    |       |
+| rank      | int(2)      | YES  |     | NULL    |       |
+| LastName  | varchar(64) | YES  |     | NULL    |       |
+| FirstName | varchar(64) | YES  |     | NULL    |       |
+| initials  | varchar(64) | YES  |     | NULL    |       |
++&#8212;&#8212;&#8212;&#8211;+&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+</p>
+<p>In this table, id is the database id number while pmid is the PubMed id. Rank is the author rank on the paper, and LastName, FirstName, and initials are those properties of each author&#8217;s name.</p>
+<p>cell_docs
++&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;+&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;&#8212;-+
+| Field              | Type        | Null | Key | Default | Extra          |
++====================+=============+======+=====+=========+================+
+| instance_id        | int(11)     | NO   | PRI | NULL    | auto_increment |
+| cell_number        | varchar(30) | YES  |     | NULL    |                |
+| pmid               | int(11)     | YES  | MUL | NULL    |                |
+| example            | text        | YES  |     | NULL    |                |
+| cell_names_version | int(11)     | YES  |     | NULL    |                |
+| suppliers          | text        | YES  |     | NULL    |                |
+| observed_form      | varchar(30) | YES  |     | NULL    |                |
++&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;+&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;&#8212;-+</p>
+<p>doc
++&#8212;&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;&#8212;&#8211;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;&#8212;-+
+| Field          | Type         | Null | Key | Default | Extra          |
++================+==============+======+=====+=========+================+
+| id             | int(11)      | NO   | PRI | NULL    | auto_increment |
+| pmid           | int(11)      | YES  | MUL | NULL    |                |
+| issn           | varchar(64)  | YES  |     | NULL    |                |
+| year           | text         | YES  |     | NULL    |                |
+| vol            | varchar(64)  | YES  |     | NULL    |                |
+| issue          | varchar(64)  | YES  |     | NULL    |                |
+| journal        | text         | YES  |     | NULL    |                |
+| journalAbbrev  | text         | YES  |     | NULL    |                |
+| journalCountry | varchar(255) | YES  |     | NULL    |                |
+| journalNlmID   | varchar(64)  | YES  |     | NULL    |                |
+| articleTitle   | text         | YES  |     | NULL    |                |
++&#8212;&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;&#8212;&#8211;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;&#8212;-+</p>
+<p>This table contains all relevant information about an article&#8217;s original journal publication.</p>
+<p>grants
++&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+
+| Field   | Type        | Null | Key | Default | Extra |
++=========+=============+======+=====+=========+=======+
+| id      | int(11)     | YES  |     | NULL    |       |
+| pmid    | int(11)     | YES  |     | NULL    |       |
+| grantId | varchar(64) | YES  |     | NULL    |       |
+| acronym | varchar(64) | YES  |     | NULL    |       |
+| agency  | varchar(64) | YES  |     | NULL    |       |
+| country | varchar(64) | YES  |     | NULL    |       |
++&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+</p>
+<p>This table contains all relevant information about grants used to fund papers, with acronyms corresponding to the grantId acronym and the organization funding the grant. Many papers have multiple grants, and similarly some grants fund several papers.</p>
+<p>mesh
++&#8212;&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;&#8212;&#8211;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+
+| Field          | Type         | Null | Key | Default | Extra |
++================+==============+======+=====+=========+=======+
+| id             | int(11)      | YES  |     | NULL    |       |
+| pmid           | int(11)      | YES  | MUL | NULL    |       |
+| descriptorUI   | varchar(16)  | YES  |     | NULL    |       |
+| descriptorName | varchar(255) | YES  |     | NULL    |       |
+| qualifier1UI   | varchar(16)  | YES  |     | NULL    |       |
+| qualifier1Name | varchar(255) | YES  |     | NULL    |       |
+| qualifier2UI   | varchar(16)  | YES  |     | NULL    |       |
+| qualifier2Name | varchar(255) | YES  |     | NULL    |       |
++&#8212;&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;&#8212;&#8211;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+</p>
+<p>The MeSH database is a list of terms that are important and prevalant in many PubMed papers. Each of these terms has a distinct identifier, listed in descriptorUI, and often has subcategories present in a paper, which have their own UI and name. This table contains the information on MeSH terms which are found in papers, as they are in the PubMed database.</p>
+<p>nAuthorHistogram
++&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+
+| Field    | Type       | Null | Key | Default | Extra |
++==========+============+======+=====+=========+=======+
+| year     | text       | YES  |     | NULL    |       |
+| nAuthors | bigint(21) | NO   |     | 0       |       |
+| nPmids   | bigint(21) | NO   |     | 0       |       |
++&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+</p>
+<p>This is a histogram of the number of papers with a given number of authors by year.
+For example,
++&#8212;&#8212;+&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8211;+
+| year | nAuthors | nPmids |
++======+==========+========+
+| 1992 |        5 |  37357 |
++&#8212;&#8212;+&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8211;+
+this result shows that in 1992, there were 37,357 PubMed papers with 5 authors.</p>
+<p>patent_docs
++&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;+&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;&#8212;-+
+| Field              | Type        | Null | Key | Default | Extra          |
++====================+=============+======+=====+=========+================+
+| instance_id        | int(11)     | NO   | PRI | NULL    | auto_increment |
+| cell_number        | varchar(30) | YES  | MUL | NULL    |                |
+| usptoid            | varchar(20) | YES  | MUL | NULL    |                |
+| example            | text        | YES  |     | NULL    |                |
+| cell_names_version | int(11)     | YES  |     | NULL    |                |
+| suppliers          | text        | YES  |     | NULL    |                |
+| date               | int(11)     | YES  |     | NULL    |                |
+| observed_form      | varchar(30) | YES  |     | NULL    |                |
++&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;+&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;&#8212;-+</p>
+<p>pmidAuthId
++&#8212;&#8212;-+&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+
+| Field | Type    | Null | Key | Default | Extra |
++=======+=========+======+=====+=========+=======+
+| pmid  | int(11) | YES  |     | NULL    |       |
+| id    | int(11) | NO   |     | 0       |       |
++&#8212;&#8212;-+&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+</p>
+<p>The id corresponds to the id given to each author on that paper based on the id in the authorId table.</p>
+<p>pmidNumAuthors
++&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+
+| Field    | Type       | Null | Key | Default | Extra |
++==========+============+======+=====+=========+=======+
+| pmid     | int(11)    | YES  |     | NULL    |       |
+| nAuthors | bigint(21) | NO   |     | 0       |       |
++&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+</p>
+<p>Number of authors for each paper.</p>
+<p>pmid_ext_metadata
++&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+
+| Field   | Type    | Null | Key | Default | Extra |
++=========+=========+======+=====+=========+=======+
+| pmid    | int(11) | NO   |     | NULL    |       |
+| date    | int(11) | YES  |     | NULL    |       |
+| journal | text    | YES  |     | NULL    |       |
++&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+</p>
+<p>External publication dates and journals for PubMed papers.</p>
+<p>yearPmidNumAuthor
++&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+
+| Field    | Type       | Null | Key | Default | Extra |
++==========+============+======+=====+=========+=======+
+| year     | text       | YES  |     | NULL    |       |
+| pmid     | int(11)    | YES  |     | NULL    |       |
+| nAuthors | bigint(21) | NO   |     | 0       |       |
++&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+</p>
+<p>Each PubMed paper is listed by pmid by year and with the number of authors on the paper.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../wos_hack/howto.html" class="btn btn-neutral float-right" title="WoS Hackathon" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="jstor.html" class="btn btn-neutral" title="JSTOR ngrams" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Knowledge Lab, University of Chicago.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'beta',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
