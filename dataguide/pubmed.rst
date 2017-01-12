@@ -117,6 +117,7 @@ These two tables are structured identically, where all authors found in the data
 The two databases do not, however, align with their numbering, as the full name table does have some duplicates, as authors may appear in some papers with their name listed in initial form, and in another with their full name.
 
 **authority09_articlesMedline**
+
 +----------+-------------+------+-----+---------+-------+
 | Field    | Type        | Null | Key | Default | Extra |
 +==========+=============+======+=====+=========+=======+
