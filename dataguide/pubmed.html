@@ -244,200 +244,893 @@
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>4733359
-5139674
-5331998
-4554496
-4554497</td>
-<td>12265
-26707
-45516
-45517
-45518</td>
-<td>1
-1
-1
-1
-1</td>
-<td>1
-1
-1
-1
-1</td>
-<td>Pharmaceutical Research Department, Allen and Hanburys Research Ltd., Ware, Herts, U.K.
-Industrial Toxicology Research Centre, Lucknow, India.
-Department of Biochemistry, University of Mississippi Medical Center, Jackson 29216.
-Physiology Laboratory, College of Optometry, Ohio State University, Columbus 43210.
-Physiology Laboratory, College of Optometry, Ohio State University, Columbus 43210.</td>
+<tr class="row-even"><td>4733359</td>
+<td>12265</td>
+<td>1</td>
+<td>1</td>
+<td>Pharmaceutical Research Department, Allen and Hanburys Research Ltd., Ware, Herts, U.K.</td>
+</tr>
+<tr class="row-odd"><td>5139674</td>
+<td>26707</td>
+<td>1</td>
+<td>1</td>
+<td>Industrial Toxicology Research Centre, Lucknow, India.</td>
+</tr>
+<tr class="row-even"><td>5331998</td>
+<td>45516</td>
+<td>1</td>
+<td>1</td>
+<td>Department of Biochemistry, University of Mississippi Medical Center, Jackson 29216.</td>
+</tr>
+<tr class="row-odd"><td>4554496</td>
+<td>45517</td>
+<td>1</td>
+<td>1</td>
+<td>Physiology Laboratory, College of Optometry, Ohio State University, Columbus 43210.</td>
+</tr>
+<tr class="row-even"><td>4554497</td>
+<td>45518</td>
+<td>1</td>
+<td>1</td>
+<td>Physiology Laboratory, College of Optometry, Ohio State University, Columbus 43210.</td>
 </tr>
 </tbody>
 </table>
 <p>id is the database id as explained above, and pmid is the PubMed id. authorRank is the order in which the author was listed for the paper, while affiliationRank is the order in which the affiliation is listed for the author (currently there are none above 1 for either rank in this table).</p>
 <p>The breakdown of the other tables is as follows:</p>
-<p>abstract
-+&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+
-| Field    | Type    | Null | Key | Default | Extra |
-+==========+=========+======+=====+=========+=======+
-| pmid     | int(11) | YES  | MUL | NULL    |       |
-| rank     | int(11) | YES  |     | NULL    |       |
-| abstract | text    | YES  |     | NULL    |       |
-+&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+</p>
+<p><strong>abstract</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="20%" />
+<col width="13%" />
+<col width="11%" />
+<col width="20%" />
+<col width="15%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Field</th>
+<th class="head">Type</th>
+<th class="head">Null</th>
+<th class="head">Key</th>
+<th class="head">Default</th>
+<th class="head">Extra</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>pmid</td>
+<td>int(11)</td>
+<td>YES</td>
+<td>MUL</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>rank</td>
+<td>int(11)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>abstract</td>
+<td>text</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
 <p>pmid is the PubMed ID number for each paper, abstract is the text abstract from the paper. Some papers have multiple sections to their abstracts, and these are numbered in rank.</p>
-<p>authorId
-+&#8212;&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;&#8212;-+
-| Field  | Type    | Null | Key | Default | Extra          |
-+========+=========+======+=====+=========+================+
-| id     | int(11) | NO   | PRI | NULL    | auto_increment |
-| author | text    | YES  | MUL | NULL    |                |
-+&#8212;&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;&#8212;-+
-authorInitialsId
-+&#8212;&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;&#8212;-+
-| Field  | Type    | Null | Key | Default | Extra          |
-+========+=========+======+=====+=========+================+
-| id     | int(11) | NO   | PRI | NULL    | auto_increment |
-| author | text    | YES  | MUL | NULL    |                |
-+&#8212;&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;&#8212;-+</p>
+<p><strong>authorId</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="17%" />
+<col width="11%" />
+<col width="9%" />
+<col width="17%" />
+<col width="30%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Field</th>
+<th class="head">Type</th>
+<th class="head">Null</th>
+<th class="head">Key</th>
+<th class="head">Default</th>
+<th class="head">Extra</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>id</td>
+<td>int(11)</td>
+<td>NO</td>
+<td>PRI</td>
+<td>NULL</td>
+<td>auto_increment</td>
+</tr>
+<tr class="row-odd"><td>author</td>
+<td>text</td>
+<td>YES</td>
+<td>MUL</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p><strong>authorInitialsId</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="17%" />
+<col width="11%" />
+<col width="9%" />
+<col width="17%" />
+<col width="30%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Field</th>
+<th class="head">Type</th>
+<th class="head">Null</th>
+<th class="head">Key</th>
+<th class="head">Default</th>
+<th class="head">Extra</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>id</td>
+<td>int(11)</td>
+<td>NO</td>
+<td>PRI</td>
+<td>NULL</td>
+<td>auto_increment</td>
+</tr>
+<tr class="row-odd"><td>author</td>
+<td>text</td>
+<td>YES</td>
+<td>MUL</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
 <p>These two tables are structured identically, where all authors found in the database are ordered alphabetically by last name and are given an ID number accordingly. The authorId table lists authors full names, last first, while the authorInitialsId table lists only a first initial with the last name.
 The two databases do not, however, align with their numbering, as the full name table does have some duplicates, as authors may appear in some papers with their name listed in initial form, and in another with their full name.</p>
-<p>authority09_articlesMedline
-+&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+
-| Field    | Type        | Null | Key | Default | Extra |
-+==========+=============+======+=====+=========+=======+
-| ID       | int(11)     | YES  |     | NULL    |       |
-| pmid     | int(11)     | YES  |     | NULL    |       |
-| aorder   | smallint(6) | YES  |     | NULL    |       |
-| LastName | varchar(64) | YES  |     | NULL    |       |
-+&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+</p>
+<p><strong>authority09_articlesMedline</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="26%" />
+<col width="12%" />
+<col width="10%" />
+<col width="18%" />
+<col width="14%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Field</th>
+<th class="head">Type</th>
+<th class="head">Null</th>
+<th class="head">Key</th>
+<th class="head">Default</th>
+<th class="head">Extra</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>ID</td>
+<td>int(11)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>pmid</td>
+<td>int(11)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>aorder</td>
+<td>smallint(6)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>LastName</td>
+<td>varchar(64)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
 <p>In this table, ID is an id given to a given author, whose LastName is listed, and the pmid of all papers they are listed on, as well as the author order in which they are listed on that paper.</p>
-<p>authors
-+&#8212;&#8212;&#8212;&#8211;+&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+
-| Field     | Type        | Null | Key | Default | Extra |
-+===========+=============+======+=====+=========+=======+
-| id        | int(11)     | YES  |     | NULL    |       |
-| pmid      | int(11)     | YES  | MUL | NULL    |       |
-| rank      | int(2)      | YES  |     | NULL    |       |
-| LastName  | varchar(64) | YES  |     | NULL    |       |
-| FirstName | varchar(64) | YES  |     | NULL    |       |
-| initials  | varchar(64) | YES  |     | NULL    |       |
-+&#8212;&#8212;&#8212;&#8211;+&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+</p>
+<p><strong>authors</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="25%" />
+<col width="12%" />
+<col width="10%" />
+<col width="18%" />
+<col width="14%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Field</th>
+<th class="head">Type</th>
+<th class="head">Null</th>
+<th class="head">Key</th>
+<th class="head">Default</th>
+<th class="head">Extra</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>id</td>
+<td>int(11)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>pmid</td>
+<td>int(11)</td>
+<td>YES</td>
+<td>MUL</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>rank</td>
+<td>int(2)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>LastName</td>
+<td>varchar(64)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>FirstName</td>
+<td>varchar(64)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>initials</td>
+<td>varchar(64)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
 <p>In this table, id is the database id number while pmid is the PubMed id. Rank is the author rank on the paper, and LastName, FirstName, and initials are those properties of each author&#8217;s name.</p>
-<p>cell_docs
-+&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;+&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;&#8212;-+
-| Field              | Type        | Null | Key | Default | Extra          |
-+====================+=============+======+=====+=========+================+
-| instance_id        | int(11)     | NO   | PRI | NULL    | auto_increment |
-| cell_number        | varchar(30) | YES  |     | NULL    |                |
-| pmid               | int(11)     | YES  | MUL | NULL    |                |
-| example            | text        | YES  |     | NULL    |                |
-| cell_names_version | int(11)     | YES  |     | NULL    |                |
-| suppliers          | text        | YES  |     | NULL    |                |
-| observed_form      | varchar(30) | YES  |     | NULL    |                |
-+&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;+&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;&#8212;-+</p>
-<p>doc
-+&#8212;&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;&#8212;&#8211;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;&#8212;-+
-| Field          | Type         | Null | Key | Default | Extra          |
-+================+==============+======+=====+=========+================+
-| id             | int(11)      | NO   | PRI | NULL    | auto_increment |
-| pmid           | int(11)      | YES  | MUL | NULL    |                |
-| issn           | varchar(64)  | YES  |     | NULL    |                |
-| year           | text         | YES  |     | NULL    |                |
-| vol            | varchar(64)  | YES  |     | NULL    |                |
-| issue          | varchar(64)  | YES  |     | NULL    |                |
-| journal        | text         | YES  |     | NULL    |                |
-| journalAbbrev  | text         | YES  |     | NULL    |                |
-| journalCountry | varchar(255) | YES  |     | NULL    |                |
-| journalNlmID   | varchar(64)  | YES  |     | NULL    |                |
-| articleTitle   | text         | YES  |     | NULL    |                |
-+&#8212;&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;&#8212;&#8211;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;&#8212;-+</p>
+<p><strong>cell_docs</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="19%" />
+<col width="9%" />
+<col width="7%" />
+<col width="13%" />
+<col width="23%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Field</th>
+<th class="head">Type</th>
+<th class="head">Null</th>
+<th class="head">Key</th>
+<th class="head">Default</th>
+<th class="head">Extra</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>instance_id</td>
+<td>int(11)</td>
+<td>NO</td>
+<td>PRI</td>
+<td>NULL</td>
+<td>auto_increment</td>
+</tr>
+<tr class="row-odd"><td>cell_number</td>
+<td>varchar(30)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>pmid</td>
+<td>int(11)</td>
+<td>YES</td>
+<td>MUL</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>example</td>
+<td>text</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>cell_names_version</td>
+<td>int(11)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>suppliers</td>
+<td>text</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>observed_form</td>
+<td>varchar(30)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p><strong>doc</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="21%" />
+<col width="9%" />
+<col width="8%" />
+<col width="14%" />
+<col width="24%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Field</th>
+<th class="head">Type</th>
+<th class="head">Null</th>
+<th class="head">Key</th>
+<th class="head">Default</th>
+<th class="head">Extra</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>id</td>
+<td>int(11)</td>
+<td>NO</td>
+<td>PRI</td>
+<td>NULL</td>
+<td>auto_increment</td>
+</tr>
+<tr class="row-odd"><td>pmid</td>
+<td>int(11)</td>
+<td>YES</td>
+<td>MUL</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>issn</td>
+<td>varchar(64)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>year</td>
+<td>text</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>vol</td>
+<td>varchar(64)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>issue</td>
+<td>varchar(64)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>journal</td>
+<td>text</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>journalAbbrev</td>
+<td>text</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>journalCountry</td>
+<td>varchar(255)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>journalNlmID</td>
+<td>varchar(64)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>articleTitle</td>
+<td>text</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
 <p>This table contains all relevant information about an article&#8217;s original journal publication.</p>
-<p>grants
-+&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+
-| Field   | Type        | Null | Key | Default | Extra |
-+=========+=============+======+=====+=========+=======+
-| id      | int(11)     | YES  |     | NULL    |       |
-| pmid    | int(11)     | YES  |     | NULL    |       |
-| grantId | varchar(64) | YES  |     | NULL    |       |
-| acronym | varchar(64) | YES  |     | NULL    |       |
-| agency  | varchar(64) | YES  |     | NULL    |       |
-| country | varchar(64) | YES  |     | NULL    |       |
-+&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+</p>
+<p><strong>grants</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="27%" />
+<col width="12%" />
+<col width="10%" />
+<col width="18%" />
+<col width="14%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Field</th>
+<th class="head">Type</th>
+<th class="head">Null</th>
+<th class="head">Key</th>
+<th class="head">Default</th>
+<th class="head">Extra</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>id</td>
+<td>int(11)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>pmid</td>
+<td>int(11)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>grantId</td>
+<td>varchar(64)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>acronym</td>
+<td>varchar(64)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>agency</td>
+<td>varchar(64)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>country</td>
+<td>varchar(64)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
 <p>This table contains all relevant information about grants used to fund papers, with acronyms corresponding to the grantId acronym and the organization funding the grant. Many papers have multiple grants, and similarly some grants fund several papers.</p>
-<p>mesh
-+&#8212;&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;&#8212;&#8211;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+
-| Field          | Type         | Null | Key | Default | Extra |
-+================+==============+======+=====+=========+=======+
-| id             | int(11)      | YES  |     | NULL    |       |
-| pmid           | int(11)      | YES  | MUL | NULL    |       |
-| descriptorUI   | varchar(16)  | YES  |     | NULL    |       |
-| descriptorName | varchar(255) | YES  |     | NULL    |       |
-| qualifier1UI   | varchar(16)  | YES  |     | NULL    |       |
-| qualifier1Name | varchar(255) | YES  |     | NULL    |       |
-| qualifier2UI   | varchar(16)  | YES  |     | NULL    |       |
-| qualifier2Name | varchar(255) | YES  |     | NULL    |       |
-+&#8212;&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;&#8212;&#8211;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+</p>
+<p><strong>mesh</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="28%" />
+<col width="25%" />
+<col width="11%" />
+<col width="9%" />
+<col width="16%" />
+<col width="12%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Field</th>
+<th class="head">Type</th>
+<th class="head">Null</th>
+<th class="head">Key</th>
+<th class="head">Default</th>
+<th class="head">Extra</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>id</td>
+<td>int(11)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>pmid</td>
+<td>int(11)</td>
+<td>YES</td>
+<td>MUL</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>descriptorUI</td>
+<td>varchar(16)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>descriptorName</td>
+<td>varchar(255)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>qualifier1UI</td>
+<td>varchar(16)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>qualifier1Name</td>
+<td>varchar(255)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>qualifier2UI</td>
+<td>varchar(16)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>qualifier2Name</td>
+<td>varchar(255)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
 <p>The MeSH database is a list of terms that are important and prevalant in many PubMed papers. Each of these terms has a distinct identifier, listed in descriptorUI, and often has subcategories present in a paper, which have their own UI and name. This table contains the information on MeSH terms which are found in papers, as they are in the PubMed database.</p>
-<p>nAuthorHistogram
-+&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+
-| Field    | Type       | Null | Key | Default | Extra |
-+==========+============+======+=====+=========+=======+
-| year     | text       | YES  |     | NULL    |       |
-| nAuthors | bigint(21) | NO   |     | 0       |       |
-| nPmids   | bigint(21) | NO   |     | 0       |       |
-+&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+</p>
+<p><strong>nAuthorHistogram</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="24%" />
+<col width="12%" />
+<col width="10%" />
+<col width="18%" />
+<col width="14%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Field</th>
+<th class="head">Type</th>
+<th class="head">Null</th>
+<th class="head">Key</th>
+<th class="head">Default</th>
+<th class="head">Extra</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>year</td>
+<td>text</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>nAuthors</td>
+<td>bigint(21)</td>
+<td>NO</td>
+<td>&nbsp;</td>
+<td>0</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>nPmids</td>
+<td>bigint(21)</td>
+<td>NO</td>
+<td>&nbsp;</td>
+<td>0</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
 <p>This is a histogram of the number of papers with a given number of authors by year.
-For example,
-+&#8212;&#8212;+&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8211;+
-| year | nAuthors | nPmids |
-+======+==========+========+
-| 1992 |        5 |  37357 |
-+&#8212;&#8212;+&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8211;+
-this result shows that in 1992, there were 37,357 PubMed papers with 5 authors.</p>
-<p>patent_docs
-+&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;+&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;&#8212;-+
-| Field              | Type        | Null | Key | Default | Extra          |
-+====================+=============+======+=====+=========+================+
-| instance_id        | int(11)     | NO   | PRI | NULL    | auto_increment |
-| cell_number        | varchar(30) | YES  | MUL | NULL    |                |
-| usptoid            | varchar(20) | YES  | MUL | NULL    |                |
-| example            | text        | YES  |     | NULL    |                |
-| cell_names_version | int(11)     | YES  |     | NULL    |                |
-| suppliers          | text        | YES  |     | NULL    |                |
-| date               | int(11)     | YES  |     | NULL    |                |
-| observed_form      | varchar(30) | YES  |     | NULL    |                |
-+&#8212;&#8212;&#8212;&#8212;&#8212;&#8212;&#8211;+&#8212;&#8212;&#8212;&#8212;-+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;&#8212;-+</p>
-<p>pmidAuthId
-+&#8212;&#8212;-+&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+
-| Field | Type    | Null | Key | Default | Extra |
-+=======+=========+======+=====+=========+=======+
-| pmid  | int(11) | YES  |     | NULL    |       |
-| id    | int(11) | NO   |     | 0       |       |
-+&#8212;&#8212;-+&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+</p>
+For example,</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="42%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">year</th>
+<th class="head">nAuthors</th>
+<th class="head">nPmids</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1992</td>
+<td>5</td>
+<td>37357</td>
+</tr>
+</tbody>
+</table>
+<p>this result shows that in 1992, there were 37,357 PubMed papers with 5 authors.</p>
+<p><strong>patent_docs</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="29%" />
+<col width="19%" />
+<col width="9%" />
+<col width="7%" />
+<col width="13%" />
+<col width="23%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Field</th>
+<th class="head">Type</th>
+<th class="head">Null</th>
+<th class="head">Key</th>
+<th class="head">Default</th>
+<th class="head">Extra</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>instance_id</td>
+<td>int(11)</td>
+<td>NO</td>
+<td>PRI</td>
+<td>NULL</td>
+<td>auto_increment</td>
+</tr>
+<tr class="row-odd"><td>cell_number</td>
+<td>varchar(30)</td>
+<td>YES</td>
+<td>MUL</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>usptoid</td>
+<td>varchar(20)</td>
+<td>YES</td>
+<td>MUL</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>example</td>
+<td>text</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>cell_names_version</td>
+<td>int(11)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>suppliers</td>
+<td>text</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>date</td>
+<td>int(11)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>observed_form</td>
+<td>varchar(30)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p><strong>pmidAuthId</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="21%" />
+<col width="14%" />
+<col width="12%" />
+<col width="21%" />
+<col width="16%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Field</th>
+<th class="head">Type</th>
+<th class="head">Null</th>
+<th class="head">Key</th>
+<th class="head">Default</th>
+<th class="head">Extra</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>pmid</td>
+<td>int(11)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>id</td>
+<td>int(11)</td>
+<td>NO</td>
+<td>&nbsp;</td>
+<td>0</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
 <p>The id corresponds to the id given to each author on that paper based on the id in the authorId table.</p>
-<p>pmidNumAuthors
-+&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+
-| Field    | Type       | Null | Key | Default | Extra |
-+==========+============+======+=====+=========+=======+
-| pmid     | int(11)    | YES  |     | NULL    |       |
-| nAuthors | bigint(21) | NO   |     | 0       |       |
-+&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+</p>
+<p><strong>pmidNumAuthors</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="24%" />
+<col width="12%" />
+<col width="10%" />
+<col width="18%" />
+<col width="14%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Field</th>
+<th class="head">Type</th>
+<th class="head">Null</th>
+<th class="head">Key</th>
+<th class="head">Default</th>
+<th class="head">Extra</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>pmid</td>
+<td>int(11)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>nAuthors</td>
+<td>bigint(21)</td>
+<td>NO</td>
+<td>&nbsp;</td>
+<td>0</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
 <p>Number of authors for each paper.</p>
-<p>pmid_ext_metadata
-+&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+
-| Field   | Type    | Null | Key | Default | Extra |
-+=========+=========+======+=====+=========+=======+
-| pmid    | int(11) | NO   |     | NULL    |       |
-| date    | int(11) | YES  |     | NULL    |       |
-| journal | text    | YES  |     | NULL    |       |
-+&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+</p>
+<p><strong>pmid_ext_metadata</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="13%" />
+<col width="11%" />
+<col width="20%" />
+<col width="16%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Field</th>
+<th class="head">Type</th>
+<th class="head">Null</th>
+<th class="head">Key</th>
+<th class="head">Default</th>
+<th class="head">Extra</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>pmid</td>
+<td>int(11)</td>
+<td>NO</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>date</td>
+<td>int(11)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>journal</td>
+<td>text</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
 <p>External publication dates and journals for PubMed papers.</p>
-<p>yearPmidNumAuthor
-+&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+
-| Field    | Type       | Null | Key | Default | Extra |
-+==========+============+======+=====+=========+=======+
-| year     | text       | YES  |     | NULL    |       |
-| pmid     | int(11)    | YES  |     | NULL    |       |
-| nAuthors | bigint(21) | NO   |     | 0       |       |
-+&#8212;&#8212;&#8212;-+&#8212;&#8212;&#8212;&#8212;+&#8212;&#8212;+&#8212;&#8211;+&#8212;&#8212;&#8212;+&#8212;&#8212;-+</p>
+<p><strong>yearPmidNumAuthor</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="20%" />
+<col width="24%" />
+<col width="12%" />
+<col width="10%" />
+<col width="18%" />
+<col width="14%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Field</th>
+<th class="head">Type</th>
+<th class="head">Null</th>
+<th class="head">Key</th>
+<th class="head">Default</th>
+<th class="head">Extra</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>year</td>
+<td>text</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>pmid</td>
+<td>int(11)</td>
+<td>YES</td>
+<td>&nbsp;</td>
+<td>NULL</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>nAuthors</td>
+<td>bigint(21)</td>
+<td>NO</td>
+<td>&nbsp;</td>
+<td>0</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
 <p>Each PubMed paper is listed by pmid by year and with the number of authors on the paper.</p>
 </div>
 </div>
