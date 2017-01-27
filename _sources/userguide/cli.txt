@@ -14,11 +14,11 @@ To set up the Command line client for Cloud Kotta follow these steps:
 
    * Follow instructions `here <http://docs.python-requests.org/en/master/user/install/#install>`_ to install the Requests library.
    
-2. Clone the TuringClient github repository:
+2. Clone the kotta_client github repository:
 
    .. code-block:: bash
 		   
-      git clone https://github.com/yadudoc/TuringClient.git
+      git clone https://github.com/yadudoc/kotta_client.git
 
 3. Follow steps in :ref:`ref_auth` to get an auth token.
 
@@ -26,7 +26,7 @@ To set up the Command line client for Cloud Kotta follow these steps:
    
    .. code-block:: bash
    
-      $ cd TuringClient
+      $ cd kotta_client
       # Edit generic_echo.json with your email address.
       $ cat generic_echo.json
       { "user_email"         : "<YOUR EMAIL>",

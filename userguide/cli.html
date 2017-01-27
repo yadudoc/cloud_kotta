@@ -91,6 +91,9 @@
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kotta_access.html">Cloud Kotta Access</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kottabooks.html">Kotta Notebooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kottabooks.html#access">Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kottabooks.html#kotta-library">Kotta Library</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data_management.html">Data Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="submitting_jobs.html">Submitting Jobs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="publishing.html">Publishing Jobs</a></li>
@@ -121,6 +124,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../dataguide/wiki.html">Wikipedia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../dataguide/aura.html">UChicago AURA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../dataguide/ieee.html">IEEE full text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dataguide/jstor.html">JSTOR ngrams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dataguide/pubmed.html">Medline</a></li>
+</ul>
+<p class="caption"><span class="caption-text">WoS Hackathon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../wos_hack/howto.html">WoS Hackathon</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contact</span></p>
 <ul>
@@ -183,15 +192,15 @@ workflow.</p>
 <li>Follow instructions <a class="reference external" href="http://docs.python-requests.org/en/master/user/install/#install">here</a> to install the Requests library.</li>
 </ul>
 </li>
-<li><p class="first">Clone the TuringClient github repository:</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone https://github.com/yadudoc/TuringClient.git
+<li><p class="first">Clone the kotta_client github repository:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone https://github.com/yadudoc/kotta_client.git
 </pre></div>
 </div>
 </li>
 <li><p class="first">Follow steps in <a class="reference internal" href="#ref-auth"><span class="std std-ref">Authenticating</span></a> to get an auth token.</p>
 </li>
 <li><p class="first">Submit a simple <em>hello world</em> job</p>
-<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> TuringClient
+<div class="highlight-bash"><div class="highlight"><pre><span></span>$ <span class="nb">cd</span> kotta_client
 <span class="c1"># Edit generic_echo.json with your email address.</span>
 $ cat generic_echo.json
 <span class="o">{</span> <span class="s2">&quot;user_email&quot;</span>         : <span class="s2">&quot;&lt;YOUR EMAIL&gt;&quot;</span>,

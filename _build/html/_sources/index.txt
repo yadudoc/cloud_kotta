@@ -19,6 +19,7 @@ The code and the Cloudformation templates used to build the Infrastructure on AW
    userguide/overview
    userguide/kotta_access
    userguide/getting_started
+   userguide/kottabooks
    userguide/data_management
    userguide/submitting_jobs
    userguide/publishing
