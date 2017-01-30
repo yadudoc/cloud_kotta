@@ -1,0 +1,290 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Kotta Library &mdash; Cloud Kotta beta documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Cloud Kotta beta documentation" href="../index.html"/>
+        <link rel="next" title="Data Management" href="data_management.html"/>
+        <link rel="prev" title="Kotta Notebooks" href="kottabooks.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Cloud Kotta
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">User Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kotta_access.html">Cloud Kotta Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kottabooks.html">Kotta Notebooks</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Kotta Library</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#python-on-kotta">Python on Kotta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-script-using-kotta-library">Running Script using Kotta Library</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="data_management.html">Data Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="submitting_jobs.html">Submitting Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="publishing.html">Publishing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bastion_access.html">Bastion Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Commandline Client for Cloud Kotta</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/deployment.html">Deploying Cloud Kotta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/license.html">License</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Dataset Catalog</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dataguide/wos.html">Web Of Science (WoS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dataguide/wiki.html">Wikipedia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dataguide/aura.html">UChicago AURA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dataguide/ieee.html">IEEE full text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dataguide/jstor.html">JSTOR ngrams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dataguide/pubmed.html">Medline</a></li>
+</ul>
+<p class="caption"><span class="caption-text">WoS Hackathon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../wos_hack/howto.html">WoS Hackathon</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contact</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contact.html">Administrators</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Cloud Kotta</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Kotta Library</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/userguide/kottalibrary.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="kotta-library">
+<h1>Kotta Library<a class="headerlink" href="#kotta-library" title="Permalink to this headline">¶</a></h1>
+<p>The Kotta library provides you a simple interface to manage your jobs on Kotta. The library allows you to submit regular script style jobs as well as pure functions in python to provide a cleaner ways to express workflows. Here we will first explore using the Kotta library to run pure python functions, and then cover a brief set of examples with submitting scripts using the raw interface.</p>
+<div class="section" id="python-on-kotta">
+<h2>Python on Kotta<a class="headerlink" href="#python-on-kotta" title="Permalink to this headline">¶</a></h2>
+<p>The Kotta library allows you to run pure python functions on Kotta. To authenticate with the Kotta a Kotta connection object is created which takes the json credentials string.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Import the Kotta module</span>
+<span class="kn">from</span> <span class="nn">kotta</span> <span class="kn">import</span> <span class="n">Kotta</span><span class="p">,</span> <span class="n">KottaJob</span>
+<span class="kn">from</span> <span class="nn">kotta.kotta_functions</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># Create a Kotta Connection using Login with Amazon credentials</span>
+<span class="c1"># The token from Kotta is stored in the auth.file</span>
+<span class="n">konn</span> <span class="o">=</span> <span class="n">Kotta</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../auth.file&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>The kotta library offers a convenient <strong>&#64;kottajob</strong> decorator that packages a python function to run on Kotta&#8217;s compute nodes. The <strong>&#64;kottajob</strong> decorator takes three arguments:</p>
+<ol class="arabic simple">
+<li>The Kotta object created using the credentials.</li>
+<li>The queue that should run the python function.<ul>
+<li>The &#8216;Test&#8217; queue provides machines with 2vCPUs and 4GB or RAM.</li>
+<li>The &#8216;Prod&#8217; queue has machines with 32vCPUs+ and 256GB of RAM.</li>
+</ul>
+</li>
+<li>The walltime in minutes. This options is required to avoid infinite loops and stuck codes.</li>
+</ol>
+<p>Let&#8217;s see an example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nd">@kottajob</span><span class="p">(</span><span class="n">konn</span><span class="p">,</span> <span class="s1">&#39;Test&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">my_sum</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+     <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">my_sum</span> <span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="running-script-using-kotta-library">
+<h2>Running Script using Kotta Library<a class="headerlink" href="#running-script-using-kotta-library" title="Permalink to this headline">¶</a></h2>
+<p>Here is a simple Hello World example written in bash</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">hello</span> <span class="o">=</span> <span class="n">KottaJob</span><span class="p">(</span> <span class="n">jobtype</span>       <span class="o">=</span> <span class="s1">&#39;script&#39;</span><span class="p">,</span>
+                  <span class="n">jobname</span>       <span class="o">=</span> <span class="s1">&#39;hello&#39;</span><span class="p">,</span>
+                  <span class="n">executable</span>    <span class="o">=</span> <span class="s1">&#39;/bin/bash myscript.sh&#39;</span><span class="p">,</span>
+                  <span class="n">script_name</span>   <span class="o">=</span> <span class="s1">&#39;myscript.sh&#39;</span><span class="p">,</span>
+                  <span class="n">script</span>        <span class="o">=</span> <span class="s1">&#39;#!/bin/bash </span><span class="se">\n</span><span class="s1"> echo &quot;Hello World!&quot;&#39;</span>
+                <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="data_management.html" class="btn btn-neutral float-right" title="Data Management" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="kottabooks.html" class="btn btn-neutral" title="Kotta Notebooks" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Knowledge Lab, University of Chicago.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'beta',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
