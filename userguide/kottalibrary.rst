@@ -77,7 +77,7 @@ KOut class
 
 
 kotta.KOut(filestring)
-^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^
 
    Args:
      * filestring(string) : A url string
@@ -86,7 +86,7 @@ kotta.KOut(filestring)
      KOut object
 
 kotta.KOut.url
-^^^
+^^^^^^^^^^^^^^
 
    A Property
 
@@ -94,7 +94,7 @@ kotta.KOut.url
       The url string
 
 kotta.KOut.s3_url
-^^^^^^
+^^^^^^^^^^^^^^^^^
 
    Property. The S3 url of an output object which has resolved, meaning the job has completed and the output is available.
 
@@ -102,7 +102,7 @@ kotta.KOut.s3_url
       Returns the s3 url of an output object.
 
 kotta.KOut.file
-^^^^
+^^^^^^^^^^^^^^^
 
    Property. The base filename of the resource.
 
@@ -110,7 +110,7 @@ kotta.KOut.file
        Returns the string filename of the object
 
 kotta.KOut.get_data()
-^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^
 
    Args:
        None
@@ -120,7 +120,7 @@ kotta.KOut.get_data()
        data to a file specified in the `file` property.
 
 kotta.KOut.read()
-^^^^^^
+^^^^^^^^^^^^^^^^^
 
    Args:
        None
@@ -137,7 +137,7 @@ A job object once submitted to Kotta, behaves as a future. Here's a list of meth
 
 
 kotta.KottaJob(kwargs...)
-^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^
 
     Args:
         None
