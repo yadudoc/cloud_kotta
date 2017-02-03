@@ -94,6 +94,11 @@
 <li class="toctree-l1"><a class="reference internal" href="kottabooks.html">Kotta Notebooks</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Kotta Library</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#python-on-kotta">Python on Kotta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#kottajob-decorator"><code class="docutils literal"><span class="pre">&#64;kottajob</span></code> decorator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#decorator-args">Decorator Args:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#function-args">Function Args:</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#kout-class">KOut class</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#kotta-kout-filestring">kotta.KOut(filestring)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#kotta-kout-url">kotta.KOut.url</a></li>
@@ -249,6 +254,67 @@ the function invocation returns a <a class="reference external" href="https://en
 <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Result : &quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
 <span class="c1"># Prints:  Result :  4950</span>
 </pre></div>
+</div>
+</div>
+<div class="section" id="kottajob-decorator">
+<h2><code class="docutils literal"><span class="pre">&#64;kottajob</span></code> decorator<a class="headerlink" href="#kottajob-decorator" title="Permalink to this headline">¶</a></h2>
+<p>The kotta library offers a convenient <code class="docutils literal"><span class="pre">&#64;kottajob</span></code> decorator that packages a python function to run on Kotta&#8217;s compute nodes. The <code class="docutils literal"><span class="pre">&#64;kottajob</span></code> decorator takes the following arguments:</p>
+<div class="section" id="decorator-args">
+<h3>Decorator Args:<a class="headerlink" href="#decorator-args" title="Permalink to this headline">¶</a></h3>
+<p>Args:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>The Kotta object created using the credentials.</li>
+<li>The queue that should run the python function.<ul>
+<li>The &#8216;Test&#8217; queue provides machines with 2vCPUs and 4GB or RAM.</li>
+<li>The &#8216;Prod&#8217; queue has machines with 32vCPUs+ and 256GB of RAM.</li>
+</ul>
+</li>
+<li>The walltime in minutes. This options is required to avoid infinite loops and stuck codes.</li>
+</ol>
+</div></blockquote>
+<p>Kwargs:</p>
+<blockquote>
+<div><ul>
+<li><p class="first">block (Bool): Select the blocking behavior of the function. (default=True)
+* True: A call to the decorated function will wait for the completion of the task.
+* False : A future is returned when the decorated function is called.</p>
+</li>
+<li><p class="first">requirements(string) : The requirements options takes a string in the format used by a requirements.txt file
+to install and setup pip packages.</p>
+<ul>
+<li><p class="first">Eg:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">requirements</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;pkg1</span>
+<span class="s1">pkg2</span>
+<span class="s1">pkg3&gt;=1.0,&lt;=2.0</span>
+<span class="s1">&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="function-args">
+<h3>Function Args:<a class="headerlink" href="#function-args" title="Permalink to this headline">¶</a></h3>
+<p>In addition to the arguments passed to the <code class="docutils literal"><span class="pre">&#64;kottajob</span></code> decorator, the decorated function takes the following special keyword-args.</p>
+<p>Kwargs:</p>
+<blockquote>
+<div><ul>
+<li><p class="first">inputs (string) : A comma separated list of urls. S3 and HTTP urls are supported.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span> <span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="s1">&#39;s3://klab-jobs/1m_shuffled.txt, http://foo.txt&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">outputs (string) : A comma separated list of relative file paths. The files are pushed to S3 at the end of the function execution
+and can accessed later.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span> <span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="s1">&#39;http://foo.txt, http://bar.txt&#39;</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="s1">&#39;foo.csv, bar.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
 </div>
 </div>
 <div class="section" id="kout-class">

@@ -70,6 +70,60 @@ Here's an example:
     print("Result : ", result)
     # Prints:  Result :  4950
 
+
+``@kottajob`` decorator
+---------------------
+
+The kotta library offers a convenient ``@kottajob`` decorator that packages a python function to run on Kotta's compute nodes. The ``@kottajob`` decorator takes the following arguments:
+
+Decorator Args:
+^^^^^^^^^^^^^^ 
+
+Args:
+
+   1. The Kotta object created using the credentials.
+   2. The queue that should run the python function.
+
+      * The 'Test' queue provides machines with 2vCPUs and 4GB or RAM.
+      * The 'Prod' queue has machines with 32vCPUs+ and 256GB of RAM.
+   3. The walltime in minutes. This options is required to avoid infinite loops and stuck codes.
+
+Kwargs:
+
+   * block (Bool): Select the blocking behavior of the function. (default=True)
+     * True: A call to the decorated function will wait for the completion of the task.
+     * False : A future is returned when the decorated function is called.
+   * requirements(string) : The requirements options takes a string in the format used by a requirements.txt file
+     to install and setup pip packages.
+
+     * Eg:
+
+       .. code-block:: python
+                       
+             requirements = '''pkg1
+             pkg2
+             pkg3>=1.0,<=2.0
+             '''
+
+
+
+Function Args:
+^^^^^^^^^^^^^^
+
+In addition to the arguments passed to the ``@kottajob`` decorator, the decorated function takes the following special keyword-args.
+
+Kwargs:
+
+     * inputs (string) : A comma separated list of urls. S3 and HTTP urls are supported.
+
+         >>> foo (inputs='s3://klab-jobs/1m_shuffled.txt, http://foo.txt')
+
+     * outputs (string) : A comma separated list of relative file paths. The files are pushed to S3 at the end of the function execution
+       and can accessed later.
+
+         >>> foo (inputs='http://foo.txt, http://bar.txt', outputs='foo.csv, bar.csv')
+
+
 KOut class
 ----------
 
