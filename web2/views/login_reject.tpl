@@ -5,7 +5,7 @@
 
 <div class="row">
      <div class="row">
-          <div class="form-group col-md-8"> Your Amazon user id has not been registed with this service.</br>Please contact the admin at (yadu@uchicago.edu) with the following info.</div>
+          <div class="form-group col-md-8"> Your Amazon user-id is registered with this service.</br>Please contact the admin at (yadu@uchicago.edu) with the following info for access.</div>
      </div>
 
      <div class="row">
