@@ -1,0 +1,607 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Kotta Library &mdash; Cloud Kotta beta documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Cloud Kotta beta documentation" href="../index.html"/>
+        <link rel="next" title="Data Management" href="data_management.html"/>
+        <link rel="prev" title="Kotta Notebooks" href="kottabooks.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Cloud Kotta
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">User Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kotta_access.html">Cloud Kotta Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kottabooks.html">Kotta Notebooks</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Kotta Library</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#python-on-kotta">Python on Kotta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#kottajob-decorator"><code class="docutils literal"><span class="pre">&#64;kottajob</span></code> decorator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#decorator-args">Decorator Args:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#function-args">Function Args:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#kout-class">KOut class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#kotta-kout-filestring">kotta.KOut(filestring)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kotta-kout-url">kotta.KOut.url</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kotta-kout-s3-url">kotta.KOut.s3_url</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kotta-kout-file">kotta.KOut.file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kotta-kout-get-data">kotta.KOut.get_data()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kotta-kout-read">kotta.KOut.read()</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#kottajob-class">KottaJob class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#kotta-kottajob-kwargs">kotta.KottaJob(kwargs...)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kotta-kottajob-submit-kotta-conn">kotta.KottaJob.submit(Kotta_conn)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kotta-kottajob-wait-kotta-conn-maxwait-600-sleep-2-silent-true">kotta.KottaJob.wait(Kotta_conn, maxwait=600, sleep=2, silent=True)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kotta-kottajob-cancel-kotta-conn">kotta.KottaJob.cancel(Kotta_conn)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kotta-kottajob-status-kotta-conn">kotta.KottaJob.status(Kotta_conn)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kotta-kottajob-jobname">kotta.KottaJob.jobname</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kotta-kottajob-outputs">kotta.KottaJob.outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kotta-kottajob-desc">kotta.KottaJob.desc</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#running-script-using-kotta-library">Running Script using Kotta Library</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="data_management.html">Data Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="submitting_jobs.html">Submitting Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="publishing.html">Publishing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bastion_access.html">Bastion Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cli.html">Commandline Client for Cloud Kotta</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/deployment.html">Deploying Cloud Kotta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/license.html">License</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Dataset Catalog</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dataguide/wos.html">Web Of Science (WoS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dataguide/wiki.html">Wikipedia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dataguide/aura.html">UChicago AURA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dataguide/ieee.html">IEEE full text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dataguide/jstor.html">JSTOR ngrams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dataguide/pubmed.html">Medline</a></li>
+</ul>
+<p class="caption"><span class="caption-text">WoS Hackathon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../wos_hack/howto.html">WoS Hackathon</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contact</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contact.html">Administrators</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Cloud Kotta</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Kotta Library</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/userguide/kottalibrary.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="kotta-library">
+<h1>Kotta Library<a class="headerlink" href="#kotta-library" title="Permalink to this headline">¶</a></h1>
+<p>The Kotta library provides you a simple interface to manage your jobs on Kotta. The library allows you to submit regular script style jobs as well as pure functions in python to provide a cleaner ways to express workflows. Here we will first explore using the Kotta library to run pure python functions, and then cover a brief set of examples with submitting scripts using the script interface.</p>
+<div class="section" id="python-on-kotta">
+<h2>Python on Kotta<a class="headerlink" href="#python-on-kotta" title="Permalink to this headline">¶</a></h2>
+<p>The Kotta library allows you to run pure python functions on Kotta. To authenticate with the Kotta a Kotta connection object is created which takes the json credentials string.</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="c1"># Import the Kotta module</span>
+<span class="kn">from</span> <span class="nn">kotta</span> <span class="kn">import</span> <span class="n">Kotta</span><span class="p">,</span> <span class="n">KottaJob</span>
+<span class="kn">from</span> <span class="nn">kotta.kotta_functions</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="c1"># Create a Kotta Connection using Login with Amazon credentials</span>
+<span class="c1"># The token from Kotta is stored in the auth.file</span>
+<span class="n">konn</span> <span class="o">=</span> <span class="n">Kotta</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;../auth.file&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>The kotta library offers a convenient <code class="docutils literal"><span class="pre">&#64;kottajob</span></code> decorator that packages a python function to run on Kotta&#8217;s compute nodes. The <code class="docutils literal"><span class="pre">&#64;kottajob</span></code> decorator takes three arguments:</p>
+<ol class="arabic simple">
+<li>The Kotta object created using the credentials.</li>
+<li>The queue that should run the python function.<ul>
+<li>The &#8216;Test&#8217; queue provides machines with 2vCPUs and 4GB or RAM.</li>
+<li>The &#8216;Prod&#8217; queue has machines with 32vCPUs+ and 256GB of RAM.</li>
+</ul>
+</li>
+<li>The walltime in minutes. This options is required to avoid infinite loops and stuck codes.</li>
+</ol>
+<p>Let&#8217;s see an example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nd">@kottajob</span><span class="p">(</span><span class="n">konn</span><span class="p">,</span> <span class="s1">&#39;Test&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">my_sum</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+     <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">my_sum</span> <span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>By default <code class="docutils literal"><span class="pre">&#64;kottajob</span></code> is set to blocking mode. This means that the python interpreter waits while the function is evaluated remotely and results are fetched.
+The decorated function can be called in non-blocking mode, by calling <code class="docutils literal"><span class="pre">&#64;kottajob</span></code> with the keyword argument <code class="docutils literal"><span class="pre">block=False</span></code>. When called in non-blocking mode,
+the function invocation returns a <a class="reference external" href="https://en.wikipedia.org/wiki/Futures_and_promises">future job object</a>.</p>
+<p>Here&#8217;s an example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="nd">@kottajob</span><span class="p">(</span><span class="n">konn</span><span class="p">,</span> <span class="s1">&#39;Test&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">block</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">my_sum</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+    <span class="c1"># Here, my_sum sleeps for 5 secs, and does not return immediately</span>
+    <span class="kn">import</span> <span class="nn">time</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">items</span><span class="p">)</span>
+
+<span class="n">job_hndl</span> <span class="o">=</span> <span class="n">my_sum</span> <span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="n">job_hndl</span><span class="p">)</span>
+
+<span class="c1"># Prints:  &lt;kotta.kotta_job.KottaJob object at 0x7fb78cc73b70&gt;</span>
+
+<span class="c1"># Wait a few seconds and then</span>
+<span class="n">status</span> <span class="o">=</span> <span class="n">job_hndl</span><span class="o">.</span><span class="n">status</span><span class="p">(</span><span class="n">konn</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Status : &quot;</span><span class="p">,</span> <span class="n">status</span><span class="p">)</span>
+<span class="c1"># Prints:  Status :  completed</span>
+
+<span class="n">result</span> <span class="o">=</span> <span class="n">job_hndl</span><span class="o">.</span><span class="n">get_results</span><span class="p">(</span><span class="n">konn</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s2">&quot;Result : &quot;</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
+<span class="c1"># Prints:  Result :  4950</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="kottajob-decorator">
+<h2><code class="docutils literal"><span class="pre">&#64;kottajob</span></code> decorator<a class="headerlink" href="#kottajob-decorator" title="Permalink to this headline">¶</a></h2>
+<p>The kotta library offers a convenient <code class="docutils literal"><span class="pre">&#64;kottajob</span></code> decorator that packages a python function to run on Kotta&#8217;s compute nodes. The <code class="docutils literal"><span class="pre">&#64;kottajob</span></code> decorator takes the following arguments:</p>
+<div class="section" id="decorator-args">
+<h3>Decorator Args:<a class="headerlink" href="#decorator-args" title="Permalink to this headline">¶</a></h3>
+<p>Args:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>The Kotta object created using the credentials.</li>
+<li>The queue that should run the python function.<ul>
+<li>The &#8216;Test&#8217; queue provides machines with 2vCPUs and 4GB or RAM.</li>
+<li>The &#8216;Prod&#8217; queue has machines with 32vCPUs+ and 256GB of RAM.</li>
+</ul>
+</li>
+<li>The walltime in minutes. This options is required to avoid infinite loops and stuck codes.</li>
+</ol>
+</div></blockquote>
+<p>Kwargs:</p>
+<blockquote>
+<div><ul>
+<li><p class="first">block (Bool): Select the blocking behavior of the function. (default=True)
+* True: A call to the decorated function will wait for the completion of the task.
+* False : A future is returned when the decorated function is called.</p>
+</li>
+<li><p class="first">requirements(string) : The requirements options takes a string in the format used by a requirements.txt file
+to install and setup pip packages.</p>
+<ul>
+<li><p class="first">Eg:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">requirements</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;pkg1</span>
+<span class="s1">pkg2</span>
+<span class="s1">pkg3&gt;=1.0,&lt;=2.0</span>
+<span class="s1">&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="function-args">
+<h3>Function Args:<a class="headerlink" href="#function-args" title="Permalink to this headline">¶</a></h3>
+<p>In addition to the arguments passed to the <code class="docutils literal"><span class="pre">&#64;kottajob</span></code> decorator, the decorated function takes the following special keyword-args.</p>
+<p>Kwargs:</p>
+<blockquote>
+<div><ul>
+<li><p class="first">inputs (string) : A comma separated list of urls. S3 and HTTP urls are supported.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span> <span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="s1">&#39;s3://klab-jobs/1m_shuffled.txt, http://foo.txt&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">outputs (string) : A comma separated list of relative file paths. The files are pushed to S3 at the end of the function execution
+and can accessed later.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span> <span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="s1">&#39;http://foo.txt, http://bar.txt&#39;</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="s1">&#39;foo.csv, bar.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="kout-class">
+<h2>KOut class<a class="headerlink" href="#kout-class" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>Represents the outputs created via the execution of a task on Kotta.</div></blockquote>
+<div class="section" id="kotta-kout-filestring">
+<h3>kotta.KOut(filestring)<a class="headerlink" href="#kotta-kout-filestring" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><dl class="docutils">
+<dt>Args:</dt>
+<dd><ul class="first last simple">
+<li>filestring(string) : A url string</li>
+</ul>
+</dd>
+<dt>Returns:</dt>
+<dd>KOut object</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="kotta-kout-url">
+<h3>kotta.KOut.url<a class="headerlink" href="#kotta-kout-url" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>A Property</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>The url string</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="kotta-kout-s3-url">
+<h3>kotta.KOut.s3_url<a class="headerlink" href="#kotta-kout-s3-url" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Property. The S3 url of an output object which has resolved, meaning the job has completed and the output is available.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>Returns the s3 url of an output object.</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="kotta-kout-file">
+<h3>kotta.KOut.file<a class="headerlink" href="#kotta-kout-file" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><p>Property. The base filename of the resource.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>Returns the string filename of the object</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="kotta-kout-get-data">
+<h3>kotta.KOut.get_data()<a class="headerlink" href="#kotta-kout-get-data" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><dl class="docutils">
+<dt>Args:</dt>
+<dd>None</dd>
+<dt>Returns:</dt>
+<dd>If this is a data object with a resolved <cite>url</cite> property, download the
+data to a file specified in the <cite>file</cite> property.</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="kotta-kout-read">
+<h3>kotta.KOut.read()<a class="headerlink" href="#kotta-kout-read" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><dl class="docutils">
+<dt>Args:</dt>
+<dd>None</dd>
+<dt>Returns:</dt>
+<dd>String. Opens the remote URL, reads the data and returns the <em>utf-8</em> decoded string.</dd>
+</dl>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="kottajob-class">
+<h2>KottaJob class<a class="headerlink" href="#kottajob-class" title="Permalink to this headline">¶</a></h2>
+<p>A job object once submitted to Kotta, behaves as a future. Here&#8217;s a list of methods exposed by the job object.</p>
+<div class="section" id="kotta-kottajob-kwargs">
+<h3>kotta.KottaJob(kwargs...)<a class="headerlink" href="#kotta-kottajob-kwargs" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><blockquote>
+<div><dl class="docutils">
+<dt>Args:</dt>
+<dd>None</dd>
+<dt>Kwargs:</dt>
+<dd><ul class="first last">
+<li><p class="first">inputs (string) : Comma separated list of urls</p>
+</li>
+<li><p class="first">outputs (string): Comma separated list of output files</p>
+</li>
+<li><p class="first">walltime (int): Walltime in minutes (Default = 300)</p>
+</li>
+<li><dl class="first docutils">
+<dt>queue  (string)</dt>
+ <span class="classifier-delimiter">:</span> <span class="classifier">queue to submit the job to. Valid options are:</span><dd><ul class="first last simple">
+<li>&#8216;Test&#8217; : Test queue</li>
+<li>&#8216;Prod&#8217; : Production queue</li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><p class="first">output_file_stdout (string): Filename to capture STDOUT stream (Default = STDOUT.txt)</p>
+</li>
+<li><p class="first">output_file_stderr (string): Filename to capture STDERR stream (Default = STDERR.txt)</p>
+</li>
+<li><p class="first">jobtype (string): The type of job being submitted (Default = &#8216;script&#8217;)</p>
+</li>
+<li><p class="first">jobname (string): A user friendly name for the job</p>
+</li>
+<li><p class="first">script (string): String text of a script to be executed on the worker side.</p>
+</li>
+<li><p class="first">script_name (string): Name to be assigned to the script text on the worker side.</p>
+</li>
+</ul>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>kotta.KottaJob object.</dd>
+</dl>
+</div></blockquote>
+</div>
+<div class="section" id="kotta-kottajob-submit-kotta-conn">
+<h3>kotta.KottaJob.submit(Kotta_conn)<a class="headerlink" href="#kotta-kottajob-submit-kotta-conn" title="Permalink to this headline">¶</a></h3>
+<p>Submits the job to Kotta. Once submitted the job object goes from status &#8216;pending&#8217; to the terminal states.</p>
+<p>Args:</p>
+<ul class="simple">
+<li>Kotta connection object.</li>
+</ul>
+<p>Returns:</p>
+<ul class="simple">
+<li>True : Submit succeeded</li>
+<li>False : Submit failed</li>
+</ul>
+<p>Eg.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">konn</span> <span class="o">=</span> <span class="n">Kotta</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/path/to/auth.file&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">())</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">job</span>  <span class="o">=</span> <span class="n">KottaJob</span><span class="p">(</span><span class="o">&lt;</span><span class="n">job</span> <span class="n">description</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">job</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">konn</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="kotta-kottajob-wait-kotta-conn-maxwait-600-sleep-2-silent-true">
+<h3>kotta.KottaJob.wait(Kotta_conn, maxwait=600, sleep=2, silent=True)<a class="headerlink" href="#kotta-kottajob-wait-kotta-conn-maxwait-600-sleep-2-silent-true" title="Permalink to this headline">¶</a></h3>
+<p>This function waits for the job to complete by polling for status after every sleep duration for a maximum of maxwait duration.</p>
+<p>Args:</p>
+<ul class="simple">
+<li>Kotta connection object</li>
+</ul>
+<p>Kwargs:</p>
+<ul class="simple">
+<li>maxwait : Default=600s. Maximum time to wait for the task.</li>
+<li>sleep   : Default=2s. Poll interval.</li>
+<li>silent  : Default=True. Emit print messages about the wait status</li>
+</ul>
+<p>Eg.</p>
+</div>
+<div class="section" id="kotta-kottajob-cancel-kotta-conn">
+<h3>kotta.KottaJob.cancel(Kotta_conn)<a class="headerlink" href="#kotta-kottajob-cancel-kotta-conn" title="Permalink to this headline">¶</a></h3>
+<p>Not Implemented</p>
+</div>
+<div class="section" id="kotta-kottajob-status-kotta-conn">
+<h3>kotta.KottaJob.status(Kotta_conn)<a class="headerlink" href="#kotta-kottajob-status-kotta-conn" title="Permalink to this headline">¶</a></h3>
+<p>Args:</p>
+<ul class="simple">
+<li>Kotta connection object.</li>
+</ul>
+<p>Returns:</p>
+<ul class="simple">
+<li>&#8216;unsubmitted&#8217; : Not submitted to Kotta</li>
+<li>&#8216;pending&#8217; : Waiting in queue to be picked up for execution</li>
+<li>&#8216;staging_inputs&#8217; : Staging input files to remote worker</li>
+<li>&#8216;cancelled&#8217; : Task was cancelled by user</li>
+<li>&#8216;completed&#8217; : Task completed without errors</li>
+<li>&#8216;failed&#8217; : Task failed with an error</li>
+<li>&#8216;processing&#8217;: Task execution in progress</li>
+<li>&#8216;staging_outputs&#8217; : Outputs from the task are being staged out to persistent storage(S3)</li>
+</ul>
+<p>Eg.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">job_obj</span><span class="o">.</span><span class="n">status</span><span class="p">(</span><span class="n">konn</span><span class="p">)</span>
+<span class="go">completed</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="kotta-kottajob-jobname">
+<h3>kotta.KottaJob.jobname<a class="headerlink" href="#kotta-kottajob-jobname" title="Permalink to this headline">¶</a></h3>
+<p>Property.</p>
+<p>Returns:
+* String, name of the job.</p>
+<p>Eg.</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">job_obj</span><span class="o">.</span><span class="n">jobname</span>
+<span class="go">Python test job</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="kotta-kottajob-outputs">
+<h3>kotta.KottaJob.outputs<a class="headerlink" href="#kotta-kottajob-outputs" title="Permalink to this headline">¶</a></h3>
+<p>Property.</p>
+<p>Returns:
+* A list of Kotta output objects.</p>
+</div>
+<div class="section" id="kotta-kottajob-desc">
+<h3>kotta.KottaJob.desc<a class="headerlink" href="#kotta-kottajob-desc" title="Permalink to this headline">¶</a></h3>
+<p>Property.</p>
+</div>
+</div>
+<div class="section" id="running-script-using-kotta-library">
+<h2>Running Script using Kotta Library<a class="headerlink" href="#running-script-using-kotta-library" title="Permalink to this headline">¶</a></h2>
+<p>Here is a simple Hello World example written in bash</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">hello</span> <span class="o">=</span> <span class="n">KottaJob</span><span class="p">(</span> <span class="n">jobtype</span>       <span class="o">=</span> <span class="s1">&#39;script&#39;</span><span class="p">,</span>
+                  <span class="n">jobname</span>       <span class="o">=</span> <span class="s1">&#39;hello&#39;</span><span class="p">,</span>
+                  <span class="n">executable</span>    <span class="o">=</span> <span class="s1">&#39;/bin/bash myscript.sh&#39;</span><span class="p">,</span>
+                  <span class="n">script_name</span>   <span class="o">=</span> <span class="s1">&#39;myscript.sh&#39;</span><span class="p">,</span>
+                  <span class="n">script</span>        <span class="o">=</span> <span class="s1">&#39;#!/bin/bash </span><span class="se">\n</span><span class="s1"> echo &quot;Hello World!&quot;&#39;</span>
+                <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="data_management.html" class="btn btn-neutral float-right" title="Data Management" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="kottabooks.html" class="btn btn-neutral" title="Kotta Notebooks" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Knowledge Lab, University of Chicago.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'beta',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

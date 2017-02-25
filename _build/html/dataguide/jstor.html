@@ -1,0 +1,331 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>JSTOR ngrams &mdash; Cloud Kotta beta documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Cloud Kotta beta documentation" href="../index.html"/>
+        <link rel="next" title="WoS Hackathon" href="../wos_hack/howto.html"/>
+        <link rel="prev" title="IEEE full text" href="ieee.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Cloud Kotta
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">User Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/kotta_access.html">Cloud Kotta Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/data_management.html">Data Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/submitting_jobs.html">Submitting Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/publishing.html">Publishing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/bastion_access.html">Bastion Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/cli.html">Commandline Client for Cloud Kotta</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/deployment.html">Deploying Cloud Kotta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/license.html">License</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Dataset Catalog</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="wos.html">Web Of Science (WoS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wiki.html">Wikipedia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aura.html">UChicago AURA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ieee.html">IEEE full text</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">JSTOR ngrams</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#index">Index</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#storage-bucket">Storage bucket</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#permissions">Permissions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#sample-jobs">Sample Jobs</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">WoS Hackathon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../wos_hack/howto.html">WoS Hackathon</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contact</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contact.html">Administrators</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Cloud Kotta</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>JSTOR ngrams</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/dataguide/jstor.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="jstor-ngrams">
+<h1>JSTOR ngrams<a class="headerlink" href="#jstor-ngrams" title="Permalink to this headline">¶</a></h1>
+<p>JSTOR ngrams are indexed and stored on our secure S3 Buckets. The documents are indexed by their document ids (doi&#8217;s)
+on a MySQL database as well as in a collection of CSV files.</p>
+<div class="section" id="index">
+<h2>Index<a class="headerlink" href="#index" title="Permalink to this headline">¶</a></h2>
+<p>The Jstor ngram data is stored in a collection of 500 files (each approximately 3.2GB). These files are named n000 - n499.
+The indexes contain the filename and the byte indices of each doi. The schema followed by the database is also followed by
+the csv file. Here are a few lines from the jstor database.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="14%" />
+<col width="9%" />
+<col width="16%" />
+<col width="14%" />
+<col width="13%" />
+<col width="11%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">doi</th>
+<th class="head">filename</th>
+<th class="head">line</th>
+<th class="head">byteFirst</th>
+<th class="head">byteLast</th>
+<th class="head">nNgrams</th>
+<th class="head">nWords</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>10.1086/231208</td>
+<td>n000</td>
+<td>0</td>
+<td>0</td>
+<td>2038709</td>
+<td>5</td>
+<td>26172</td>
+</tr>
+<tr class="row-odd"><td>10.1086/233855</td>
+<td>n000</td>
+<td>1</td>
+<td>2038710</td>
+<td>3517884</td>
+<td>5</td>
+<td>19995</td>
+</tr>
+<tr class="row-even"><td>10.1086/314323</td>
+<td>n000</td>
+<td>2</td>
+<td>3517885</td>
+<td>4371013</td>
+<td>5</td>
+<td>12690</td>
+</tr>
+<tr class="row-odd"><td>10.1086/316637</td>
+<td>n000</td>
+<td>3</td>
+<td>4371014</td>
+<td>4616514</td>
+<td>5</td>
+<td>7770</td>
+</tr>
+</tbody>
+</table>
+<p>To connect to the MySQL database, please contact the <a class="reference internal" href="../contact.html#ref-admins"><span class="std std-ref">Administrators</span></a> for access.
+The database is accessible at <a href="#id1"><span class="problematic" id="id2">`klab.c3se0dtaabmj.us-west-2.rds.amazonaws.com`_</span></a></p>
+<p>If you plan to use the csv index files those are accessible from within Kotta by specifying the filenames as inputs to jobs.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The jstor index database is accessible from within Kotta as well.</p>
+</div>
+</div>
+<div class="section" id="storage-bucket">
+<h2>Storage bucket<a class="headerlink" href="#storage-bucket" title="Permalink to this headline">¶</a></h2>
+<p>The data is currently stored on S3 Storage : s3://klabjstor.</p>
+<p>The indices for the files in csv file formats are stored under the same bucket and the filenames are:
+s3://klabjstor/i{000 - 499}.csv</p>
+<p>Since the data is organized by the data file, it is rather difficult to search for a particular doi without reading all 500 csv files. For search functions, it would be more convenient to query to external database and create a list of data files required and read out specific data items.</p>
+<p>The datafiles are here:
+s3://klabjstor/n{000 - 499} are the files that contain the ngram data.</p>
+</div>
+<div class="section" id="permissions">
+<h2>Permissions<a class="headerlink" href="#permissions" title="Permalink to this headline">¶</a></h2>
+<p>This data is only accessible from within the network and by users with the requisite access privileges.</p>
+</div>
+<div class="section" id="sample-jobs">
+<h2>Sample Jobs<a class="headerlink" href="#sample-jobs" title="Permalink to this headline">¶</a></h2>
+<p>Pending.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../wos_hack/howto.html" class="btn btn-neutral float-right" title="WoS Hackathon" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="ieee.html" class="btn btn-neutral" title="IEEE full text" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Knowledge Lab, University of Chicago.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'beta',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

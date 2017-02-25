@@ -1,0 +1,395 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>WoS Hackathon &mdash; Cloud Kotta beta documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Cloud Kotta beta documentation" href="../index.html"/>
+        <link rel="next" title="Administrators" href="../contact.html"/>
+        <link rel="prev" title="IEEE full text" href="../dataguide/ieee.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Cloud Kotta
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">User Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/kotta_access.html">Cloud Kotta Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/data_management.html">Data Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/submitting_jobs.html">Submitting Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/publishing.html">Publishing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/bastion_access.html">Bastion Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/cli.html">Commandline Client for Cloud Kotta</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/contributing.html">Contributing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/deployment.html">Deploying Cloud Kotta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../devguide/license.html">License</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Dataset Catalog</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dataguide/wos.html">Web Of Science (WoS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dataguide/wiki.html">Wikipedia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dataguide/aura.html">UChicago AURA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dataguide/ieee.html">IEEE full text</a></li>
+</ul>
+<p class="caption"><span class="caption-text">WoS Hackathon</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">WoS Hackathon</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#datasets">Datasets</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#xml">XML</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sql">SQL</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption"><span class="caption-text">Contact</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contact.html">Administrators</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Cloud Kotta</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>WoS Hackathon</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/wos_hack/howto.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="wos-hackathon">
+<h1>WoS Hackathon<a class="headerlink" href="#wos-hackathon" title="Permalink to this headline">¶</a></h1>
+<p>Please follow steps here : <a class="reference external" href="http://docs.cloudkotta.org/userguide/kotta_access.html">http://docs.cloudkotta.org/userguide/kotta_access.html</a> to get an account.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">We rely on Login with Amazon just for authentication. There is <em>absolutely</em> no linking of to your account, and I definitely cannot order cookies from your account.</p>
+</div>
+<div class="section" id="datasets">
+<h2>Datasets<a class="headerlink" href="#datasets" title="Permalink to this headline">¶</a></h2>
+<p>There are two forms, the XML data and data ingested into a MySQL database.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Please note that the columns in the README.txt do not match the dataset and this is reflected in the MYSQL database schema</p>
+</div>
+<div class="section" id="xml">
+<h3>XML<a class="headerlink" href="#xml" title="Permalink to this headline">¶</a></h3>
+<p>The xml data is available at this url within Kotta :</p>
+<p>To get a better start here&#8217;s a job that completed the run on Kotta on this dataset.
+<a class="reference external" href="https://turingcompute.net/jobs/f24e22ac-2d59-4073-828e-1e67c8f598cb">https://turingcompute.net/jobs/f24e22ac-2d59-4073-828e-1e67c8f598cb</a></p>
+<p>If you click the Redo Job button you are taken to this page <a class="reference external" href="https://turingcompute.net/resubmit/f24e22ac-2d59-4073-828e-1e67c8f598cb">https://turingcompute.net/resubmit/f24e22ac-2d59-4073-828e-1e67c8f598cb</a> .
+This shows the description of the sample job. This job runs the following script on a machine with the Kotta enclace :</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+apt-get install -y gzip gunzip
+tar -xf iu.tar
+<span class="k">for</span> gz in <span class="k">$(</span><span class="nb">echo</span> DELIMITED/*gz<span class="k">)</span>
+<span class="k">do</span>
+     gunzip <span class="nv">$gz</span>
+     head -n <span class="m">10</span> <span class="si">${</span><span class="nv">gz</span><span class="p">%.gz</span><span class="si">}</span>
+<span class="k">done</span>
+ls -thor -R
+</pre></div>
+</div>
+<p>Note how the dataset <a class="reference external" href="s3://klab-jobs/wos_hack/iu.tar">s3://klab-jobs/wos_hack/iu.tar</a> is specified in the inputs field. This ensures that when the script is executed
+in Kotta the input files are fetched from S3 onto the current working directory hosted on local disk. I&#8217;ve set the walltime to 10 minutes
+since this job is very short and should be done in under a few minutes.</p>
+<p>The data is 732.5 MB</p>
+</div>
+<div class="section" id="sql">
+<h3>SQL<a class="headerlink" href="#sql" title="Permalink to this headline">¶</a></h3>
+<p>The XML data is highly relational, and is suited to a RDBMS environment. The xml has been ingested to a MySQL database (InnoDB engine). Please use the schema below to interact with this database, from within Kotta.</p>
+<p>Here&#8217;s a sample job that simply lists the tables in the <em>wos_hack</em> database.</p>
+<div class="highlight-json"><div class="highlight"><pre><span></span>USE wos_hack;
+
+-- Publication (Publications_Delimited.txt.gz) :
+-- UID|Title|Volume|Page|DOI|CoverDate|ISSN|EISSN|PMID|Issue|DOCTYPES (SEPARATED by ,&#39;s)
+
+DROP TABLE IF EXISTS publications;
+CREATE TABLE IF NOT EXISTS publications (
+uid       char(20) PRIMARY KEY,
+title     varchar(200),
+volume    varchar(5),
+page      varchar(15),
+doi       varchar(20),
+coverdate varchar(20),
+issn      varchar(20),
+eissn     varchar(20),
+pmid      varchar(20),
+issue     varchar(5),
+doctypes  varchar(100) );
+
+
+-- Authors (Author_Delimited.gz):
+-- AUTHOR_ID|Name|FullName|FirstName|LastName|EMAIL|RID|ORCID
+
+DROP TABLE IF EXISTS authors;
+CREATE TABLE IF NOT EXISTS authors (
+author_id  char(20) PRIMARY KEY,
+name       varchar(100),
+fullname   varchar(100),
+firstname  varchar(50),
+lastname   varchar(50),
+email      varchar(50),
+rid        varchar(20),
+orcid      varchar(20));
+
+
+-- PublicationAuthor Link (Publication_Author_Link.gz):
+-- UID|AUTHOR_ID|POSITION
+DROP TABLE IF EXISTS publication_author_link;
+CREATE TABLE IF NOT EXISTS publication_author_link (
+uid        varchar(20),
+author_id  varchar(20),
+position   varchar(3),
+primary key (uid, author_id)
+);
+
+-- Authors (Author_Delimited.gz):
+-- AUTHOR_ID|Name|FullName|FirstName|LastName|EMAIL|RID|ORCID
+
+DROP TABLE IF EXISTS authors;
+CREATE TABLE IF NOT EXISTS authors (
+author_id  char(20) PRIMARY KEY,
+name       varchar(100),
+fullname   varchar(100),
+firstname  varchar(50),
+lastname   varchar(50),
+email      varchar(50),
+rid        varchar(20),
+orcid      varchar(20));
+
+
+-- PublicationAuthor Link (Publication_Author_Link.gz):
+-- UID|AUTHOR_ID|POSITION
+DROP TABLE IF EXISTS publication_author_link;
+CREATE TABLE IF NOT EXISTS publication_author_link (
+uid        varchar(20),
+author_id  varchar(20),
+position   varchar(3),
+primary key (uid, author_id)
+);
+
+-- Address (Address_Delimited.gz):
+-- ADDRESS_ID|Organizarion|subOrg|Lab|Street|City|State|Country|ZipCode|fulladdress
+DROP TABLE IF EXISTS address;
+CREATE TABLE IF NOT EXISTS address (
+address_id   varchar(40) primary key,
+organization varchar(100),
+suborganization varchar(100),
+lab     varchar(100),
+street varchar(50),
+city varchar(50),
+state varchar(50),
+country varchar(50),
+zipcode varchar(10),
+fulladdress varchar(200),
+stdaddress varchar(100)
+);
+
+-- PublicationAddress Link (Publication_Address_Link.gz):
+-- UID|ADDRESS_ID|POSITION
+DROP TABLE IF EXISTS publication_address_link;
+CREATE TABLE IF NOT EXISTS publication_address_link (
+uid  varchar(20),
+address_id varchar(40),
+position   varchar(5)
+);
+
+-- Citations (Citation_Delimited.gz):
+-- CitingUID|CitedAuthor|Year|Page|CitedTitle|CitedJournal
+
+DROP TABLE IF EXISTS citations;
+CREATE TABLE IF NOT EXISTS citations (
+citing_uid  varchar(20),
+cited_author varchar(50),
+year      varchar(5),
+page      varchar(4),
+cited_title varchar(100),
+cited_journal varchar(100)
+);
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../contact.html" class="btn btn-neutral float-right" title="Administrators" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../dataguide/ieee.html" class="btn btn-neutral" title="IEEE full text" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Knowledge Lab, University of Chicago.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'beta',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

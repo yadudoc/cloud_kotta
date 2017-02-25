@@ -1,0 +1,273 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Deploying Cloud Kotta &mdash; Cloud Kotta beta documentation</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="Cloud Kotta beta documentation" href="../index.html"/>
+        <link rel="next" title="License" href="license.html"/>
+        <link rel="prev" title="Contributing" href="contributing.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Cloud Kotta
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <p class="caption"><span class="caption-text">User Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/kotta_access.html">Cloud Kotta Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/data_management.html">Data Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/submitting_jobs.html">Submitting Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/publishing.html">Publishing Jobs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/bastion_access.html">Bastion Access</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/cli.html">Commandline Client for Cloud Kotta</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Developer Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Deploying Cloud Kotta</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#set-region">1. Set Region</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#register-a-domain">2. Register a Domain</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#login-with-amazon">3. Login with Amazon</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#create-a-certificate">4. Create a certificate</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Dataset Catalog</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../dataguide/wos.html">Web Of Science (WoS)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dataguide/wiki.html">Wikipedia</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dataguide/aura.html">UChicago AURA</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dataguide/ieee.html">IEEE full text</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Contact</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contact.html">Administrators</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">Cloud Kotta</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+ 
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">Docs</a> &raquo;</li>
+      
+    <li>Deploying Cloud Kotta</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../_sources/devguide/deployment.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="deploying-cloud-kotta">
+<h1>Deploying Cloud Kotta<a class="headerlink" href="#deploying-cloud-kotta" title="Permalink to this headline">¶</a></h1>
+<p>Cloud Kotta infrastructure and code are both Open Source and designed to be reproducible.
+The infrastructure is written as a json configuration file using Amazon&#8217;s CloudFormation, and the various services that run on the infrastructure is written in python. All of this is available on the <a class="reference external" href="https://github.com/yadudoc/cloud_kotta">github page</a>. This docs page will cover the steps to deploy an instance of Cloud Kotta.</p>
+<div class="section" id="set-region">
+<h2>1. Set Region<a class="headerlink" href="#set-region" title="Permalink to this headline">¶</a></h2>
+<p>Please ensure that all your tests are done in the AWS North Virginia Region. This is required to ensure that the AMI&#8217;s used in the cloudformation documents are valid and available. With more testing and usage, the cloudformation document will support other regions and/or potentially multiple regions but that is a capability this system currently lacks.</p>
+<p>Steps to change region on Web Console :</p>
+<ol class="arabic simple">
+<li>Login to your AWS web console</li>
+<li>The regions are listed in a dropdown on the top right corner.</li>
+<li>Select N.Virginia from the dropdown</li>
+</ol>
+<p>Alternatively, load this URL which specifies the region, us-east-1 which represents N.Virginia
+after logging into the web console: <a class="reference external" href="https://console.aws.amazon.com/console/home?region=us-east-1#">https://console.aws.amazon.com/console/home?region=us-east-1#</a></p>
+<p>To read more : <a class="reference external" href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-regions-availability-zones.html">AWS Regions and availability zones</a></p>
+</div>
+<div class="section" id="register-a-domain">
+<h2>2. Register a Domain<a class="headerlink" href="#register-a-domain" title="Permalink to this headline">¶</a></h2>
+<p>It is nice to have a domain registered and use that with the next step. To setup a domain name the simplest solution is to use Amazon&#8217;s Route 53 service.
+This also allows the creation of a HTTPS SSL cert using the AWS certificat manager that could be used to provide HTTPS access to the web interface.</p>
+<p>Here&#8217;s documentation on how to register a domain : <a class="reference external" href="http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/domain-register.html">http://docs.aws.amazon.com/Route53/latest/DeveloperGuide/domain-register.html</a></p>
+</div>
+<div class="section" id="login-with-amazon">
+<h2>3. Login with Amazon<a class="headerlink" href="#login-with-amazon" title="Permalink to this headline">¶</a></h2>
+<p>Cloud Kotta relies on Amazon&#8217;s OAuth2 implementation, Login with Amazon for handling user authentication.</p>
+<p>Follow steps here: <a class="reference external" href="http://login.amazon.com/website">Register Documentation</a></p>
+<p>As you finish the registration process, ensure that you note down the Client-ID and secret</p>
+</div>
+<div class="section" id="create-a-certificate">
+<h2>4. Create a certificate<a class="headerlink" href="#create-a-certificate" title="Permalink to this headline">¶</a></h2>
+<p>The Amazon certificate manager allows you to create certificates for your domain that can be used with Elastic Load Balancers.
+Go to <a class="reference external" href="https://console.aws.amazon.com/acm/home?region=us-east-1#/">https://console.aws.amazon.com/acm/home?region=us-east-1#/</a> and follow steps outlined here to get a certificate:
+<a class="reference external" href="https://aws.amazon.com/certificate-manager/getting-started/">https://aws.amazon.com/certificate-manager/getting-started/</a>. This is a fairly simple process as the request certiicate button
+takes you to a wizard.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="license.html" class="btn btn-neutral float-right" title="License" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="contributing.html" class="btn btn-neutral" title="Contributing" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Knowledge Lab, University of Chicago.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'beta',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
