@@ -43,6 +43,7 @@ from utils import *
 from usage_stats import *
 from resubmit import *
 from publish import *
+from uploads import post_upload_url
 
 ########################################################################################################
 def dynamodb_update(table, data):
@@ -290,7 +291,7 @@ def refresh_auth_token(request, refreshtoken):
 def validate_tokens(request, session):
     
     access_token = request.POST.get("access_token", None)
-
+    print "Original access_token : ", access_token
     if request.POST.get("refresh_token"):
         print "Attempting refresh for auth with refresh token"
         status, vals = refresh_auth_token(request, request.POST.get("refresh_token"))
@@ -299,9 +300,11 @@ def validate_tokens(request, session):
         else:
             access_token = vals['access_token']
     
-    if request.POST.get("access_token"):
+    print "Trying with ", access_token
+
+    if access_token :
         print "Attempt to auth with access_token"
-        user_info = validate_session(request.app, request.POST.get("access_token"))
+        user_info = validate_session(request.app, access_token)
         if not user_info :
             return {"status" : "Fail",
                     "reason" : "Failed to authenticate"}
@@ -498,7 +501,7 @@ def get_job_info(request, job_id):
             pairs.append([k, link])
             
         elif k in ['outputs']:
-            if item["status"].lower() not in ["completed", "failed"]:
+            if item["status"].lower() not in ["completed", "failed", "cancelled"]:
                 continue
 
             for out in item[k]:
@@ -524,15 +527,15 @@ def get_job_info(request, job_id):
 #################################################################
 @route('/rest/v1/status_task/<job_id>', method='GET', name="job_info")
 def job_info(job_id):
-    
+        
     session = bottle.request.environ.get('beaker.session')
     conf_man.update_creds_from_metadata_server(request.app)
     response.content_type = 'application/json'
-
+    
     pairs = get_job_info(request, job_id)
     result = {}
     result['items'] = {}
-    print "Pairs : ", pairs
+    print "Status requested for  : {0}".format(job_id)
     for i,p in enumerate(pairs):
         result['items'][i] = {p[0]:p[1]}
         if p[0] == "status":
