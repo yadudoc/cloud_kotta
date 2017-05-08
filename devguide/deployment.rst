@@ -44,8 +44,9 @@ As you finish the registration process, ensure that you note down the Client-ID 
 
 The Amazon certificate manager allows you to create certificates for your domain that can be used with Elastic Load Balancers.
 Go to `<https://console.aws.amazon.com/acm/home?region=us-east-1#/>`_ and follow steps outlined here to get a certificate:
-`<https://aws.amazon.com/certificate-manager/getting-started/>`_. This is a fairly simple process as the request certiicate button
-takes you to a wizard.
+`<https://aws.amazon.com/certificate-manager/getting-started/>`_. This is a fairly simple process as the request certificate button
+takes you to a wizard. In this step you create are requesting a managed certificate used by web browsers to verify the authenticity
+of your website with a 3rd party (AWS in this case).
 
 Once a certificate is generated, get the ARN for the certificate. This is to be passed to the Cloud formation form during the Cloud Kotta deployment phase.
 This certifate is a managed SSL certificate used to terminate SSL connections at the Elastic Load Balancer. This allows us to have SSL from the user to the
