@@ -47,3 +47,7 @@ Go to `<https://console.aws.amazon.com/acm/home?region=us-east-1#/>`_ and follow
 `<https://aws.amazon.com/certificate-manager/getting-started/>`_. This is a fairly simple process as the request certiicate button
 takes you to a wizard.
 
+Once a certificate is generated, get the ARN for the certificate. This is to be passed to the Cloud formation form during the Cloud Kotta deployment phase.
+This certifate is a managed SSL certificate used to terminate SSL connections at the Elastic Load Balancer. This allows us to have SSL from the user to the
+network, and plain HTTP from the Load balancer to the Webserver.
+
