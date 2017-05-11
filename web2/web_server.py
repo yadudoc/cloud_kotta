@@ -601,7 +601,8 @@ def job_info(job_id):
             index = pairs.index(row)
             del pairs[index]
             if fname != "None":
-                fname = "https://turingcompute.net/" + fname
+                #fname = "https://turingcompute.net/" + fname
+                fname = "{0}/{1}".format(request.app.config["server.url"], fname)
             
     return template('./views/job_info',
                     title="Job - Info",
@@ -854,6 +855,7 @@ def login():
     return template('./views/login.tpl',
                     aws_client_id   = request.app.config["server.aws_client_id"],
                     username        = "",
+                    handle_login    = request.app.config["server.url"] + "/handle_login",
                     session=session,
                     alert=False)
 
