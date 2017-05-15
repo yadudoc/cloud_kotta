@@ -15,6 +15,8 @@
   
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
+  
+  
 
   
 
@@ -46,6 +48,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -86,16 +89,24 @@
           
             
             
-                <p class="caption"><span class="caption-text">User Documentation</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/kotta_access.html">Cloud Kotta Access</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/kottabooks.html">Kotta Notebooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/data_management.html">Data Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/submitting_jobs.html">Submitting Jobs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/publishing.html">Publishing Jobs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/bastion_access.html">Bastion Access</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/cli.html">Commandline Client for Cloud Kotta</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Kotta Library</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../kotta_lib/kottalibrary.html">Kotta Library</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Developer Documentation</span></p>
 <ul class="current">
@@ -116,6 +127,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../dataguide/wiki.html">Wikipedia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../dataguide/aura.html">UChicago AURA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../dataguide/ieee.html">IEEE full text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dataguide/jstor.html">JSTOR ngrams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../dataguide/pubmed.html">Medline</a></li>
+</ul>
+<p class="caption"><span class="caption-text">WoS Hackathon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../wos_hack/howto.html">WoS Hackathon</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contact</span></p>
 <ul>
@@ -132,8 +149,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Cloud Kotta</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Cloud Kotta</a>
+        
       </nav>
 
 
@@ -142,23 +161,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
-    <li>Deploying Cloud Kotta</li>
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Deploying Cloud Kotta</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="../_sources/devguide/deployment.txt" rel="nofollow"> View page source</a>
+            
+            <a href="../_sources/devguide/deployment.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -197,22 +233,29 @@ This also allows the creation of a HTTPS SSL cert using the AWS certificat manag
 <h2>4. Create a certificate<a class="headerlink" href="#create-a-certificate" title="Permalink to this headline">¶</a></h2>
 <p>The Amazon certificate manager allows you to create certificates for your domain that can be used with Elastic Load Balancers.
 Go to <a class="reference external" href="https://console.aws.amazon.com/acm/home?region=us-east-1#/">https://console.aws.amazon.com/acm/home?region=us-east-1#/</a> and follow steps outlined here to get a certificate:
-<a class="reference external" href="https://aws.amazon.com/certificate-manager/getting-started/">https://aws.amazon.com/certificate-manager/getting-started/</a>. This is a fairly simple process as the request certiicate button
-takes you to a wizard.</p>
+<a class="reference external" href="https://aws.amazon.com/certificate-manager/getting-started/">https://aws.amazon.com/certificate-manager/getting-started/</a>. This is a fairly simple process as the request certificate button
+takes you to a wizard. In this step you create are requesting a managed certificate used by web browsers to verify the authenticity
+of your website with a 3rd party (AWS in this case).</p>
+<p>Once a certificate is generated, get the ARN for the certificate. This is to be passed to the Cloud formation form during the Cloud Kotta deployment phase.
+This certifate is a managed SSL certificate used to terminate SSL connections at the Elastic Load Balancer. This allows us to have SSL from the user to the
+network, and plain HTTP from the Load balancer to the Webserver.</p>
 </div>
 </div>
 
 
+           </div>
+           <div class="articleComments">
+            
            </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="license.html" class="btn btn-neutral float-right" title="License" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="license.html" class="btn btn-neutral float-right" title="License" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="contributing.html" class="btn btn-neutral" title="Contributing" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="contributing.html" class="btn btn-neutral" title="Contributing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -246,7 +289,8 @@ takes you to a wizard.</p>
             VERSION:'beta',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

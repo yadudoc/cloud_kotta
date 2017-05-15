@@ -23,7 +23,7 @@ Schema
 
 The schema for the updates MySQL database :
 
-.. image:: ../figures/wos_schema.png
+.. image:: ../figures/wos2_schema.png
 
 Permissions
 -----------

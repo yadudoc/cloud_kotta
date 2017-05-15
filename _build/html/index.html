@@ -15,6 +15,8 @@
   
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   
+  
+  
 
   
 
@@ -45,6 +47,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -85,18 +88,24 @@
           
             
             
-                <p class="caption"><span class="caption-text">User Documentation</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="userguide/overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/kotta_access.html">Cloud Kotta Access</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/kottabooks.html">Kotta Notebooks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="userguide/kottalibrary.html">Kotta Library</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/data_management.html">Data Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/submitting_jobs.html">Submitting Jobs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/publishing.html">Publishing Jobs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/bastion_access.html">Bastion Access</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/cli.html">Commandline Client for Cloud Kotta</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Kotta Library</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="kotta_lib/kottalibrary.html">Kotta Library</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Developer Documentation</span></p>
 <ul>
@@ -133,8 +142,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="#">Cloud Kotta</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">Cloud Kotta</a>
+        
       </nav>
 
 
@@ -143,23 +154,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="#">Docs</a> &raquo;</li>
-      
-    <li>Cloud Kotta Documentation</li>
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Cloud Kotta Documentation</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/index.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -169,8 +197,8 @@
 <h1>Cloud Kotta Documentation<a class="headerlink" href="#cloud-kotta-documentation" title="Permalink to this headline">¶</a></h1>
 <p>Welcome to Cloud Kotta documentation. Cloud Kotta is a cloud framework that allows users to run computation tasks on protected data sets in a secure environment.</p>
 <p>The code and the Cloudformation templates used to build the Infrastructure on AWS is open source and <a class="reference external" href="https://github.com/yadudoc/cloud_kotta">available on github</a>/</p>
-<div class="toctree-wrapper compound" id="user-documentation">
-<span id="user-docs"></span><p class="caption"><span class="caption-text">User Documentation</span><a class="headerlink" href="#user-documentation" title="Permalink to this toctree">¶</a></p>
+<div class="toctree-wrapper compound" id="user-docs">
+<p class="caption"><span class="caption-text">User Documentation</span><a class="headerlink" href="#user-docs" title="Permalink to this toctree">¶</a></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="userguide/overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/kotta_access.html">Cloud Kotta Access</a><ul>
@@ -181,36 +209,6 @@
 <li class="toctree-l1"><a class="reference internal" href="userguide/kottabooks.html">Kotta Notebooks</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="userguide/kottabooks.html#access">Access</a></li>
 <li class="toctree-l2"><a class="reference internal" href="userguide/kottabooks.html#environment">Environment</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="userguide/kottalibrary.html">Kotta Library</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="userguide/kottalibrary.html#python-on-kotta">Python on Kotta</a></li>
-<li class="toctree-l2"><a class="reference internal" href="userguide/kottalibrary.html#kottajob-decorator"><code class="docutils literal"><span class="pre">&#64;kottajob</span></code> decorator</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="userguide/kottalibrary.html#decorator-args">Decorator Args:</a></li>
-<li class="toctree-l3"><a class="reference internal" href="userguide/kottalibrary.html#function-args">Function Args:</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="userguide/kottalibrary.html#kout-class">KOut class</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="userguide/kottalibrary.html#kotta-kout-filestring">kotta.KOut(filestring)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="userguide/kottalibrary.html#kotta-kout-url">kotta.KOut.url</a></li>
-<li class="toctree-l3"><a class="reference internal" href="userguide/kottalibrary.html#kotta-kout-s3-url">kotta.KOut.s3_url</a></li>
-<li class="toctree-l3"><a class="reference internal" href="userguide/kottalibrary.html#kotta-kout-file">kotta.KOut.file</a></li>
-<li class="toctree-l3"><a class="reference internal" href="userguide/kottalibrary.html#kotta-kout-get-data">kotta.KOut.get_data()</a></li>
-<li class="toctree-l3"><a class="reference internal" href="userguide/kottalibrary.html#kotta-kout-read">kotta.KOut.read()</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="userguide/kottalibrary.html#kottajob-class">KottaJob class</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="userguide/kottalibrary.html#kotta-kottajob-kwargs">kotta.KottaJob(kwargs...)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="userguide/kottalibrary.html#kotta-kottajob-submit-kotta-conn">kotta.KottaJob.submit(Kotta_conn)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="userguide/kottalibrary.html#kotta-kottajob-wait-kotta-conn-maxwait-600-sleep-2-silent-true">kotta.KottaJob.wait(Kotta_conn, maxwait=600, sleep=2, silent=True)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="userguide/kottalibrary.html#kotta-kottajob-cancel-kotta-conn">kotta.KottaJob.cancel(Kotta_conn)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="userguide/kottalibrary.html#kotta-kottajob-status-kotta-conn">kotta.KottaJob.status(Kotta_conn)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="userguide/kottalibrary.html#kotta-kottajob-jobname">kotta.KottaJob.jobname</a></li>
-<li class="toctree-l3"><a class="reference internal" href="userguide/kottalibrary.html#kotta-kottajob-outputs">kotta.KottaJob.outputs</a></li>
-<li class="toctree-l3"><a class="reference internal" href="userguide/kottalibrary.html#kotta-kottajob-desc">kotta.KottaJob.desc</a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="userguide/kottalibrary.html#running-script-using-kotta-library">Running Script using Kotta Library</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/data_management.html">Data Management</a><ul>
@@ -269,8 +267,43 @@
 </li>
 </ul>
 </div>
-<div class="toctree-wrapper compound" id="developer-documentation">
-<span id="dev-docs"></span><p class="caption"><span class="caption-text">Developer Documentation</span><a class="headerlink" href="#developer-documentation" title="Permalink to this toctree">¶</a></p>
+<div class="toctree-wrapper compound" id="kotta-libs">
+<p class="caption"><span class="caption-text">Kotta Library</span><a class="headerlink" href="#kotta-libs" title="Permalink to this toctree">¶</a></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="kotta_lib/kottalibrary.html">Kotta Library</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kotta_lib/kottalibrary.html#python-on-kotta">Python on Kotta</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kotta_lib/kottalibrary.html#kottajob-decorator"><code class="docutils literal"><span class="pre">&#64;kottajob</span></code> decorator</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="kotta_lib/kottalibrary.html#decorator-args">Decorator Args:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kotta_lib/kottalibrary.html#function-args">Function Args:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="kotta_lib/kottalibrary.html#kout-class">KOut class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="kotta_lib/kottalibrary.html#kotta-kout-filestring">kotta.KOut(filestring)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kotta_lib/kottalibrary.html#kotta-kout-url">kotta.KOut.url</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kotta_lib/kottalibrary.html#kotta-kout-s3-url">kotta.KOut.s3_url</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kotta_lib/kottalibrary.html#kotta-kout-file">kotta.KOut.file</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kotta_lib/kottalibrary.html#kotta-kout-get-data">kotta.KOut.get_data()</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kotta_lib/kottalibrary.html#kotta-kout-read">kotta.KOut.read()</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="kotta_lib/kottalibrary.html#kottajob-class">KottaJob class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="kotta_lib/kottalibrary.html#kotta-kottajob-kwargs">kotta.KottaJob(kwargs...)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kotta_lib/kottalibrary.html#kotta-kottajob-submit-kotta-conn">kotta.KottaJob.submit(Kotta_conn)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kotta_lib/kottalibrary.html#kotta-kottajob-wait-kotta-conn-maxwait-600-sleep-2-silent-true">kotta.KottaJob.wait(Kotta_conn, maxwait=600, sleep=2, silent=True)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kotta_lib/kottalibrary.html#kotta-kottajob-cancel-kotta-conn">kotta.KottaJob.cancel(Kotta_conn)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kotta_lib/kottalibrary.html#kotta-kottajob-status-kotta-conn">kotta.KottaJob.status(Kotta_conn)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kotta_lib/kottalibrary.html#kotta-kottajob-jobname">kotta.KottaJob.jobname</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kotta_lib/kottalibrary.html#kotta-kottajob-outputs">kotta.KottaJob.outputs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="kotta_lib/kottalibrary.html#kotta-kottajob-desc">kotta.KottaJob.desc</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="kotta_lib/kottalibrary.html#running-script-using-kotta-library">Running Script using Kotta Library</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound" id="dev-docs">
+<p class="caption"><span class="caption-text">Developer Documentation</span><a class="headerlink" href="#dev-docs" title="Permalink to this toctree">¶</a></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="devguide/overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="devguide/contributing.html">Contributing</a></li>
@@ -284,8 +317,8 @@
 <li class="toctree-l1"><a class="reference internal" href="devguide/license.html">License</a></li>
 </ul>
 </div>
-<div class="toctree-wrapper compound" id="dataset-catalog">
-<span id="data-docs"></span><p class="caption"><span class="caption-text">Dataset Catalog</span><a class="headerlink" href="#dataset-catalog" title="Permalink to this toctree">¶</a></p>
+<div class="toctree-wrapper compound" id="data-docs">
+<p class="caption"><span class="caption-text">Dataset Catalog</span><a class="headerlink" href="#data-docs" title="Permalink to this toctree">¶</a></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="dataguide/wos.html">Web Of Science (WoS)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="dataguide/wos.html#storage-bucket">Storage bucket</a></li>
@@ -328,8 +361,8 @@
 </li>
 </ul>
 </div>
-<div class="toctree-wrapper compound" id="wos-hackathon">
-<p class="caption"><span class="caption-text">WoS Hackathon</span><a class="headerlink" href="#wos-hackathon" title="Permalink to this toctree">¶</a></p>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">WoS Hackathon</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="wos_hack/howto.html">WoS Hackathon</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="wos_hack/howto.html#datasets">Datasets</a><ul>
@@ -341,8 +374,8 @@
 </li>
 </ul>
 </div>
-<div class="toctree-wrapper compound" id="contact">
-<p class="caption"><span class="caption-text">Contact</span><a class="headerlink" href="#contact" title="Permalink to this toctree">¶</a></p>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contact</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="contact.html">Administrators</a></li>
 </ul>
@@ -359,12 +392,15 @@
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="userguide/overview.html" class="btn btn-neutral float-right" title="Overview" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="userguide/overview.html" class="btn btn-neutral float-right" title="Overview" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>
@@ -399,7 +435,8 @@
             VERSION:'beta',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>

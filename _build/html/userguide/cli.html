@@ -15,6 +15,8 @@
   
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
+  
+  
 
   
 
@@ -36,7 +38,7 @@
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
     <link rel="top" title="Cloud Kotta beta documentation" href="../index.html"/>
-        <link rel="next" title="Overview" href="../devguide/overview.html"/>
+        <link rel="next" title="Kotta Library" href="../kotta_lib/kottalibrary.html"/>
         <link rel="prev" title="Bastion Access" href="bastion_access.html"/> 
 
   
@@ -46,6 +48,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -86,14 +89,15 @@
           
             
             
-                <p class="caption"><span class="caption-text">User Documentation</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Documentation</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kotta_access.html">Cloud Kotta Access</a></li>
 <li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="kottabooks.html">Kotta Notebooks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kottabooks.html#access">Access</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kottabooks.html#kotta-library">Kotta Library</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data_management.html">Data Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="submitting_jobs.html">Submitting Jobs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="publishing.html">Publishing Jobs</a></li>
@@ -110,6 +114,10 @@
 </li>
 </ul>
 </li>
+</ul>
+<p class="caption"><span class="caption-text">Kotta Library</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../kotta_lib/kottalibrary.html">Kotta Library</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Developer Documentation</span></p>
 <ul>
@@ -146,8 +154,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Cloud Kotta</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Cloud Kotta</a>
+        
       </nav>
 
 
@@ -156,23 +166,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
-    <li>Commandline Client for Cloud Kotta</li>
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Commandline Client for Cloud Kotta</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="../_sources/userguide/cli.txt" rel="nofollow"> View page source</a>
+            
+            <a href="../_sources/userguide/cli.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -289,19 +316,19 @@ be http urls or S3 urls.</p>
 and you can use the job_id to request the status and attributes of any job.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ ./client.py -r status -j dad3a7ae-91de-4af0-9a69-NOT-VALID
 queue                 <span class="p">|</span> Test
-submit_stamp          <span class="p">|</span> 2016-03-11 18:27:24
-submit_time           <span class="p">|</span> 2016-03-11 18:27:24
+submit_stamp          <span class="p">|</span> <span class="m">2016</span>-03-11 <span class="m">18</span>:27:24
+submit_time           <span class="p">|</span> <span class="m">2016</span>-03-11 <span class="m">18</span>:27:24
 status                <span class="p">|</span> completed
 user_email            <span class="p">|</span> yadunand@uchicago.edu
-z_processing_dur      <span class="p">|</span> 1.00426697731
-walltime              <span class="p">|</span> 300
+z_processing_dur      <span class="p">|</span> <span class="m">1</span>.00426697731
+walltime              <span class="p">|</span> <span class="m">300</span>
 jobtype               <span class="p">|</span> script
-z_stageout_dur        <span class="p">|</span> 0.115742921829
+z_stageout_dur        <span class="p">|</span> <span class="m">0</span>.115742921829
 username              <span class="p">|</span> Yadu Nand B
 job_id                <span class="p">|</span> dad3a7ae-91de-4af0-9a69-NOT-VALID
 executable            <span class="p">|</span> /bin/echo test.sh
-z_stagein_dur         <span class="p">|</span> 0.134030103683
-complete_time         <span class="p">|</span> 2016-03-11 18:27:58
+z_stagein_dur         <span class="p">|</span> <span class="m">0</span>.134030103683
+complete_time         <span class="p">|</span> <span class="m">2016</span>-03-11 <span class="m">18</span>:27:58
 outputs               <span class="p">|</span> foo.txt
 outputs               <span class="p">|</span> test.sh
 outputs               <span class="p">|</span> STDOUT.txt
@@ -330,10 +357,10 @@ that you need the auth file to make this request. Since no job_id is not meaning
 here use &#8220;all&#8221;.</p>
 <div class="highlight-bash"><div class="highlight"><pre><span></span>$ ./client.py -r list -a auth.info -j all
 JOBID                                   <span class="p">|</span>STATUS         <span class="p">|</span>JOBTYPE   <span class="p">|</span>SUBMIT_STAMP
-cf81ba18-cc41-11e5-a3b8-12d73991dalk    <span class="p">|</span>pending        <span class="p">|</span>script    <span class="p">|</span>2016-02-05 19:51:13
-b352e7b2-cad0-11e5-a3b8-12dassa73add    <span class="p">|</span>active         <span class="p">|</span>script    <span class="p">|</span>2016-02-03 23:49:01
-3c747e80-cc42-11e5-a3b8-12d73asss212    <span class="p">|</span>completed      <span class="p">|</span>script    <span class="p">|</span>2016-02-05 19:54:15
-eac59818-cbcd-11e5-a3b8-12d7112as3k7    <span class="p">|</span>completed      <span class="p">|</span>script    <span class="p">|</span>2016-02-05 06:01:37
+cf81ba18-cc41-11e5-a3b8-12d73991dalk    <span class="p">|</span>pending        <span class="p">|</span>script    <span class="p">|</span><span class="m">2016</span>-02-05 <span class="m">19</span>:51:13
+b352e7b2-cad0-11e5-a3b8-12dassa73add    <span class="p">|</span>active         <span class="p">|</span>script    <span class="p">|</span><span class="m">2016</span>-02-03 <span class="m">23</span>:49:01
+3c747e80-cc42-11e5-a3b8-12d73asss212    <span class="p">|</span>completed      <span class="p">|</span>script    <span class="p">|</span><span class="m">2016</span>-02-05 <span class="m">19</span>:54:15
+eac59818-cbcd-11e5-a3b8-12d7112as3k7    <span class="p">|</span>completed      <span class="p">|</span>script    <span class="p">|</span><span class="m">2016</span>-02-05 <span class="m">06</span>:01:37
 </pre></div>
 </div>
 </div>
@@ -342,15 +369,18 @@ eac59818-cbcd-11e5-a3b8-12d7112as3k7    <span class="p">|</span>completed      <
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../devguide/overview.html" class="btn btn-neutral float-right" title="Overview" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../kotta_lib/kottalibrary.html" class="btn btn-neutral float-right" title="Kotta Library" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="bastion_access.html" class="btn btn-neutral" title="Bastion Access" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="bastion_access.html" class="btn btn-neutral" title="Bastion Access" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -384,7 +414,8 @@ eac59818-cbcd-11e5-a3b8-12d7112as3k7    <span class="p">|</span>completed      <
             VERSION:'beta',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

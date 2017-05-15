@@ -15,6 +15,8 @@
   
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
+  
+  
 
   
 
@@ -46,6 +48,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -86,19 +89,24 @@
           
             
             
-                <p class="caption"><span class="caption-text">User Documentation</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/kotta_access.html">Cloud Kotta Access</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/getting_started.html">Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/kottabooks.html">Kotta Notebooks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../userguide/kottabooks.html#access">Access</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../userguide/kottabooks.html#kotta-library">Kotta Library</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/data_management.html">Data Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/submitting_jobs.html">Submitting Jobs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/publishing.html">Publishing Jobs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/bastion_access.html">Bastion Access</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/cli.html">Commandline Client for Cloud Kotta</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Kotta Library</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../kotta_lib/kottalibrary.html">Kotta Library</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Developer Documentation</span></p>
 <ul>
@@ -142,8 +150,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Cloud Kotta</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Cloud Kotta</a>
+        
       </nav>
 
 
@@ -152,23 +162,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
-    <li>Web Of Science (WoS)</li>
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Web Of Science (WoS)</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="../_sources/dataguide/wos.txt" rel="nofollow"> View page source</a>
+            
+            <a href="../_sources/dataguide/wos.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -220,15 +247,18 @@
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="wiki.html" class="btn btn-neutral float-right" title="Wikipedia" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="wiki.html" class="btn btn-neutral float-right" title="Wikipedia" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../devguide/license.html" class="btn btn-neutral" title="License" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="../devguide/license.html" class="btn btn-neutral" title="License" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -262,7 +292,8 @@
             VERSION:'beta',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

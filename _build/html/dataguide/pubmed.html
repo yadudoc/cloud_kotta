@@ -15,6 +15,8 @@
   
     <link rel="shortcut icon" href="../_static/favicon.ico"/>
   
+  
+  
 
   
 
@@ -46,6 +48,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -86,16 +89,24 @@
           
             
             
-                <p class="caption"><span class="caption-text">User Documentation</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/kotta_access.html">Cloud Kotta Access</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../userguide/kottabooks.html">Kotta Notebooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/data_management.html">Data Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/submitting_jobs.html">Submitting Jobs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/publishing.html">Publishing Jobs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/bastion_access.html">Bastion Access</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../userguide/cli.html">Commandline Client for Cloud Kotta</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Kotta Library</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../kotta_lib/kottalibrary.html">Kotta Library</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Developer Documentation</span></p>
 <ul>
@@ -136,8 +147,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="../index.html">Cloud Kotta</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Cloud Kotta</a>
+        
       </nav>
 
 
@@ -146,23 +159,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="../index.html">Docs</a> &raquo;</li>
-      
-    <li>Medline</li>
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+      <li>Medline</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="../_sources/dataguide/pubmed.txt" rel="nofollow"> View page source</a>
+            
+            <a href="../_sources/dataguide/pubmed.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -303,21 +333,21 @@
 <td>YES</td>
 <td>MUL</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>rank</td>
 <td>int(11)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>abstract</td>
 <td>text</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
@@ -354,7 +384,7 @@
 <td>YES</td>
 <td>MUL</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
@@ -390,7 +420,7 @@
 <td>YES</td>
 <td>MUL</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
@@ -419,30 +449,30 @@ The two databases do not, however, align with their numbering, as the full name 
 <tr class="row-even"><td>ID</td>
 <td>int(11)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>pmid</td>
 <td>int(11)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>aorder</td>
 <td>smallint(6)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>LastName</td>
 <td>varchar(64)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
@@ -470,44 +500,44 @@ The two databases do not, however, align with their numbering, as the full name 
 <tr class="row-even"><td>id</td>
 <td>int(11)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>pmid</td>
 <td>int(11)</td>
 <td>YES</td>
 <td>MUL</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>rank</td>
 <td>int(2)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>LastName</td>
 <td>varchar(64)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>FirstName</td>
 <td>varchar(64)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>initials</td>
 <td>varchar(64)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
@@ -542,44 +572,44 @@ The two databases do not, however, align with their numbering, as the full name 
 <tr class="row-odd"><td>cell_number</td>
 <td>varchar(30)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>pmid</td>
 <td>int(11)</td>
 <td>YES</td>
 <td>MUL</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>example</td>
 <td>text</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>cell_names_version</td>
 <td>int(11)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>suppliers</td>
 <td>text</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>observed_form</td>
 <td>varchar(30)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
@@ -615,70 +645,70 @@ The two databases do not, however, align with their numbering, as the full name 
 <td>YES</td>
 <td>MUL</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>issn</td>
 <td>varchar(64)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>year</td>
 <td>text</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>vol</td>
 <td>varchar(64)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>issue</td>
 <td>varchar(64)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>journal</td>
 <td>text</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>journalAbbrev</td>
 <td>text</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>journalCountry</td>
 <td>varchar(255)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>journalNlmID</td>
 <td>varchar(64)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>articleTitle</td>
 <td>text</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
@@ -706,44 +736,44 @@ The two databases do not, however, align with their numbering, as the full name 
 <tr class="row-even"><td>id</td>
 <td>int(11)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>pmid</td>
 <td>int(11)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>grantId</td>
 <td>varchar(64)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>acronym</td>
 <td>varchar(64)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>agency</td>
 <td>varchar(64)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>country</td>
 <td>varchar(64)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
@@ -771,58 +801,58 @@ The two databases do not, however, align with their numbering, as the full name 
 <tr class="row-even"><td>id</td>
 <td>int(11)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>pmid</td>
 <td>int(11)</td>
 <td>YES</td>
 <td>MUL</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>descriptorUI</td>
 <td>varchar(16)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>descriptorName</td>
 <td>varchar(255)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>qualifier1UI</td>
 <td>varchar(16)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>qualifier1Name</td>
 <td>varchar(255)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>qualifier2UI</td>
 <td>varchar(16)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>qualifier2Name</td>
 <td>varchar(255)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
@@ -850,23 +880,23 @@ The two databases do not, however, align with their numbering, as the full name 
 <tr class="row-even"><td>year</td>
 <td>text</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>nAuthors</td>
 <td>bigint(21)</td>
 <td>NO</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>0</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>nPmids</td>
 <td>bigint(21)</td>
 <td>NO</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>0</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
@@ -924,49 +954,49 @@ For example,</p>
 <td>YES</td>
 <td>MUL</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>usptoid</td>
 <td>varchar(20)</td>
 <td>YES</td>
 <td>MUL</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>example</td>
 <td>text</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>cell_names_version</td>
 <td>int(11)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>suppliers</td>
 <td>text</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>date</td>
 <td>int(11)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>observed_form</td>
 <td>varchar(30)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
@@ -993,16 +1023,16 @@ For example,</p>
 <tr class="row-even"><td>pmid</td>
 <td>int(11)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>id</td>
 <td>int(11)</td>
 <td>NO</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>0</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
@@ -1030,16 +1060,16 @@ For example,</p>
 <tr class="row-even"><td>pmid</td>
 <td>int(11)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>nAuthors</td>
 <td>bigint(21)</td>
 <td>NO</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>0</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
@@ -1067,23 +1097,23 @@ For example,</p>
 <tr class="row-even"><td>pmid</td>
 <td>int(11)</td>
 <td>NO</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>date</td>
 <td>int(11)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>journal</td>
 <td>text</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
@@ -1111,23 +1141,23 @@ For example,</p>
 <tr class="row-even"><td>year</td>
 <td>text</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-odd"><td>pmid</td>
 <td>int(11)</td>
 <td>YES</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>NULL</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 <tr class="row-even"><td>nAuthors</td>
 <td>bigint(21)</td>
 <td>NO</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 <td>0</td>
-<td>&nbsp;</td>
+<td>&#160;</td>
 </tr>
 </tbody>
 </table>
@@ -1137,15 +1167,18 @@ For example,</p>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../wos_hack/howto.html" class="btn btn-neutral float-right" title="WoS Hackathon" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../wos_hack/howto.html" class="btn btn-neutral float-right" title="WoS Hackathon" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="jstor.html" class="btn btn-neutral" title="JSTOR ngrams" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="jstor.html" class="btn btn-neutral" title="JSTOR ngrams" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1179,7 +1212,8 @@ For example,</p>
             VERSION:'beta',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="../_static/jquery.js"></script>

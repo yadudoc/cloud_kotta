@@ -20,12 +20,20 @@ The code and the Cloudformation templates used to build the Infrastructure on AW
    userguide/kotta_access
    userguide/getting_started
    userguide/kottabooks
-   userguide/kottalibrary
    userguide/data_management
    userguide/submitting_jobs
    userguide/publishing
    userguide/bastion_access
    userguide/cli
+
+
+.. _kotta_libs:
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Kotta Library
+
+   kotta_lib/kottalibrary
 
 .. _dev_docs:
 

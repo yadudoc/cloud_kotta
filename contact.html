@@ -15,6 +15,8 @@
   
     <link rel="shortcut icon" href="_static/favicon.ico"/>
   
+  
+  
 
   
 
@@ -36,7 +38,7 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="Cloud Kotta beta documentation" href="index.html"/>
-        <link rel="prev" title="IEEE full text" href="dataguide/ieee.html"/> 
+        <link rel="prev" title="WoS Hackathon" href="wos_hack/howto.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -45,6 +47,7 @@
 
 <body class="wy-body-for-nav" role="document">
 
+   
   <div class="wy-grid-for-nav">
 
     
@@ -85,16 +88,24 @@
           
             
             
-                <p class="caption"><span class="caption-text">User Documentation</span></p>
+              
+            
+            
+              <p class="caption"><span class="caption-text">User Documentation</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="userguide/overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/kotta_access.html">Cloud Kotta Access</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="userguide/kottabooks.html">Kotta Notebooks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/data_management.html">Data Management</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/submitting_jobs.html">Submitting Jobs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/publishing.html">Publishing Jobs</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/bastion_access.html">Bastion Access</a></li>
 <li class="toctree-l1"><a class="reference internal" href="userguide/cli.html">Commandline Client for Cloud Kotta</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Kotta Library</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="kotta_lib/kottalibrary.html">Kotta Library</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Developer Documentation</span></p>
 <ul>
@@ -109,6 +120,12 @@
 <li class="toctree-l1"><a class="reference internal" href="dataguide/wiki.html">Wikipedia</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dataguide/aura.html">UChicago AURA</a></li>
 <li class="toctree-l1"><a class="reference internal" href="dataguide/ieee.html">IEEE full text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataguide/jstor.html">JSTOR ngrams</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dataguide/pubmed.html">Medline</a></li>
+</ul>
+<p class="caption"><span class="caption-text">WoS Hackathon</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="wos_hack/howto.html">WoS Hackathon</a></li>
 </ul>
 <p class="caption"><span class="caption-text">Contact</span></p>
 <ul class="current">
@@ -125,8 +142,10 @@
 
       
       <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
-        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-        <a href="index.html">Cloud Kotta</a>
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Cloud Kotta</a>
+        
       </nav>
 
 
@@ -135,23 +154,40 @@
         <div class="rst-content">
           
 
- 
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 <div role="navigation" aria-label="breadcrumbs navigation">
+
   <ul class="wy-breadcrumbs">
-    <li><a href="index.html">Docs</a> &raquo;</li>
-      
-    <li>Administrators</li>
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Administrators</li>
+    
+    
       <li class="wy-breadcrumbs-aside">
         
-          
-            <a href="_sources/contact.txt" rel="nofollow"> View page source</a>
+            
+            <a href="_sources/contact.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
+    
   </ul>
+
+  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
@@ -175,13 +211,16 @@ access to this channel please email the admins:</p>
 
 
            </div>
+           <div class="articleComments">
+            
+           </div>
           </div>
           <footer>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="dataguide/ieee.html" class="btn btn-neutral" title="IEEE full text" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="wos_hack/howto.html" class="btn btn-neutral" title="WoS Hackathon" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -215,7 +254,8 @@ access to this channel please email the admins:</p>
             VERSION:'beta',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
         };
     </script>
       <script type="text/javascript" src="_static/jquery.js"></script>
