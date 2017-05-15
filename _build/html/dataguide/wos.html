@@ -204,6 +204,12 @@
   <div class="section" id="web-of-science-wos">
 <h1>Web Of Science (WoS)<a class="headerlink" href="#web-of-science-wos" title="Permalink to this headline">¶</a></h1>
 <p>The Knowledge Lab has licensed the Thomson Reuters&#8217; Web Of Science XML data for access to lab members as well as collaborators within the <a class="reference external" href="http://www.knowledgelab.org/people/researchers/">MetaKnowlege network</a>. We maintain the raw XML data as well as a curated relational MySQL compatible database for different modes of analyses.</p>
+<p>Here are some quick statistics about the wos2 database:</p>
+<ul class="simple">
+<li>The database contains publications from 1960 to 2015.</li>
+<li>The publications table contains 57M records.</li>
+<li>The references table contains 1.08B records.</li>
+</ul>
 <div class="section" id="storage-bucket">
 <h2>Storage bucket<a class="headerlink" href="#storage-bucket" title="Permalink to this headline">¶</a></h2>
 <p>The data is currently stored on two systems. The raw xmls are on S3 :</p>
@@ -219,6 +225,29 @@
 </div>
 <div class="section" id="schema">
 <h2>Schema<a class="headerlink" href="#schema" title="Permalink to this headline">¶</a></h2>
+<p>Tables:
++&#8212;&#8212;&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;+
+| TABLE_NAME    | TABLE_ROWS |
++&#8212;&#8212;&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;+
+| abstracts     |   26093439 |
+| affiliations  |  213475189 |
+| conf_sponsors |   23712348 |
+| conferences   |    8534597 |
+| contributors  |  200128355 |
+| editions      |   66042408 |
+| funding       |   16379754 |
+| funding_text  |    5784251 |
+| headings      |   60241242 |
+| institutions  |   64938861 |
+| keywords      |   78155603 |
+| keywords_plus |  143232811 |
+| languages     |   58572211 |
+| publications  |   57136685 |
+| publishers    |   50668193 |
+| refs          | 1085738245 |
+| subheadings   |   53973242 |
+| subjects      |  130264559 |
++&#8212;&#8212;&#8212;&#8212;&#8212;+&#8212;&#8212;&#8212;&#8212;+</p>
 <p>The schema for the updates MySQL database :</p>
 <img alt="../_images/wos2_schema.png" src="../_images/wos2_schema.png" />
 </div>

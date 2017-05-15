@@ -3,6 +3,12 @@ Web Of Science (WoS)
 
 The Knowledge Lab has licensed the Thomson Reuters' Web Of Science XML data for access to lab members as well as collaborators within the `MetaKnowlege network <http://www.knowledgelab.org/people/researchers/>`_. We maintain the raw XML data as well as a curated relational MySQL compatible database for different modes of analyses.
 
+Here are some quick statistics about the wos2 database:
+
+* The database contains publications from 1960 to 2015.
+* The publications table contains 57M records.
+* The references table contains 1.08B records.
+
 
 Storage bucket
 --------------
@@ -21,7 +27,32 @@ The parsed relational data is hosted on 2 RDS servers.
 Schema
 ------
 
+Tables:
++---------------+------------+
+| TABLE_NAME    | TABLE_ROWS |
++---------------+------------+
+| abstracts     |   26093439 |
+| affiliations  |  213475189 |
+| conf_sponsors |   23712348 |
+| conferences   |    8534597 |
+| contributors  |  200128355 |
+| editions      |   66042408 |
+| funding       |   16379754 |
+| funding_text  |    5784251 |
+| headings      |   60241242 |
+| institutions  |   64938861 |
+| keywords      |   78155603 |
+| keywords_plus |  143232811 |
+| languages     |   58572211 |
+| publications  |   57136685 |
+| publishers    |   50668193 |
+| refs          | 1085738245 |
+| subheadings   |   53973242 |
+| subjects      |  130264559 |
++---------------+------------+
+
 The schema for the updates MySQL database :
+
 
 .. image:: ../figures/wos2_schema.png
 
