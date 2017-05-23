@@ -52,3 +52,20 @@ Once a certificate is generated, get the ARN for the certificate. This is to be 
 This certifate is a managed SSL certificate used to terminate SSL connections at the Elastic Load Balancer. This allows us to have SSL from the user to the
 network, and plain HTTP from the Load balancer to the Webserver.
 
+
+5. Launch the Base
+------------------
+
+Kotta base setup creates the following :
+
+1. Jobs DB : The database that holds the jobs information
+2. Users DB : A database that holds user information
+3. WebServer Role : Web server role with the appropriate permissions
+4. Worker Role : Worker role with appropriate perms
+5. Jobs Bucket : The default bucket where job data, uploads etc are stored
+
+
+6. Launch Kotta
+---------------
+
+Launch the Kotta cloudformation document.
