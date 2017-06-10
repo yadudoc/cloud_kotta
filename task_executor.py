@@ -167,6 +167,8 @@ def exec_job(app, jobtype, job_id, executable, args, inputs, outputs, data, auth
    # Notify job execution start time
    ##############################################################################
    update_record(record, "start_time", time.time())
+   update_record(record, "i_instance_id", app.config["instance_id"])
+   update_record(record, "i_instance_type", app.config["instance_type"])
 
    ##############################################################################
    # Setup dirs for execution
