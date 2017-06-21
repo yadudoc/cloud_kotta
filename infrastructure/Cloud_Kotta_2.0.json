@@ -23,6 +23,16 @@
             "Default": "TenaciousTiger-Jobs",
             "Description": "Name of the Turing jobs DynamoDB table"
         },
+        "WebServerRoleName": {
+            "Type": "String",
+            "Default": "WebServerRole",
+            "Description": "WebServer Role defined externally (by name)"
+        },
+        "TaskExecutorRoleName": {
+            "Type": "String",
+            "Default": "TaskExecutorRole",
+            "Description": "TaskExecutor Role defined externally (by name)"
+        },
         "TestInstanceType": {
             "Type": "String",
             "Default": "t2.small",
@@ -42,7 +52,7 @@
         },
         "WebCertARN": {
             "Type": "String",
-            "Default": "arn:aws:acm:us-east-1:968994658855:certificate/e97ea402-5f9c-42df-ad0c-f7b81694c506",
+            "Default": "arn:aws:acm:us-east-1:147445041084:certificate/a97c66d9-d2d3-4ef0-bba3-42813b279667",
             "Description": "SSL Certificate ARN from AWS Certificate manager"
         },
         "ProtectedBucketName": {
@@ -87,19 +97,17 @@
         "RegionToAmi": {
             "us-east-1": {
                 "comment": "N.Virginia",
-                "workerImage": "ami-0e0eaf18",
-                "stableUbuntu": "ami-d05e75b8",
-                "word2vec": "ami-02bef168",
-                "word2vecPrev": "ami-cbe9aca1",
-                "WebServerAMI": "ami-a03a37ca",
-                "bastion1x0": "ami-953b36ff",
-                "bastion2x0": "ami-e13739f6"
+                "workerImage": "ami-80861296",
+                "stableUbuntu": "ami-80861296",
+                "WebServerAMI": "ami-80861296",
+                "bastion2x0": "ami-80861296"
             },
             "us-west-2": {
                 "comment": "Oregon",
-                "workerImage": "ami-0e0eaf18",
-                "stableUbuntu": "ami-5189a661",
-                "word2vec": "ami-8a0010eb"
+                "workerImage": "ami-efd0428f",
+                "stableUbuntu": "ami-efd0428f",
+                "WebServerAMI": "ami-efd0428f",
+                "bastion2x0": "ami-efd0428f"
             }
         }
     },
@@ -1209,12 +1217,12 @@
                 }
             }
         },
-        "WebServerRole": {
+        "WebServerProfile": {
             "Type": "AWS::IAM::InstanceProfile",
             "Properties": {
                 "Path": "/",
                 "Roles": [
-                    "god_mode"
+                    "WebServerRole"
                 ]
             },
             "Metadata": {
@@ -1223,12 +1231,12 @@
                 }
             }
         },
-        "WorkerRole": {
+        "WorkerProfile": {
             "Type": "AWS::IAM::InstanceProfile",
             "Properties": {
                 "Path": "/",
                 "Roles": [
-                    "task_executor"
+                    "TaskExecutorRole"
                 ]
             },
             "Metadata": {
@@ -1345,16 +1353,16 @@
                             "",
                             [
                                 "#!/bin/bash\n",
-                                "pip install nltk boto3 bottle subprocess32\n",
                                 "apt-get -y update\n",
-                                "apt-get -y install awscli parallel python3 python3-pip\n",
+                                "apt-get -y install awscli parallel python python-pip python3 python3-pip\n",
+                                "pip install nltk boto3 boto requests bottle subprocess32\n",
                                 "cd /home/ubuntu\n",
-                                "aws s3 cp --region us-east-1 s3://klab-jobs/inputs/yadu/software/ncses.tar.gz . ; rm -rf ncses; tar -xzf ncses.tar.gz \n",
-                                "cd /home/ubuntu/task_engine\n",
+                                "aws s3 cp s3://wdi-jobs/code/dsapp-wdi.tar.gz . ; tar -xzf dsapp-wdi.tar.gz;\n",
+                                "cd /home/ubuntu/dsapp-wdi\n",
                                 "worker_loop (){ \n",
                                 "  while : \n ",
                                 "  do \n",
-                                "   git fetch --all; git reset --hard origin/master \n",
+                                "   #git fetch --all; git reset --hard origin/master \n",
                                 "   ./task_executor.py -c production.conf &>> /var/log/worker.std.log\n",
                                 "   sleep 5\n",
                                 "  done\n",
@@ -1365,7 +1373,7 @@
                     }
                 },
                 "IamInstanceProfile": {
-                    "Ref": "WorkerRole"
+                    "Ref": "WorkerProfile"
                 },
                 "InstanceType": {
                     "Ref": "TestInstanceType"
@@ -1697,7 +1705,7 @@
                     }
                 },
                 "IamInstanceProfile": {
-                    "Ref": "WorkerRole"
+                    "Ref": "WorkerProfile"
                 },
                 "InstanceType": {
                     "Ref": "ProdInstanceType"
@@ -1975,7 +1983,7 @@
                     }
                 },
                 "IamInstanceProfile": {
-                    "Ref": "WebServerRole"
+                    "Ref": "WebServerProfile"
                 },
                 "SecurityGroupIds": [
                     {
@@ -2195,7 +2203,7 @@
                         }
                     }
                 ],
-                "InstanceType": "t2.xlarge",
+                "InstanceType": "t2.medium",
                 "ImageId": {
                     "Fn::FindInMap": [
                         "RegionToAmi",
@@ -2509,20 +2517,6 @@
             "Metadata": {
                 "AWS::CloudFormation::Designer": {
                     "id": "8b8164f0-e848-407d-9a70-6432663af84e"
-                }
-            }
-        },
-        "WebServerTestProfile": {
-            "Type": "AWS::IAM::InstanceProfile",
-            "Properties": {
-                "Path": "/",
-                "Roles": [
-                    "WebServerTest"
-                ]
-            },
-            "Metadata": {
-                "AWS::CloudFormation::Designer": {
-                    "id": "6d60fa94-81c8-45ef-a41a-39b2e609c8b2"
                 }
             }
         }
