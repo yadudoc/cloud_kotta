@@ -59,6 +59,10 @@ def update_creds_from_metadata_server(app):
     app.config["instance_id"] = str(data)
 
     URL  = app.config["metadata.metaserver"]
+    data = requests.get(URL+"instance-type").text
+    app.config["instance_type"] = str(data)
+
+    URL  = app.config["metadata.metaserver"]
     data = requests.get(URL+"placement/availability-zone/").text
     app.config["region"] = str(data)
 
