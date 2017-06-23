@@ -57,8 +57,8 @@
         },
         "ProtectedBucketName": {
             "Type": "String",
-            "Default": "klab-webofscience",
-            "Description": "Bucket designated to Protected data from Web Of Science"
+            "Default": "klab-jobs",
+            "Description": "Primary Bucket designated as a outputs repository, code store and upload target."
         },
         "MaxProdInstances": {
             "Type": "Number",
@@ -1222,7 +1222,9 @@
             "Properties": {
                 "Path": "/",
                 "Roles": [
-                    "WebServerRole"
+                    {
+                        "Ref": "WebServerRoleName"
+                    }
                 ]
             },
             "Metadata": {
@@ -1236,7 +1238,9 @@
             "Properties": {
                 "Path": "/",
                 "Roles": [
-                    "TaskExecutorRole"
+                    {
+                        "Ref": "TaskExecutorRoleName"
+                    }
                 ]
             },
             "Metadata": {
@@ -1357,12 +1361,15 @@
                                 "apt-get -y install awscli parallel python python-pip python3 python3-pip\n",
                                 "pip install nltk boto3 boto requests bottle subprocess32\n",
                                 "cd /home/ubuntu\n",
-                                "aws s3 cp s3://wdi-jobs/code/dsapp-wdi.tar.gz . ; tar -xzf dsapp-wdi.tar.gz;\n",
-                                "cd /home/ubuntu/dsapp-wdi\n",
+                                "aws s3 cp s3://",
+                                {
+                                    "Ref": "ProtectedBucketName"
+                                },
+                                "/code/cloud_kotta.tar.gz . ; tar -xzf cloud_kotta.tar.gz;\n",
+                                "cd /home/ubuntu/cloud_kotta\n",
                                 "worker_loop (){ \n",
                                 "  while : \n ",
                                 "  do \n",
-                                "   #git fetch --all; git reset --hard origin/master \n",
                                 "   ./task_executor.py -c production.conf &>> /var/log/worker.std.log\n",
                                 "   sleep 5\n",
                                 "  done\n",
@@ -1676,9 +1683,9 @@
                             "",
                             [
                                 "#!/bin/bash\n",
-                                "pip install nltk boto3 bottle subprocess32\n",
                                 "apt-get -y update\n",
-                                "apt-get -y install awscli mdadm parallel python3 python3-pip\n",
+                                "apt-get -y install awscli parallel python python-pip python3 python3-pip\n",
+                                "pip install nltk boto3 boto requests bottle subprocess32\n",
                                 "mkdir /scratch;\n",
                                 "disk_setup() {\n",
                                 "   cd /dev ; disks=($(lsblk | grep 'xvd' | grep -v 'xvda' | awk '{print $1}'))\n",
@@ -1687,9 +1694,17 @@
                                 "}\n",
                                 "disk_setup &> /var/log/disk.setup.log\n",
                                 "cd /home/ubuntu\n",
-                                "aws s3 cp --region us-east-1 s3://klab-jobs/inputs/yadu/software/ncses.tar.gz . ; rm -rf ncses; tar -xzf ncses.tar.gz \n",
-                                "cd /home/ubuntu/task_engine\n",
-                                "export postmortem='s3://klab-jobs/postmortem'; export id=$(curl http://169.254.169.254/latest/meta-data/instance-id) \n",
+                                "aws s3 cp s3://",
+                                {
+                                    "Ref": "ProtectedBucketName"
+                                },
+                                "/code/cloud_kotta.tar.gz . ; tar -xzf cloud_kotta.tar.gz;\n",
+                                "cd /home/ubuntu/cloud_kotta\n",
+                                "export postmortem='s3://",
+                                {
+                                    "Ref": "ProtectedBucketName"
+                                },
+                                "/postmortem'; export id=$(curl http://169.254.169.254/latest/meta-data/instance-id) \n",
                                 "worker_loop (){ \n",
                                 "  while : \n ",
                                 "  do \n",
@@ -1967,16 +1982,41 @@
                                 "apt-get -y install python-pip git\n",
                                 "apt-get -y install awscli\n",
                                 "pip install boto bottle cherrypy requests beaker boto3\n",
-                                "cd /home/ubuntu/task_engine/web2\n",
+                                "cd /home/ubuntu; aws s3 cp s3://",
+                                {
+                                    "Ref": "ProtectedBucketName"
+                                },
+                                "/code/cloud_kotta.tar.gz . ; tar -xzf cloud_kotta.tar.gz \n",
+                                "cd /home/ubuntu/cloud_kotta\n",
+                                "pip install -r requirements.txt\n",
                                 "server_loop (){ \n",
-                                "  git pull\n",
+                                "  cd web2\n",
+                                "  pip install -r requirements.txt\n",
                                 "  while : \n ",
                                 "  do \n",
                                 "   ./web_server.py -c production.conf &>> /var/log/webserver.std.log\n",
                                 "   sleep 5\n",
                                 "  done\n",
                                 "}\n",
+                                "queue_watcher_loop (){ \n",
+                                "  cd queue_watcher\n",
+                                "  while : \n ",
+                                "  do \n",
+                                "   ./queue_watcher.py -c production.conf &>> /var/log/queue_watcher.std.log\n",
+                                "   sleep 5\n",
+                                "  done\n",
+                                "}\n",
+                                "instance_watcher_loop (){ \n",
+                                "  cd queue_watcher\n",
+                                "  while : \n ",
+                                "  do \n",
+                                "   ./instance_watcher.py -c production.conf &>> /var/log/instance_watcher.std.log\n",
+                                "   sleep 5\n",
+                                "  done\n",
+                                "}\n",
                                 "server_loop & \n",
+                                "queue_watcher_loop & \n",
+                                "instance_watcher_loop & \n",
                                 "wait \n"
                             ]
                         ]
