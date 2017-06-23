@@ -4,6 +4,70 @@ Deploying Cloud Kotta
 Cloud Kotta infrastructure and code are both Open Source and designed to be reproducible.
 The infrastructure is written as a json configuration file using Amazon's CloudFormation, and the various services that run on the infrastructure is written in python. All of this is available on the `github page <https://github.com/yadudoc/cloud_kotta>`_. This docs page will cover the steps to deploy an instance of Cloud Kotta.
 
+1. Launching CloudFormation
+---------------------------
+
+1. Git clone the `cloud_kotta <https://github.com/yadudoc/cloud_kotta>`_ repo.
+
+2. Make sure you have admin privileges on AWS
+
+3. Go to `cloudformation console for launch stack <https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new>`_
+
+4. Select *Upload a template to Amazon S3* and select the **Cloud_Kotta_Base.json** file from cloud_kotta/infrastructure/Cloud_Kotta_Base.json and click **Next**
+
+5. Name the stack, and specify a short and sweet name for the JobsBucket. Please note that the name of the bucket specified
+   should match the S3 naming conventions and also be globally unique.
+
+6. Click **Next** to launch.
+
+7. Once the stack has been launched without errors, check the outputs from the outputs tab in the CloudFormation console
+to see details of the various services that have been launched.
+
+2. Launching Kotta-Base
+-----------------------
+
+The Kotta launch process starts with launching the Kotta base cloudformation document. This cloudformation
+document launches the persistent data-stores and the roles that will be necessary by the main kotta setup.
+
+This setup will launch the following :
+
+1. **JobsBucket**  : This is the S3 bucket designated for storing uploads, outputs generated, and the code store
+   for deploying private repos. All custom changes to the kotta system codebase will be stored on this bucket
+for deployment.
+
+2. **JobsTable**  : This is the DynamoDB table that holds all the job information. Several Kotta stacks can
+   be served from a single tables without losing any history.
+
+3. **UsersTable** : This is the DynamoDB table that holds all the user information. This needs to be manually
+   popoluated for a fresh kotta setup.
+
+4. **Roles** : The kotta base cloudformation document will also setup the appropriate roles for the WebServer
+and the TaskExecutor.
+
+5. **Policies** : Access policies for the above roles to the JobsBucket are also created.
+
+3. Custom Changes to your Kotta Stack
+-------------------------------------
+
+In order to make custom changes to the stack, git clone the cloud_kotta repo and make appropriate
+changes to cloud_kotta/web2 directory. Update the production.conf and the pages under cloud_kotta/web2/views.
+
+Once changes have been made, tar ball the directory and push to the S3 Jobs bucket.
+
+.. code-block:: bash
+
+   git clone https://github.com/yadudoc/cloud_kotta.git
+   # Make changes to cloud_kotta/web2 configs and web views.
+                ....
+   # Make the tarball
+   tar -cvzf cloud_kotta.tar.gz cloud_kotta
+
+   # Upload to JobsBucket. 
+   aws s3 cp cloud_kotta.tar.gz s3://<Your_Jobs_Bucket_Name>/code/
+
+   
+
+
 1. Set Region
 -------------
 

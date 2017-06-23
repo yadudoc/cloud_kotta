@@ -113,10 +113,15 @@
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
 <li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Deploying Cloud Kotta</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#launching-cloudformation">1. Launching CloudFormation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#launching-kotta-base">2. Launching Kotta-Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-changes-to-your-kotta-stack">3. Custom Changes to your Kotta Stack</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#set-region">1. Set Region</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#register-a-domain">2. Register a Domain</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#login-with-amazon">3. Login with Amazon</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#create-a-certificate">4. Create a certificate</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#launch-the-base">5. Launch the Base</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#launch-kotta">6. Launch Kotta</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
@@ -204,6 +209,58 @@
 <h1>Deploying Cloud Kotta<a class="headerlink" href="#deploying-cloud-kotta" title="Permalink to this headline">¶</a></h1>
 <p>Cloud Kotta infrastructure and code are both Open Source and designed to be reproducible.
 The infrastructure is written as a json configuration file using Amazon&#8217;s CloudFormation, and the various services that run on the infrastructure is written in python. All of this is available on the <a class="reference external" href="https://github.com/yadudoc/cloud_kotta">github page</a>. This docs page will cover the steps to deploy an instance of Cloud Kotta.</p>
+<div class="section" id="launching-cloudformation">
+<h2>1. Launching CloudFormation<a class="headerlink" href="#launching-cloudformation" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Git clone the <a class="reference external" href="https://github.com/yadudoc/cloud_kotta">cloud_kotta</a> repo.</li>
+<li>Make sure you have admin privileges on AWS</li>
+<li>Go to <a class="reference external" href="https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new">cloudformation console for launch stack</a></li>
+<li>Select <em>Upload a template to Amazon S3</em> and select the <strong>Cloud_Kotta_Base.json</strong> file from cloud_kotta/infrastructure/Cloud_Kotta_Base.json and click <strong>Next</strong></li>
+<li>Name the stack, and specify a short and sweet name for the JobsBucket. Please note that the name of the bucket specified
+should match the S3 naming conventions and also be globally unique.</li>
+<li>Click <strong>Next</strong> to launch.</li>
+</ol>
+<p>7. Once the stack has been launched without errors, check the outputs from the outputs tab in the CloudFormation console
+to see details of the various services that have been launched.</p>
+</div>
+<div class="section" id="launching-kotta-base">
+<h2>2. Launching Kotta-Base<a class="headerlink" href="#launching-kotta-base" title="Permalink to this headline">¶</a></h2>
+<p>The Kotta launch process starts with launching the Kotta base cloudformation document. This cloudformation
+document launches the persistent data-stores and the roles that will be necessary by the main kotta setup.</p>
+<p>This setup will launch the following :</p>
+<ol class="arabic simple">
+<li><strong>JobsBucket</strong>  : This is the S3 bucket designated for storing uploads, outputs generated, and the code store
+for deploying private repos. All custom changes to the kotta system codebase will be stored on this bucket</li>
+</ol>
+<p>for deployment.</p>
+<ol class="arabic simple" start="2">
+<li><strong>JobsTable</strong>  : This is the DynamoDB table that holds all the job information. Several Kotta stacks can
+be served from a single tables without losing any history.</li>
+<li><strong>UsersTable</strong> : This is the DynamoDB table that holds all the user information. This needs to be manually
+popoluated for a fresh kotta setup.</li>
+</ol>
+<p>4. <strong>Roles</strong> : The kotta base cloudformation document will also setup the appropriate roles for the WebServer
+and the TaskExecutor.</p>
+<ol class="arabic simple" start="5">
+<li><strong>Policies</strong> : Access policies for the above roles to the JobsBucket are also created.</li>
+</ol>
+</div>
+<div class="section" id="custom-changes-to-your-kotta-stack">
+<h2>3. Custom Changes to your Kotta Stack<a class="headerlink" href="#custom-changes-to-your-kotta-stack" title="Permalink to this headline">¶</a></h2>
+<p>In order to make custom changes to the stack, git clone the cloud_kotta repo and make appropriate
+changes to cloud_kotta/web2 directory. Update the production.conf and the pages under cloud_kotta/web2/views.</p>
+<p>Once changes have been made, tar ball the directory.</p>
+<div class="highlight-bash"><div class="highlight"><pre><span></span>git clone https://github.com/yadudoc/cloud_kotta.git
+<span class="c1"># Make changes to cloud_kotta/web2 configs and web views.</span>
+             ....
+<span class="c1"># Make the tarball</span>
+tar -cvzf cloud_kotta.tar.gz cloud_kotta
+
+<span class="c1"># Upload to JobsBucket.</span>
+aws s3 cp cloud_kotta.tar.gz s3://&lt;Your_Jobs_Bucket_Name&gt;/code/
+</pre></div>
+</div>
+</div>
 <div class="section" id="set-region">
 <h2>1. Set Region<a class="headerlink" href="#set-region" title="Permalink to this headline">¶</a></h2>
 <p>Please ensure that all your tests are done in the AWS North Virginia Region. This is required to ensure that the AMI&#8217;s used in the cloudformation documents are valid and available. With more testing and usage, the cloudformation document will support other regions and/or potentially multiple regions but that is a capability this system currently lacks.</p>
@@ -239,6 +296,21 @@ of your website with a 3rd party (AWS in this case).</p>
 <p>Once a certificate is generated, get the ARN for the certificate. This is to be passed to the Cloud formation form during the Cloud Kotta deployment phase.
 This certifate is a managed SSL certificate used to terminate SSL connections at the Elastic Load Balancer. This allows us to have SSL from the user to the
 network, and plain HTTP from the Load balancer to the Webserver.</p>
+</div>
+<div class="section" id="launch-the-base">
+<h2>5. Launch the Base<a class="headerlink" href="#launch-the-base" title="Permalink to this headline">¶</a></h2>
+<p>Kotta base setup creates the following :</p>
+<ol class="arabic simple">
+<li>Jobs DB : The database that holds the jobs information</li>
+<li>Users DB : A database that holds user information</li>
+<li>WebServer Role : Web server role with the appropriate permissions</li>
+<li>Worker Role : Worker role with appropriate perms</li>
+<li>Jobs Bucket : The default bucket where job data, uploads etc are stored</li>
+</ol>
+</div>
+<div class="section" id="launch-kotta">
+<h2>6. Launch Kotta<a class="headerlink" href="#launch-kotta" title="Permalink to this headline">¶</a></h2>
+<p>Launch the Kotta cloudformation document.</p>
 </div>
 </div>
 
