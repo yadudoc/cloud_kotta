@@ -22,10 +22,6 @@
             "Type": "String",
             "Description": "Name of the Cloud Kotta jobs DynamoDB table"
         },
-        "DynTableArn": {
-            "Type": "String",
-            "Description": "ARN of the Cloud Kotta jobs DynamoDB table"
-        },
         "WebServerRoleName": {
             "Type": "String",
             "Default": "WebServerRole",
@@ -2031,7 +2027,17 @@
                     },
                     {
                         "Key": "DynamoDBTableARN",
-                        "Value": {"Ref" : "DynTableArn" }
+                        "Value": {
+                            "Fn::Join": [
+                                "",
+                                [
+                                    {
+                                        "Fn::Sub" : "arn:aws:dynamodb:${AWS::Region}:${AWS::AccountId}:table/${DynTable}"
+                                    },
+                                    {"Ref": "DynTable"}
+                                ]
+                            ]
+                        }
                     },
                     {
                         "Key": "JobsQueueName",
