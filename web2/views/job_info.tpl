@@ -37,6 +37,13 @@
                 <canvas id="canvas_mem" height="250" width="1200"></canvas>
             </div>
         </div>
+
+        <div style="width:100%">
+	    <label>Disk IO</label>
+            <div>
+                <canvas id="canvas_disk" height="250" width="1200"></canvas>
+            </div>
+        </div>
 	
         <script>
 	 console.log("{{usage_csv}}")
@@ -45,16 +52,47 @@
 	      d["time"] = d["time"];
 	      d["cpu"] = +d["cpu"];
 	      d["mem"] = +d["mem"];
+	      d["disk"] = +d["disk"];
 	      });
 	      
 	      console.log(data[0]);
 	      time_vals  = data.map(function(row) {return row["time"];});
 	      cpu_vals   = data.map(function(row) {return row["cpu"];});
 	      memmax_vals   = data.map(function(row) {return row["memmax"];});	
-	      memcur_vals   = data.map(function(row) {return row["memcur"];});	
-	      console.log(time_vals);
-	      console.log(cpu_vals);
- 	      console.log(memmax_vals); 
+	      memcur_vals   = data.map(function(row) {return row["memcur"];});
+	      disk_r_vals   = data.map(function(row) {return row["io_read"];});	
+	      disk_w_vals   = data.map(function(row) {return row["io_write"];});
+
+	      //console.log(time_vals);
+	      //console.log(cpu_vals);
+ 	      //console.log(memmax_vals); 
+ 	      //console.log(disk_r_vals);
+		
+     	      var disk_data = {
+  	  	    labels: time_vals,
+		    datasets : [
+          	    {
+			label: "Disk Read IOPS",
+            		fillColor: "rgba(0,100,100,0.2)",
+            		strokeColor: "rgba(220,220,220,1)",
+			pointColor: "rgba(0,100,100,1)",
+			pointStrokeColor: "#fff",
+			pointHighlightFill: "#fff",
+			pointHighlightStroke: "rgba(220,220,220,1)",
+			data: disk_r_vals, 
+		    },
+		    {
+			label: "Disk Write IOPS",
+			fillColor: "rgba(151,187,205,0.2)",
+			strokeColor: "rgba(151,187,205,1)",
+			pointColor: "rgba(151,187,205,1)",
+			pointStrokeColor: "#fff",
+			pointHighlightFill: "#fff",
+			pointHighlightStroke: "rgba(151,187,205,1)",
+           		data: disk_w_vals,
+          	    }]
+    		};
+
      	      var mem_data = {
   	  	    labels: time_vals,
 		    datasets : [
@@ -95,6 +133,9 @@
 		    }]
     		};
 
+	        var ctx_disk = document.getElementById("canvas_disk").getContext("2d");
+		var myNewChart_disk = new Chart(ctx_disk).Line(disk_data, {responsive: true, y2axis: true});
+
 	        var ctx_mem = document.getElementById("canvas_mem").getContext("2d");
 		var myNewChart_mem = new Chart(ctx_mem).Line(mem_data, {responsive: true, y2axis: true});
 
@@ -102,7 +143,8 @@
 		var myNewChart_cpu = new Chart(ctx_cpu).Line(cpu_data, {responsive: true, y2axis: true});
 	 });
     	</script>
-	%end     
+	%end
+
     <div class="row">
       <div class="form-group col-md-4">
        <a href="{{get_url('job_cancel')}}/{{job_id}}" class="btn btn-danger" role="button">Cancel Job</a>
