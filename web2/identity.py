@@ -11,7 +11,7 @@ def get_identity_from_token(access_token, client_id):
 
     result = requests.get("https://api.amazon.com/auth/o2/tokeninfo?access_token=" + access_token)
     if result.status_code != 200 :
-        print "Failed to verify origin of authentication token"
+        print "Failed to verify origin of authentication token : {0}".format(result.text)
         logging.error("Failed to verify origin of authentication token")
         return None, None, "Failed to verify origin of authentication token"
 
