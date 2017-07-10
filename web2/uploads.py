@@ -39,6 +39,7 @@ from utils import *
 import web_server
 
 
+
 def generate_signed_url(app, filepath, user_id):
     print("In generate_url")
     expiry=3600
@@ -47,7 +48,6 @@ def generate_signed_url(app, filepath, user_id):
                                              bucket="klab-jobs",
                                              key="uploads/{0}/python/pkl/{1}".format(user_id,
                                                                                      filepath))
-
     return url
 
 ##################################################################################
@@ -63,12 +63,13 @@ def post_upload_url():
 
     if not res:
         print res_long
-        return res_long        
+        return res_long
+        
 
     fpath = request.POST.get("filepath")
 
     try:
-        url = generate_signed_url(request.app, fpath, user_id=session["user_id"])
+        url = generate_signed_url(request.app, fpath, session["user_id"])
 
     except Exception as e:
         return {"status" : "Fail",

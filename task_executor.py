@@ -167,6 +167,8 @@ def exec_job(app, jobtype, job_id, executable, args, inputs, outputs, data, auth
    # Notify job execution start time
    ##############################################################################
    update_record(record, "start_time", time.time())
+   update_record(record, "i_instance_id", app.config["instance_id"])
+   update_record(record, "i_instance_type", app.config["instance_type"])
 
    ##############################################################################
    # Setup dirs for execution
@@ -265,16 +267,21 @@ def exec_job(app, jobtype, job_id, executable, args, inputs, outputs, data, auth
    return True
 
 def task_loop(app):
-   sqs_conn  = app.config["sqs.conn"]
    pending   = app.config["instance.tags"]["JobsQueueName"]
    active    = app.config["instance.tags"]["ActiveQueueName"]
-   pending_q = sqs_conn.get_queue(pending)
-   active_q  = sqs_conn.get_queue(active)
-
 
    while 1:
+      pending_q = app.config["sqs.conn"].get_queue(pending)
+      active_q  = app.config["sqs.conn"].get_queue(active)
+
       # Wait to read a message from the pending_q
-      msg = pending_q.read(wait_time_seconds=20)
+      try:
+         msg = pending_q.read(wait_time_seconds=20)
+      except Exception as e:
+         print "Caught exception : ", e
+         logging.error("Caught exception {0}".format(e))
+         print "Retrying with fresh creds"
+         exit(-1)
 
       print "Received message from pending_q"
       if msg:         

@@ -9,11 +9,27 @@ import command
 import os
 #from boto.exception import S3ResponseError
 
+
+
 def get_s3_conn(key_id, key_secret, token):
     s3   = S3Connection(aws_access_key_id=key_id,
                         aws_secret_access_key=key_secret,
                         security_token=token)
     return s3
+
+
+################################################################
+# Get the size of the s3 object in bytes
+################################################################
+def get_s3obj_size(s3conn, bucket_name, prefix):
+    try :
+        bucket = s3conn.get_bucket(bucket_name, validate=False)
+        key     = bucket.get_key(prefix)
+        return key.size
+    except :
+        return None
+
+    
 
 ################################################################
 # 1. Get s3connection object

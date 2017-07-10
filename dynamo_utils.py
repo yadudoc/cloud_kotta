@@ -17,7 +17,7 @@ def get_job(request, job_id):
     dyntable = request.app.config['dyno.conn']
     try:
         item = dyntable.get_item(job_id=job_id)
-    except ItemNotFound:
+    except ddb.exceptions.ItemNotFound:
         return "The requested job_id was not found in the jobs database"
         raise
     return item
@@ -94,7 +94,7 @@ def test_2():
     users = find_all_users(app)
     for user in users:
         print user["user_id"], user["name"]
-        all_jobs = request.app.config["dyno.conn"].scan(i_user_id__eq=user["user_id"])
+        all_jobs = app.config["dyno.conn"].scan(i_user_id__eq=user["user_id"])
         
         results[user["name"]] = {"Prod" : {"count" : 0,
                                            "walltime" : 0},
@@ -103,10 +103,10 @@ def test_2():
         
         count = 0
         for j in all_jobs:
-            #walltime += j["walltime"]            
-            #count += 1
+            for key in j.keys():
+                print "{0}:{1}".format(key, j[key])
             print "User:{0} Count: "
-     
+        break
     return
     #dynamodb_get(app.config["dyno.conn"], uid)
 

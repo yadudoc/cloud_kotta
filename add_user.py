@@ -91,7 +91,8 @@ def create_user(app):
     print app.config["wos_passwd"]
     cmd = ["CREATE USER '{0}'@'%' IDENTIFIED BY '{1}' ;".format(app.config["wos_user"], 
                                                                 app.config["wos_passwd"]),
-           "GRANT SELECT ON wos.* TO '{0}'@'%' ;".format(app.config["wos_user"])]
+           "GRANT SELECT ON wos.* TO '{0}'@'%' ;".format(app.config["wos_user"]),
+           "GRANT SELECT ON wos2.* TO '{0}'@'%' ;".format(app.config["wos_user"])]
     update_db(app, cmd)
     return 
 

@@ -35,7 +35,7 @@
 
 	  document.getElementById('LoginWithAmazon').onclick = function() {
 	      options = { scope : 'profile' };
-	          amazon.Login.authorize(options, 'https://turingcompute.net/handle_login');
+	          amazon.Login.authorize(options, '{{handle_login}}');
 		      return false;
           };
 
