@@ -558,15 +558,20 @@ def extract_usage_stats(data, fname):
     data = '[' + data.replace('}{', '},{') + ']'
     ddata = ast.literal_eval(data)
     with open(fname, 'w') as csvfile:
-        fieldnames = ['time', 'cpu', 'memmax', 'memcur']
+        fieldnames = ['time', 'cpu', 'memmax', 'memcur', 'io_read', 'io_write']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         for row in ddata[::int(math.floor(len(ddata)/100)+1)]:
+            disk = row.get('disk', ', ').split(', ')
+            io_read = disk[0] if disk[0] else 0
+            io_write = disk[1] if disk[1] else 0
             writer.writerow({'time': str(time.strftime('%H:%M:%S', time.localtime(float(row['time'])))),
                              #'time': "foo", #row['time'], 
                              'cpu' : row['cpu'].split(', ')[0],
                              'memmax' : row['mem'].split(', ')[0],
                              'memcur' : row['mem'].split(', ')[1],
+                             'io_read' : io_read,
+                             'io_write' : io_write
                          })
         
     return fname
