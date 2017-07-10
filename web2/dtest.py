@@ -2,6 +2,8 @@
 from boto.dynamodb2.fields import HashKey
 from boto.dynamodb2.table import Table
 import boto.dynamodb2 as ddb
+import s3_utils
+import re
 ##################################################################
 # Update job information in dynamodb
 ##################################################################
@@ -182,8 +184,129 @@ def count_jobs_per_user():
                                                       user_count[u]['data_hrs']/3600
         )
 
+def extract_key(path):
+
+    s3_bucket = None
+    s3_key    = None
+    if path.startswith("http://"):
+        pass
+        
+    elif re.search("https://s3.*amazonaws.com/", path):
+        s3_path = re.sub("https://s3.*amazonaws.com/", "", path)
+        tmp     = s3_path.split('/', 1)
+        s3_bucket = tmp[0]
+        s3_key    = tmp[1]
+        return s3_bucket, s3_key
+
+    elif path.startswith("s3://"):
+        
+        s3_path   = path.strip("s3://")
+        tmp       = s3_path.split('/', 1)         
+        s3_bucket = tmp[0]
+        s3_key    = tmp[1]
+                
+    return s3_bucket, s3_key
+
+
+
+def update_s3_sizes(pkl_file, pkl_out):
+
+    import config_manager as cm
+    app = cm.load_configs("production.conf")
+
+    print "Reading data ..."
+    data = None
+    with open(pkl_file, 'rb') as f:
+        data = pickle.load(f)
+    print "Done loading data"
+
+    buckets = {}
+    count = 0
+    total = len(data)
+    for item in data:
+        count += 1
+        print "At item : {0}/{1}".format(count, total)
+
+        for infile in item.get("inputs", []):
+            b,k = extract_key(infile['src'])
+            if b and k:
+                infile['size'] = s3_utils.get_s3obj_size(app.config["s3.conn"], b, k)
+                #print(infile)
+            else:
+                infile['size'] = None
+                #print("No data")
+
+        for ofile in item.get("outputs", []):
+            b, k  = ofile['dest'].split('/', 1)
+            if b and k:
+                ofile['size'] = s3_utils.get_s3obj_size(app.config["s3.conn"], b, k)
+                #print(ofile)
+            else:
+                ofile['size'] = None
+                #print("No data")
+            
+
+    with open(pkl_out, 'wb') as f:
+        pickle.dump(data, f)
+
+    print("Done writing to :", pkl_out)
+
+
+def get_all_failed(pkl_file):
+
+    import config_manager as cm
+    import os
+    app = cm.load_configs("production.conf")
+
+    print "Reading data ..."
+    data = None
+    with open(pkl_file, 'rb') as f:
+        data = pickle.load(f)
+    print "Done loading data"
+
+    buckets = {}
+    count = 0
+    total = len(data)
+    failed = 0
+    cancelled = 0
+    for item in data:
+        count += 1
+
+        print "At item : {0}/{1}".format(count, total)
+        
+        try :
+            if item.get("status") == "failed" :
+                failed += 1
+                os.mkdir("failed_jobs/{0}".format(item["job_id"]))
+                s3_utils.download_s3_keys(app.config['s3.conn'],
+                                          "klab-jobs",
+                                          "outputs/{0}/STDERR.txt".format(item["job_id"]),
+                                          "failed_jobs/{0}/STDERR.txt".format(item["job_id"]))
+                             
+
+            elif item.get("status") == "cancelled" :
+                cancelled += 1
+                os.mkdir("failed_jobs/{0}".format(item["job_id"]))
+                s3_utils.download_s3_keys(app.config['s3.conn'],
+                                          "klab-jobs",
+                                          "outputs/{0}/STDERR.txt".format(item["job_id"]),
+                                          "failed_jobs/{0}/STDERR.txt".format(item["job_id"]))
+        except Exception as e:
+            pass
+        
+        else:
+            continue
+    
+    print "Failed : ", failed
+    print "Cancelled :", cancelled
+    print "Done "
+
 
 if __name__ == "__main__":
+
+    
     print "Running Test"
     #test_3()
-    count_jobs_per_user()
+    #count_jobs_per_user()
+    #update_s3_sizes("All_jobs.pickle", "All_jobs_inpdata.pickle")
+    get_all_failed("All_jobs.pickle")
